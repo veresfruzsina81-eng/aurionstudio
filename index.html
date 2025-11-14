@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurion Studio</title>
+    <title>Aurion Studio - Professzionális Webfejlesztés</title>
     <style>
         * {
             margin: 0;
@@ -11,34 +11,25 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0b0e14;
-            color: #101014;
+            background: #0f0f15;
+            color: #f5f5f7;
             overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
         }
 
         /* Header */
         header {
-            background: rgba(248, 249, 252, 0.96);
+            background: rgba(15, 15, 21, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            animation: headerSlide 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+            animation: headerSlide 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes headerSlide {
@@ -53,64 +44,82 @@
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 24px;
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 3px;
-            position: relative;
+            letter-spacing: 2px;
+            z-index: 1001;
             animation: logoFloat 3s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-2px); }
+            50% { transform: translateY(-4px); }
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 40%, #f1c40f 100%);
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 60%, #ff8c00 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-            animation: shimmer 5s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
-            100% { filter: brightness(1); }
         }
 
         .logo .studio {
-            color: #0f172a;
+            color: #f5f5f7;
+            margin-left: 8px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         .nav-links {
             display: flex;
-            gap: 28px;
+            gap: 40px;
             list-style: none;
-            align-items: center;
         }
 
         .nav-links a {
-            color: rgba(15, 23, 42, 0.75);
-            font-size: 14px;
+            color: rgba(245, 245, 247, 0.85);
+            text-decoration: none;
+            font-size: 15px;
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
-            padding: 4px 0;
+            padding: 5px 0;
         }
 
         .nav-links a::before {
@@ -120,103 +129,59 @@
             left: 50%;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #f5d76e 0%, #f7b733 60%, #f1c40f 100%);
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
             border-radius: 999px;
             transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform: translateX(-50%);
         }
 
         .nav-links a:hover {
-            color: #0f172a;
+            color: #ffffff;
         }
 
         .nav-links a:hover::before {
             width: 100%;
         }
 
-        /* Hamburger - mobilon */
-        .hamburger {
-            display: none;
-            width: 38px;
-            height: 32px;
-            border-radius: 999px;
-            border: 1px solid rgba(15, 23, 42, 0.15);
-            background: rgba(248, 249, 252, 0.85);
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 5px;
-            padding: 4px 8px;
-        }
-
-        .hamburger span {
-            width: 100%;
-            height: 2px;
-            background: #0f172a;
-            border-radius: 999px;
-            transition: all 0.25s ease;
-        }
-
-        .hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .hamburger.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        .nav-links.mobile {
-            position: fixed;
-            inset: 64px 16px auto 16px;
-            background: rgba(248, 249, 252, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
-            padding: 18px 20px;
-            flex-direction: column;
-            gap: 16px;
-            transform: translateY(-20px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s ease;
-        }
-
-        .nav-links.mobile.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
         /* Hero Section */
         .hero {
             margin-top: 80px;
-            padding: 70px 20px 80px;
-            background:
-                radial-gradient(circle at top center, #f9fafb 0%, #e5e7eb 40%, #d1d5db 70%, #0b0e14 100%);
+            padding: 100px 40px 80px;
+            background: radial-gradient(circle at top center, rgba(255, 215, 0, 0.12) 0%, transparent 50%), radial-gradient(circle at bottom right, rgba(255, 140, 0, 0.08) 0%, transparent 55%), #0f0f15;
+            background-size: 140% 140%;
+            animation: gradientShift 20s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+            min-height: 90vh;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 0%, 100% 100%; }
+            50% { background-position: 50% 20%, 80% 120%; }
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 60%);
-            opacity: 0.4;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+            opacity: 0.5;
+            animation: rotate 35s linear infinite;
             pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -226,21 +191,20 @@
         }
 
         .hero h1 {
-            font-size: 44px;
+            font-size: 56px;
             font-weight: 900;
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #111827 0%, #caa85a 45%, #f7b733 80%);
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 45%, #ff8c00 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleFade 1.2s ease-out;
-            text-shadow: 0 0 24px rgba(148, 163, 184, 0.35);
+            animation: titleFade 1.5s ease-out;
         }
 
         @keyframes titleFade {
             from {
                 opacity: 0;
-                transform: scale(0.96) translateY(8px);
+                transform: scale(0.9) translateY(10px);
             }
             to {
                 opacity: 1;
@@ -250,25 +214,16 @@
 
         .hero-services {
             display: inline-block;
-            padding: 8px 22px;
+            padding: 12px 28px;
             border-radius: 999px;
-            font-size: 14px;
-            margin-bottom: 18px;
+            font-size: 16px;
+            margin-bottom: 20px;
             color: #0b0b0f;
-            background: linear-gradient(
-                120deg,
-                rgba(243, 244, 246, 1) 0%,
-                rgba(245, 215, 110, 0.25) 30%,
-                rgba(247, 183, 51, 0.8) 50%,
-                rgba(245, 215, 110, 0.25) 70%,
-                rgba(243, 244, 246, 1) 100%
-            );
+            background: linear-gradient(120deg, rgba(30, 30, 34, 0.9) 0%, rgba(255, 215, 0, 0.2) 20%, rgba(255, 140, 0, 0.7) 50%, rgba(255, 215, 0, 0.2) 80%, rgba(30, 30, 34, 0.9) 100%);
             background-size: 220% 100%;
             animation: pillSweep 6s linear infinite;
-            backdrop-filter: blur(18px);
-            box-shadow:
-                0 0 0 1px rgba(247, 183, 51, 0.18),
-                0 18px 40px rgba(15, 23, 42, 0.25);
+            backdrop-filter: blur(24px);
+            box-shadow: 0 0 0 1px rgba(255, 140, 0, 0.2), 0 15px 40px rgba(0, 0, 0, 0.6);
             font-weight: 500;
         }
 
@@ -278,18 +233,18 @@
         }
 
         .hero-description {
-            font-size: 15px;
-            max-width: 720px;
+            font-size: 16px;
+            max-width: 800px;
             margin: 0 auto;
-            line-height: 1.7;
-            color: rgba(55, 65, 81, 0.92);
-            animation: fadeUp 1s ease-out 0.4s both;
+            line-height: 1.8;
+            color: rgba(245, 245, 247, 0.75);
+            animation: fadeUp 1.5s ease-out 0.6s both;
         }
 
         @keyframes fadeUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -297,67 +252,61 @@
             }
         }
 
-        /* 3 szekció */
         .hero-sections {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
             margin-top: 50px;
         }
 
         .hero-section {
-            animation: fadeUp 0.9s ease-out both;
+            animation: fadeUp 1s ease-out both;
             position: relative;
         }
-
-        .hero-section:nth-child(1) { animation-delay: 0.3s; }
-        .hero-section:nth-child(2) { animation-delay: 0.45s; }
-        .hero-section:nth-child(3) { animation-delay: 0.6s; }
 
         .hero-section::before {
             content: "";
             position: absolute;
             inset: -1px;
             border-radius: 24px;
-            background: linear-gradient(135deg, rgba(245, 215, 110, 0.3), rgba(247, 183, 51, 0.02));
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.05));
             opacity: 0;
-            transition: opacity 0.35s ease, transform 0.35s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             z-index: -1;
         }
 
         .hero-section:hover::before {
             opacity: 1;
-            transform: scale(1.01);
+            transform: scale(1.02);
         }
 
-        /* iPhone */
+        .hero-section:nth-child(1) { animation-delay: 0.8s; }
+        .hero-section:nth-child(2) { animation-delay: 1s; }
+        .hero-section:nth-child(3) { animation-delay: 1.2s; }
+
         .iphone {
             width: 100%;
-            max-width: 260px;
-            height: 500px;
-            background: linear-gradient(145deg, #e5e7eb, #f9fafb);
-            border-radius: 40px;
+            max-width: 280px;
+            height: 520px;
+            background: linear-gradient(145deg, #1a1a22, #28283a);
+            border-radius: 45px;
             padding: 14px;
-            box-shadow:
-                0 24px 60px rgba(15, 23, 42, 0.35),
-                0 0 0 1px rgba(148, 163, 184, 0.4);
-            margin: 0 auto 22px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            margin: 0 auto 25px;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
         }
 
         .iphone:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow:
-                0 30px 80px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(202, 168, 90, 0.7);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 140, 0, 0.3);
         }
 
         .notch {
-            width: 110px;
-            height: 24px;
-            background: #020617;
-            border-radius: 0 0 18px 18px;
+            width: 120px;
+            height: 26px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
             position: absolute;
             top: 14px;
             left: 50%;
@@ -368,11 +317,9 @@
         .screen {
             width: 100%;
             height: 100%;
-            background:
-                radial-gradient(circle at top, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-                linear-gradient(145deg, #111827 0%, #1f2937 45%, #f0c96c 100%);
-            border-radius: 32px;
-            padding: 46px 18px 18px;
+            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.1) 0%, transparent 50%), linear-gradient(145deg, #15151f 0%, #2f2f42 45%, #ffd700 100%);
+            border-radius: 35px;
+            padding: 45px 18px 18px;
             color: #ffffff;
             overflow: hidden;
             position: relative;
@@ -386,7 +333,7 @@
         }
 
         .phone-content h3 {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 12px;
             font-weight: 700;
         }
@@ -394,7 +341,7 @@
         .typing-cursor {
             display: inline-block;
             width: 2px;
-            height: 16px;
+            height: 15px;
             background: #fff;
             animation: blink 1s infinite;
             margin-left: 2px;
@@ -405,40 +352,35 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Live Editor */
         .live-editor {
             width: 100%;
-            height: 500px;
-            background: radial-gradient(circle at top left, #111827, #020617);
-            border-radius: 22px;
+            height: 520px;
+            background: radial-gradient(circle at top left, #25252f, #18181f);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.6),
-                0 0 0 1px rgba(15, 23, 42, 0.7);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
             display: flex;
             flex-direction: column;
-            margin-bottom: 22px;
+            margin-bottom: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .live-editor:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow:
-                0 32px 90px rgba(15, 23, 42, 0.9),
-                0 0 0 1px rgba(202, 168, 90, 0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 140, 0, 0.3);
         }
 
         .editor-header {
-            background: linear-gradient(90deg, #020617, #111827);
-            padding: 10px 18px;
+            background: linear-gradient(90deg, #0f0f0f, #1a1a20);
+            padding: 10px 16px;
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
         }
 
         .editor-dot {
-            width: 10px;
-            height: 10px;
+            width: 11px;
+            height: 11px;
             border-radius: 50%;
         }
 
@@ -447,15 +389,15 @@
         .dot-green { background: #27c93f; }
 
         .editor-title {
-            margin-left: 12px;
-            color: #9ca3af;
+            margin-left: 10px;
+            color: #999;
             font-size: 11px;
         }
 
         .editor-body {
             flex: 1;
             display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            grid-template-columns: 1fr 1fr;
             height: 100%;
         }
 
@@ -463,15 +405,15 @@
             padding: 16px;
             overflow-y: auto;
             font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 12px;
+            font-size: 11px;
             line-height: 1.6;
-            border-right: 1px solid #27272f;
-            color: #e5e7eb;
+            border-right: 1px solid #3a3a3a;
+            color: #e0e0e6;
         }
 
         .preview-pane {
-            padding: 18px;
-            background: radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 55%, #d1d5db 100%);
+            padding: 16px;
+            background: radial-gradient(circle at top, #f8f8fa 0%, #e5e5ed 50%, #d2d2df 100%);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -481,7 +423,7 @@
         .code-cursor {
             display: inline-block;
             width: 2px;
-            height: 14px;
+            height: 13px;
             background: #ffffff;
             animation: blink 0.8s infinite;
             margin-left: 1px;
@@ -489,12 +431,11 @@
 
         .keyword { color: #C586C0; }
         .string { color: #CE9178; }
-        .function { color: #DCDCAA; }
-        .comment { color: #6A9955; }
-        .variable { color: #9CDCFE; }
-        .number { color: #B5CEA8; }
         .tag { color: #569CD6; }
-        .attr { color: #f7b733; }
+        .attr { color: #ffb347; }
+        .number { color: #B5CEA8; }
+        .variable { color: #9CDCFE; }
+        .comment { color: #6A9955; }
 
         .preview-content {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -502,25 +443,23 @@
         }
 
         .preview-box {
-            background: linear-gradient(135deg, #111827 0%, #1f2937 40%, #f0c96c 100%);
-            padding: 34px 26px;
+            background: linear-gradient(135deg, #0f0f0f 0%, #2a2a32 40%, #ffd700 100%);
+            padding: 35px 25px;
             border-radius: 20px;
             color: white;
             text-align: center;
-            box-shadow:
-                0 20px 60px rgba(15, 23, 42, 0.55),
-                0 0 0 1px rgba(247, 183, 51, 0.35);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 140, 0, 0.3);
             transform: scale(0);
             animation: previewPop 0.6s ease-out forwards;
         }
 
         @keyframes previewPop {
             0% {
-                transform: scale(0) rotate(-4deg);
+                transform: scale(0) rotate(-6deg);
                 opacity: 0;
             }
             60% {
-                transform: scale(1.04) rotate(1deg);
+                transform: scale(1.05) rotate(1.5deg);
             }
             100% {
                 transform: scale(1) rotate(0);
@@ -529,7 +468,7 @@
         }
 
         .preview-box h1 {
-            font-size: 22px;
+            font-size: 26px;
             margin-bottom: 10px;
             font-weight: 800;
         }
@@ -539,62 +478,50 @@
             opacity: 0.95;
         }
 
-        /* Welcome Box */
         .welcome-box {
-            background: radial-gradient(circle at top, #fef3c7 0%, #fde68a 40%, #facc15 100%);
-            padding: 40px 28px;
+            background: radial-gradient(circle at top, #fff8e1 0%, #ffd54f 40%, #ffc107 100%);
+            padding: 55px 35px;
             border-radius: 22px;
             text-align: center;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(234, 179, 8, 0.6);
-            margin: 0 auto 22px;
-            animation: pulse 5s ease-in-out infinite;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(200, 150, 40, 0.5);
+            margin: 0 auto 25px;
             transition: transform 0.3s, box-shadow 0.3s;
-            height: 500px;
+            height: 520px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #111827;
+            color: #0f0f15;
         }
 
         .welcome-box:hover {
             transform: scale(1.02);
-            box-shadow:
-                0 32px 90px rgba(15, 23, 42, 0.6),
-                0 0 0 1px rgba(250, 250, 249, 0.7);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 26px 70px rgba(15, 23, 42, 0.45); }
-            50% { box-shadow: 0 35px 95px rgba(15, 23, 42, 0.7); }
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.4);
         }
 
         .welcome-box h2 {
-            font-size: 30px;
-            margin-bottom: 16px;
+            font-size: 38px;
+            margin-bottom: 20px;
             font-weight: 900;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .welcome-box p {
-            font-size: 17px;
+            font-size: 18px;
             line-height: 1.7;
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        /* Marketing Text */
         .marketing-text {
             text-align: center;
-            padding: 0 6px;
-            margin-top: 4px;
+            padding: 0 10px;
+            margin-top: 5px;
         }
 
         .marketing-text h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #111827 0%, #caa85a 50%, #f9fafb 100%);
+            font-size: 20px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 60%, #ffffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -602,1082 +529,332 @@
         }
 
         .marketing-text p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: rgba(31, 41, 55, 0.9);
-        }
-
-        /* ----- Többi szekció ----- */
-
-        main {
-            background: radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 40%, #0b0e14 100%);
-        }
-
-        .section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 36px;
-        }
-
-        .section-kicker {
-            font-size: 12px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(55, 65, 81, 0.85);
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 26px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
             font-size: 14px;
-            color: rgba(75, 85, 99, 0.95);
-            max-width: 560px;
-            margin: 0 auto;
             line-height: 1.7;
+            color: rgba(245, 245, 247, 0.75);
         }
 
         /* Szolgáltatások */
+        .services {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, #0f0f15 0%, #16161e 100%);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: rgba(245, 245, 247, 0.7);
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeUp 1s ease-out 0.2s both;
+        }
+
         .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .service-card {
-            background: rgba(248, 250, 252, 0.95);
+            background: linear-gradient(145deg, #18182 2 0%, #222230 100%);
+            padding: 40px;
             border-radius: 20px;
-            padding: 22px 20px;
-            box-shadow:
-                0 18px 45px rgba(148, 163, 184, 0.35),
-                0 0 0 1px rgba(148, 163, 184, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            animation: fadeUp 1s ease-out both;
         }
+
+        .service-card:nth-child(1) { animation-delay: 0.4s; }
+        .service-card:nth-child(2) { animation-delay: 0.5s; }
+        .service-card:nth-child(3) { animation-delay: 0.6s; }
+        .service-card:nth-child(4) { animation-delay: 0.7s; }
 
         .service-card::before {
-            content: "";
+            content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.35), transparent 45%, rgba(56, 189, 248, 0.55), transparent 80%);
-            opacity: 0;
-            mix-blend-mode: soft-light;
-            transition: opacity 0.25s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow:
-                0 24px 60px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(202, 168, 90, 0.6);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.6s ease;
         }
 
         .service-card:hover::before {
-            opacity: 1;
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.15);
         }
 
         .service-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 999px;
-            background: radial-gradient(circle at top, #fef9c3 0%, #facc15 40%, #eab308 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            margin-bottom: 14px;
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
         }
 
-        .service-title {
-            font-size: 16px;
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffd700;
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 8px;
         }
 
-        .service-text {
-            font-size: 13px;
-            color: rgba(75, 85, 99, 0.96);
+        .service-card p {
+            font-size: 15px;
             line-height: 1.7;
-            margin-bottom: 10px;
+            color: rgba(245, 245, 247, 0.75);
+            margin-bottom: 20px;
         }
 
-        .service-meta {
-            font-size: 12px;
-            color: rgba(107, 114, 128, 0.96);
+        .service-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-features li {
+            font-size: 14px;
+            color: rgba(245, 245, 247, 0.65);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
         }
 
         /* Bemutatkozás */
-        .about-layout {
+        .intro {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, #16161e 0%, #0f0f15 100%);
+        }
+
+        .intro-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-            gap: 32px;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
         }
 
-        .about-text-main {
-            font-size: 14px;
-            color: rgba(31, 41, 55, 0.96);
-            line-height: 1.8;
-            margin-bottom: 14px;
+        .intro-text h2 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeUp 1s ease-out;
         }
 
-        .about-emphasis {
-            font-weight: 600;
-            color: #0f172a;
+        .intro-text p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: rgba(245, 245, 247, 0.75);
+            margin-bottom: 20px;
+            animation: fadeUp 1s ease-out 0.2s both;
         }
 
-        .about-pill-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .about-pill {
-            font-size: 11px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.75);
-            background: rgba(255, 255, 255, 0.85);
-            color: #111827;
-        }
-
-        .about-highlight {
-            background: linear-gradient(135deg, #0f172a 0%, #1f2937 50%, #0f172a 100%);
-            border-radius: 18px;
-            padding: 18px 18px 16px;
-            color: #e5e7eb;
-            box-shadow:
-                0 18px 45px rgba(15, 23, 42, 0.65),
-                0 0 0 1px rgba(31, 41, 55, 0.8);
-        }
-
-        .about-highlight-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .about-highlight-text {
-            font-size: 13px;
-            color: rgba(209, 213, 219, 0.95);
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .about-stats {
-            display: flex;
-            gap: 18px;
-        }
-
-        .about-stat {
-            flex: 1;
-        }
-
-        .about-stat-number {
-            font-size: 18px;
-            font-weight: 800;
-            color: #facc15;
-            margin-bottom: 4px;
-        }
-
-        .about-stat-label {
-            font-size: 11px;
-            color: rgba(209, 213, 219, 0.95);
-        }
-
-        /* Rólunk */
-        .values-grid {
+        .intro-stats {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
         }
 
-        .value-card {
-            background: rgba(248, 250, 252, 0.96);
-            border-radius: 20px;
-            padding: 18px 18px 16px;
-            border: 1px solid rgba(203, 213, 225, 0.9);
-            box-shadow: 0 14px 35px rgba(148, 163, 184, 0.3);
+        .stat-box {
+            background: linear-gradient(145deg, #181822, #222230);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            animation: fadeUp 1s ease-out both;
         }
 
-        .value-badge {
-            font-size: 11px;
-            padding: 4px 9px;
-            border-radius: 999px;
-            background: rgba(248, 250, 252, 1);
-            border: 1px solid rgba(148, 163, 184, 0.8);
-            display: inline-block;
+        .stat-box:nth-child(1) { animation-delay: 0.4s; }
+        .stat-box:nth-child(2) { animation-delay: 0.5s; }
+        .stat-box:nth-child(3) { animation-delay: 0.6s; }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffd700;
             margin-bottom: 8px;
-            color: #4b5563;
         }
 
-        .value-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 6px;
-        }
-
-        .value-text {
+        .stat-label {
             font-size: 13px;
-            color: rgba(75, 85, 99, 0.96);
-            line-height: 1.7;
+            color: rgba(245, 245, 247, 0.65);
         }
 
-        /* Kapcsolat */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-            gap: 28px;
+        .intro-image {
+            animation: fadeUp 1s ease-out 0.3s both;
         }
 
-        .contact-card {
-            background: radial-gradient(circle at top left, #111827 0%, #020617 60%, #020617 100%);
-            border-radius: 22px;
-            padding: 22px 20px 18px;
-            color: #e5e7eb;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.8),
-                0 0 0 1px rgba(31, 41, 55, 0.9);
+        .intro-image-box {
+            background: linear-gradient(145deg, #1a1a25, #25253a);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        .contact-card::before {
-            content: "";
+        .intro-image-box::before {
+            content: '';
             position: absolute;
-            inset: -40%;
-            background: conic-gradient(
-                from 160deg,
-                rgba(250, 204, 21, 0.9),
-                transparent,
-                rgba(56, 189, 248, 0.9),
-                transparent,
-                rgba(250, 204, 21, 0.9)
-            );
-            opacity: 0.3;
-            mix-blend-mode: soft-light;
-            animation: contactGlow 14s linear infinite;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
         }
 
-        @keyframes contactGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-inner {
+        .intro-image-content {
             position: relative;
             z-index: 1;
+            text-align: center;
+            color: #f5f5f7;
         }
 
-        .contact-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 6px;
+        .intro-image-content h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #ffd700;
         }
 
-        .contact-text {
-            font-size: 13px;
-            color: rgba(209, 213, 219, 0.95);
+        .intro-image-content p {
+            font-size: 15px;
             line-height: 1.7;
-            margin-bottom: 14px;
+            color: rgba(245, 245, 247, 0.75);
         }
 
-        .contact-info-list {
-            list-style: none;
-            font-size: 13px;
-            margin-bottom: 14px;
+        /* Rólunk */
+        .about {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, #0f0f15 0%, #16161e 50%, #0f0f15 100%);
         }
 
-        .contact-info-list li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .contact-pill {
-            display: inline-block;
-            font-size: 11px;
-            padding: 5px 9px;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            color: #e5e7eb;
-            margin-right: 6px;
-        }
-
-        .contact-badge {
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.9);
-            display: inline-block;
-            margin-top: 4px;
-            color: rgba(209, 213, 219, 0.98);
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 20px;
-            padding: 18px 18px 16px;
-            box-shadow:
-                0 22px 55px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(203, 213, 225, 0.9);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 10px;
-        }
-
-        label {
-            font-size: 11px;
-            color: #4b5563;
-        }
-
-        input, textarea {
-            border-radius: 10px;
-            border: 1px solid rgba(209, 213, 219, 1);
-            padding: 8px 10px;
-            font-size: 13px;
-            font-family: inherit;
-            color: #111827;
-            outline: none;
-            background: #f9fafb;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-        }
-
-        input:focus, textarea:focus {
-            border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.5);
-            background: #ffffff;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
-
-        .contact-submit-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .contact-button {
-            border: none;
-            border-radius: 999px;
-            padding: 9px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            background: radial-gradient(circle at top, #fef3c7 0%, #facc15 40%, #eab308 100%);
-            color: #111827;
-            box-shadow:
-                0 14px 35px rgba(234, 179, 8, 0.5),
-                0 0 0 1px rgba(161, 98, 7, 0.9);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .contact-button:hover {
-            transform: translateY(-1px);
-            box-shadow:
-                0 18px 45px rgba(234, 179, 8, 0.65),
-                0 0 0 1px rgba(148, 86, 5, 1);
-        }
-
-        .contact-small {
-            font-size: 11px;
-            color: rgba(107, 114, 128, 0.9);
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.4);
-            background: radial-gradient(circle at top, #020617 0%, #020617 60%, #020617 100%);
-            color: #e5e7eb;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
+        .about-content {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 18px 20px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            font-size: 11px;
+            text-align: center;
         }
 
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .about h2 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeUp 1s ease-out;
         }
 
-        .footer-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #facc15, #eab308);
+        .about-description {
+            font-size: 17px;
+            line-height: 1.9;
+            color: rgba(245, 245, 247, 0.75);
+            margin-bottom: 50px;
+            animation: fadeUp 1s ease-out 0.2s both;
         }
 
-        .footer-right {
-            display: flex;
-            gap: 10px;
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .footer-link {
-            color: rgba(209, 213, 219, 0.92);
+        .value-card {
+            background: linear-gradient(145deg, #181822, #222230);
+            padding: 35px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+            animation: fadeUp 1s ease-out both;
         }
 
-        .footer-link:hover {
-            text-decoration: underline;
+        .value-card:nth-child(1) { animation-delay: 0.4s; }
+        .value-card:nth-child(2) { animation-delay: 0.5s; }
+        .value-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.15);
         }
 
-        /* Reszponzív */
-        @media (max-width: 1024px) {
-            .hero-sections {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            }
-
-            .about-layout,
-            .contact-layout {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .editor-body {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .preview-pane {
-                display: none;
-            }
-
-            .live-editor {
-                height: 360px;
-            }
-
-            .welcome-box,
-            .iphone {
-                height: 420px;
-            }
-
-            .services-grid,
-            .values-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+        .value-icon {
+            font-size: 42px;
+            margin-bottom: 18px;
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 12px;
-            }
-
-            .nav-links.desktop {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero {
-                padding: 70px 14px 60px;
-            }
-
-            .hero h1 {
-                font-size: 30px;
-            }
-
-            .hero-description {
-                font-size: 14px;
-            }
-
-            .hero-sections {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .services-grid,
-            .values-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        .value-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #ffd700;
+            font-weight: 700;
         }
 
-        @media (max-width: 480px) {
-            .hero-services {
-                font-size: 12px;
-                padding: 6px 16px;
-            }
-
-            .hero {
-                margin-top: 72px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <span class="aurion">Aurion</span>
-                <span class="studio">Studio</span>
-            </div>
-            <button class="hamburger" id="hamburger" aria-label="Menü megnyitása">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links desktop">
-                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-                <li><a href="munkaink.html">Munkáink</a></li>
-                <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-                <li><a href="#rolunk">Rólunk</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-            </ul>
-            <ul class="nav-links mobile" id="mobileNav">
-                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-                <li><a href="munkaink.html">Munkáink</a></li>
-                <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-                <li><a href="#rolunk">Rólunk</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero" id="top">
-        <div class="hero-content">
-            <div class="hero-title-section">
-                <h1>Egyedi webes megoldások</h1>
-                <div class="hero-services">
-                    Egyedi weboldalak • Webshopok • WordPress / WooCommerce • AI-Chat Integráció
-                </div>
-                <p class="hero-description">
-                    Professzionális webfejlesztési szolgáltatások modern technológiákkal. 
-                    Letisztult, prémium megjelenés, stabil technikai háttér és valódi támogatás – 
-                    az első ötlettől az éles indulásig.
-                </p>
-            </div>
-
-            <div class="hero-sections">
-                <!-- iPhone -->
-                <div class="hero-section">
-                    <div class="iphone">
-                        <div class="notch"></div>
-                        <div class="screen">
-                            <div class="phone-content">
-                                <h3>Üdvözöljük!</h3>
-                                <div id="typingText"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marketing-text">
-                        <h3>Mobil-first gondolkodás</h3>
-                        <p>
-                            A látogatók többsége mobilról érkezik. Oldalainkat úgy építjük fel, 
-                            hogy először telefonon legyenek tökéletesek – aztán igazítjuk hozzá a 
-                            nagyobb kijelzőket.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Live Editor -->
-                <div class="hero-section">
-                    <div class="live-editor">
-                        <div class="editor-header">
-                            <div class="editor-dot dot-red"></div>
-                            <div class="editor-dot dot-yellow"></div>
-                            <div class="editor-dot dot-green"></div>
-                            <span class="editor-title">index.html</span>
-                        </div>
-                        <div class="editor-body">
-                            <div class="code-pane" id="codePane"></div>
-                            <div class="preview-pane" id="previewPane">
-                                <div class="preview-content"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="marketing-text">
-                        <h3>Valós idejű építés</h3>
-                        <p>
-                            Nem sablonokban gondolkodunk. A kód sor-ról sorra születik, a változásokat 
-                            pedig azonnal lehet látni – így pontosan olyan felületet kapsz vissza, 
-                            amilyet elképzeltél.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Welcome Box -->
-                <div class="hero-section">
-                    <div class="welcome-box">
-                        <h2>Bízd ránk az online jelenléted</h2>
-                        <p>
-                            Megfogalmazod az ötleted, mi pedig lefordítjuk<br>
-                            profi, működő, bevételt termelő webes megoldássá.
-                        </p>
-                    </div>
-                    <div class="marketing-text">
-                        <h3>Partnerként gondolkodunk</h3>
-                        <p>
-                            Nem csak egy újabb projektként tekintünk rád. Segítünk dönteni, 
-                            javaslatot adunk, és hosszú távon is melletted maradunk, ha szükség van ránk.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main>
-        <!-- Szolgáltatások -->
-        <section class="section" id="szolgaltatasok">
-            <div class="section-header">
-                <div class="section-kicker">SZOLGÁLTATÁSOK</div>
-                <h2 class="section-title">Amiben igazán erősek vagyunk</h2>
-                <p class="section-subtitle">
-                    A teljes folyamatot lefedjük: a koncepciótól a dizájnon át a kódig, 
-                    üzemeltetéssel és finomhangolással együtt.
-                </p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🖥️</div>
-                    <h3 class="service-title">Egyedi weboldalak</h3>
-                    <p class="service-text">
-                        Letisztult, gyors és reszponzív weboldalak, amik nem sablonból készülnek. 
-                        Minden pixelt az arculatodhoz és célodhoz igazítunk.
-                    </p>
-                    <p class="service-meta">Landing oldalak • Bemutatkozó oldalak • Portfóliók</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🛒</div>
-                    <h3 class="service-title">Webshop fejlesztés</h3>
-                    <p class="service-text">
-                        Stabil, könnyen kezelhető áruházak, okos admin felülettel. 
-                        Kosár, fizetési módok, számlázás, szállítás – mindent összekötünk.
-                    </p>
-                    <p class="service-meta">Egyedi megoldások • WooCommerce • Bővíthető struktúra</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3 class="service-title">WordPress / WooCommerce</h3>
-                    <p class="service-text">
-                        Ha gyorsan kell indulni, vagy szeretnél saját kezűleg is adminisztrálni, 
-                        modern, biztonságos WordPress alapú rendszert építünk.
-                    </p>
-                    <p class="service-meta">Testreszabott sablonok • Teljesítmény-optimalizálás</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🤖</div>
-                    <h3 class="service-title">AI-chat integráció</h3>
-                    <p class="service-text">
-                        Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol, 
-                        a saját szabályaid szerint.
-                    </p>
-                    <p class="service-meta">Chatbot integráció • Tudásbázis alapú válaszok</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">📈</div>
-                    <h3 class="service-title">Technikai finomhangolás</h3>
-                    <p class="service-text">
-                        Gyorsítás, hibajavítás, reszponzív problémák megoldása. 
-                        Ha már van oldalad, de nem úgy működik, ahogy kellene – rendbe tesszük.
-                    </p>
-                    <p class="service-meta">Sebesség • Biztonság • Stabilitás</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🤝</div>
-                    <h3 class="service-title">Hosszú távú támogatás</h3>
-                    <p class="service-text">
-                        Nem tűnünk el az átadás után. Ha nő a vállalkozásod, mi is igazítjuk hozzá az online felületeket.
-                    </p>
-                    <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bemutatkozás -->
-        <section class="section" id="bemutatkozas">
-            <div class="section-header">
-                <div class="section-kicker">BEMUTATKOZÁS</div>
-                <h2 class="section-title">Kik állnak a kód mögött?</h2>
-                <p class="section-subtitle">
-                    Emberközeli kommunikáció, profi technikai háttér és az a hozzáállás, 
-                    hogy mindent úgy építünk, mintha a saját projektünk lenne.
-                </p>
-            </div>
-
-            <div class="about-layout">
-                <div>
-                    <p class="about-text-main">
-                        Az <span class="about-emphasis">Aurion Studio</span> célja, hogy 
-                        olyan webes megoldásokat készítsen, amelyek nem csak szépek, hanem 
-                        hosszú távon is stabilan működnek. Nem futószalagon dolgozunk – 
-                        minden projekt mögött valódi odafigyelés és személyes kapcsolattartás áll.
-                    </p>
-                    <p class="about-text-main">
-                        Különösen szeretjük azokat a munkákat, ahol 
-                        <span class="about-emphasis">bizalmi együttműködés</span> alakul ki: 
-                        közösen gondolkodunk, javaslatot teszünk, és mindig egyértelműen elmondjuk, 
-                        mit miért érdemes így vagy úgy megcsinálni.
-                    </p>
-
-                    <div class="about-pill-row">
-                        <span class="about-pill">Egyedi fejlesztés</span>
-                        <span class="about-pill">Pixel-pontos dizájn</span>
-                        <span class="about-pill">Stabil háttér</span>
-                        <span class="about-pill">Őszinte kommunikáció</span>
-                    </div>
-                </div>
-
-                <div class="about-highlight">
-                    <div class="about-highlight-title">Számok helyett bizalom</div>
-                    <p class="about-highlight-text">
-                        Nem darabszámra vállalunk projekteket, hanem olyan rendszereket építünk, 
-                        amiket büszkén vállalunk a nevünkkel. Ha valamit nem érdemes megcsinálni, 
-                        azt is megmondjuk – akkor is, ha rövid távon kevesebb a munka belőle.
-                    </p>
-
-                    <div class="about-stats">
-                        <div class="about-stat">
-                            <div class="about-stat-number">10+</div>
-                            <div class="about-stat-label">komplexebb projekt tapasztalat</div>
-                        </div>
-                        <div class="about-stat">
-                            <div class="about-stat-number">100%</div>
-                            <div class="about-stat-label">egyedi, kézzel írt kód alapokon</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Rólunk -->
-        <section class="section" id="rolunk">
-            <div class="section-header">
-                <div class="section-kicker">RÓLUNK</div>
-                <h2 class="section-title">Ahogy a közös munkát látjuk</h2>
-                <p class="section-subtitle">
-                    Nem csak programozunk: együtt gondolkodunk veled, és segítünk 
-                    olyan döntéseket hozni, amelyek az online jelenlétedet erősítik.
-                </p>
-            </div>
-
-            <div class="values-grid">
-                <div class="value-card">
-                    <span class="value-badge">1. Lépésről lépésre</span>
-                    <h3 class="value-title">Átlátható folyamat</h3>
-                    <p class="value-text">
-                        Mindent megbeszélünk: mire van szükséged, milyen funkciók kellenek, 
-                        hogyan fog működni a rendszer. Nincsenek elrejtett sorok, vállalhatatlan meglepetések.
-                    </p>
-                </div>
-                <div class="value-card">
-                    <span class="value-badge">2. Nem sablonban gondolkodunk</span>
-                    <h3 class="value-title">Valóban egyedi megoldások</h3>
-                    <p class="value-text">
-                        Nem olyan oldalt kapsz, amit bárki néhány kattintással összerak. 
-                        A struktúrát, dizájnt és működést is a te projektedre szabjuk.
-                    </p>
-                </div>
-                <div class="value-card">
-                    <span class="value-badge">3. Utógondozás</span>
-                    <h3 class="value-title">Nem tűnünk el átadás után</h3>
-                    <p class="value-text">
-                        Ha változik a vállalkozásod, mi is hozzá igazítjuk a felületet. 
-                        Kisebb módosításoknál és nagyobb fejlesztéseknél is számíthatsz ránk.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Kapcsolat -->
-        <section class="section" id="kapcsolat">
-            <div class="section-header">
-                <div class="section-kicker">KAPCSOLAT</div>
-                <h2 class="section-title">Beszéljünk az ötletedről</h2>
-                <p class="section-subtitle">
-                    Írj néhány mondatot arról, miben gondolkodsz, és visszajelzést adunk, 
-                    hogyan érdemes elindulni – teljesen kötetlenül.
-                </p>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-card">
-                    <div class="contact-inner">
-                        <h3 class="contact-title">Elérhetőség</h3>
-                        <p class="contact-text">
-                            A legegyszerűbb, ha egy rövid üzenettel indítasz. 
-                            Írd meg, miben gondolkodsz, és milyen elképzeléseid vannak – 
-                            mi pedig válaszban segítünk tisztábban látni a lehetőségeket.
-                        </p>
-
-                        <ul class="contact-info-list">
-                            <li><span class="contact-pill">E-mail</span> info@aurion.studio (minta)</li>
-                            <li><span class="contact-pill">Visszajelzés</span> általában 1–2 munkanapon belül</li>
-                        </ul>
-
-                        <span class="contact-badge">
-                            Nem spamelünk, nem adunk át adatot – kizárólag a közös munkával kapcsolatban keresünk.
-                        </span>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Név</label>
-                                <input type="text" id="name" placeholder="Hogyan szólíthatunk?">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail cím</label>
-                                <input type="email" id="email" placeholder="valami@domain.hu">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="topic">Miben gondolkodsz?</label>
-                            <input type="text" id="topic" placeholder="Pl.: új webshop indulása, meglévő oldal átalakítása...">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Üzenet</label>
-                            <textarea id="message" placeholder="Pár mondat az ötletedről, jelenlegi helyzetedről..."></textarea>
-                        </div>
-
-                        <div class="contact-submit-row">
-                            <button type="button" class="contact-button">Üzenet elküldése (demó)</button>
-                            <span class="contact-small">
-                                A gomb jelenleg demó – a végleges verziót a választott technikai háttérhez igazítjuk.
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-left">
-                <span class="footer-dot"></span>
-                <span>Aurion Studio – egyedi webes megoldások</span>
-            </div>
-            <div class="footer-right">
-                <a href="#top" class="footer-link">Vissza az elejére</a>
-                <span>•</span>
-                <span class="footer-link">Demo bemutató felület</span>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Hamburger menu
-        const hamburger = document.getElementById('hamburger');
-        const mobileNav = document.getElementById('mobileNav');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileNav.classList.toggle('show');
-        });
-
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                mobileNav.classList.remove('show');
-            });
-        });
-
-        // iPhone gépelés
-        const text = "Az Aurion Studio oldalán!\\n\\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldal fejlesztésről, webshop indításról vagy komplex online jelenlét kiépítéséről.\\n\\nLépjen kapcsolatba velünk!";
-        let index = 0;
-        const typingElement = document.getElementById('typingText');
-        
-        function type() {
-            if (index < text.length) {
-                const char = text.charAt(index);
-                if (char === '\\n') {
-                    typingElement.innerHTML += '<br>';
-                } else {
-                    typingElement.innerHTML += char;
-                }
-                index++;
-                setTimeout(type, 30);
-            } else {
-                typingElement.innerHTML += '<span class="typing-cursor"></span>';
-                setTimeout(() => {
-                    index = 0;
-                    typingElement.innerHTML = '';
-                    type();
-                }, 5000);
-            }
-        }
-        
-        setTimeout(type, 800);
-
-        // Live Code Editor
-        const fullCode = `<!-- Weboldal -->
-<div class="hero">
-  <h1>Üdvözöljük!</h1>
-  <p>Professzionális
-    weboldal</p>
-</div>
-
-<style>
-.hero {
-  background: linear-gradient(
-    135deg, 
-    #111827, 
-    #f0c96c
-  );
-  padding: 40px;
-  border-radius: 18px;
-  text-align: center;
-  color: white;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-
-p {
-  font-size: 15px;
-  opacity: 0.95;
-}
-</style>`;
-
-        const codePane = document.getElementById('codePane');
-        const previewPane = document.getElementById('previewPane');
-        let currentCode = '';
-        let charIndex = 0;
-        let isDeleting = false;
-        let deleteToIndex = 0;
-
-        function highlightCode(code) {
-            return code
-                .replace(/(&lt;!--.*?--&gt;)/g, '<span class="comment">$1</span>')
-                .replace(/(&lt;\/?)(\\w+)/g, '$1<span class="tag">$2</span>')
-                .replace(/(class|style)=/g, '<span class="attr">$1</span>=')
-                .replace(/("[^"]*")/g, '<span class="string">$1</span>')
-                .replace(/(\\d+px)/g, '<span class="number">$1</span>')
-                .replace(/(\\.\\w+)/g, '<span class="variable">$1</span>')
-                .replace(/(linear-gradient|background|padding|border-radius|text-align|color|font-size|margin-bottom|font-weight|opacity)/g, '<span class="attr">$1</span>');
+        .value-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(245, 245, 247, 0.7);
         }
 
-        function escapeHtml(text) {
-            return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        /* Kapcsolat */
+        .contact {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, #16161e 0%, #0f0f15 100%);
         }
 
-        function typeCode() {
-            if (isDeleting) {
-                if (charIndex > deleteToIndex) {
-                    charIndex--;
-                    currentCode = fullCode.substring(0, charIndex);
-                    const escaped = escapeHtml(currentCode);
-                    codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                    setTimeout(typeCode, 10);
-                } else {
-                    isDeleting = false;
-                    setTimeout(typeCode, 200);
-                }
-            } else {
-                if (charIndex < fullCode.length) {
-                    if (Math.random() < 0.05 && charIndex > 10 && !isDeleting) {
-                        isDeleting = true;
-                        deleteToIndex = Math.max(0, charIndex - Math.floor(Math.random() * 15 + 5));
-                        setTimeout(typeCode, 300);
-                        return;
-                    }
-
-                    charIndex++;
-                    currentCode = fullCode.substring(0, charIndex);
-                    const escaped = escapeHtml(currentCode);
-                    codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                    
-                    updateLivePreview();
-                    
-                    let speed = 30;
-                    if (fullCode[charIndex - 1] === '\\n') speed = 100;
-                    else if (fullCode[charIndex - 1] === ' ') speed = 20;
-                    else speed = Math.random() * 40 + 20;
-                    
-                    setTimeout(typeCode, speed);
-                } else {
-                    setTimeout(() => {
-                        charIndex = 0;
-                        currentCode = '';
-                        codePane.innerHTML = '<span class="code-cursor"></span>';
-                        previewPane.innerHTML = '<div class="preview-content"></div>';
-                        setTimeout(typeCode, 1000);
-                    }, 3000);
-                }
-            }
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        function updateLivePreview() {
-            if (currentCode.includes('</style>')) {
-                const previewHTML = `
-                    <div class="preview-content">
-                        <div class="preview-box">
-                            <h1>Üdvözöljük!</h1>
-                            <p>Professzionális weboldal</p>
-                        </div>
-                    </div>
-                `;
-                previewPane.innerHTML = previewHTML;
-            } else if (currentCode.includes('<h1>')) {
-                const previewHTML = `
-                    <div class="preview-content" style="text-align: center; padding: 30px;">
-                        <h1 style="font-size: 28px; color: #111827;">Üdvözöljük!</h1>
-                        ${currentCode.includes('<p') ? '<p style="font-size: 15px; color: #4b5563;">Professzionális weboldal</p>' : ''}
-                    </div>
-                `;
-                previewPane.innerHTML = previewHTML;
-            }
-        }
-
-        setTimeout(typeCode, 2000);
-    </script>
-</body>
-</html>
+        .contact h2 {
+            text-align: center;
+            font-size: 42px;
+            font-weight:
