@@ -315,10 +315,43 @@
             margin-bottom: 4px;
         }
 
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-header-logo {
+            width: 26px;
+            height: 26px;
+            border-radius: 9px;
+            overflow: hidden;
+            background: #020617;
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 6px 16px rgba(15, 23, 42, 0.35);
+        }
+
+        .chat-header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .chat-header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
         .chat-card-title {
             font-size: 13px;
             font-weight: 600;
             color: #0f172a;
+        }
+
+        .chat-meta {
+            font-size: 11px;
+            color: rgba(107, 114, 128, 0.96);
         }
 
         .chat-status-pill {
@@ -369,25 +402,6 @@
             color: #f9fafb;
         }
 
-        .chat-message.bot {
-            margin-right: auto;
-            border-bottom-left-radius: 4px;
-            background: #020617;
-            color: #e5e7eb;
-            border: 1px solid rgba(55, 65, 81, 0.9);
-        }
-
-        .chat-message.bot-aurion {
-            border-color: rgba(250, 204, 21, 0.9);
-            background: radial-gradient(circle at top left, #111827, #020617 80%);
-        }
-
-        .chat-meta {
-            font-size: 10px;
-            color: rgba(156, 163, 175, 0.9);
-            margin-bottom: 4px;
-        }
-
         .chat-input-row {
             margin-top: 8px;
             display: flex;
@@ -432,15 +446,9 @@
             transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
         }
 
-        .chat-send-btn:hover:not(.disabled) {
+        .chat-send-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 16px 38px rgba(234, 179, 8, 0.9);
-        }
-
-        .chat-send-btn.disabled {
-            opacity: 0.6;
-            cursor: default;
-            box-shadow: none;
         }
 
         .chat-send-btn span.icon {
@@ -743,14 +751,14 @@
     </nav>
 </header>
 
-<section class="hero">
+<section class="hero" id="top">
     <div class="hero-inner animate-on-scroll">
         <div>
             <div class="hero-kicker">AURION AI CHAT</div>
             <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
             <p class="hero-subtitle">
                 Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
-                a te szabályaid szerint. Nem “szabadon engedett” mesterséges intelligencia,
+                a te szabályaid szerint. Nem “elszabadult” mesterséges intelligencia,
                 hanem kontrollált, átlátható rendszer.
             </p>
             <div class="hero-pill">
@@ -758,26 +766,31 @@
                 <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
             </div>
             <p class="hero-info">
-                Az alábbi demó csak ízelítő – a valódi verzióban a chat a saját folyamataidra,
-                termékeidre, szolgáltatásodra lesz betanítva, a háttérben OpenAI API-val.
+                A most látott felület egy látvány demó – élesben ugyanilyen chat ablak fogadja a látogatóidat,
+                a háttérben a vállalkozásodra szabott logikával.
             </p>
         </div>
 
         <div class="chat-card-wrapper">
             <div class="chat-card">
                 <div class="chat-card-header">
-                    <div>
-                        <div class="chat-card-title">Aurion AI – demó chat</div>
-                        <div class="chat-meta">A válaszok most még csak minta szövegek.</div>
+                    <div class="chat-header-left">
+                        <div class="chat-header-logo">
+                            <img src="logo.png" alt="Aurion Studio logó a chatben">
+                        </div>
+                        <div class="chat-header-text">
+                            <div class="chat-card-title">Aurion Studio AI asszisztens</div>
+                            <div class="chat-meta">Online – írj egy kérdést, és válaszolni fog.</div>
+                        </div>
                     </div>
                     <div class="chat-status-pill">
                         <span class="chat-status-dot"></span>
-                        <span>Demó mód</span>
+                        <span>Elérhető</span>
                     </div>
                 </div>
 
                 <div class="chat-window" id="chatWindow">
-                    <!-- Üzenetek JS-ből jönnek -->
+                    <!-- Kezdetben üres – majd később kerülnek ide üzenetek -->
                 </div>
 
                 <div class="chat-input-row">
@@ -785,7 +798,7 @@
                         type="text"
                         id="chatInput"
                         class="chat-input"
-                        placeholder="Írj valamit, pl.: Mit tudna nálunk az AI chat?"
+                        placeholder="Írj valamit, pl.: Segítene a weboldalunk finomhangolásában?"
                     >
                     <button class="chat-send-btn" id="chatSendBtn">
                         <span class="icon">➤</span>
@@ -793,7 +806,7 @@
                     </button>
                 </div>
                 <div class="chat-demo-note">
-                    Demó verzió: a válaszokat jelenleg a frontend generálja. Élesben a háttérben OpenAI API fog futni.
+                    A látott felület már a végleges dizájn – a válaszlogika később, egyedileg kerül beállításra.
                 </div>
             </div>
         </div>
@@ -805,7 +818,7 @@
     <section class="section">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">MIT TUD</div>
-            <h2 class="section-title">Mire képes az Aurion AI Chat?</h2>
+            <h2 class="section-title">Miben segít az Aurion AI Chat?</h2>
             <p class="section-subtitle">
                 Nem általános “okoskodó” chat, hanem olyan asszisztens, amit konkrétan a te vállalkozásodra hangolunk:
                 mit válaszolhat, mit nem, hogyan kezelje a kérdéseket.
@@ -826,8 +839,8 @@
                 <div class="feature-icon">🧭</div>
                 <div class="feature-title">Irányítás a megfelelő oldalra</div>
                 <div class="feature-text">
-                    Segít eligazodni az oldalon: ajánlatkérés, termékkategória, szolgáltatás, kapcsolat – mindig a következő
-                    logikus lépés felé tereli a látogatót.
+                    Segít eligazodni az oldalon: ajánlatkérés, termékkategória, szolgáltatás, kapcsolat –
+                    mindig a következő logikus lépés felé tereli a látogatót.
                 </div>
             </div>
 
@@ -851,7 +864,7 @@
 
             <div class="feature-card animate-on-scroll">
                 <div class="feature-icon">🧠</div>
-                <div class="feature-title">Saját tudásbázis</div>
+                <div class="feature-title">Saját tudásbázisra építve</div>
                 <div class="feature-text">
                     Nem az egész internetről “okoskodik”, hanem a te anyagaidra, folyamataidra, szabályaidra építjük:
                     dokumentumok, GYIK, belső leírások alapján.
@@ -860,10 +873,10 @@
 
             <div class="feature-card animate-on-scroll">
                 <div class="feature-icon">⚙️</div>
-                <div class="feature-title">API integrációra kész</div>
+                <div class="feature-title">Weboldaladhoz illesztve</div>
                 <div class="feature-text">
-                    A mostani demó frontend könnyen összeköthető saját Netlify / backend függvénnyel,
-                    ahol az OpenAI kulcs biztonságosan fut a háttérben.
+                    A chat dizájnja és működése illeszkedik az oldaladhoz – nem különálló “doboz”,
+                    hanem a márka része, egységes élménnyel.
                 </div>
             </div>
         </div>
@@ -873,7 +886,7 @@
     <section class="section">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">HOGYAN</div>
-            <h2 class="section-title">Hogyan lesz demóból éles AI asszisztens?</h2>
+            <h2 class="section-title">Hogyan lesz ebből éles AI asszisztens?</h2>
             <p class="section-subtitle">
                 Lépésről lépésre építjük fel: először megértjük a vállalkozásod logikáját, utána hangoljuk az AI-t,
                 végül összekötjük a weboldallal.
@@ -899,7 +912,7 @@
                             <div class="step-content-title">Tudásbázis kialakítása</div>
                             <div class="step-content-text">
                                 Összegyűjtjük a fontos infókat: szolgáltatások, árak, folyamataid, GYIK.
-                                Ezek alapján kap a rendszer “fejet”, nem az internetről találgat.
+                                Ezek alapján kap a rendszer “fejet”, nem találgat, hanem tényleges adatokból dolgozik.
                             </div>
                         </div>
                     </li>
@@ -918,8 +931,8 @@
                         <div>
                             <div class="step-content-title">Bekötés a weboldaladba</div>
                             <div class="step-content-text">
-                                A most látható frontend (chat buborék, gombok) mögé bekötjük a saját Netlify / backend
-                                függvényt, ami biztonságosan hívja az OpenAI API-t.
+                                A most látható chat felületet úgy illesztjük az oldaladba,
+                                hogy a látogatók számára természetes, kényelmes élményt adjon – mobilon és gépen is.
                             </div>
                         </div>
                     </li>
@@ -931,16 +944,17 @@
             </div>
 
             <div class="config-card animate-on-scroll">
-                <div class="config-title">Technikai háttér – röviden</div>
+                <div class="config-title">Mit kapsz a végén?</div>
                 <p>
-                    A frontend (amit most látsz) tiszta HTML/CSS/JS. Az OpenAI kulcsot nem a böngészőbe tesszük,
-                    hanem egy saját szerverless függvény mögé (pl. Netlify Functions).
+                    Nem egy letöltött sablonchatet, hanem egy olyan AI asszisztenst,
+                    amit névvel vállalunk: dizájnban illeszkedik az oldaladhoz,
+                    működésben pedig a vállalkozásod logikáját követi.
                 </p>
                 <ul class="config-list">
-                    <li>• Az oldaladhoz illeszkedő chat UI (Aurion dizájnban).</li>
-                    <li>• Saját OpenAI kulcs, backend függvény mögé rejtve.</li>
-                    <li>• Üzenetváltásnál kontextuskezelés (előzmény beszélgetés megőrzése).</li>
-                    <li>• Később bővíthető: logolás, analitika, külön “módok” (pl. értékesítés, GYIK).</li>
+                    <li>• Saját márkádra szabott chat felület.</li>
+                    <li>• Előre egyeztetett szabályok, tiltott témák, átadás embernek.</li>
+                    <li>• Olyan beállítás, amit később is tovább lehet finomhangolni.</li>
+                    <li>• Folyamatosan fejleszthető alap – ha nő a céged, a chat is tud veled növekedni.</li>
                 </ul>
             </div>
         </div>
@@ -985,58 +999,26 @@
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-    // DEMÓ CHAT – csak frontend, OpenAI nélkül
-
+    // Chat – jelenleg csak a felhasználó üzenetét jelenítjük meg, válaszlogika később jön
     const chatWindow = document.getElementById('chatWindow');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
 
-    const demoReplies = [
-        "Ebben a demóban azt mutatjuk meg, hogyan nézne ki a chat. Éles verzióban ide már a saját AI-válaszaid érkeznek.",
-        "Az Aurion AI Chat célja, hogy levegye rólad az alap kérdéseket, és csak a fontos, összetett eseteket adja át neked.",
-        "A végső verzióban a válaszok a te folyamataidra, áraira, szolgáltatásodra lesznek hangolva – nem általános, hanem rád szabott logikával."
-    ];
-
-    let demoIndex = 0;
-
-    function addMessage(text, sender = 'bot', isAurion = false) {
+    function addMessage(text) {
         if (!chatWindow) return;
-
-        const wrapper = document.createElement('div');
-
         const msg = document.createElement('div');
-        msg.classList.add('chat-message', sender === 'user' ? 'user' : 'bot');
-        if (isAurion) {
-            msg.classList.add('bot-aurion');
-        }
+        msg.classList.add('chat-message', 'user');
         msg.textContent = text;
-
-        wrapper.appendChild(msg);
-        chatWindow.appendChild(wrapper);
+        chatWindow.appendChild(msg);
         chatWindow.scrollTop = chatWindow.scrollHeight;
     }
 
-    function addInitialMessages() {
-        addMessage("Szia! Itt az Aurion AI demó chat. Kérdezz nyugodtan – megmutatjuk, hogyan kommunikálna vevőiddel az AI.", "bot", true);
-        addMessage("Éles verzióban itt már a saját cégedre szabott válaszokat adnánk, a háttérben OpenAI API-val.", "bot", false);
-    }
-
     function handleUserSend() {
-        if (!chatInput || !chatSendBtn) return;
+        if (!chatInput) return;
         const text = chatInput.value.trim();
         if (!text) return;
-
-        addMessage(text, "user", false);
+        addMessage(text);
         chatInput.value = "";
-
-        chatSendBtn.classList.add('disabled');
-
-        setTimeout(() => {
-            const reply = demoReplies[demoIndex % demoReplies.length];
-            demoIndex++;
-            addMessage(reply, "bot", true);
-            chatSendBtn.classList.remove('disabled');
-        }, 700);
     }
 
     if (chatSendBtn && chatInput) {
@@ -1048,8 +1030,6 @@
             }
         });
     }
-
-    addInitialMessages();
 </script>
 </body>
 </html>
