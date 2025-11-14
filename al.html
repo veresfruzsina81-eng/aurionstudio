@@ -287,21 +287,166 @@
             margin-top: 8px;
         }
 
-        /* ===== CHAT KÁRTYA ===== */
+        /* HERO CTA KÁRTYA – NINCS BENNE CHAT, CSAK GOMB */
 
-        .chat-card-wrapper {
+        .hero-cta-wrapper {
             animation: floatSlow 18s ease-in-out infinite;
         }
 
-        .chat-card {
+        .hero-cta-card {
             border-radius: 26px;
             background: radial-gradient(circle at top left, #ffffff 0%, #f9fafb 45%, #e5e7eb 100%);
             box-shadow:
                 0 26px 60px rgba(15, 23, 42, 0.18),
                 0 0 0 1px rgba(209, 213, 219, 0.9);
-            padding: 16px 16px 14px;
+            padding: 16px 18px 16px;
             max-width: 420px;
             margin: 0 auto;
+        }
+
+        .hero-cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: #ecfdf5;
+            color: #166534;
+            border: 1px solid rgba(34, 197, 94, 0.6);
+            margin-bottom: 8px;
+        }
+
+        .hero-cta-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .hero-cta-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .hero-cta-text {
+            font-size: 13px;
+            color: rgba(55, 65, 81, 0.96);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .hero-cta-list {
+            font-size: 12px;
+            color: rgba(75, 85, 99, 0.96);
+            margin-bottom: 12px;
+            padding-left: 16px;
+        }
+
+        .hero-cta-list li {
+            margin-bottom: 4px;
+        }
+
+        .hero-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.8);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .hero-cta-btn span.icon {
+            font-size: 14px;
+        }
+
+        .hero-cta-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 50px rgba(234, 179, 8, 0.95);
+        }
+
+        /* ===== MAIN & SZEKCIÓK ===== */
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px 60px;
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 1);
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 80px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            background-size: 220% 100%;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: rgba(75, 85, 99, 0.96);
+            max-width: 720px;
+        }
+
+        /* ===== BRUTÁL CHAT SZEKCIÓ ===== */
+
+        .chat-section {
+            border-top: 1px solid rgba(209, 213, 219, 0.9);
+        }
+
+        .chat-layout {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 26px;
+            align-items: flex-start;
+        }
+
+        .chat-card-big {
+            border-radius: 28px;
+            background: radial-gradient(circle at top left, #ffffff 0%, #f9fafb 45%, #e5e7eb 100%);
+            box-shadow:
+                0 30px 70px rgba(15, 23, 42, 0.22),
+                0 0 0 1px rgba(209, 213, 219, 0.95);
+            padding: 18px 18px 16px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -322,9 +467,9 @@
         }
 
         .chat-header-logo {
-            width: 26px;
-            height: 26px;
-            border-radius: 9px;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
             overflow: hidden;
             background: #020617;
             box-shadow:
@@ -344,7 +489,7 @@
         }
 
         .chat-card-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600;
             color: #0f172a;
         }
@@ -377,8 +522,8 @@
             border-radius: 18px;
             background: #020617;
             padding: 10px 10px 12px;
-            min-height: 260px;
-            max-height: 320px;
+            min-height: 280px;
+            max-height: 360px;
             overflow-y: auto;
             box-shadow:
                 0 0 0 1px rgba(15, 23, 42, 1),
@@ -461,59 +606,36 @@
             margin-top: 4px;
         }
 
-        /* ===== SZEKCIÓK ===== */
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px 60px;
-        }
-
-        .section {
-            padding: 40px 0;
-        }
-
-        .section-header {
-            text-align: left;
-            margin-bottom: 26px;
-        }
-
-        .section-kicker {
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(148, 163, 184, 1);
-            margin-bottom: 6px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 8px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 80px;
-            height: 3px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            background-size: 220% 100%;
-        }
-
-        .section-subtitle {
-            font-size: 14px;
+        .chat-info-block {
+            font-size: 13px;
             color: rgba(75, 85, 99, 0.96);
-            max-width: 720px;
+            line-height: 1.8;
         }
 
-        /* FUNKCIÓK GRID */
+        .chat-info-highlight {
+            border-radius: 18px;
+            padding: 12px 14px;
+            background: radial-gradient(circle at top left, #fef3c7 0%, #fffbeb 45%, #fefce8 100%);
+            border: 1px solid rgba(250, 204, 21, 0.85);
+            box-shadow:
+                0 18px 40px rgba(245, 158, 11, 0.35),
+                0 0 0 1px rgba(250, 204, 21, 0.7);
+            font-size: 12px;
+            color: #78350f;
+            margin-top: 12px;
+        }
+
+        .chat-info-list {
+            margin-top: 8px;
+            padding-left: 16px;
+            font-size: 12px;
+        }
+
+        .chat-info-list li {
+            margin-bottom: 4px;
+        }
+
+        /* FUNKCIÓK GRID (LEJJEBB) */
 
         .features-grid {
             margin-top: 24px;
@@ -554,86 +676,6 @@
             line-height: 1.6;
         }
 
-        /* LÉPÉSEK / FOLYAMAT */
-
-        .steps-layout {
-            margin-top: 26px;
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
-            gap: 26px;
-            align-items: flex-start;
-        }
-
-        .steps-list {
-            list-style: none;
-        }
-
-        .step-item {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .step-number {
-            width: 22px;
-            height: 22px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, #facc15, #f97316);
-            color: #111827;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        .step-content-title {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 2px;
-            color: #111827;
-        }
-
-        .step-content-text {
-            font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
-            line-height: 1.6;
-        }
-
-        .steps-note {
-            font-size: 11px;
-            color: rgba(107, 114, 128, 0.96);
-            margin-top: 10px;
-        }
-
-        .config-card {
-            border-radius: 20px;
-            background: radial-gradient(circle at top left, #fef3c7 0%, #fffbeb 45%, #fefce8 100%);
-            border: 1px solid rgba(250, 204, 21, 0.8);
-            box-shadow:
-                0 18px 45px rgba(245, 158, 11, 0.35),
-                0 0 0 1px rgba(250, 204, 21, 0.7);
-            padding: 14px 14px 12px;
-            font-size: 12px;
-            color: #78350f;
-        }
-
-        .config-title {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .config-list {
-            margin-top: 4px;
-            padding-left: 16px;
-        }
-
-        .config-list li {
-            margin-bottom: 3px;
-        }
-
         /* ===== LÁBLÉC ===== */
 
         footer {
@@ -670,7 +712,7 @@
                 gap: 28px;
             }
 
-            .chat-card-wrapper {
+            .hero-cta-wrapper {
                 order: -1;
             }
 
@@ -678,7 +720,7 @@
                 padding-top: 96px;
             }
 
-            .steps-layout {
+            .chat-layout {
                 grid-template-columns: minmax(0, 1fr);
             }
         }
@@ -766,13 +808,50 @@
                 <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
             </div>
             <p class="hero-info">
-                A most látott felület egy látvány demó – élesben ugyanilyen chat ablak fogadja a látogatóidat,
-                a háttérben a vállalkozásodra szabott logikával.
+                Az alábbiakban megmutatjuk, hogyan nézhet ki a saját márkádra szabott AI asszisztens –
+                próbáld ki az élő demó chat ablakban.
             </p>
         </div>
 
-        <div class="chat-card-wrapper">
-            <div class="chat-card">
+        <div class="hero-cta-wrapper">
+            <div class="hero-cta-card">
+                <div class="hero-cta-badge">
+                    <span class="hero-cta-dot"></span>
+                    <span>Saját fejlesztésű AI asszisztens</span>
+                </div>
+                <div class="hero-cta-title">Próbálja ki, hogyan működne az oldalán.</div>
+                <p class="hero-cta-text">
+                    A chat ablak úgy viselkedik, mintha egy kolléga lenne a honlapon:
+                    köszön, eligazít, válaszol az alapvető kérdésekre, és ha kell, átadja a beszélgetést embernek.
+                </p>
+                <ul class="hero-cta-list">
+                    <li>• Nem sablon, hanem a saját márkádra szabott megoldás.</li>
+                    <li>• Szabályozott válaszok, átlátható működés.</li>
+                    <li>• Mobilon és asztali gépen is kényelmes élmény.</li>
+                </ul>
+                <a href="#chat-demo" class="hero-cta-btn">
+                    <span>Próbálja ki AI asszisztensünket</span>
+                    <span class="icon">➤</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+    <!-- BRUTÁL CHAT DEMÓ -->
+    <section class="section chat-section" id="chat-demo">
+        <div class="section-header animate-on-scroll">
+            <div class="section-kicker">ÉLŐ DEMÓ</div>
+            <h2 class="section-title">Aurion Studio AI asszisztens – chat felület</h2>
+            <p class="section-subtitle">
+                Az alábbi chat ablak azt mutatja, hogyan néz ki egy olyan asszisztens,
+                amelyet a saját vállalkozásodra hangolunk: logóval, színekkel, stílussal együtt.
+            </p>
+        </div>
+
+        <div class="chat-layout">
+            <div class="chat-card-big animate-on-scroll">
                 <div class="chat-card-header">
                     <div class="chat-header-left">
                         <div class="chat-header-logo">
@@ -780,7 +859,7 @@
                         </div>
                         <div class="chat-header-text">
                             <div class="chat-card-title">Aurion Studio AI asszisztens</div>
-                            <div class="chat-meta">Online – írj egy kérdést, és válaszolni fog.</div>
+                            <div class="chat-meta">Online – írj egy kérdést, és teszteld a felületet.</div>
                         </div>
                     </div>
                     <div class="chat-status-pill">
@@ -790,7 +869,7 @@
                 </div>
 
                 <div class="chat-window" id="chatWindow">
-                    <!-- Kezdetben üres – majd később kerülnek ide üzenetek -->
+                    <!-- Kezdetben üres – később kerül ide a valódi válaszlogika -->
                 </div>
 
                 <div class="chat-input-row">
@@ -798,7 +877,7 @@
                         type="text"
                         id="chatInput"
                         class="chat-input"
-                        placeholder="Írj valamit, pl.: Segítene a weboldalunk finomhangolásában?"
+                        placeholder="Írj valamit, pl.: Miben tudna segíteni a cégünknek az AI chat?"
                     >
                     <button class="chat-send-btn" id="chatSendBtn">
                         <span class="icon">➤</span>
@@ -806,15 +885,36 @@
                     </button>
                 </div>
                 <div class="chat-demo-note">
-                    A látott felület már a végleges dizájn – a válaszlogika később, egyedileg kerül beállításra.
+                    Jelenleg demó üzemmódban fut – a saját rendszeredhez igazított válaszlogika egyedi beállítással kerül be.
+                </div>
+            </div>
+
+            <div class="chat-info-block animate-on-scroll">
+                <p>
+                    A legtöbb látogatónál az első benyomás dönt: marad-e az oldalon, kérdez-e,
+                    kér-e ajánlatot. Az AI chat abban segít, hogy az első 1–2 percben ne vesszen el,
+                    hanem választ kapjon az alapvető kérdéseire.
+                </p>
+                <p style="margin-top:10px;">
+                    A design illeszkedik a márkádhoz, a szövegezés a te hangodat használja,
+                    a működés pedig előre egyeztetett szabályok szerint történik – így bármikor vállalható,
+                    hogy mit mond az asszisztens a nevedben.
+                </p>
+
+                <div class="chat-info-highlight">
+                    <strong>Mit látunk itt a gyakorlatban?</strong>
+                    <ul class="chat-info-list">
+                        <li>• Saját logóval és színekkel ellátott chat fejléce.</li>
+                        <li>• Kényelmesen olvasható üzenetbuborékok – mobilon és gépen is.</li>
+                        <li>• Gyors beviteli mező, Enteres küldés, modern gomb dizájn.</li>
+                        <li>• Később ide kötjük be a vállalkozásodra szabott AI logikát.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<main>
-    <!-- FUNKCIÓK -->
+    <!-- FUNKCIÓK / MIT TUD MÉG -->
     <section class="section">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">MIT TUD</div>
@@ -878,84 +978,6 @@
                     A chat dizájnja és működése illeszkedik az oldaladhoz – nem különálló “doboz”,
                     hanem a márka része, egységes élménnyel.
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOLYAMAT -->
-    <section class="section">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">HOGYAN</div>
-            <h2 class="section-title">Hogyan lesz ebből éles AI asszisztens?</h2>
-            <p class="section-subtitle">
-                Lépésről lépésre építjük fel: először megértjük a vállalkozásod logikáját, utána hangoljuk az AI-t,
-                végül összekötjük a weboldallal.
-            </p>
-        </div>
-
-        <div class="steps-layout">
-            <div class="animate-on-scroll">
-                <ul class="steps-list">
-                    <li class="step-item">
-                        <div class="step-number">1</div>
-                        <div>
-                            <div class="step-content-title">Ötlet, célok, határok</div>
-                            <div class="step-content-text">
-                                Átbeszéljük, mire használnád az AI chatet, milyen kérdésekre válaszolhat,
-                                mit nem vállalhat, mikor adja át a beszélgetést embernek.
-                            </div>
-                        </div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">2</div>
-                        <div>
-                            <div class="step-content-title">Tudásbázis kialakítása</div>
-                            <div class="step-content-text">
-                                Összegyűjtjük a fontos infókat: szolgáltatások, árak, folyamataid, GYIK.
-                                Ezek alapján kap a rendszer “fejet”, nem találgat, hanem tényleges adatokból dolgozik.
-                            </div>
-                        </div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">3</div>
-                        <div>
-                            <div class="step-content-title">AI logika és finomhangolás</div>
-                            <div class="step-content-text">
-                                Megírjuk azokat az “utasításokat”, amelyek mentén az AI dolgozik:
-                                stílus, hangnem, tiltott témák, hogyan kérdezzen vissza, stb.
-                            </div>
-                        </div>
-                    </li>
-                    <li class="step-item">
-                        <div class="step-number">4</div>
-                        <div>
-                            <div class="step-content-title">Bekötés a weboldaladba</div>
-                            <div class="step-content-text">
-                                A most látható chat felületet úgy illesztjük az oldaladba,
-                                hogy a látogatók számára természetes, kényelmes élményt adjon – mobilon és gépen is.
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <div class="steps-note">
-                    Az első verzió már önmagában használható lesz – utána a beszélgetések alapján tovább tudjuk finomhangolni,
-                    hogy minél “okosabbnak” és emberközelibbnek hasson.
-                </div>
-            </div>
-
-            <div class="config-card animate-on-scroll">
-                <div class="config-title">Mit kapsz a végén?</div>
-                <p>
-                    Nem egy letöltött sablonchatet, hanem egy olyan AI asszisztenst,
-                    amit névvel vállalunk: dizájnban illeszkedik az oldaladhoz,
-                    működésben pedig a vállalkozásod logikáját követi.
-                </p>
-                <ul class="config-list">
-                    <li>• Saját márkádra szabott chat felület.</li>
-                    <li>• Előre egyeztetett szabályok, tiltott témák, átadás embernek.</li>
-                    <li>• Olyan beállítás, amit később is tovább lehet finomhangolni.</li>
-                    <li>• Folyamatosan fejleszthető alap – ha nő a céged, a chat is tud veled növekedni.</li>
-                </ul>
             </div>
         </div>
     </section>
