@@ -301,13 +301,13 @@
             justify-content: center;
         }
 
-        /* ===== HERO TELEFON – KÓD + ÜZENET ===== */
+        /* ===== HERO TELEFON – MAGAS, VALÓSÁGSZERŰ ===== */
 
         .hero-phone {
             width: 100%;
-            max-width: 320px;
-            padding: 14px;
-            border-radius: 40px;
+            max-width: 360px;
+            padding: 18px;
+            border-radius: 44px;
             background: radial-gradient(circle at top, #ffffff 0%, #e5e7eb 40%, #d4d4dd 100%);
             box-shadow:
                 0 30px 70px rgba(15, 23, 42, 0.5),
@@ -317,24 +317,27 @@
         }
 
         .phone-inner {
-            border-radius: 30px;
+            border-radius: 32px;
             background:
                 radial-gradient(circle at top, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
                 linear-gradient(145deg, #020617, #020617 35%, #111827 90%);
-            padding: 40px 14px 16px;
+            padding: 60px 18px 18px;
             color: #e5e7eb;
             position: relative;
             overflow: hidden;
+            height: 460px;
+            display: flex;
+            flex-direction: column;
         }
 
         .notch {
             position: absolute;
-            top: 10px;
+            top: 14px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 22px;
-            border-radius: 0 0 16px 16px;
+            width: 130px;
+            height: 24px;
+            border-radius: 0 0 18px 18px;
             background: #020617;
         }
 
@@ -365,10 +368,12 @@
             border-radius: 18px;
             background: radial-gradient(circle at top left, #020617, #020617 60%, #0b1120 100%);
             padding: 10px 10px 12px;
-            min-height: 190px;
+            margin-top: 6px;
+            flex: 1;
             box-shadow:
                 0 0 0 1px rgba(15, 23, 42, 0.9),
                 0 18px 45px rgba(15, 23, 42, 0.75);
+            overflow: hidden;
         }
 
         .phone-code {
@@ -377,12 +382,11 @@
             line-height: 1.4;
             white-space: pre-wrap;
             color: #e5e7eb;
-            min-height: 170px;
         }
 
         .phone-message {
             position: absolute;
-            inset: 8px 8px 10px 8px;
+            inset: 10px 10px 12px 10px;
             border-radius: 16px;
             background: linear-gradient(135deg, #fefce8 0%, #facc15 55%, #f97316 100%);
             color: #111827;
@@ -455,6 +459,29 @@
             font-size: 13px;
             color: rgba(75, 85, 99, 0.95);
             max-width: 640px;
+        }
+
+        /* Kiemelt futó csík (Bemutatkozás / Rólunk) */
+        .highlight-strip {
+            margin-top: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: linear-gradient(120deg, #fefce8 0%, #facc15 40%, #f97316 70%, #fef3c7 100%);
+            background-size: 220% 100%;
+            animation: gradientMove 9s linear infinite;
+            color: #78350f;
+            box-shadow: 0 12px 28px rgba(234, 179, 8, 0.45);
+        }
+
+        .highlight-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
         }
 
         /* ===== SZOLGÁLTATÁSOK ===== */
@@ -555,6 +582,7 @@
             background: linear-gradient(135deg, #0b1120, #111827);
             color: #e5e7eb;
             box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
+            animation: floatSlow 18s ease-in-out infinite;
         }
 
         .about-highlight-title {
@@ -956,7 +984,7 @@
             }
 
             .hero-phone {
-                max-width: 260px;
+                max-width: 280px;
             }
         }
     </style>
@@ -1119,6 +1147,10 @@
                 Emberközeli kommunikáció, őszinte visszajelzések és olyan fejlesztés,
                 amit mi magunk is szívesen vállalunk a nevünkkel. Nem gyárban készülő sablonmegoldásokban gondolkodunk.
             </p>
+            <div class="highlight-strip">
+                <span class="highlight-dot"></span>
+                <span>Fejlesztői gondolkodás, nem “összekattintott” sablonok.</span>
+            </div>
         </div>
 
         <div class="about-layout">
@@ -1179,6 +1211,10 @@
                 amiről érzi: ennél sokkal többet ki lehetne hozni. Mi ebben segítünk – lépésről lépésre feltárjuk,
                 <strong>mi maradhat</strong>, mit érdemes lecserélni, és hogyan lesz az egészből egy rendezett, letisztult rendszer.
             </p>
+            <div class="highlight-strip">
+                <span class="highlight-dot"></span>
+                <span>Átlátható folyamat, hosszú távú partnerség, vállalható kód.</span>
+            </div>
         </div>
 
         <div class="values-grid">
@@ -1348,14 +1384,23 @@
         });
     });
 
-    // HERO telefon – kód gépelés + üzenet
+    // HERO telefon – kód gépelés + üzenet (a valós hero szöveg tükrözése)
     const phoneCodeEl = document.getElementById('phoneCode');
     const phoneInner = document.getElementById('phoneInner');
 
-    const heroCode = `<!-- Aurion Studio -->
+    const heroCode = `<!-- Aurion Studio: egyedi webes megoldások -->
 <section class="hero">
   <h1>Világos, letisztult,
-    működő online jelenlét.</h1>
+      működő online jelenlét.</h1>
+  <p>Olyan weboldalakat és webshopokat építünk,
+     amelyek hosszú távon is stabilan működnek
+     – felesleges bonyolítás nélkül.</p>
+  <ul>
+    <li>Egyedi fejlesztés, nem sablonokból</li>
+    <li>Reszponzív, mobil-first gondolkodás</li>
+    <li>WordPress / WooCommerce</li>
+    <li>AI-chat integráció</li>
+  </ul>
 </section>`;
 
     let codeIndex = 0;
@@ -1367,7 +1412,7 @@
             phoneCodeEl.textContent += ch;
             codeIndex++;
             let delay = 30;
-            if (ch === '\\n') delay = 90;
+            if (ch === '\n') delay = 90;
             else if (ch === ' ') delay = 18;
             setTimeout(typePhoneCode, delay);
         } else {
