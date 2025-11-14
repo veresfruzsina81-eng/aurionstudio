@@ -17,8 +17,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
-            color: #e5e7eb;
+            background: radial-gradient(circle at top, #fefce8 0%, #f3f4f6 40%, #e5e7eb 100%);
+            color: #111827;
             overflow-x: hidden;
         }
 
@@ -66,9 +66,9 @@
             top: 0;
             width: 100%;
             z-index: 9999;
-            background: rgba(15, 23, 42, 0.94);
+            background: rgba(248, 250, 252, 0.98);
             backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+            border-bottom: 1px solid rgba(209, 213, 219, 0.9);
         }
 
         nav {
@@ -95,20 +95,20 @@
             height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: #111827;
+            background: #020617;
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.7);
+                0 12px 30px rgba(15, 23, 42, 0.35);
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
+            background: linear-gradient(135deg, #caa85a 0%, #f59e0b 45%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .logo .studio {
-            color: #f9fafb;
+            color: #111827;
         }
 
         .nav-links {
@@ -121,7 +121,7 @@
         .nav-links a {
             font-size: 13px;
             font-weight: 500;
-            color: rgba(248, 250, 252, 0.8);
+            color: rgba(30, 64, 175, 0.85);
             position: relative;
             padding: 4px 0;
         }
@@ -140,7 +140,7 @@
         }
 
         .nav-links a:hover {
-            color: #f9fafb;
+            color: #111827;
         }
 
         .nav-links a:hover::after {
@@ -150,9 +150,9 @@
         .nav-links a.contact-link {
             padding: 6px 14px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.7);
+            border: 1px solid rgba(250, 204, 21, 0.8);
             background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.45);
             color: #111827;
         }
 
@@ -161,7 +161,7 @@
         }
 
         .nav-links a.active {
-            color: #facc15;
+            color: #f59e0b;
         }
 
         .nav-links a.active::after {
@@ -174,7 +174,7 @@
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(248, 250, 252, 0.98);
             cursor: pointer;
             align-items: center;
             justify-content: center;
@@ -188,7 +188,7 @@
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #f9fafb;
+            background: #111827;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
@@ -207,10 +207,10 @@
         .nav-links.mobile {
             position: fixed;
             inset: 56px 16px auto 16px;
-            background: rgba(15, 23, 42, 0.97);
+            background: rgba(248, 250, 252, 0.98);
             backdrop-filter: blur(18px);
             border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.8);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
             padding: 12px 16px;
             flex-direction: column;
             gap: 10px;
@@ -247,7 +247,7 @@
             font-size: 11px;
             letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.95);
+            color: rgba(148, 163, 184, 1);
             margin-bottom: 10px;
         }
 
@@ -255,14 +255,14 @@
             font-size: 40px;
             line-height: 1.1;
             margin-bottom: 12px;
-            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
+            background: linear-gradient(120deg, #0f172a 0%, #f59e0b 45%, #f97316 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(209, 213, 219, 0.95);
+            color: rgba(55, 65, 81, 0.95);
             margin-bottom: 16px;
             max-width: 520px;
         }
@@ -273,11 +273,11 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 999px;
-            background: linear-gradient(90deg, rgba(254, 252, 232, 0.9), rgba(254, 249, 195, 0.95));
-            border: 1px solid rgba(234, 179, 8, 0.4);
+            background: linear-gradient(90deg, rgba(254, 252, 232, 0.95), rgba(254, 249, 195, 0.98));
+            border: 1px solid rgba(234, 179, 8, 0.7);
             font-size: 12px;
             color: #78350f;
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.6);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.45);
         }
 
         .hero-pill-dot {
@@ -289,26 +289,26 @@
 
         .hero-info {
             font-size: 13px;
-            color: rgba(148, 163, 184, 0.95);
+            color: rgba(75, 85, 99, 0.95);
             margin-top: 12px;
         }
 
         .hero-right-preview {
             justify-self: center;
-            opacity: 0.9;
         }
 
         .hero-ring {
             width: 220px;
             height: 220px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.35);
+            border: 1px solid rgba(250, 204, 21, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: radial-gradient(circle at top, rgba(250, 204, 21, 0.18), transparent 60%);
+            background: radial-gradient(circle at top, rgba(250, 204, 21, 0.25), transparent 60%);
+            box-shadow: 0 26px 60px rgba(15, 23, 42, 0.25);
         }
 
         .hero-ring-inner {
@@ -328,7 +328,7 @@
         .hero-ring-inner span {
             font-size: 12px;
             text-align: center;
-            color: rgba(248, 250, 252, 0.9);
+            color: rgba(248, 250, 252, 0.95);
         }
 
         main {
@@ -339,7 +339,6 @@
 
         .section {
             padding: 40px 0;
-            border-top: 1px solid rgba(31, 41, 55, 0.9);
         }
 
         .section-header {
@@ -351,14 +350,14 @@
             font-size: 11px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.9);
+            color: rgba(148, 163, 184, 1);
             margin-bottom: 6px;
         }
 
         .section-title {
             font-size: 24px;
             font-weight: 800;
-            color: #f9fafb;
+            color: #0f172a;
             margin-bottom: 8px;
             position: relative;
             display: inline-block;
@@ -378,15 +377,20 @@
 
         .section-subtitle {
             font-size: 14px;
-            color: rgba(156, 163, 175, 0.96);
+            color: rgba(75, 85, 99, 0.96);
             max-width: 720px;
         }
 
         /* ===== PROJEKT BLOKKOK ===== */
 
         .project-block {
-            padding: 40px 0 50px;
-            border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+            padding: 40px 30px 50px;
+            border-radius: 32px;
+            background: radial-gradient(circle at top left, #ffffff 0%, #f9fafb 40%, #e5e7eb 100%);
+            box-shadow:
+                0 24px 60px rgba(15, 23, 42, 0.10),
+                0 0 0 1px rgba(209, 213, 219, 0.8);
+            margin-bottom: 26px;
         }
 
         .project-header {
@@ -401,10 +405,10 @@
             gap: 8px;
             padding: 6px 12px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.4);
+            border: 1px solid rgba(250, 204, 21, 0.6);
             font-size: 11px;
-            color: #facc15;
-            background: rgba(23, 23, 23, 0.9);
+            color: #854d0e;
+            background: rgba(255, 251, 235, 0.98);
             box-shadow: 0 10px 26px rgba(250, 204, 21, 0.35);
             margin-bottom: 10px;
         }
@@ -418,13 +422,13 @@
 
         .project-title {
             font-size: 22px;
-            color: #f9fafb;
+            color: #0f172a;
             margin-bottom: 8px;
         }
 
         .project-lead {
             font-size: 14px;
-            color: rgba(209, 213, 219, 0.96);
+            color: rgba(55, 65, 81, 0.96);
         }
 
         .project-mockup {
@@ -472,7 +476,7 @@
         .device-laptop-screen img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* laptopon teljes oldal, nem vágjuk */
+            object-fit: contain;
             display: block;
         }
 
@@ -522,7 +526,7 @@
             width: 160px;
             padding: 10px;
             border-radius: 30px;
-            background: radial-gradient(circle at top, #111827, #020617 70%);
+            background: radial-gradient(circle at top, #020617, #020617 70%);
             box-shadow:
                 0 24px 60px rgba(0, 0, 0, 1),
                 0 0 0 1px rgba(148, 163, 184, 0.9);
@@ -603,15 +607,15 @@
             font-size: 12px;
             padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(55, 65, 81, 0.9);
-            background: rgba(15, 23, 42, 0.9);
-            color: rgba(209, 213, 219, 0.96);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            background: rgba(249, 250, 251, 0.96);
+            color: rgba(55, 65, 81, 0.96);
         }
 
         .project-text {
             font-size: 14px;
             line-height: 1.75;
-            color: rgba(209, 213, 219, 0.96);
+            color: rgba(55, 65, 81, 0.98);
             margin-bottom: 10px;
         }
 
@@ -620,7 +624,7 @@
             margin: 6px 0 12px 0;
             padding-left: 0;
             font-size: 13px;
-            color: rgba(156, 163, 175, 0.96);
+            color: rgba(75, 85, 99, 0.96);
         }
 
         .project-bullets li {
@@ -658,7 +662,7 @@
             font-weight: 600;
             background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
-            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.8);
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.7);
             border: none;
             cursor: pointer;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -666,20 +670,20 @@
 
         .project-link-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 22px 50px rgba(234, 179, 8, 0.95);
+            box-shadow: 0 22px 50px rgba(234, 179, 8, 0.9);
         }
 
         .project-link-note {
             font-size: 12px;
-            color: rgba(148, 163, 184, 0.98);
+            color: rgba(107, 114, 128, 0.98);
         }
 
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(31, 41, 55, 0.95);
-            background: #020617;
-            color: #e5e7eb;
+            border-top: 1px solid rgba(209, 213, 219, 1);
+            background: #f9fafb;
+            color: #111827;
         }
 
         .footer-inner {
@@ -695,7 +699,7 @@
         }
 
         .footer-link {
-            color: rgba(209, 213, 219, 0.9);
+            color: rgba(55, 65, 81, 0.9);
         }
 
         .footer-link:hover {
@@ -716,6 +720,13 @@
 
             .hero {
                 padding-top: 96px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .project-block {
+                padding: 28px 18px 38px;
+                border-radius: 26px;
             }
         }
 
@@ -742,8 +753,7 @@
                 max-width: 100%;
             }
 
-            /* Mobilon a telefon már NEM abszolút,
-               hanem a laptop alatt, külön blokkban */
+            /* Mobilon a telefon külön blokkban, a laptop alatt */
             .device-phone {
                 position: relative;
                 left: auto;
@@ -862,7 +872,7 @@
                 </div>
                 <h3 class="project-title">Serlegkirály.hu – sportdíjak ezrei, rendezett rendszerben</h3>
                 <p class="project-lead">
-                    Egy nagy termékszámú, élesben használt webshop, ahol a háttérlegalább olyan fontos,
+                    Egy nagy termékszámú, élesben használt webshop, ahol a háttér legalább olyan fontos,
                     mint a látvány. A cél: olyan rendszer, amely bírja a mindennapi terhelést, és
                     hosszú távon is átlátható marad.
                 </p>
@@ -873,7 +883,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <img src="serlegkiraly-desktop.jpg" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
+                            <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -934,7 +944,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <img src="malfiruha-desktop.jpg" alt="Malfiruha.hu – ruházati webshop">
+                            <img src="malfiruha-hero.png" alt="Malfiruha.hu – ruházati webshop">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -995,7 +1005,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <img src="szokeepker-desktop.jpg" alt="Szőke Épker – generálkivitelezés honlap">
+                            <img src="szokeepker-clean.png" alt="Szőke Épker – generálkivitelezés honlap">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -1022,7 +1032,7 @@
                     Mindezt túlbeszélés nélkül, érthető, emberi nyelven.
                 </p>
                 <ul class="project-bullets">
-                    <li>Nagy, jól olvasható typográfia – mobilon és asztali gépen egyaránt.</li>
+                    <li>Nagy, jól olvasható tipográfia – mobilon és asztali gépen egyaránt.</li>
                     <li>Átlátható szolgáltatásblokkok, amelyek támogatják az ajánlatkérési folyamatot.</li>
                     <li>Olyan technikai háttér, amihez később könnyen kapcsolható AI-chat és további funkció.</li>
                 </ul>
