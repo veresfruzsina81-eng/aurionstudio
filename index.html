@@ -17,7 +17,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #e5e7eb;
+            background:
+                radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 40%, #d4d4dd 75%, #c7c7d3 100%);
             color: #101014;
             overflow-x: hidden;
         }
@@ -29,7 +30,7 @@
 
         /* Header */
         header {
-            background: rgba(248, 249, 252, 0.96);
+            background: rgba(248, 249, 252, 0.98);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(15, 23, 42, 0.08);
             padding: 14px 0;
@@ -205,12 +206,10 @@
             pointer-events: auto;
         }
 
-        /* Hero Section */
+        /* Hero Section – nagy fehér kártya */
         .hero {
             margin-top: 76px;
             padding: 70px 16px 80px;
-            background:
-                radial-gradient(circle at top center, #f9fafb 0%, #e5e7eb 40%, #d1d5db 70%, #cbd5f5 100%);
             position: relative;
             overflow: hidden;
         }
@@ -222,8 +221,8 @@
             left: -30%;
             width: 160%;
             height: 160%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 60%);
-            opacity: 0.35;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, transparent 60%);
+            opacity: 0.4;
             pointer-events: none;
         }
 
@@ -232,11 +231,46 @@
             z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
+            background: radial-gradient(circle at top, #ffffff 0%, #f3f4f6 55%, #e5e7eb 100%);
+            border-radius: 32px;
+            padding: 38px 26px 40px;
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, 0.25),
+                0 0 0 1px rgba(209, 213, 219, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: conic-gradient(
+                from 220deg,
+                rgba(250, 204, 21, 0.5),
+                transparent,
+                rgba(56, 189, 248, 0.5),
+                transparent,
+                rgba(250, 204, 21, 0.5)
+            );
+            opacity: 0.22;
+            mix-blend-mode: soft-light;
+            animation: heroGlow 20s linear infinite;
+        }
+
+        @keyframes heroGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-title-section {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 46px;
             transition: transform 0.3s ease-out;
         }
 
@@ -283,7 +317,7 @@
             backdrop-filter: blur(18px);
             box-shadow:
                 0 0 0 1px rgba(247, 183, 51, 0.18),
-                0 18px 40px rgba(15, 23, 42, 0.25);
+                0 18px 40px rgba(148, 163, 184, 0.35);
             font-weight: 500;
         }
 
@@ -317,7 +351,7 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 26px;
-            margin-top: 40px;
+            margin-top: 36px;
             transition: transform 0.3s ease-out;
         }
 
@@ -425,12 +459,12 @@
         .live-editor {
             width: 100%;
             height: 460px;
-            background: radial-gradient(circle at top left, #111827, #020617);
+            background: radial-gradient(circle at top left, #020617, #020617);
             border-radius: 22px;
             overflow: hidden;
             box-shadow:
                 0 26px 70px rgba(15, 23, 42, 0.6),
-                0 0 0 1px rgba(15, 23, 42, 0.7);
+                0 0 0 1px rgba(15, 23, 42, 0.9);
             display: flex;
             flex-direction: column;
             margin-bottom: 18px;
@@ -635,21 +669,42 @@
             transform: translateY(0);
         }
 
-        /* ----- Többi szekció ----- */
+        /* ----- Többi szekció – fehér kártyák ----- */
 
         main {
-            background: radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 40%, #d1d5db 80%);
+            padding: 0 16px 40px;
         }
 
         .section {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 16px;
+            margin: 0 auto 30px;
+            padding: 32px 24px 30px;
+            background: radial-gradient(circle at top, #ffffff 0%, #f9fafb 60%, #f3f4f6 100%);
+            border-radius: 28px;
+            box-shadow:
+                0 28px 80px rgba(15, 23, 42, 0.18),
+                0 0 0 1px rgba(209, 213, 219, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.25), transparent 55%);
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .section-inner {
+            position: relative;
+            z-index: 1;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 26px;
         }
 
         .section-kicker {
@@ -1283,6 +1338,11 @@
                 margin-top: 72px;
             }
 
+            .hero-content {
+                padding: 28px 18px 30px;
+                border-radius: 26px;
+            }
+
             .hero h1 {
                 font-size: 28px;
             }
@@ -1295,6 +1355,15 @@
                 grid-template-columns: minmax(0, 1fr);
             }
 
+            main {
+                padding: 0 14px 30px;
+            }
+
+            .section {
+                padding: 24px 18px 24px;
+                border-radius: 24px;
+            }
+
             .services-grid,
             .values-grid {
                 grid-template-columns: minmax(0, 1fr);
@@ -1302,10 +1371,6 @@
 
             .contact-layout {
                 gap: 16px;
-            }
-
-            .section {
-                padding: 40px 14px;
             }
 
             .footer-inner {
@@ -1369,81 +1434,83 @@
     <!-- HERO -->
     <section class="hero" id="top">
         <div class="hero-content">
-            <div class="hero-title-section">
-                <h1>Egyedi webes megoldások</h1>
-                <div class="hero-services">
-                    Egyedi weboldalak • Webshopok • WordPress / WooCommerce • AI-Chat Integráció
+            <div class="hero-inner">
+                <div class="hero-title-section">
+                    <h1>Egyedi webes megoldások</h1>
+                    <div class="hero-services">
+                        Egyedi weboldalak • Webshopok • WordPress / WooCommerce • AI-Chat Integráció
+                    </div>
+                    <p class="hero-description">
+                        Professzionális webfejlesztési szolgáltatások modern technológiákkal. 
+                        Letisztult, prémium megjelenés, stabil technikai háttér és valódi támogatás – 
+                        az első ötlettől az éles indulásig.
+                    </p>
                 </div>
-                <p class="hero-description">
-                    Professzionális webfejlesztési szolgáltatások modern technológiákkal. 
-                    Letisztult, prémium megjelenés, stabil technikai háttér és valódi támogatás – 
-                    az első ötlettől az éles indulásig.
-                </p>
-            </div>
 
-            <div class="hero-sections">
-                <!-- iPhone -->
-                <div class="hero-section animate-on-scroll">
-                    <div class="iphone">
-                        <div class="notch"></div>
-                        <div class="screen">
-                            <div class="phone-content">
-                                <h3>Üdvözöljük!</h3>
-                                <div id="typingText"></div>
+                <div class="hero-sections">
+                    <!-- iPhone -->
+                    <div class="hero-section animate-on-scroll">
+                        <div class="iphone">
+                            <div class="notch"></div>
+                            <div class="screen">
+                                <div class="phone-content">
+                                    <h3>Üdvözöljük!</h3>
+                                    <div id="typingText"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="marketing-text">
-                        <h3>Mobil-first gondolkodás</h3>
-                        <p>
-                            A látogatók többsége mobilról érkezik. Oldalainkat úgy építjük fel, 
-                            hogy először telefonon legyenek tökéletesek – aztán igazítjuk hozzá a 
-                            nagyobb kijelzőket.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Live Editor -->
-                <div class="hero-section animate-on-scroll">
-                    <div class="live-editor">
-                        <div class="editor-header">
-                            <div class="editor-dot dot-red"></div>
-                            <div class="editor-dot dot-yellow"></div>
-                            <div class="editor-dot dot-green"></div>
-                            <span class="editor-title">index.html</span>
+                        <div class="marketing-text">
+                            <h3>Mobil-first gondolkodás</h3>
+                            <p>
+                                A látogatók többsége mobilról érkezik. Oldalainkat úgy építjük fel, 
+                                hogy először telefonon legyenek tökéletesek – aztán igazítjuk hozzá a 
+                                nagyobb kijelzőket.
+                            </p>
                         </div>
-                        <div class="editor-body">
-                            <div class="code-pane" id="codePane"></div>
-                            <div class="preview-pane" id="previewPane">
-                                <div class="preview-content"></div>
+                    </div>
+
+                    <!-- Live Editor -->
+                    <div class="hero-section animate-on-scroll">
+                        <div class="live-editor">
+                            <div class="editor-header">
+                                <div class="editor-dot dot-red"></div>
+                                <div class="editor-dot dot-yellow"></div>
+                                <div class="editor-dot dot-green"></div>
+                                <span class="editor-title">index.html</span>
+                            </div>
+                            <div class="editor-body">
+                                <div class="code-pane" id="codePane"></div>
+                                <div class="preview-pane" id="previewPane">
+                                    <div class="preview-content"></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="marketing-text">
+                            <h3>Valós idejű építés</h3>
+                            <p>
+                                Nem sablonokban gondolkodunk. A kód sor-ról sorra születik, a változásokat 
+                                pedig azonnal lehet látni – így pontosan olyan felületet kapsz vissza, 
+                                amilyet elképzeltél.
+                            </p>
+                        </div>
                     </div>
-                    <div class="marketing-text">
-                        <h3>Valós idejű építés</h3>
-                        <p>
-                            Nem sablonokban gondolkodunk. A kód sor-ról sorra születik, a változásokat 
-                            pedig azonnal lehet látni – így pontosan olyan felületet kapsz vissza, 
-                            amilyet elképzeltél.
-                        </p>
-                    </div>
-                </div>
 
-                <!-- Welcome Box -->
-                <div class="hero-section animate-on-scroll">
-                    <div class="welcome-box">
-                        <h2>Az online jelenléted alapja</h2>
-                        <p>
-                            Az elképzelésedtől a működő, bevételt termelő megoldásig<br>
-                            végig fogjuk a kezed – és nem tűnünk el az átadás után sem.
-                        </p>
-                    </div>
-                    <div class="marketing-text">
-                        <h3>Partnerként gondolkodunk</h3>
-                        <p>
-                            Nem csak egy újabb projektként tekintünk rád. Segítünk dönteni, 
-                            javaslatot adunk, és hosszú távon is melletted maradunk, ha szükség van ránk.
-                        </p>
+                    <!-- Welcome Box -->
+                    <div class="hero-section animate-on-scroll">
+                        <div class="welcome-box">
+                            <h2>Az online jelenléted alapja</h2>
+                            <p>
+                                Az elképzelésedtől a működő, bevételt termelő megoldásig<br>
+                                végig fogjuk a kezed – és nem tűnünk el az átadás után sem.
+                            </p>
+                        </div>
+                        <div class="marketing-text">
+                            <h3>Partnerként gondolkodunk</h3>
+                            <p>
+                                Nem csak egy újabb projektként tekintünk rád. Segítünk dönteni, 
+                                javaslatot adunk, és hosszú távon is melletted maradunk, ha szükség van ránk.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1453,127 +1520,131 @@
     <main>
         <!-- Szolgáltatások -->
         <section class="section animate-on-scroll" id="szolgaltatasok">
-            <div class="section-header">
-                <div class="section-kicker">SZOLGÁLTATÁSOK</div>
-                <h2 class="section-title">Amiben igazán erősek vagyunk</h2>
-                <p class="section-subtitle">
-                    A teljes folyamatot lefedjük: a koncepciótól a dizájnon át a kódig, 
-                    üzemeltetéssel és finomhangolással együtt.
-                </p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">🖥️</div>
-                    <h3 class="service-title">Egyedi weboldalak</h3>
-                    <p class="service-text">
-                        Letisztult, gyors és reszponzív weboldalak, amik nem sablonból készülnek. 
-                        Minden pixelt az arculatodhoz és célodhoz igazítunk.
+            <div class="section-inner">
+                <div class="section-header">
+                    <div class="section-kicker">SZOLGÁLTATÁSOK</div>
+                    <h2 class="section-title">Amiben igazán erősek vagyunk</h2>
+                    <p class="section-subtitle">
+                        A teljes folyamatot lefedjük: a koncepciótól a dizájnon át a kódig, 
+                        üzemeltetéssel és finomhangolással együtt.
                     </p>
-                    <p class="service-meta">Landing oldalak • Bemutatkozó oldalak • Portfóliók</p>
                 </div>
 
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">🛒</div>
-                    <h3 class="service-title">Webshop fejlesztés</h3>
-                    <p class="service-text">
-                        Stabil, könnyen kezelhető áruházak, okos admin felülettel. 
-                        Kosár, fizetési módok, számlázás, szállítás – mindent összekötünk.
-                    </p>
-                    <p class="service-meta">Egyedi megoldások • WooCommerce • Bővíthető struktúra</p>
-                </div>
+                <div class="services-grid">
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">🖥️</div>
+                        <h3 class="service-title">Egyedi weboldalak</h3>
+                        <p class="service-text">
+                            Letisztult, gyors és reszponzív weboldalak, amik nem sablonból készülnek. 
+                            Minden pixelt az arculatodhoz és célodhoz igazítunk.
+                        </p>
+                        <p class="service-meta">Landing oldalak • Bemutatkozó oldalak • Portfóliók</p>
+                    </div>
 
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">⚙️</div>
-                    <h3 class="service-title">WordPress / WooCommerce</h3>
-                    <p class="service-text">
-                        Ha gyorsan kell indulni, vagy szeretnél saját kezűleg is adminisztrálni, 
-                        modern, biztonságos WordPress alapú rendszert építünk.
-                    </p>
-                    <p class="service-meta">Testreszabott sablonok • Teljesítmény-optimalizálás</p>
-                </div>
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">🛒</div>
+                        <h3 class="service-title">Webshop fejlesztés</h3>
+                        <p class="service-text">
+                            Stabil, könnyen kezelhető áruházak, okos admin felülettel. 
+                            Kosár, fizetési módok, számlázás, szállítás – mindent összekötünk.
+                        </p>
+                        <p class="service-meta">Egyedi megoldások • WooCommerce • Bővíthető struktúra</p>
+                    </div>
 
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">🤖</div>
-                    <h3 class="service-title">AI-chat integráció</h3>
-                    <p class="service-text">
-                        Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol, 
-                        a saját szabályaid szerint.
-                    </p>
-                    <p class="service-meta">Chatbot integráció • Tudásbázis alapú válaszok</p>
-                </div>
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">⚙️</div>
+                        <h3 class="service-title">WordPress / WooCommerce</h3>
+                        <p class="service-text">
+                            Ha gyorsan kell indulni, vagy szeretnél saját kezűleg is adminisztrálni, 
+                            modern, biztonságos WordPress alapú rendszert építünk.
+                        </p>
+                        <p class="service-meta">Testreszabott sablonok • Teljesítmény-optimalizálás</p>
+                    </div>
 
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">📈</div>
-                    <h3 class="service-title">Technikai finomhangolás</h3>
-                    <p class="service-text">
-                        Gyorsítás, hibajavítás, reszponzív problémák megoldása. 
-                        Ha már van oldalad, de nem úgy működik, ahogy kellene – rendbe tesszük.
-                    </p>
-                    <p class="service-meta">Sebesség • Biztonság • Stabilitás</p>
-                </div>
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">🤖</div>
+                        <h3 class="service-title">AI-chat integráció</h3>
+                        <p class="service-text">
+                            Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol, 
+                            a saját szabályaid szerint.
+                        </p>
+                        <p class="service-meta">Chatbot integráció • Tudásbázis alapú válaszok</p>
+                    </div>
 
-                <div class="service-card animate-on-scroll">
-                    <div class="service-icon">🤝</div>
-                    <h3 class="service-title">Hosszú távú támogatás</h3>
-                    <p class="service-text">
-                        Nem tűnünk el az átadás után. Ha nő a vállalkozásod, mi is igazítjuk hozzá az online felületeket.
-                    </p>
-                    <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">📈</div>
+                        <h3 class="service-title">Technikai finomhangolás</h3>
+                        <p class="service-text">
+                            Gyorsítás, hibajavítás, reszponzív problémák megoldása. 
+                            Ha már van oldalad, de nem úgy működik, ahogy kellene – rendbe tesszük.
+                        </p>
+                        <p class="service-meta">Sebesség • Biztonság • Stabilitás</p>
+                    </div>
+
+                    <div class="service-card animate-on-scroll">
+                        <div class="service-icon">🤝</div>
+                        <h3 class="service-title">Hosszú távú támogatás</h3>
+                        <p class="service-text">
+                            Nem tűnünk el az átadás után. Ha nő a vállalkozásod, mi is igazítjuk hozzá az online felületeket.
+                        </p>
+                        <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Bemutatkozás -->
         <section class="section animate-on-scroll" id="bemutatkozas">
-            <div class="section-header">
-                <div class="section-kicker">BEMUTATKOZÁS</div>
-                <h2 class="section-title">Kik állnak a kód mögött?</h2>
-                <p class="section-subtitle">
-                    Emberközeli kommunikáció, profi technikai háttér és az a hozzáállás, 
-                    hogy mindent úgy építünk, mintha a saját projektünk lenne.
-                </p>
-            </div>
-
-            <div class="about-layout">
-                <div>
-                    <p class="about-text-main">
-                        Az <span class="about-emphasis">Aurion Studio</span> célja, hogy 
-                        olyan webes megoldásokat készítsen, amelyek nem csak szépek, hanem 
-                        hosszú távon is stabilan működnek. Nem futószalagon dolgozunk – 
-                        minden projekt mögött valódi odafigyelés és személyes kapcsolattartás áll.
+            <div class="section-inner">
+                <div class="section-header">
+                    <div class="section-kicker">BEMUTATKOZÁS</div>
+                    <h2 class="section-title">Kik állnak a kód mögött?</h2>
+                    <p class="section-subtitle">
+                        Emberközeli kommunikáció, profi technikai háttér és az a hozzáállás, 
+                        hogy mindent úgy építünk, mintha a saját projektünk lenne.
                     </p>
-                    <p class="about-text-main">
-                        Különösen szeretjük azokat a munkákat, ahol 
-                        <span class="about-emphasis">bizalmi együttműködés</span> alakul ki: 
-                        közösen gondolkodunk, javaslatot teszünk, és mindig egyértelműen elmondjuk, 
-                        mit miért érdemes így vagy úgy megcsinálni.
-                    </p>
-
-                    <div class="about-pill-row">
-                        <span class="about-pill">Egyedi fejlesztés</span>
-                        <span class="about-pill">Pixel-pontos dizájn</span>
-                        <span class="about-pill">Stabil háttér</span>
-                        <span class="about-pill">Őszinte kommunikáció</span>
-                    </div>
                 </div>
 
-                <div class="about-highlight">
-                    <div class="about-highlight-title">Számok helyett bizalom</div>
-                    <p class="about-highlight-text">
-                        Nem darabszámra vállalunk projekteket, hanem olyan rendszereket építünk, 
-                        amiket büszkén vállalunk a nevünkkel. Ha valamit nem érdemes megcsinálni, 
-                        azt is megmondjuk – akkor is, ha rövid távon kevesebb a munka belőle.
-                    </p>
+                <div class="about-layout">
+                    <div>
+                        <p class="about-text-main">
+                            Az <span class="about-emphasis">Aurion Studio</span> célja, hogy 
+                            olyan webes megoldásokat készítsen, amelyek nem csak szépek, hanem 
+                            hosszú távon is stabilan működnek. Nem futószalagon dolgozunk – 
+                            minden projekt mögött valódi odafigyelés és személyes kapcsolattartás áll.
+                        </p>
+                        <p class="about-text-main">
+                            Különösen szeretjük azokat a munkákat, ahol 
+                            <span class="about-emphasis">bizalmi együttműködés</span> alakul ki: 
+                            közösen gondolkodunk, javaslatot teszünk, és mindig egyértelműen elmondjuk, 
+                            mit miért érdemes így vagy úgy megcsinálni.
+                        </p>
 
-                    <div class="about-stats">
-                        <div class="about-stat">
-                            <div class="about-stat-number">Aurion Studio</div>
-                            <div class="about-stat-label">Fejlesztői név</div>
+                        <div class="about-pill-row">
+                            <span class="about-pill">Egyedi fejlesztés</span>
+                            <span class="about-pill">Pixel-pontos dizájn</span>
+                            <span class="about-pill">Stabil háttér</span>
+                            <span class="about-pill">Őszinte kommunikáció</span>
                         </div>
-                        <div class="about-stat">
-                            <div class="about-stat-number">100%</div>
-                            <div class="about-stat-label">egyedi, kézzel írt kód alapokon</div>
+                    </div>
+
+                    <div class="about-highlight">
+                        <div class="about-highlight-title">Számok helyett bizalom</div>
+                        <p class="about-highlight-text">
+                            Nem darabszámra vállalunk projekteket, hanem olyan rendszereket építünk, 
+                            amiket büszkén vállalunk a nevünkkel. Ha valamit nem érdemes megcsinálni, 
+                            azt is megmondjuk – akkor is, ha rövid távon kevesebb a munka belőle.
+                        </p>
+
+                        <div class="about-stats">
+                            <div class="about-stat">
+                                <div class="about-stat-number">Aurion Studio</div>
+                                <div class="about-stat-label">Fejlesztői név</div>
+                            </div>
+                            <div class="about-stat">
+                                <div class="about-stat-number">100%</div>
+                                <div class="about-stat-label">egyedi, kézzel írt kód alapokon</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1582,132 +1653,136 @@
 
         <!-- Rólunk -->
         <section class="section animate-on-scroll" id="rolunk">
-            <div class="section-header">
-                <div class="section-kicker">RÓLUNK</div>
-                <h2 class="section-title">Ahogy a közös munkát látjuk</h2>
-                <p class="section-subtitle">
-                    Nem csak programozunk: együtt gondolkodunk veled, és segítünk 
-                    olyan döntéseket hozni, amelyek az online jelenlétedet erősítik.
-                </p>
-            </div>
+            <div class="section-inner">
+                <div class="section-header">
+                    <div class="section-kicker">RÓLUNK</div>
+                    <h2 class="section-title">Ahogy a közös munkát látjuk</h2>
+                    <p class="section-subtitle">
+                        Nem csak programozunk: együtt gondolkodunk veled, és segítünk 
+                        olyan döntéseket hozni, amelyek az online jelenlétedet erősítik.
+                    </p>
+                </div>
 
-            <div class="values-grid">
-                <div class="value-card animate-on-scroll">
-                    <span class="value-badge">1. Lépésről lépésre</span>
-                    <h3 class="value-title">Átlátható folyamat</h3>
-                    <p class="value-text">
-                        Mindent megbeszélünk: mire van szükséged, milyen funkciók kellenek, 
-                        hogyan fog működni a rendszer. Nincsenek elrejtett sorok, vállalhatatlan meglepetések.
-                    </p>
-                </div>
-                <div class="value-card animate-on-scroll">
-                    <span class="value-badge">2. Nem sablonban gondolkodunk</span>
-                    <h3 class="value-title">Valóban egyedi megoldások</h3>
-                    <p class="value-text">
-                        Nem olyan oldalt kapsz, amit bárki néhány kattintással összerak. 
-                        A struktúrát, dizájnt és működést is a te projektedre szabjuk.
-                    </p>
-                </div>
-                <div class="value-card animate-on-scroll">
-                    <span class="value-badge">3. Utógondozás</span>
-                    <h3 class="value-title">Nem tűnünk el átadás után</h3>
-                    <p class="value-text">
-                        Ha változik a vállalkozásod, mi is hozzá igazítjuk a felületet. 
-                        Kisebb módosításoknál és nagyobb fejlesztéseknél is számíthatsz ránk.
-                    </p>
+                <div class="values-grid">
+                    <div class="value-card animate-on-scroll">
+                        <span class="value-badge">1. Lépésről lépésre</span>
+                        <h3 class="value-title">Átlátható folyamat</h3>
+                        <p class="value-text">
+                            Mindent megbeszélünk: mire van szükséged, milyen funkciók kellenek, 
+                            hogyan fog működni a rendszer. Nincsenek elrejtett sorok, vállalhatatlan meglepetések.
+                        </p>
+                    </div>
+                    <div class="value-card animate-on-scroll">
+                        <span class="value-badge">2. Nem sablonban gondolkodunk</span>
+                        <h3 class="value-title">Valóban egyedi megoldások</h3>
+                        <p class="value-text">
+                            Nem olyan oldalt kapsz, amit bárki néhány kattintással összerak. 
+                            A struktúrát, dizájnt és működést is a te projektedre szabjuk.
+                        </p>
+                    </div>
+                    <div class="value-card animate-on-scroll">
+                        <span class="value-badge">3. Utógondozás</span>
+                        <h3 class="value-title">Nem tűnünk el átadás után</h3>
+                        <p class="value-text">
+                            Ha változik a vállalkozásod, mi is hozzá igazítjuk a felületet. 
+                            Kisebb módosításoknál és nagyobb fejlesztéseknél is számíthatsz ránk.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Kapcsolat -->
         <section class="section animate-on-scroll" id="kapcsolat">
-            <div class="section-header">
-                <div class="section-kicker">KAPCSOLAT</div>
-                <h2 class="section-title">Beszéljünk az ötletedről</h2>
-                <p class="section-subtitle">
-                    Írj néhány mondatot arról, miben gondolkodsz, és visszajelzést adunk, 
-                    hogyan érdemes elindulni – kötöttségek nélkül.
-                </p>
-            </div>
-
-            <div class="contact-layout">
-                <div class="contact-card animate-on-scroll">
-                    <div class="contact-inner">
-                        <h3 class="contact-title">Aurion Studio – elérhetőség</h3>
-                        <p class="contact-text">
-                            A legegyszerűbb, ha egy rövid üzenettel indítasz. 
-                            Írd meg, miben gondolkodsz, és milyen elképzeléseid vannak – 
-                            mi pedig válaszban segítünk tisztábban látni a lehetőségeket.
-                        </p>
-
-                        <ul class="contact-info-list">
-                            <li>
-                                <span class="contact-pill">Név</span>
-                                Aurion Studio
-                            </li>
-                            <li>
-                                <span class="contact-pill">E-mail</span>
-                                aurionstudiofix@gmail.com
-                            </li>
-                            <li>
-                                <span class="contact-pill">Telefon</span>
-                                06 20 991 8876
-                            </li>
-                            <li>
-                                <span class="contact-pill">Visszajelzés</span>
-                                jellemzően 1–2 munkanapon belül
-                            </li>
-                        </ul>
-
-                        <span class="contact-badge">
-                            Az adataid biztonságban vannak nálunk – kizárólag a kapcsolatfelvételhez használjuk fel őket.
-                        </span>
-                    </div>
+            <div class="section-inner">
+                <div class="section-header">
+                    <div class="section-kicker">KAPCSOLAT</div>
+                    <h2 class="section-title">Beszéljünk az ötletedről</h2>
+                    <p class="section-subtitle">
+                        Írj néhány mondatot arról, miben gondolkodsz, és visszajelzést adunk, 
+                        hogyan érdemes elindulni – kötöttségek nélkül.
+                    </p>
                 </div>
 
-                <div class="contact-form animate-on-scroll">
-                    <form id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Név</label>
-                                <input type="text" id="name" placeholder="Hogyan szólíthatunk?">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-mail cím</label>
-                                <input type="email" id="email" placeholder="valami@domain.hu">
-                            </div>
-                        </div>
+                <div class="contact-layout">
+                    <div class="contact-card animate-on-scroll">
+                        <div class="contact-inner">
+                            <h3 class="contact-title">Aurion Studio – elérhetőség</h3>
+                            <p class="contact-text">
+                                A legegyszerűbb, ha egy rövid üzenettel indítasz. 
+                                Írd meg, miben gondolkodsz, és milyen elképzeléseid vannak – 
+                                mi pedig válaszban segítünk tisztábban látni a lehetőségeket.
+                            </p>
 
-                        <div class="form-group">
-                            <label for="topic">Miben gondolkodsz?</label>
-                            <input type="text" id="topic" placeholder="Pl.: új webshop indulása, meglévő oldal átalakítása...">
-                        </div>
+                            <ul class="contact-info-list">
+                                <li>
+                                    <span class="contact-pill">Név</span>
+                                    Aurion Studio
+                                </li>
+                                <li>
+                                    <span class="contact-pill">E-mail</span>
+                                    aurionstudiofix@gmail.com
+                                </li>
+                                <li>
+                                    <span class="contact-pill">Telefon</span>
+                                    06 20 991 8876
+                                </li>
+                                <li>
+                                    <span class="contact-pill">Visszajelzés</span>
+                                    jellemzően 1–2 munkanapon belül
+                                </li>
+                            </ul>
 
-                        <div class="form-group">
-                            <label for="message">Üzenet</label>
-                            <textarea id="message" placeholder="Pár mondat az ötletedről, jelenlegi helyzetedről..."></textarea>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Biztonsági kérdés</label>
-                                <div class="security-row">
-                                    <span id="securityText">5 + 6 = ?</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="securityAnswer">Válasz</label>
-                                <input type="number" id="securityAnswer" placeholder="Add meg az eredményt">
-                            </div>
-                        </div>
-
-                        <div class="contact-submit-row">
-                            <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése</button>
-                            <span class="contact-small">
-                                Üzeneted beérkezése után e-mailben keresünk a következő lépésekkel és a pontos részletekkel.
+                            <span class="contact-badge">
+                                Az adataid biztonságban vannak nálunk – kizárólag a kapcsolatfelvételhez használjuk fel őket.
                             </span>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="contact-form animate-on-scroll">
+                        <form id="contactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Név</label>
+                                    <input type="text" id="name" placeholder="Hogyan szólíthatunk?">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail cím</label>
+                                    <input type="email" id="email" placeholder="valami@domain.hu">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="topic">Miben gondolkodsz?</label>
+                                <input type="text" id="topic" placeholder="Pl.: új webshop indulása, meglévő oldal átalakítása...">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Üzenet</label>
+                                <textarea id="message" placeholder="Pár mondat az ötletedről, jelenlegi helyzetedről..."></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Biztonsági kérdés</label>
+                                    <div class="security-row">
+                                        <span id="securityText">5 + 6 = ?</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="securityAnswer">Válasz</label>
+                                    <input type="number" id="securityAnswer" placeholder="Add meg az eredményt">
+                                </div>
+                            </div>
+
+                            <div class="contact-submit-row">
+                                <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése</button>
+                                <span class="contact-small">
+                                    Üzeneted beérkezése után e-mailben keresünk a következő lépésekkel és a pontos részletekkel.
+                                </span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
