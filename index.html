@@ -17,184 +17,157 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background:
-                radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 40%, #d4d4dd 75%, #c7c7d3 100%);
-            color: #101014;
+            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 35%, #f9fafb 100%);
+            color: #0f172a;
             overflow-x: hidden;
         }
 
         a {
-            color: inherit;
             text-decoration: none;
+            color: inherit;
         }
 
-        /* ----- Globális “élő” animációk ----- */
+        /* ===== ANIMÁCIÓK – FINOM, ELEGÁNS ===== */
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes floatSlow {
-            0%   { transform: translateY(0px); }
+            0%   { transform: translateY(0); }
             50%  { transform: translateY(-6px); }
-            100% { transform: translateY(0px); }
+            100% { transform: translateY(0); }
         }
 
-        @keyframes floatSlowRotate {
-            0%   { transform: translateY(0px) rotate3d(1,1,0,0deg); }
-            50%  { transform: translateY(-8px) rotate3d(1,1,0,4deg); }
-            100% { transform: translateY(0px) rotate3d(1,1,0,0deg); }
+        @keyframes gradientMove {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        @keyframes softPulse {
-            0%,100% { box-shadow: 0 20px 60px rgba(15,23,42,0.18); }
-            50%     { box-shadow: 0 30px 90px rgba(15,23,42,0.32); }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .float-slow {
-            animation: floatSlow 10s ease-in-out infinite;
+            animation: floatSlow 14s ease-in-out infinite;
         }
 
-        .float-slow-rotate {
-            animation: floatSlowRotate 14s ease-in-out infinite;
-            transform-origin: center center;
-        }
+        /* ===== FEJLÉC ===== */
 
-        .glow-pulse {
-            animation: softPulse 7s ease-in-out infinite;
-        }
-
-        /* Header */
         header {
-            background: rgba(248, 249, 252, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-            padding: 14px 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
             z-index: 1000;
-            animation: headerSlide 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
-        }
-
-        @keyframes headerSlide {
-            from {
-                transform: translateY(-200px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            background: rgba(249, 250, 251, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
         }
 
         nav {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 10px 16px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 24px;
+            justify-content: space-between;
+            gap: 20px;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            position: relative;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 800;
+            letter-spacing: 3px;
             white-space: nowrap;
         }
 
         .logo-img {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
             object-fit: contain;
+            background: #ffffff;
             box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.6);
-            background: #f9fafb;
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 40%, #f1c40f 100%);
+            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            animation: shimmer 5s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
-            100% { filter: brightness(1); }
         }
 
         .logo .studio {
-            color: #0f172a;
+            color: #111827;
         }
 
         .nav-links {
-            display: flex;
-            gap: 24px;
             list-style: none;
+            display: flex;
+            gap: 20px;
             align-items: center;
         }
 
         .nav-links a {
-            color: rgba(15, 23, 42, 0.8);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            transition: all 0.3s;
+            color: rgba(15, 23, 42, 0.8);
             position: relative;
             padding: 4px 0;
-            white-space: nowrap;
         }
 
-        .nav-links a::before {
-            content: '';
+        .nav-links a::after {
+            content: "";
             position: absolute;
-            bottom: -6px;
             left: 50%;
+            bottom: -4px;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #f5d76e 0%, #f7b733 60%, #f1c40f 100%);
             border-radius: 999px;
-            transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: linear-gradient(90deg, #facc15, #f97316);
             transform: translateX(-50%);
+            transition: width 0.25s ease;
         }
 
         .nav-links a:hover {
             color: #0f172a;
         }
 
-        .nav-links a:hover::before {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* Hamburger - mobilon */
         .hamburger {
             display: none;
             width: 40px;
             height: 32px;
             border-radius: 999px;
-            border: 1px solid rgba(15, 23, 42, 0.25);
-            background: rgba(248, 249, 252, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             cursor: pointer;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 5px;
-            padding: 4px 8px;
-            position: relative;
-            z-index: 1100;
         }
 
         .hamburger span {
-            width: 100%;
+            display: block;
+            width: 18px;
             height: 2px;
-            background: #0f172a;
             border-radius: 999px;
-            transition: all 0.25s ease;
+            background: #111827;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
         .hamburger.open span:nth-child(1) {
@@ -211,18 +184,18 @@
 
         .nav-links.mobile {
             position: fixed;
-            inset: 64px 16px auto 16px;
-            background: rgba(248, 249, 252, 0.98);
-            border-radius: 20px;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
-            padding: 18px 20px;
+            inset: 56px 16px auto 16px;
+            background: rgba(249, 250, 251, 0.97);
+            backdrop-filter: blur(18px);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+            padding: 12px 16px;
             flex-direction: column;
-            gap: 16px;
-            transform: translateY(-20px);
+            gap: 10px;
+            transform: translateY(-10px);
             opacity: 0;
             pointer-events: none;
-            transition: all 0.25s ease;
-            z-index: 1050;
+            transition: all 0.2s ease;
         }
 
         .nav-links.mobile.show {
@@ -231,254 +204,145 @@
             pointer-events: auto;
         }
 
-        /* Hero */
+        /* ===== HERO ===== */
+
         .hero {
-            margin-top: 76px;
-            padding: 70px 16px 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, transparent 60%);
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            background: radial-gradient(circle at top, #ffffff 0%, #f3f4f6 55%, #e5e7eb 100%);
-            border-radius: 32px;
-            padding: 38px 26px 40px;
-            box-shadow:
-                0 30px 80px rgba(15, 23, 42, 0.25),
-                0 0 0 1px rgba(209, 213, 219, 0.9);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: conic-gradient(
-                from 220deg,
-                rgba(250, 204, 21, 0.5),
-                transparent,
-                rgba(56, 189, 248, 0.5),
-                transparent,
-                rgba(250, 204, 21, 0.5)
-            );
-            opacity: 0.22;
-            mix-blend-mode: soft-light;
-            animation: heroGlow 20s linear infinite;
-        }
-
-        @keyframes heroGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            padding: 110px 16px 70px;
         }
 
         .hero-inner {
-            position: relative;
-            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+            gap: 40px;
+            align-items: center;
         }
 
-        .hero-title-section {
-            text-align: center;
-            margin-bottom: 46px;
-            transition: transform 0.3s ease-out;
+        .hero-left {
+            animation: fadeUp 0.9s ease-out;
         }
 
-        .hero h1 {
-            font-size: 40px;
-            font-weight: 900;
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #111827 0%, #caa85a 45%, #f7b733 80%);
+        .hero-kicker {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(75, 85, 99, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(120deg, #111827 0%, #caa85a 45%, #f7b733 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: titleFade 1.2s ease-out;
-            text-shadow: 0 0 24px rgba(148, 163, 184, 0.35);
         }
 
-        @keyframes titleFade {
-            from {
-                opacity: 0;
-                transform: scale(0.96) translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+        .hero-subtitle {
+            font-size: 15px;
+            color: rgba(31, 41, 55, 0.9);
+            margin-bottom: 18px;
+            max-width: 520px;
         }
 
-        .hero-services {
-            display: inline-block;
-            padding: 8px 22px;
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
             border-radius: 999px;
-            font-size: 13px;
-            margin-bottom: 16px;
-            color: #0b0b0f;
-            background: linear-gradient(
-                120deg,
-                rgba(243, 244, 246, 1) 0%,
-                rgba(245, 215, 110, 0.25) 30%,
-                rgba(247, 183, 51, 0.8) 50%,
-                rgba(245, 215, 110, 0.25) 70%,
-                rgba(243, 244, 246, 1) 100%
-            );
-            background-size: 220% 100%;
-            animation: pillSweep 6s linear infinite;
-            backdrop-filter: blur(18px);
-            box-shadow:
-                0 0 0 1px rgba(247, 183, 51, 0.18),
-                0 18px 40px rgba(148, 163, 184, 0.35);
-            font-weight: 500;
+            background: linear-gradient(90deg, #fefce8, #fef9c3);
+            border: 1px solid rgba(234, 179, 8, 0.35);
+            font-size: 12px;
+            color: #92400e;
+            margin-bottom: 18px;
+            animation: gradientMove 8s linear infinite;
+            background-size: 200% 100%;
         }
 
-        @keyframes pillSweep {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
         }
 
-        .hero-description {
-            font-size: 14px;
-            max-width: 760px;
-            margin: 0 auto;
-            line-height: 1.7;
-            color: rgba(55, 65, 81, 0.92);
-            animation: fadeUp 1s ease-out 0.4s both;
+        .hero-feature-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 12px;
+            color: rgba(55, 65, 81, 0.9);
+            margin-top: 8px;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-feature-pill {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        .hero-sections {
+        .hero-right {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 26px;
-            margin-top: 36px;
-            transition: transform 0.3s ease-out;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: 18px;
+            align-items: stretch;
         }
 
-        .hero-section {
-            position: relative;
-            transition: transform 0.28s ease, box-shadow 0.28s ease;
-            animation: fadeUp 0.8s ease-out both;
-        }
+        /* iPhone – világosabb, elegáns */
 
-        .hero-section:nth-child(1) { animation-delay: 0.2s; }
-        .hero-section:nth-child(2) { animation-delay: 0.35s; }
-        .hero-section:nth-child(3) { animation-delay: 0.5s; }
-
-        .hero-section::before {
-            content: "";
-            position: absolute;
-            inset: -1px;
-            border-radius: 24px;
-            background: linear-gradient(135deg, rgba(245, 215, 110, 0.3), rgba(247, 183, 51, 0.05));
-            opacity: 0;
-            transition: opacity 0.35s ease, transform 0.35s ease;
-            z-index: -1;
-        }
-
-        .hero-section:hover::before {
-            opacity: 1;
-            transform: scale(1.01);
-        }
-
-        .hero-section:hover {
-            transform: translateY(-4px);
-        }
-
-        /* iPhone */
         .iphone {
             width: 100%;
             max-width: 260px;
-            height: 460px;
-            background: linear-gradient(145deg, #e5e7eb, #f9fafb);
-            border-radius: 40px;
-            padding: 14px;
-            box-shadow:
-                0 24px 60px rgba(15, 23, 42, 0.35),
-                0 0 0 1px rgba(148, 163, 184, 0.4);
-            margin: 0 auto 18px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 auto;
+            border-radius: 36px;
+            padding: 12px;
+            background: linear-gradient(145deg, #edeff4, #ffffff);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
             position: relative;
         }
 
-        .iphone:hover {
-            transform: translateY(-6px) scale(1.01) rotate3d(1, 1, 0, 3deg);
-            box-shadow:
-                0 30px 80px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(202, 168, 90, 0.7);
-        }
-
-        .iphone.float-slow-rotate {
-            animation-duration: 18s;
+        .iphone-inner {
+            border-radius: 28px;
+            background:
+                radial-gradient(circle at top, rgba(255, 255, 255, 0.7) 0%, transparent 60%),
+                linear-gradient(145deg, #111827, #1f2937);
+            padding: 42px 16px 16px;
+            color: #f9fafb;
+            position: relative;
+            overflow: hidden;
         }
 
         .notch {
-            width: 110px;
-            height: 24px;
-            background: #020617;
-            border-radius: 0 0 18px 18px;
             position: absolute;
-            top: 14px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
-        }
-
-        .screen {
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at top, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-                linear-gradient(145deg, #111827 0%, #1f2937 45%, #f0c96c 100%);
-            border-radius: 32px;
-            padding: 46px 18px 18px;
-            color: #ffffff;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .phone-content {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 13px;
-            line-height: 1.6;
-            text-align: left;
+            width: 110px;
+            height: 22px;
+            border-radius: 0 0 16px 16px;
+            background: #020617;
         }
 
         .phone-content h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .phone-content {
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         .typing-cursor {
             display: inline-block;
             width: 2px;
-            height: 16px;
-            background: #fff;
+            height: 15px;
+            background: #f9fafb;
             animation: blink 1s infinite;
             margin-left: 2px;
         }
@@ -488,41 +352,36 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Live Editor */
-        .live-editor {
-            width: 100%;
-            height: 460px;
-            background: radial-gradient(circle at top left, #020617, #020617);
+        /* Live editor – könnyebb, kevésbé dobozos */
+
+        .editor-wrapper {
             border-radius: 22px;
-            overflow: hidden;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.6),
-                0 0 0 1px rgba(15, 23, 42, 0.9);
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 18px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(145deg, #0b1120, #020617);
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
         }
 
-        .live-editor:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow:
-                0 32px 90px rgba(15, 23, 42, 0.9),
-                0 0 0 1px rgba(202, 168, 90, 0.6);
+        .live-editor {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(30, 64, 175, 0.6);
+            display: flex;
+            flex-direction: column;
+            height: 260px;
         }
 
         .editor-header {
-            background: linear-gradient(90deg, #020617, #111827);
-            padding: 8px 16px;
+            background: radial-gradient(circle at top left, #1d283a, #020617);
+            padding: 8px 10px;
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
         }
 
         .editor-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
         }
 
         .dot-red { background: #ff5f56; }
@@ -530,210 +389,90 @@
         .dot-green { background: #27c93f; }
 
         .editor-title {
-            margin-left: 12px;
-            color: #9ca3af;
+            margin-left: 8px;
             font-size: 11px;
+            color: #9ca3af;
         }
 
         .editor-body {
             flex: 1;
             display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-            height: 100%;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         }
 
         .code-pane {
-            padding: 12px;
-            overflow-y: auto;
-            font-family: 'Fira Code', 'Courier New', monospace;
+            padding: 10px;
+            font-family: "Fira Code", monospace;
             font-size: 11px;
             line-height: 1.5;
-            border-right: 1px solid #27272f;
             color: #e5e7eb;
+            background: #020617;
+            overflow-y: auto;
         }
 
         .preview-pane {
-            padding: 16px;
-            background: radial-gradient(circle at top, #f9fafb 0%, #e5e7eb 55%, #d1d5db 100%);
-            overflow: hidden;
+            padding: 12px;
+            background: radial-gradient(circle at top, #ffffff 0%, #e5e7eb 55%, #d4d4dd 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .preview-box {
+            padding: 18px 16px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #111827, #1f2937 50%, #facc15 100%);
+            color: #f9fafb;
+            text-align: center;
+            font-size: 13px;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
+            transform: scale(0);
+            animation: previewPop 0.5s ease-out forwards;
+        }
+
+        @keyframes previewPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .code-cursor {
             display: inline-block;
             width: 2px;
-            height: 14px;
+            height: 13px;
             background: #ffffff;
             animation: blink 0.8s infinite;
             margin-left: 1px;
         }
 
-        .keyword { color: #C586C0; }
-        .string { color: #CE9178; }
-        .function { color: #DCDCAA; }
-        .comment { color: #6A9955; }
-        .variable { color: #9CDCFE; }
-        .number { color: #B5CEA8; }
         .tag { color: #569CD6; }
-        .attr { color: #f7b733; }
+        .attr { color: #fbbf24; }
+        .string { color: #CE9178; }
+        .comment { color: #6A9955; }
+        .number { color: #B5CEA8; }
+        .variable { color: #9CDCFE; }
 
-        .preview-content {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            width: 100%;
-        }
-
-        .preview-box {
-            background: linear-gradient(135deg, #111827 0%, #1f2937 40%, #f0c96c 100%);
-            padding: 26px 20px;
-            border-radius: 18px;
-            color: white;
-            text-align: center;
-            box-shadow:
-                0 20px 60px rgba(15, 23, 42, 0.55),
-                0 0 0 1px rgba(247, 183, 51, 0.35);
-            transform: scale(0);
-            animation: previewPop 0.6s ease-out forwards;
-        }
-
-        @keyframes previewPop {
-            0% {
-                transform: scale(0) rotate(-4deg);
-                opacity: 0;
-            }
-            60% {
-                transform: scale(1.04) rotate(1deg);
-            }
-            100% {
-                transform: scale(1) rotate(0);
-                opacity: 1;
-            }
-        }
-
-        .preview-box h1 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            font-weight: 800;
-        }
-
-        .preview-box p {
-            font-size: 13px;
-            opacity: 0.95;
-        }
-
-        /* Welcome Box */
-        .welcome-box {
-            background: radial-gradient(circle at top, #fef3c7 0%, #fde68a 40%, #facc15 100%);
-            padding: 30px 22px;
-            border-radius: 22px;
-            text-align: center;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(234, 179, 8, 0.6);
-            margin: 0 auto 18px;
-            animation: pulse 5s ease-in-out infinite;
-            transition: transform 0.3s, box-shadow 0.3s;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #111827;
-        }
-
-        .welcome-box:hover {
-            transform: scale(1.02) translateY(-2px);
-            box-shadow:
-                0 32px 90px rgba(15, 23, 42, 0.6),
-                0 0 0 1px rgba(250, 250, 249, 0.7);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 26px 70px rgba(15, 23, 42, 0.45); }
-            50%       { box-shadow: 0 35px 95px rgba(15, 23, 42, 0.7); }
-        }
-
-        .welcome-box h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 900;
-            letter-spacing: 0.3px;
-        }
-
-        .welcome-box p {
-            font-size: 14px;
-            line-height: 1.7;
-            font-weight: 500;
-        }
-
-        .marketing-text {
-            text-align: center;
-            padding: 0 4px;
-            margin-top: 4px;
-        }
-
-        .marketing-text h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #111827 0%, #caa85a 50%, #f9fafb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-
-        .marketing-text p {
+        .hero-note {
+            margin-top: 12px;
             font-size: 12px;
-            line-height: 1.6;
-            color: rgba(31, 41, 55, 0.9);
+            color: rgba(55, 65, 81, 0.85);
         }
 
-        /* Scroll animációk */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .animate-on-scroll.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ===== MAIN WRAPPER ===== */
 
         main {
-            padding: 0 16px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px 60px;
         }
 
         .section {
-            max-width: 1200px;
-            margin: 0 auto 30px;
-            padding: 32px 24px 30px;
-            background: radial-gradient(circle at top, #ffffff 0%, #f9fafb 60%, #f3f4f6 100%);
-            border-radius: 28px;
-            box-shadow:
-                0 28px 80px rgba(15, 23, 42, 0.18),
-                0 0 0 1px rgba(209, 213, 219, 0.9);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.25), transparent 55%);
-            opacity: 0.35;
-            pointer-events: none;
-        }
-
-        .section-inner {
-            position: relative;
-            z-index: 1;
+            padding: 60px 0;
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
         }
 
         .section-header {
-            text-align: center;
+            text-align: left;
             margin-bottom: 26px;
         }
 
@@ -741,467 +480,299 @@
             font-size: 11px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(55, 65, 81, 0.85);
+            color: rgba(107, 114, 128, 0.9);
             margin-bottom: 6px;
         }
 
         .section-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
-            color: #0f172a;
+            color: #111827;
             margin-bottom: 6px;
         }
 
         .section-subtitle {
             font-size: 13px;
             color: rgba(75, 85, 99, 0.95);
-            max-width: 560px;
-            margin: 0 auto;
-            line-height: 1.7;
+            max-width: 520px;
         }
 
-        /* Szolgáltatások */
+        /* ===== SZOLGÁLTATÁSOK ===== */
+
         .services-grid {
+            margin-top: 26px;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
 
         .service-card {
-            background: rgba(248, 250, 252, 0.97);
+            padding: 16px 14px;
             border-radius: 18px;
-            padding: 18px 16px;
-            box-shadow:
-                0 18px 45px rgba(148, 163, 184, 0.35),
-                0 0 0 1px rgba(148, 163, 184, 0.5);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-
-        .service-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.35), transparent 45%, rgba(56, 189, 248, 0.55), transparent 80%);
-            opacity: 0;
-            mix-blend-mode: soft-light;
-            transition: opacity 0.25s ease;
-            background-size: 200% 200%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow:
-                0 24px 60px rgba(15, 23, 42, 0.45),
-                0 0 0 1px rgba(202, 168, 90, 0.6);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-            animation: cardGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes cardGlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.5);
+            border-color: rgba(250, 204, 21, 0.9);
         }
 
         .service-icon {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 999px;
-            background: radial-gradient(circle at top, #fef9c3 0%, #facc15 40%, #eab308 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
-            margin-bottom: 10px;
+            background: #fef3c7;
+            margin-bottom: 8px;
+            font-size: 15px;
         }
 
         .service-title {
             font-size: 14px;
             font-weight: 700;
-            color: #0f172a;
             margin-bottom: 6px;
+            color: #111827;
         }
 
         .service-text {
             font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
-            line-height: 1.7;
-            margin-bottom: 8px;
+            line-height: 1.6;
+            color: rgba(75, 85, 99, 0.95);
+            margin-bottom: 6px;
         }
 
         .service-meta {
             font-size: 11px;
-            color: rgba(107, 114, 128, 0.96);
+            color: rgba(107, 114, 128, 0.95);
         }
 
-        /* Bemutatkozás */
+        /* ===== BEMUTATKOZÁS ===== */
+
         .about-layout {
+            margin-top: 24px;
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
             gap: 24px;
-            align-items: center;
+            align-items: flex-start;
         }
 
-        .about-text-main {
+        .about-text {
             font-size: 13px;
-            color: rgba(31, 41, 55, 0.96);
             line-height: 1.8;
-            margin-bottom: 10px;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 8px;
         }
 
-        .about-emphasis {
+        .about-strong {
             font-weight: 600;
-            color: #0f172a;
-        }
-
-        .about-pill-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 6px;
-        }
-
-        .about-pill {
-            font-size: 11px;
-            padding: 6px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.75);
-            background: rgba(255, 255, 255, 0.9);
             color: #111827;
         }
 
+        .about-tags {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .about-tag {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            font-size: 11px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
         .about-highlight {
-            background: linear-gradient(145deg, #020617 0%, #020617 40%, #111827 100%);
-            border-radius: 18px;
-            padding: 14px 14px 12px;
+            border-radius: 20px;
+            padding: 16px 16px 14px;
+            background: linear-gradient(135deg, #0b1120, #111827);
             color: #e5e7eb;
-            box-shadow:
-                0 18px 45px rgba(15, 23, 42, 0.65),
-                0 0 0 1px rgba(31, 41, 55, 0.8);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-highlight::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: conic-gradient(
-                from 220deg,
-                rgba(250, 204, 21, 0.9),
-                transparent,
-                rgba(56, 189, 248, 0.9),
-                transparent,
-                rgba(250, 204, 21, 0.9)
-            );
-            opacity: 0.25;
-            mix-blend-mode: soft-light;
-            animation: aboutGlow 18s linear infinite;
-        }
-
-        @keyframes aboutGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .about-highlight > * {
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.6);
         }
 
         .about-highlight-title {
             font-size: 13px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .about-highlight-text {
             font-size: 12px;
-            color: rgba(209, 213, 219, 0.95);
             line-height: 1.7;
             margin-bottom: 10px;
-        }
-
-        .about-list {
-            font-size: 12px;
             color: rgba(209, 213, 219, 0.95);
-            margin-bottom: 10px;
-            padding-left: 18px;
-        }
-
-        .about-list li {
-            margin-bottom: 3px;
         }
 
         .about-stats {
             display: flex;
-            gap: 14px;
-        }
-
-        .about-stat {
-            flex: 1;
+            gap: 16px;
+            font-size: 11px;
+            color: rgba(209, 213, 219, 0.95);
         }
 
         .about-stat-number {
             font-size: 16px;
             font-weight: 800;
             color: #facc15;
-            margin-bottom: 2px;
         }
 
-        .about-stat-label {
-            font-size: 10px;
-            color: rgba(209, 213, 219, 0.95);
-        }
+        /* ===== RÓLUNK ===== */
 
-        /* Rólunk – erősebb marketing */
         .values-grid {
+            margin-top: 22px;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
+            gap: 18px;
         }
 
         .value-card {
-            background: rgba(248, 250, 252, 0.96);
+            padding: 16px 14px;
             border-radius: 18px;
-            padding: 16px 14px 14px;
-            border: 1px solid rgba(203, 213, 225, 0.9);
-            box-shadow: 0 14px 35px rgba(148, 163, 184, 0.3);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: conic-gradient(
-                from 160deg,
-                rgba(250, 204, 21, 0.6),
-                transparent,
-                rgba(56, 189, 248, 0.5),
-                transparent,
-                rgba(250, 204, 21, 0.6)
-            );
-            opacity: 0;
-            mix-blend-mode: soft-light;
-            transition: opacity 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .value-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35);
-            border-color: rgba(202, 168, 90, 0.9);
-        }
-
-        .value-card:hover::before {
-            opacity: 0.7;
-            animation: aboutGlow 16s linear infinite;
+            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.5);
+            border-color: rgba(250, 204, 21, 0.9);
         }
 
         .value-badge {
             font-size: 10px;
             padding: 4px 8px;
             border-radius: 999px;
-            background: rgba(248, 250, 252, 1);
-            border: 1px solid rgba(148, 163, 184, 0.8);
-            display: inline-block;
+            background: #f9fafb;
+            border: 1px solid rgba(209, 213, 219, 0.9);
             margin-bottom: 6px;
-            color: #4b5563;
+            display: inline-block;
         }
 
         .value-title {
             font-size: 13px;
             font-weight: 700;
-            color: #111827;
             margin-bottom: 4px;
         }
 
         .value-text {
             font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
             line-height: 1.7;
+            color: rgba(75, 85, 99, 0.95);
         }
 
-        /* Kapcsolat – külön, nagy blokk, sötétebb háttér */
+        /* ===== KAPCSOLAT – világos, széles sáv ===== */
+
         #kapcsolat.section {
-            margin-top: 40px;
-            margin-bottom: 40px;
-            background: radial-gradient(circle at top, #020617 0%, #020617 55%, #020617 100%);
-            box-shadow:
-                0 36px 110px rgba(15, 23, 42, 0.9),
-                0 0 0 1px rgba(30, 64, 175, 0.6);
-            color: #e5e7eb;
-        }
-
-        #kapcsolat.section::before {
-            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.3), transparent 60%);
-            opacity: 0.5;
-        }
-
-        #kapcsolat .section-header {
-            margin-bottom: 32px;
-        }
-
-        #kapcsolat .section-kicker {
-            color: rgba(209, 213, 219, 0.9);
-        }
-
-        #kapcsolat .section-title {
-            color: #f9fafb;
-        }
-
-        #kapcsolat .section-subtitle {
-            color: rgba(209, 213, 219, 0.9);
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
         }
 
         .contact-layout {
+            margin-top: 26px;
             display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
             gap: 24px;
             align-items: stretch;
         }
 
-        .contact-card {
-            background: radial-gradient(circle at top left, #020617 0%, #020617 60%, #020617 100%);
+        .contact-info {
+            padding: 18px 16px;
             border-radius: 20px;
-            padding: 18px 16px 14px;
-            color: #e5e7eb;
-            box-shadow:
-                0 26px 70px rgba(15, 23, 42, 0.8),
-                0 0 0 1px rgba(31, 41, 55, 0.9);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff, #eef2ff);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 16px 40px rgba(148, 163, 184, 0.35);
         }
 
-        .contact-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: conic-gradient(
-                from 160deg,
-                rgba(250, 204, 21, 0.9),
-                transparent,
-                rgba(56, 189, 248, 0.9),
-                transparent,
-                rgba(250, 204, 21, 0.9)
-            );
-            opacity: 0.28;
-            mix-blend-mode: soft-light;
-            animation: contactGlow 14s linear infinite;
-        }
-
-        @keyframes contactGlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-inner {
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-title {
+        .contact-info-title {
             font-size: 15px;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            color: #111827;
         }
 
-        .contact-text {
+        .contact-info-text {
             font-size: 12px;
-            color: rgba(209, 213, 219, 0.95);
             line-height: 1.7;
-            margin-bottom: 10px;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 12px;
         }
 
         .contact-info-list {
             list-style: none;
             font-size: 12px;
-            margin-bottom: 10px;
+            color: rgba(55, 65, 81, 0.96);
         }
 
-        .contact-info-list li {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 6px;
+        .contact-info-item {
+            margin-bottom: 7px;
         }
 
-        .contact-pill {
+        .contact-label {
             display: inline-block;
-            font-size: 10px;
-            padding: 4px 7px;
-            border-radius: 999px;
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            color: #e5e7eb;
-            margin-right: 4px;
-            white-space: nowrap;
+            min-width: 60px;
+            font-weight: 600;
+            color: #111827;
         }
 
-        .contact-badge {
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.9);
-            display: inline-block;
-            margin-top: 4px;
-            color: rgba(209, 213, 219, 0.98);
+        .contact-note {
+            margin-top: 8px;
+            font-size: 11px;
+            color: rgba(107, 114, 128, 0.96);
         }
 
-        .contact-form {
-            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96) 0%, rgba(15, 23, 42, 0.92) 60%, rgba(15, 23, 42, 0.98) 100%);
-            border-radius: 22px;
-            padding: 18px 16px 16px;
-            box-shadow:
-                0 30px 80px rgba(15, 23, 42, 0.9),
-                0 0 0 1px rgba(30, 64, 175, 0.9);
+        .contact-form-wrapper {
+            padding: 18px 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ffffff, #fefce8);
+            border: 1px solid rgba(250, 204, 21, 0.7);
+            box-shadow: 0 16px 40px rgba(245, 158, 11, 0.28);
         }
 
-        .contact-form h3 {
-            font-size: 13px;
+        .contact-form-title {
+            font-size: 14px;
             font-weight: 700;
-            color: #e5e7eb;
             margin-bottom: 10px;
+            color: #111827;
         }
 
         .form-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
         }
 
         .form-group {
             flex: 1;
-            min-width: 150px;
+            min-width: 160px;
             display: flex;
             flex-direction: column;
-            gap: 3px;
-            margin-bottom: 8px;
+            gap: 4px;
         }
 
         label {
             font-size: 11px;
-            color: #cbd5f5;
+            color: #4b5563;
         }
 
         input, textarea {
             border-radius: 10px;
-            border: 1px solid rgba(51, 65, 85, 1);
-            padding: 7px 9px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            padding: 8px 10px;
             font-size: 12px;
             font-family: inherit;
-            color: #e5e7eb;
+            color: #111827;
+            background: #ffffff;
             outline: none;
-            background: rgba(15, 23, 42, 0.9);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         input::placeholder,
@@ -1211,8 +782,7 @@
 
         input:focus, textarea:focus {
             border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.5);
-            background: rgba(15, 23, 42, 1);
+            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4);
         }
 
         textarea {
@@ -1221,23 +791,19 @@
         }
 
         .security-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: #f9fafb;
-            padding: 6px 9px;
+            padding: 7px 10px;
             border-radius: 10px;
-            background: rgba(15, 23, 42, 1);
             border: 1px dashed rgba(156, 163, 175, 0.9);
+            font-size: 12px;
+            color: #111827;
+            background: #fefce8;
         }
 
         .contact-submit-row {
+            margin-top: 6px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            margin-top: 4px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -1247,94 +813,73 @@
             padding: 8px 16px;
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
-            background: radial-gradient(circle at top, #fef3c7 0%, #facc15 40%, #eab308 100%);
+            background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
-            box-shadow:
-                0 14px 35px rgba(234, 179, 8, 0.5),
-                0 0 0 1px rgba(161, 98, 7, 0.9);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 14px 30px rgba(234, 179, 8, 0.6);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
             white-space: nowrap;
         }
 
         .contact-button:hover {
             transform: translateY(-1px);
-            box-shadow:
-                0 18px 45px rgba(234, 179, 8, 0.65),
-                0 0 0 1px rgba(148, 86, 5, 1);
+            box-shadow: 0 18px 40px rgba(234, 179, 8, 0.8);
         }
 
         .contact-small {
-            font-size: 10px;
-            color: rgba(148, 163, 184, 0.95);
+            font-size: 11px;
+            color: rgba(107, 114, 128, 0.96);
             flex: 1;
-            min-width: 160px;
+            min-width: 180px;
         }
 
-        /* Footer */
+        /* ===== LÁBLÉC ===== */
+
         footer {
             border-top: 1px solid rgba(148, 163, 184, 0.4);
-            background: radial-gradient(circle at top, #020617 0%, #020617 60%, #020617 100%);
+            background: #020617;
             color: #e5e7eb;
         }
 
         .footer-inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 14px 16px 16px;
+            padding: 12px 16px 14px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             gap: 10px;
             font-size: 11px;
-        }
-
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .footer-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #facc15, #eab308);
-        }
-
-        .footer-right {
-            display: flex;
-            gap: 8px;
             flex-wrap: wrap;
         }
 
         .footer-link {
-            color: rgba(209, 213, 219, 0.92);
+            color: rgba(209, 213, 219, 0.9);
         }
 
         .footer-link:hover {
             text-decoration: underline;
         }
 
-        /* Cookie banner */
+        /* ===== COOKIE SÁV – világos ===== */
+
         .cookie-banner {
             position: fixed;
-            bottom: 16px;
+            bottom: 18px;
             left: 50%;
-            transform: translate(-50%, 20px);
+            transform: translateX(-50%) translateY(15px);
             width: calc(100% - 32px);
-            max-width: 1100px;
-            background: rgba(15, 23, 42, 0.97);
-            color: #e5e7eb;
-            border-radius: 18px;
-            padding: 12px 16px;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.85);
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.2);
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
-            font-size: 12px;
+            font-size: 11px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.25s ease, transform 0.25s ease;
@@ -1344,30 +889,15 @@
         .cookie-banner.show {
             opacity: 1;
             pointer-events: auto;
-            transform: translate(-50%, 0);
-        }
-
-        .cookie-text {
-            flex: 1;
-            min-width: 0;
+            transform: translateX(-50%) translateY(0);
         }
 
         .cookie-text strong {
             display: block;
-            font-size: 12px;
             margin-bottom: 3px;
         }
 
-        .cookie-text p {
-            font-size: 11px;
-            color: rgba(209, 213, 219, 0.92);
-            line-height: 1.6;
-        }
-
         .cookie-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             flex-shrink: 0;
         }
 
@@ -1378,37 +908,20 @@
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            background: radial-gradient(circle at top, #fef3c7 0%, #facc15 40%, #eab308 100%);
+            background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
-            box-shadow:
-                0 12px 30px rgba(234, 179, 8, 0.5),
-                0 0 0 1px rgba(161, 98, 7, 0.9);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            white-space: nowrap;
+            box-shadow: 0 10px 25px rgba(234, 179, 8, 0.6);
         }
 
-        .cookie-btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow:
-                0 16px 40px rgba(234, 179, 8, 0.65),
-                0 0 0 1px rgba(148, 86, 5, 1);
-        }
+        /* ===== RESPONSIVE ===== */
 
-        @media (max-width: 640px) {
-            .cookie-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .cookie-actions {
-                align-self: flex-end;
-            }
-        }
-
-        /* Reszponzív */
         @media (max-width: 1024px) {
-            .hero-sections {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-right {
+                order: -1;
             }
 
             .about-layout,
@@ -1423,14 +936,6 @@
             .preview-pane {
                 display: none;
             }
-
-            .live-editor {
-                height: 280px;
-            }
-
-            .iphone {
-                height: 380px;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1443,34 +948,11 @@
             }
 
             .hero {
-                padding: 64px 14px 60px;
-                margin-top: 72px;
+                padding: 100px 16px 50px;
             }
 
-            .hero-content {
-                padding: 28px 18px 30px;
-                border-radius: 26px;
-            }
-
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero-description {
-                font-size: 13px;
-            }
-
-            .hero-sections {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            main {
-                padding: 0 14px 30px;
-            }
-
-            .section {
-                padding: 24px 18px 24px;
-                border-radius: 24px;
+            .hero-title {
+                font-size: 30px;
             }
 
             .services-grid,
@@ -1478,516 +960,435 @@
                 grid-template-columns: minmax(0, 1fr);
             }
 
-            .contact-layout {
-                gap: 16px;
+            .section {
+                padding: 46px 0;
             }
 
-            #kapcsolat.section {
-                padding: 26px 18px 24px;
-                border-radius: 26px;
-            }
-
-            .footer-inner {
+            .cookie-banner {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
 
         @media (max-width: 480px) {
-            .hero-services {
-                font-size: 11px;
-                padding: 6px 14px;
-            }
-
-            .hero {
-                margin-top: 68px;
+            .hero-inner {
+                gap: 28px;
             }
 
             .iphone {
-                height: 340px;
+                max-width: 220px;
             }
 
             .live-editor {
-                height: 260px;
+                height: 230px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
-                <span class="aurion">Aurion</span>
-                <span class="studio">Studio</span>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+            <span class="aurion">Aurion</span>
+            <span class="studio">Studio</span>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links desktop">
+            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="#kapcsolat">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+
+        <ul class="nav-links mobile" id="mobileNav">
+            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="#kapcsolat">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-kicker">EGYEDI WEBES MEGOLDÁSOK</div>
+            <h1 class="hero-title">Világos, letisztult, működő online jelenlét.</h1>
+            <p class="hero-subtitle">
+                Olyan weboldalakat és webshopokat építünk, amelyek nemcsak szépek,
+                hanem hosszú távon is stabilan működnek – felesleges bonyolítás nélkül.
+            </p>
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Egyedi fejlesztés, nem sablonokból.</span>
             </div>
-            <button class="hamburger" id="hamburger" aria-label="Menü megnyitása">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links desktop">
-                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-                <li><a href="munkaink.html">Munkáink</a></li>
-                <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-                <li><a href="#rolunk">Rólunk</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-                <li><a href="al.html">AI Chat</a></li>
-            </ul>
-            <ul class="nav-links mobile" id="mobileNav">
-                <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-                <li><a href="munkaink.html">Munkáink</a></li>
-                <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-                <li><a href="#rolunk">Rólunk</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-                <li><a href="al.html">AI Chat</a></li>
-            </ul>
-        </nav>
-    </header>
+            <div class="hero-feature-row">
+                <span class="hero-feature-pill">Reszponzív, mobil-first gondolkodás</span>
+                <span class="hero-feature-pill">WordPress / WooCommerce</span>
+                <span class="hero-feature-pill">AI-chat integráció</span>
+            </div>
+        </div>
 
-    <!-- HERO -->
-    <section class="hero" id="top">
-        <div class="hero-content glow-pulse">
-            <div class="hero-inner">
-                <div class="hero-title-section">
-                    <h1>Egyedi webes megoldások</h1>
-                    <div class="hero-services">
-                        Egyedi weboldalak • Webshopok • WordPress / WooCommerce • AI-Chat Integráció
+        <div class="hero-right float-slow">
+            <div class="iphone">
+                <div class="iphone-inner">
+                    <div class="notch"></div>
+                    <div class="phone-content">
+                        <h3>Üdvözöljük!</h3>
+                        <div id="typingText"></div>
                     </div>
-                    <p class="hero-description">
-                        Professzionális webfejlesztési szolgáltatások modern technológiákkal. 
-                        Letisztult, prémium megjelenés, stabil technikai háttér és valódi támogatás – 
-                        az első ötlettől az éles indulásig.
-                    </p>
                 </div>
+            </div>
 
-                <div class="hero-sections">
-                    <!-- iPhone -->
-                    <div class="hero-section animate-on-scroll float-slow-rotate">
-                        <div class="iphone">
-                            <div class="notch"></div>
-                            <div class="screen">
-                                <div class="phone-content">
-                                    <h3>Üdvözöljük!</h3>
-                                    <div id="typingText"></div>
-                                </div>
-                            </div>
+            <div>
+                <div class="editor-wrapper">
+                    <div class="live-editor">
+                        <div class="editor-header">
+                            <div class="editor-dot dot-red"></div>
+                            <div class="editor-dot dot-yellow"></div>
+                            <div class="editor-dot dot-green"></div>
+                            <span class="editor-title">index.html</span>
                         </div>
-                        <div class="marketing-text">
-                            <h3>Mobil-first gondolkodás</h3>
-                            <p>
-                                A látogatók többsége mobilról érkezik. Oldalainkat úgy építjük fel, 
-                                hogy először telefonon legyenek tökéletesek – majd ehhez igazítjuk a 
-                                tablet és asztali nézetet.
-                            </p>
+                        <div class="editor-body">
+                            <div class="code-pane" id="codePane"></div>
+                            <div class="preview-pane" id="previewPane">
+                                <div class="preview-content"></div>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <p class="hero-note">
+                    Karakterről karakterre építjük a kódot – nem “összekattintjuk”.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-                    <!-- Live Editor -->
-                    <div class="hero-section animate-on-scroll float-slow">
-                        <div class="live-editor">
-                            <div class="editor-header">
-                                <div class="editor-dot dot-red"></div>
-                                <div class="editor-dot dot-yellow"></div>
-                                <div class="editor-dot dot-green"></div>
-                                <span class="editor-title">index.html</span>
-                            </div>
-                            <div class="editor-body">
-                                <div class="code-pane" id="codePane"></div>
-                                <div class="preview-pane" id="previewPane">
-                                    <div class="preview-content"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="marketing-text">
-                            <h3>Valós idejű építés</h3>
-                            <p>
-                                Nem sablonokban gondolkodunk. A kód sor-ról sorra születik, a változásokat 
-                                pedig azonnal látod – így pontosan olyan felületet kapsz vissza, 
-                                amilyet elképzeltél.
-                            </p>
-                        </div>
+<main>
+    <!-- SZOLGÁLTATÁSOK -->
+    <section class="section animate-on-scroll" id="szolgaltatasok">
+        <div class="section-header">
+            <div class="section-kicker">SZOLGÁLTATÁSOK</div>
+            <h2 class="section-title">Amiben a legerősebbek vagyunk</h2>
+            <p class="section-subtitle">
+                A koncepciótól a technikai megvalósításig segítünk – úgy, hogy közben érthető maradjon,
+                mi miért készül el.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🖥️</div>
+                <h3 class="service-title">Egyedi weboldalak</h3>
+                <p class="service-text">
+                    Letisztult, gyors és átlátható oldalak, amelyek jól működnek mobilon és asztali gépen is.
+                </p>
+                <p class="service-meta">Bemutatkozó oldalak • Landingek • Portfóliók</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🛒</div>
+                <h3 class="service-title">Webshop fejlesztés</h3>
+                <p class="service-text">
+                    Stabil, könnyen kezelhető áruházak, átlátható admin felülettel és rendezett logikával.
+                </p>
+                <p class="service-meta">Kosár • Fizetés • Szállítási módok összekötése</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">⚙️</div>
+                <h3 class="service-title">WordPress / WooCommerce</h3>
+                <p class="service-text">
+                    Ha fontos, hogy te is tudj adminisztrálni: modern, biztonságos WordPress alapú rendszereket készítünk.
+                </p>
+                <p class="service-meta">Egyedi sablonok • Optimalizált működés</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🤖</div>
+                <h3 class="service-title">AI-chat integráció</h3>
+                <p class="service-text">
+                    Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol a beállított kereteken belül.
+                </p>
+                <p class="service-meta">ChatGPT alapú megoldások • Testreszabott logika</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">📈</div>
+                <h3 class="service-title">Finomhangolás, javítás</h3>
+                <p class="service-text">
+                    Már meglévő oldalakat is átnézünk: gyorsítunk, javítunk, mobilra igazítunk, ahol szükséges.
+                </p>
+                <p class="service-meta">Sebesség • Biztonság • Reszponzivitás</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">🤝</div>
+                <h3 class="service-title">Hosszú távú támogatás</h3>
+                <p class="service-text">
+                    Nem egyszeri projektként tekintünk rád – később is számíthatsz ránk, ha bővülni szeretnél.
+                </p>
+                <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEMUTATKOZÁS -->
+    <section class="section animate-on-scroll" id="bemutatkozas">
+        <div class="section-header">
+            <div class="section-kicker">BEMUTATKOZÁS</div>
+            <h2 class="section-title">Kik állnak az Aurion Studio mögött?</h2>
+            <p class="section-subtitle">
+                Emberközeli kommunikáció, őszinte visszajelzések és olyan fejlesztés,
+                amit mi magunk is szívesen vállalunk a nevünkkel.
+            </p>
+        </div>
+
+        <div class="about-layout">
+            <div>
+                <p class="about-text">
+                    Az <span class="about-strong">Aurion Studio</span> célja, hogy olyan webes megoldásokat hozzon létre,
+                    amelyek hosszú távon is stabilak, érthetők és könnyen továbbfejleszthetők. 
+                    Nem “varázslatban” gondolkodunk, hanem átlátható struktúrában.
+                </p>
+                <p class="about-text">
+                    Kifejezetten szeretjük azokat a projekteket, ahol partnerként tudunk együtt gondolkodni:
+                    kérdezel, elmondjuk, mit miért javaslunk, és közösen döntünk. Így lesz az oldal valóban a tiéd.
+                </p>
+
+                <div class="about-tags">
+                    <span class="about-tag">Egyedi logika, nem sablon</span>
+                    <span class="about-tag">Pixel-pontos dizájn</span>
+                    <span class="about-tag">Stabil technikai háttér</span>
+                    <span class="about-tag">Őszinte kommunikáció</span>
+                </div>
+            </div>
+
+            <div class="about-highlight animate-on-scroll">
+                <div class="about-highlight-title">Mit jelent ez a gyakorlatban?</div>
+                <p class="about-highlight-text">
+                    Nem vállalunk el mindent, csak amit jó szívvel le tudunk fejleszteni. 
+                    Ha valamit nem érdemes megvalósítani, azt is elmondjuk – akkor is, ha rövid távon kevesebb munkát jelent.
+                </p>
+                <div class="about-stats">
+                    <div>
+                        <div class="about-stat-number">100%</div>
+                        <div>Átlátható, kézzel felépített kódlogika</div>
                     </div>
-
-                    <!-- Welcome Box -->
-                    <div class="hero-section animate-on-scroll float-slow">
-                        <div class="welcome-box">
-                            <h2>Az online jelenléted alapja</h2>
-                            <p>
-                                Az elképzelésedtől a működő, bevételt termelő megoldásig<br>
-                                végig fogjuk a kezed – és nem tűnünk el az átadás után sem.
-                            </p>
-                        </div>
-                        <div class="marketing-text">
-                            <h3>Partnerként gondolkodunk</h3>
-                            <p>
-                                Nem csak egy újabb projektként tekintünk rád. Segítünk dönteni, 
-                                javaslatot adunk, és hosszú távon is melletted maradunk, ha szükség van ránk.
-                            </p>
-                        </div>
+                    <div>
+                        <div class="about-stat-number">Aurion</div>
+                        <div>Név, amit vállalunk minden munkánk mellett</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <main>
-        <!-- Szolgáltatások -->
-        <section class="section animate-on-scroll" id="szolgaltatasok">
-            <div class="section-inner">
-                <div class="section-header">
-                    <div class="section-kicker">SZOLGÁLTATÁSOK</div>
-                    <h2 class="section-title">Amiben igazán erősek vagyunk</h2>
-                    <p class="section-subtitle">
-                        A teljes folyamatot lefedjük: a koncepciótól a dizájnon át a kódig, 
-                        üzemeltetéssel és finomhangolással együtt.
-                    </p>
-                </div>
-
-                <div class="services-grid">
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🖥️</div>
-                        <h3 class="service-title">Egyedi weboldalak</h3>
-                        <p class="service-text">
-                            Letisztult, gyors és reszponzív weboldalak, amik nem sablonból készülnek. 
-                            Minden pixelt az arculatodhoz és célodhoz igazítunk.
-                        </p>
-                        <p class="service-meta">Landing oldalak • Bemutatkozó oldalak • Portfóliók</p>
-                    </div>
-
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🛒</div>
-                        <h3 class="service-title">Webshop fejlesztés</h3>
-                        <p class="service-text">
-                            Stabil, könnyen kezelhető áruházak, okos admin felülettel. 
-                            Kosár, fizetési módok, számlázás, szállítás – mindent összekötünk.
-                        </p>
-                        <p class="service-meta">Egyedi megoldások • WooCommerce • Bővíthető struktúra</p>
-                    </div>
-
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">⚙️</div>
-                        <h3 class="service-title">WordPress / WooCommerce</h3>
-                        <p class="service-text">
-                            Ha gyorsan kell indulni, vagy szeretnél saját kezűleg is adminisztrálni, 
-                            modern, biztonságos WordPress alapú rendszert építünk.
-                        </p>
-                        <p class="service-meta">Testreszabott sablonok • Teljesítmény-optimalizálás</p>
-                    </div>
-
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🤖</div>
-                        <h3 class="service-title">AI-chat integráció</h3>
-                        <p class="service-text">
-                            Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol, 
-                            a saját szabályaid szerint.
-                        </p>
-                        <p class="service-meta">Chatbot integráció • Tudásbázis alapú válaszok</p>
-                    </div>
-
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">📈</div>
-                        <h3 class="service-title">Technikai finomhangolás</h3>
-                        <p class="service-text">
-                            Gyorsítás, hibajavítás, reszponzív problémák megoldása. 
-                            Ha már van oldalad, de nem úgy működik, ahogy kellene – rendbe tesszük.
-                        </p>
-                        <p class="service-meta">Sebesség • Biztonság • Stabilitás</p>
-                    </div>
-
-                    <div class="service-card animate-on-scroll">
-                        <div class="service-icon">🤝</div>
-                        <h3 class="service-title">Hosszú távú támogatás</h3>
-                        <p class="service-text">
-                            Nem tűnünk el az átadás után. Ha nő a vállalkozásod, mi is igazítjuk hozzá az online felületeket.
-                        </p>
-                        <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bemutatkozás -->
-        <section class="section animate-on-scroll" id="bemutatkozas">
-            <div class="section-inner">
-                <div class="section-header">
-                    <div class="section-kicker">BEMUTATKOZÁS</div>
-                    <h2 class="section-title">Kik állnak a kód mögött?</h2>
-                    <p class="section-subtitle">
-                        Emberközeli kommunikáció, profi technikai háttér és az a hozzáállás, 
-                        hogy mindent úgy építünk, mintha a saját projektünk lenne.
-                    </p>
-                </div>
-
-                <div class="about-layout">
-                    <div>
-                        <p class="about-text-main">
-                            Az <span class="about-emphasis">Aurion Studio</span> célja, hogy 
-                            olyan webes megoldásokat készítsen, amelyek nem csak szépek, hanem 
-                            hosszú távon is stabilan működnek. Nem futószalagon dolgozunk – 
-                            minden projekt mögött valódi odafigyelés és személyes kapcsolattartás áll.
-                        </p>
-                        <p class="about-text-main">
-                            Különösen szeretjük azokat a munkákat, ahol 
-                            <span class="about-emphasis">bizalmi együttműködés</span> alakul ki: 
-                            közösen gondolkodunk, javaslatot teszünk, és mindig őszintén elmondjuk, 
-                            mit miért érdemes így vagy úgy megcsinálni.
-                        </p>
-
-                        <div class="about-pill-row">
-                            <span class="about-pill">Egyedi fejlesztés</span>
-                            <span class="about-pill">Pixel-pontos dizájn</span>
-                            <span class="about-pill">Stabil háttér</span>
-                            <span class="about-pill">Őszinte kommunikáció</span>
-                            <span class="about-pill">Hosszú távú gondolkodás</span>
-                        </div>
-                    </div>
-
-                    <div class="about-highlight animate-on-scroll">
-                        <div class="about-highlight-title">Számok helyett bizalom</div>
-                        <p class="about-highlight-text">
-                            Nem darabszámra vállalunk projekteket, hanem olyan rendszereket építünk, 
-                            amiket büszkén vállalunk a nevünkkel. Ha valamit nem érdemes megcsinálni, 
-                            azt is megmondjuk – akkor is, ha rövid távon kevesebb a munka belőle.
-                        </p>
-
-                        <ul class="about-list">
-                            <li>Nem “sablon + logócsere” megoldásokban gondolkodunk.</li>
-                            <li>Érthetően magyarázzuk el a technikai döntéseket.</li>
-                            <li>Nem csak a dizájnt nézzük, hanem a működést is.</li>
-                        </ul>
-
-                        <div class="about-stats">
-                            <div class="about-stat">
-                                <div class="about-stat-number">Aurion Studio</div>
-                                <div class="about-stat-label">Fejlesztői név, ami mögé odaállunk</div>
-                            </div>
-                            <div class="about-stat">
-                                <div class="about-stat-number">100%</div>
-                                <div class="about-stat-label">kézzel felépített logika, érthető struktúra</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Rólunk -->
-        <section class="section animate-on-scroll" id="rolunk">
-            <div class="section-inner">
-                <div class="section-header">
-                    <div class="section-kicker">RÓLUNK</div>
-                    <h2 class="section-title">Ahogy a közös munkát látjuk</h2>
-                    <p class="section-subtitle">
-                        Nem az a célunk, hogy “legyártsunk” még egy weboldalt. Olyan rendszereket
-                        építünk, amik tényleg segítik a vállalkozásodat – és ehhez őszinte, 
-                        partneri kommunikációt kapsz.
-                    </p>
-                </div>
-
-                <div class="values-grid">
-                    <div class="value-card animate-on-scroll">
-                        <span class="value-badge">1. Lépésről lépésre</span>
-                        <h3 class="value-title">Átlátható folyamat</h3>
-                        <p class="value-text">
-                            Mindent megbeszélünk: mire van szükséged, milyen funkciók kellenek, 
-                            hogyan fog működni a rendszer. Nincsenek elrejtett sorok, vállalhatatlan meglepetések.
-                        </p>
-                    </div>
-                    <div class="value-card animate-on-scroll">
-                        <span class="value-badge">2. Nem sablonban gondolkodunk</span>
-                        <h3 class="value-title">Valóban egyedi megoldások</h3>
-                        <p class="value-text">
-                            Nem olyan oldalt kapsz, amit bárki néhány kattintással összerak. 
-                            A struktúrát, dizájnt és működést is a te projektedre szabjuk, 
-                            hogy az oldal tényleg rólad szóljon – ne a sablonról.
-                        </p>
-                    </div>
-                    <div class="value-card animate-on-scroll">
-                        <span class="value-badge">3. Utógondozás</span>
-                        <h3 class="value-title">Nem tűnünk el átadás után</h3>
-                        <p class="value-text">
-                            Ha változik a vállalkozásod, mi is hozzá igazítjuk a felületet. 
-                            Kisebb módosításoknál és nagyobb fejlesztéseknél is számíthatsz ránk –
-                            ugyanazzal a figyelemmel, mint az első alkalommal.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Kapcsolat – külön, hero jellegű blokk -->
-        <section class="section animate-on-scroll" id="kapcsolat">
-            <div class="section-inner">
-                <div class="section-header">
-                    <div class="section-kicker">KAPCSOLAT</div>
-                    <h2 class="section-title">Beszéljünk az ötletedről</h2>
-                    <p class="section-subtitle">
-                        Írj néhány mondatot arról, miben gondolkodsz, és visszajelzést adunk, 
-                        hogyan érdemes elindulni – kötelezettség nélkül, érthető nyelven.
-                    </p>
-                </div>
-
-                <div class="contact-layout">
-                    <div class="contact-card animate-on-scroll float-slow">
-                        <div class="contact-inner">
-                            <h3 class="contact-title">Aurion Studio – elérhetőség</h3>
-                            <p class="contact-text">
-                                A legegyszerűbb, ha egy rövid üzenettel indítasz. 
-                                Írd meg, miben gondolkodsz, és milyen elképzeléseid vannak – 
-                                mi pedig válaszban segítünk tisztábban látni a lehetőségeket, 
-                                mielőtt bármibe belevágnál.
-                            </p>
-
-                            <ul class="contact-info-list">
-                                <li>
-                                    <span class="contact-pill">Név</span>
-                                    Aurion Studio
-                                </li>
-                                <li>
-                                    <span class="contact-pill">E-mail</span>
-                                    aurionstudiofix@gmail.com
-                                </li>
-                                <li>
-                                    <span class="contact-pill">Telefon</span>
-                                    06 20 991 8876
-                                </li>
-                                <li>
-                                    <span class="contact-pill">Visszajelzés</span>
-                                    jellemzően 1–2 munkanapon belül
-                                </li>
-                            </ul>
-
-                            <span class="contact-badge">
-                                Az adataid biztonságban vannak nálunk – kizárólag a kapcsolatfelvételhez használjuk fel őket.
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="contact-form animate-on-scroll float-slow-rotate">
-                        <h3>Írj nekünk pár mondatot az ötletedről</h3>
-                        <form id="contactForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="name">Név</label>
-                                    <input type="text" id="name" placeholder="Hogyan szólíthatunk?">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">E-mail cím</label>
-                                    <input type="email" id="email" placeholder="valami@domain.hu">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="topic">Miben gondolkodsz?</label>
-                                <input type="text" id="topic" placeholder="Pl.: új webshop, meglévő oldal átalakítása, AI-chat...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Üzenet</label>
-                                <textarea id="message" placeholder="Pár mondat az ötletedről, jelenlegi helyzetedről..."></textarea>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Biztonsági kérdés</label>
-                                    <div class="security-row">
-                                        <span id="securityText">5 + 6 = ?</span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="securityAnswer">Válasz</label>
-                                    <input type="number" id="securityAnswer" placeholder="Add meg az eredményt">
-                                </div>
-                            </div>
-
-                            <div class="contact-submit-row">
-                                <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése</button>
-                                <span class="contact-small">
-                                    Üzeneted beérkezése után e-mailben keresünk a következő lépésekkel és a pontos részletekkel.
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-left">
-                <span class="footer-dot"></span>
-                <span>Aurion Studio – egyedi webes megoldások</span>
-            </div>
-            <div class="footer-right">
-                <a href="#top" class="footer-link">Vissza az elejére</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cookie banner -->
-    <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-text">
-            <strong>Használunk sütiket</strong>
-            <p>
-                Az oldal működéséhez és a felhasználói élmény javításához sütiket használunk.
-                A böngészés folytatásával hozzájárulsz ezek használatához.
+    <!-- RÓLUNK -->
+    <section class="section animate-on-scroll" id="rolunk">
+        <div class="section-header">
+            <div class="section-kicker">RÓLUNK</div>
+            <h2 class="section-title">Ahogyan a közös munkát látjuk</h2>
+            <p class="section-subtitle">
+                Nem egy újabb “legyártott” weboldalt kapsz, hanem egy olyan rendszert, 
+                ami a vállalkozásodat segíti – és érthető, hogyan működik.
             </p>
         </div>
-        <div class="cookie-actions">
-            <button class="cookie-btn-primary" id="cookieAcceptBtn">Elfogadom</button>
+
+        <div class="values-grid">
+            <div class="value-card animate-on-scroll">
+                <span class="value-badge">1. Lépésről lépésre</span>
+                <h3 class="value-title">Átlátható folyamat</h3>
+                <p class="value-text">
+                    Elmondjuk, mi történik, mire van szükség, és mit miért csinálunk.
+                    Nem kérünk el semmit úgy, hogy ne értenéd, miért van rá szükség.
+                </p>
+            </div>
+            <div class="value-card animate-on-scroll">
+                <span class="value-badge">2. Nem sablonokkal dolgozunk</span>
+                <h3 class="value-title">Valóban egyedi megoldások</h3>
+                <p class="value-text">
+                    A struktúra, a dizájn és a funkciók is a te projektedre készülnek.
+                    Nem fogsz ugyanilyen oldalt viszontlátni máshol egy logócsere után.
+                </p>
+            </div>
+            <div class="value-card animate-on-scroll">
+                <span class="value-badge">3. Utógondozás</span>
+                <h3 class="value-title">Nem tűnünk el átadás után</h3>
+                <p class="value-text">
+                    Ha fél év múlva bővíteni szeretnél, ugyanúgy számíthatsz ránk.
+                    Nem egy egyszeri projektként tekintünk rád, hanem hosszabb távú partnerként.
+                </p>
+            </div>
         </div>
+    </section>
+
+    <!-- KAPCSOLAT -->
+    <section class="section animate-on-scroll" id="kapcsolat">
+        <div class="section-header">
+            <div class="section-kicker">KAPCSOLAT</div>
+            <h2 class="section-title">Írj néhány mondatot az ötletedről</h2>
+            <p class="section-subtitle">
+                Pár sorban leírhatod, miben gondolkodsz – válaszban segítünk tisztábban látni
+                a lehetőségeket, mielőtt döntést hoznál.
+            </p>
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-info animate-on-scroll">
+                <h3 class="contact-info-title">Aurion Studio – elérhetőség</h3>
+                <p class="contact-info-text">
+                    A legegyszerűbb, ha egy rövid üzenettel indítasz. Írd meg, miben gondolkodsz,
+                    és milyen elképzeléseid vannak – válaszban konkrét javaslatot kapsz a következő lépésekről.
+                </p>
+                <ul class="contact-info-list">
+                    <li class="contact-info-item">
+                        <span class="contact-label">Név:</span>
+                        Aurion Studio
+                    </li>
+                    <li class="contact-info-item">
+                        <span class="contact-label">E-mail:</span>
+                        aurionstudiofix@gmail.com
+                    </li>
+                    <li class="contact-info-item">
+                        <span class="contact-label">Telefon:</span>
+                        06 20 991 8876
+                    </li>
+                    <li class="contact-info-item">
+                        <span class="contact-label">Válasz:</span>
+                        jellemzően 1–2 munkanapon belül
+                    </li>
+                </ul>
+                <p class="contact-note">
+                    Az adataidat kizárólag a kapcsolatfelvételhez használjuk, nem adjuk tovább harmadik félnek.
+                </p>
+            </div>
+
+            <div class="contact-form-wrapper animate-on-scroll">
+                <h3 class="contact-form-title">Írj nekünk pár mondatot az ötletedről</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Név</label>
+                            <input type="text" id="name" placeholder="Hogyan szólíthatunk?">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail cím</label>
+                            <input type="email" id="email" placeholder="valami@domain.hu">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic">Miben gondolkodsz?</label>
+                        <input type="text" id="topic" placeholder="Pl.: új webshop, meglévő oldal átalakítása, AI-chat...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Üzenet</label>
+                        <textarea id="message" placeholder="Pár mondat az ötletedről, jelenlegi helyzetedről..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Biztonsági kérdés</label>
+                            <div class="security-row">
+                                <span id="securityText">5 + 6 = ?</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="securityAnswer">Válasz</label>
+                            <input type="number" id="securityAnswer" placeholder="Add meg az eredményt">
+                        </div>
+                    </div>
+
+                    <div class="contact-submit-row">
+                        <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése</button>
+                        <span class="contact-small">
+                            Üzeneted beérkezése után e-mailben keresünk a következő lépésekkel és a pontos részletekkel.
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <span>Aurion Studio – egyedi webes megoldások</span>
+        <a href="#top" class="footer-link">Vissza az elejére</a>
     </div>
+</footer>
 
-    <script>
-        // Hamburger menu
-        const hamburger = document.getElementById('hamburger');
-        const mobileNav = document.getElementById('mobileNav');
+<!-- COOKIE SÁV -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-text">
+        <strong>Sütiket használunk</strong>
+        Az oldal működéséhez és a jobb felhasználói élményért sütiket alkalmazunk.
+        A böngészés folytatásával elfogadod a használatukat.
+    </div>
+    <div class="cookie-actions">
+        <button class="cookie-btn-primary" id="cookieAcceptBtn">Elfogadom</button>
+    </div>
+</div>
 
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileNav.classList.toggle('show');
+<script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileNav.classList.toggle('show');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('show');
         });
+    });
 
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                mobileNav.classList.remove('show');
-            });
-        });
+    // iPhone gépelés
+    const text = "Az Aurion Studio oldalán!\\n\\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldalról, webshopról vagy AI-chat integrációról.\\n\\nLépjen kapcsolatba velünk!";
+    let index = 0;
+    const typingElement = document.getElementById('typingText');
 
-        // iPhone gépelés
-        const text = "Az Aurion Studio oldalán!\\n\\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldal fejlesztésről, webshop indításról vagy komplex online jelenlét kiépítéséről.\\n\\nLépjen kapcsolatba velünk!";
-        let index = 0;
-        const typingElement = document.getElementById('typingText');
-        
-        function type() {
-            if (!typingElement) return;
-            if (index < text.length) {
-                const char = text.charAt(index);
-                if (char === '\\n') {
-                    typingElement.innerHTML += '<br>';
-                } else {
-                    typingElement.innerHTML += char;
-                }
-                index++;
-                setTimeout(type, 30);
+    function type() {
+        if (!typingElement) return;
+        if (index < text.length) {
+            const char = text.charAt(index);
+            if (char === "\\n") {
+                typingElement.innerHTML += "<br>";
             } else {
-                typingElement.innerHTML += '<span class="typing-cursor"></span>';
-                setTimeout(() => {
-                    index = 0;
-                    typingElement.innerHTML = '';
-                    type();
-                }, 5000);
+                typingElement.innerHTML += char;
             }
+            index++;
+            setTimeout(type, 30);
+        } else {
+            typingElement.innerHTML += '<span class="typing-cursor"></span>';
+            setTimeout(() => {
+                index = 0;
+                typingElement.innerHTML = "";
+                type();
+            }, 4500);
         }
-        
-        setTimeout(type, 800);
+    }
+    setTimeout(type, 800);
 
-        // Live Code Editor
-        const fullCode = `<!-- Weboldal -->
+    // Live kód editor
+    const fullCode = `<!-- Weboldal -->
 <div class="hero">
   <h1>Üdvözöljük!</h1>
   <p>Professzionális
@@ -1999,7 +1400,7 @@
   background: linear-gradient(
     135deg, 
     #111827, 
-    #f0c96c
+    #facc15
   );
   padding: 40px;
   border-radius: 18px;
@@ -2019,191 +1420,160 @@ p {
 }
 </style>`;
 
-        const codePane = document.getElementById('codePane');
-        const previewPane = document.getElementById('previewPane');
-        let currentCode = '';
-        let charIndex = 0;
-        let isDeleting = false;
-        let deleteToIndex = 0;
+    const codePane = document.getElementById('codePane');
+    const previewPane = document.getElementById('previewPane');
+    let currentCode = '';
+    let charIndex = 0;
+    let isDeleting = false;
+    let deleteToIndex = 0;
 
-        function highlightCode(code) {
-            return code
-                .replace(/(&lt;!--.*?--&gt;)/g, '<span class="comment">$1</span>')
-                .replace(/(&lt;\/?)(\\w+)/g, '$1<span class="tag">$2</span>')
-                .replace(/(class|style)=/g, '<span class="attr">$1</span>=')
-                .replace(/("[^"]*")/g, '<span class="string">$1</span>')
-                .replace(/(\\d+px)/g, '<span class="number">$1</span>')
-                .replace(/(\\.\\w+)/g, '<span class="variable">$1</span>')
-                .replace(/(linear-gradient|background|padding|border-radius|text-align|color|font-size|margin-bottom|font-weight|opacity)/g, '<span class="attr">$1</span>');
-        }
+    function escapeHtml(txt) {
+        return txt.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
 
-        function escapeHtml(text) {
-            return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
+    function highlightCode(code) {
+        return code
+            .replace(/(&lt;!--.*?--&gt;)/g, '<span class="comment">$1</span>')
+            .replace(/(&lt;\/?)(\w+)/g, '$1<span class="tag">$2</span>')
+            .replace(/(class|style)=/g, '<span class="attr">$1</span>=')
+            .replace(/("[^"]*")/g, '<span class="string">$1</span>')
+            .replace(/(\d+px)/g, '<span class="number">$1</span>')
+            .replace(/(\.\w+)/g, '<span class="variable">$1</span>')
+            .replace(/(linear-gradient|background|padding|border-radius|text-align|color|font-size|margin-bottom|font-weight|opacity)/g, '<span class="attr">$1</span>');
+    }
 
-        function updateLivePreview() {
-            if (!previewPane) return;
-            if (currentCode.includes('</style>')) {
-                const previewHTML = `
-                    <div class="preview-content">
-                        <div class="preview-box">
-                            <h1>Üdvözöljük!</h1>
-                            <p>Professzionális weboldal</p>
-                        </div>
+    function updateLivePreview() {
+        if (!previewPane) return;
+        if (currentCode.includes('</style>')) {
+            previewPane.innerHTML = `
+                <div class="preview-content">
+                    <div class="preview-box">
+                        <h1>Üdvözöljük!</h1>
+                        <p>Professzionális weboldal</p>
                     </div>
-                `;
-                previewPane.innerHTML = previewHTML;
-            } else if (currentCode.includes('<h1>')) {
-                const previewHTML = `
-                    <div class="preview-content" style="text-align: center; padding: 20px;">
-                        <h1 style="font-size: 22px; color: #111827;">Üdvözöljük!</h1>
-                        ${currentCode.includes('<p') ? '<p style="font-size: 13px; color: #4b5563;">Professzionális weboldal</p>' : ''}
-                    </div>
-                `;
-                previewPane.innerHTML = previewHTML;
-            }
+                </div>`;
+        } else if (currentCode.includes('<h1>')) {
+            previewPane.innerHTML = `
+                <div class="preview-content" style="text-align:center;padding:20px;">
+                    <h1 style="font-size:22px;color:#111827;">Üdvözöljük!</h1>
+                    ${currentCode.includes('<p') ? '<p style="font-size:13px;color:#4b5563;">Professzionális weboldal</p>' : ''}
+                </div>`;
         }
+    }
 
-        function typeCode() {
-            if (!codePane) return;
-            if (isDeleting) {
-                if (charIndex > deleteToIndex) {
-                    charIndex--;
-                    currentCode = fullCode.substring(0, charIndex);
-                    const escaped = escapeHtml(currentCode);
-                    codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                    setTimeout(typeCode, 10);
-                } else {
-                    isDeleting = false;
-                    setTimeout(typeCode, 200);
-                }
+    function typeCode() {
+        if (!codePane) return;
+        if (isDeleting) {
+            if (charIndex > deleteToIndex) {
+                charIndex--;
+                currentCode = fullCode.substring(0, charIndex);
+                const escaped = escapeHtml(currentCode);
+                codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
+                setTimeout(typeCode, 10);
             } else {
-                if (charIndex < fullCode.length) {
-                    if (Math.random() < 0.05 && charIndex > 10 && !isDeleting) {
-                        isDeleting = true;
-                        deleteToIndex = Math.max(0, charIndex - Math.floor(Math.random() * 15 + 5));
-                        setTimeout(typeCode, 300);
-                        return;
-                    }
-
-                    charIndex++;
-                    currentCode = fullCode.substring(0, charIndex);
-                    const escaped = escapeHtml(currentCode);
-                    codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                    
-                    updateLivePreview();
-                    
-                    let speed = 30;
-                    if (fullCode[charIndex - 1] === '\\n') speed = 100;
-                    else if (fullCode[charIndex - 1] === ' ') speed = 20;
-                    else speed = Math.random() * 40 + 20;
-                    
-                    setTimeout(typeCode, speed);
-                } else {
-                    setTimeout(() => {
-                        charIndex = 0;
-                        currentCode = '';
-                        codePane.innerHTML = '<span class="code-cursor"></span>';
-                        if (previewPane) {
-                            previewPane.innerHTML = '<div class="preview-content"></div>';
-                        }
-                        setTimeout(typeCode, 1000);
-                    }, 3000);
-                }
+                isDeleting = false;
+                setTimeout(typeCode, 200);
             }
-        }
-
-        setTimeout(typeCode, 2000);
-
-        // Scroll animáció – IntersectionObserver
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Hero parallax érzet – nagyon finom
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY || window.pageYOffset;
-            const heroTitle = document.querySelector('.hero-title-section');
-            const heroSections = document.querySelector('.hero-sections');
-
-            if (heroTitle) {
-                heroTitle.style.transform = `translateY(${scrollY * 0.03}px)`;
-            }
-            if (heroSections) {
-                heroSections.style.transform = `translateY(${scrollY * 0.02}px)`;
-            }
-        });
-
-        // Biztonsági kérdés (random összeadás)
-        let secA = 0;
-        let secB = 0;
-        const securityText = document.getElementById('securityText');
-        const securityAnswer = document.getElementById('securityAnswer');
-        const contactSubmit = document.getElementById('contactSubmit');
-        const contactForm = document.getElementById('contactForm');
-
-        function generateSecurityQuestion() {
-            if (!securityText) return;
-            secA = Math.floor(Math.random() * 9) + 1; // 1-9
-            secB = Math.floor(Math.random() * 9) + 1;
-            securityText.textContent = secA + " + " + secB + " = ?";
-            if (securityAnswer) securityAnswer.value = "";
-        }
-
-        generateSecurityQuestion();
-
-        if (contactSubmit) {
-            contactSubmit.addEventListener('click', () => {
-                if (!securityAnswer) return;
-                const val = parseInt(securityAnswer.value, 10);
-                if (isNaN(val) || val !== secA + secB) {
-                    alert('A biztonsági kérdésre adott válasz hibás. Próbáld újra 🙂');
-                    generateSecurityQuestion();
+        } else {
+            if (charIndex < fullCode.length) {
+                if (Math.random() < 0.05 && charIndex > 15) {
+                    isDeleting = true;
+                    deleteToIndex = Math.max(0, charIndex - Math.floor(Math.random() * 12 + 4));
+                    setTimeout(typeCode, 250);
                     return;
                 }
-
-                // Itt kerül majd bekötésre a valódi küldés (pl. PHP / e-mail API)
-                alert('Köszönjük! Üzenetedet rögzítettük, hamarosan felvesszük veled a kapcsolatot.');
-                generateSecurityQuestion();
-                if (contactForm) {
-                    contactForm.reset();
-                }
-            });
-        }
-
-        // Cookie banner
-        const cookieBanner = document.getElementById('cookieBanner');
-        const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
-
-        function showCookieBanner() {
-            if (!cookieBanner) return;
-            cookieBanner.classList.add('show');
-        }
-
-        function hideCookieBanner() {
-            if (!cookieBanner) return;
-            cookieBanner.classList.remove('show');
-        }
-
-        if (cookieBanner && cookieAcceptBtn) {
-            if (!localStorage.getItem('aurion_cookie_consent')) {
-                setTimeout(showCookieBanner, 800);
+                charIndex++;
+                currentCode = fullCode.substring(0, charIndex);
+                const escaped = escapeHtml(currentCode);
+                codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
+                updateLivePreview();
+                let speed = 30;
+                if (fullCode[charIndex - 1] === '\n') speed = 100;
+                else if (fullCode[charIndex - 1] === ' ') speed = 25;
+                else speed = Math.random() * 35 + 25;
+                setTimeout(typeCode, speed);
+            } else {
+                setTimeout(() => {
+                    charIndex = 0;
+                    currentCode = '';
+                    codePane.innerHTML = '<span class="code-cursor"></span>';
+                    if (previewPane) {
+                        previewPane.innerHTML = '<div class="preview-content"></div>';
+                    }
+                    setTimeout(typeCode, 900);
+                }, 2500);
             }
-
-            cookieAcceptBtn.addEventListener('click', () => {
-                localStorage.setItem('aurion_cookie_consent', 'accepted');
-                hideCookieBanner();
-            });
         }
-    </script>
+    }
+    setTimeout(typeCode, 1800);
+
+    // Scroll animáció
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // Biztonsági kérdés
+    let secA = 0;
+    let secB = 0;
+    const securityText = document.getElementById('securityText');
+    const securityAnswer = document.getElementById('securityAnswer');
+    const contactSubmit = document.getElementById('contactSubmit');
+    const contactForm = document.getElementById('contactForm');
+
+    function generateSecurityQuestion() {
+        if (!securityText) return;
+        secA = Math.floor(Math.random() * 9) + 1;
+        secB = Math.floor(Math.random() * 9) + 1;
+        securityText.textContent = secA + " + " + secB + " = ?";
+        if (securityAnswer) securityAnswer.value = "";
+    }
+    generateSecurityQuestion();
+
+    if (contactSubmit) {
+        contactSubmit.addEventListener('click', () => {
+            if (!securityAnswer) return;
+            const val = parseInt(securityAnswer.value, 10);
+            if (isNaN(val) || val !== secA + secB) {
+                alert("A biztonsági kérdésre adott válasz hibás. Próbáld újra 🙂");
+                generateSecurityQuestion();
+                return;
+            }
+            alert("Köszönjük! Üzenetedet rögzítettük, hamarosan felvesszük veled a kapcsolatot.");
+            generateSecurityQuestion();
+            if (contactForm) contactForm.reset();
+        });
+    }
+
+    // Cookie sáv
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
+
+    function showCookieBanner() {
+        if (!cookieBanner) return;
+        cookieBanner.classList.add('show');
+    }
+
+    function hideCookieBanner() {
+        if (!cookieBanner) return;
+        cookieBanner.classList.remove('show');
+    }
+
+    if (cookieBanner && cookieAcceptBtn) {
+        if (!localStorage.getItem('aurion_cookie_consent')) {
+            setTimeout(showCookieBanner, 1200);
+        }
+        cookieAcceptBtn.addEventListener('click', () => {
+            localStorage.setItem('aurion_cookie_consent', 'accepted');
+            hideCookieBanner();
+        });
+    }
+</script>
 </body>
 </html>
