@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion Studio – Munkáink</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== ANIMÁCIÓK ===== */
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes floatSlow {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes floatPhone {
+            0%   { transform: translate(-50%, 0) rotate(-4deg); }
+            50%  { transform: translate(-50%, -10px) rotate(-1deg); }
+            100% { transform: translate(-50%, 0) rotate(-4deg); }
+        }
+
+        @keyframes glowPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
+            70%  { box-shadow: 0 0 0 18px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(24px) scale(0.97);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ===== FEJLÉC (ugyanaz a feeling, mint az indexen) ===== */
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            object-fit: contain;
+            background: #111827;
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 12px 30px rgba(15, 23, 42, 0.7);
+        }
+
+        .logo .aurion {
+            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo .studio {
+            color: #f9fafb;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(248, 250, 252, 0.8);
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            transform: translateX(-50%);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f9fafb;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.contact-link {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.7);
+            background: linear-gradient(90deg, #fef9c3, #fffbeb);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+            color: #111827;
+        }
+
+        .nav-links a.contact-link::after {
+            display: none;
+        }
+
+        .nav-links a.active {
+            color: #facc15;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            width: 40px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(15, 23, 42, 0.95);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: #f9fafb;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .nav-links.mobile {
+            position: fixed;
+            inset: 56px 16px auto 16px;
+            background: rgba(15, 23, 42, 0.97);
+            backdrop-filter: blur(18px);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.8);
+            padding: 12px 16px;
+            flex-direction: column;
+            gap: 10px;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            z-index: 9999;
+        }
+
+        .nav-links.mobile.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ===== HERO – MUNKÁINK ===== */
+
+        .hero {
+            padding: 110px 16px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 11px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.95);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 40px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: rgba(209, 213, 219, 0.95);
+            margin-bottom: 16px;
+            max-width: 520px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(254, 252, 232, 0.9), rgba(254, 249, 195, 0.95));
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            font-size: 12px;
+            color: #78350f;
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.6);
+        }
+
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .hero-info {
+            font-size: 13px;
+            color: rgba(148, 163, 184, 0.95);
+            margin-top: 12px;
+        }
+
+        .hero-right-preview {
+            justify-self: center;
+            opacity: 0.9;
+        }
+
+        .hero-ring {
+            width: 220px;
+            height: 220px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at top, rgba(250, 204, 21, 0.18), transparent 60%);
+        }
+
+        .hero-ring::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background:
+                conic-gradient(from 220deg,
+                rgba(250, 204, 21, 0.0),
+                rgba(250, 204, 21, 0.5),
+                rgba(250, 204, 21, 0.0));
+            animation: spinRing 6s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes spinRing {
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-ring-inner {
+            position: relative;
+            border-radius: 999px;
+            width: 170px;
+            height: 170px;
+            background: radial-gradient(circle at top, #111827, #020617 70%, #020617 100%);
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-ring-inner span {
+            font-size: 12px;
+            text-align: center;
+            color: rgba(248, 250, 252, 0.9);
+        }
+
+        /* ===== MAIN ===== */
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px 60px;
+        }
+
+        .section {
+            padding: 40px 0;
+            border-top: 1px solid rgba(31, 41, 55, 0.9);
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #f9fafb;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 80px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            background-size: 220% 100%;
+            animation: glowBar 8s linear infinite;
+        }
+
+        @keyframes glowBar {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: rgba(156, 163, 175, 0.96);
+            max-width: 720px;
+        }
+
+        /* ===== PROJEKT BLOKKOK – FEKETE–ARANY MACBOOK + IPHONE ===== */
+
+        .project-block {
+            padding: 40px 0 50px;
+            border-bottom: 1px solid rgba(31, 41, 55, 0.85);
+        }
+
+        .project-header {
+            max-width: 720px;
+            margin: 0 auto 26px;
+            text-align: center;
+        }
+
+        .project-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            font-size: 11px;
+            color: #facc15;
+            background: rgba(23, 23, 23, 0.9);
+            box-shadow: 0 10px 26px rgba(250, 204, 21, 0.35);
+            margin-bottom: 10px;
+        }
+
+        .project-tag-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .project-title {
+            font-size: 22px;
+            color: #f9fafb;
+            margin-bottom: 8px;
+        }
+
+        .project-lead {
+            font-size: 14px;
+            color: rgba(209, 213, 219, 0.96);
+        }
+
+        .project-mockup {
+            position: relative;
+            max-width: 820px;
+            margin: 26px auto 28px;
+            animation: floatSlow 20s ease-in-out infinite;
+        }
+
+        /* Laptop */
+
+        .device-laptop {
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 820px;
+            aspect-ratio: 16 / 9;
+            border-radius: 26px;
+            background: radial-gradient(circle at top, #111827, #020617 55%, #020617 100%);
+            box-shadow:
+                0 28px 80px rgba(0, 0, 0, 0.95),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
+            padding: 18px 26px 26px;
+            overflow: hidden;
+        }
+
+        .device-laptop-bezel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            background: #020617;
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 1);
+            overflow: hidden;
+        }
+
+        .device-laptop-screen {
+            position: absolute;
+            inset: 6px 10px 10px 10px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .device-laptop-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+        }
+
+        .device-laptop-camera {
+            position: absolute;
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #6b7280, #020617);
+        }
+
+        .device-laptop-base {
+            position: absolute;
+            left: 50%;
+            bottom: -14px;
+            transform: translateX(-50%);
+            width: 86%;
+            height: 18px;
+            border-radius: 0 0 18px 18px;
+            background: linear-gradient(to bottom, #111827, #020617);
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.9);
+        }
+
+        .device-laptop-base::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 3px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(148, 163, 184, 0.6), rgba(55, 65, 81, 0.9));
+        }
+
+        /* Phone – elöl, lebegve */
+
+        .device-phone {
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translate(-50%, 0);
+            width: 160px;
+            padding: 10px;
+            border-radius: 30px;
+            background: radial-gradient(circle at top, #111827, #020617 70%);
+            box-shadow:
+                0 24px 60px rgba(0, 0, 0, 1),
+                0 0 0 1px rgba(148, 163, 184, 0.9);
+            animation: floatPhone 18s ease-in-out infinite;
+        }
+
+        .device-phone-inner {
+            position: relative;
+            border-radius: 22px;
+            background: #020617;
+            overflow: hidden;
+            height: 290px;
+        }
+
+        .device-phone-notch {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 14px;
+            border-radius: 10px;
+            background: #020617;
+            box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+            z-index: 3;
+        }
+
+        .device-phone-screen {
+            position: absolute;
+            inset: 16px 6px 8px 6px;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .device-phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .device-phone-home {
+            position: absolute;
+            left: 50%;
+            bottom: 4px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(248, 250, 252, 0.7);
+        }
+
+        /* ===== PROJEKT RÉSZLETEK ===== */
+
+        .project-body {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .project-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .project-pill {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+            color: rgba(209, 213, 219, 0.96);
+        }
+
+        .project-text {
+            font-size: 14px;
+            line-height: 1.75;
+            color: rgba(209, 213, 219, 0.96);
+            margin-bottom: 10px;
+        }
+
+        .project-bullets {
+            list-style: none;
+            margin: 6px 0 12px 0;
+            padding-left: 0;
+            font-size: 13px;
+            color: rgba(156, 163, 175, 0.96);
+        }
+
+        .project-bullets li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 4px;
+        }
+
+        .project-bullets li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #facc15, #f97316);
+        }
+
+        .project-link-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .project-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.8);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .project-link-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 50px rgba(234, 179, 8, 0.95);
+        }
+
+        .project-link-note {
+            font-size: 12px;
+            color: rgba(148, 163, 184, 0.98);
+        }
+
+        /* ===== LÁBLÉC ===== */
+
+        footer {
+            border-top: 1px solid rgba(31, 41, 55, 0.95);
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 16px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: minmax(0,1fr);
+                gap: 28px;
+            }
+
+            .hero-right-preview {
+                order: -1;
+            }
+
+            .hero {
+                padding-top: 96px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links.desktop {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .project-mockup {
+                max-width: 100%;
+            }
+
+            .device-laptop {
+                max-width: 100%;
+            }
+
+            .device-phone {
+                width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding-top: 92px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .device-phone {
+                width: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+            <span class="aurion">Aurion</span>
+            <span class="studio">Studio</span>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links desktop">
+            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html" class="active">Munkáink</a></li>
+            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#rolunk">Rólunk</a></li>
+            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+
+        <ul class="nav-links mobile" id="mobileNav">
+            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html" class="active">Munkáink</a></li>
+            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#rolunk">Rólunk</a></li>
+            <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO – MUNKÁINK ÁTTEKINTÉS -->
+<section class="hero">
+    <div class="hero-inner animate-on-scroll">
+        <div>
+            <div class="hero-kicker">KIEMELT MUNKÁINK</div>
+            <h1 class="hero-title">Webshopok és honlapok, amelyek mögött valódi fejlesztés van.</h1>
+            <p class="hero-subtitle">
+                Nem sablonokat töltünk ki, hanem teljes rendszereket fejlesztünk: stabil alapokkal,
+                egyedi logikával, hosszú távra tervezve. Az alábbi projektek mind kézzel épített
+                megoldások – a teljes technikai háttérrel együtt.
+            </p>
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Önállóan működő, élesben használt rendszerek – évek óta.</span>
+            </div>
+            <p class="hero-info">
+                Az alábbi munkáknál a koncepciótól az átadásig ott voltunk: struktúra, design,
+                admin felület, integrációk, finomhangolás. Nem csak “szép”, hanem stabil is.
+            </p>
+        </div>
+
+        <div class="hero-right-preview">
+            <div class="hero-ring">
+                <div class="hero-ring-inner">
+                    <span>Élő, valódi projektek<br>egyedi fejlesztésből.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-kicker">REFERENCIÁK</div>
+            <h2 class="section-title">Néhány rendszer, amit mi raktunk össze</h2>
+            <p class="section-subtitle">
+                Különböző iparágak, közös gondolkodás: átlátható szerkezet, gyors működés,
+                vállalható kód. Mindhárom projekt mást kér – a közös pont az, hogy stabilan működik.
+            </p>
+        </div>
+
+        <!-- SERLEGKIRALY -->
+        <article class="project-block animate-on-scroll">
+            <div class="project-header">
+                <div class="project-tag">
+                    <span class="project-tag-dot"></span>
+                    <span>Teljesen egyedi webshop fejlesztés</span>
+                </div>
+                <h3 class="project-title">Serlegkirály.hu – sportdíjak ezrei, rendezett rendszerben</h3>
+                <p class="project-lead">
+                    Egy nagy termékszámú, élesben használt webshop, ahol a háttérlegalább olyan fontos,
+                    mint a látvány. A cél: olyan rendszer, amely bírja a mindennapi terhelést, és
+                    hosszú távon is átlátható marad.
+                </p>
+            </div>
+
+            <div class="project-mockup">
+                <div class="device-laptop">
+                    <div class="device-laptop-bezel">
+                        <div class="device-laptop-camera"></div>
+                        <div class="device-laptop-screen">
+                            <!-- Ide tedd a Serlegkirály screenshotot -->
+                            <img src="serlegkiraly-hero.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
+                        </div>
+                    </div>
+                    <div class="device-laptop-base"></div>
+                </div>
+
+                <div class="device-phone">
+                    <div class="device-phone-inner">
+                        <div class="device-phone-notch"></div>
+                        <div class="device-phone-screen">
+                            <!-- Ugyanaz a kép mobilban is megállja a helyét -->
+                            <img src="serlegkiraly-hero.png" alt="Serlegkirály.hu mobil nézet">
+                        </div>
+                        <div class="device-phone-home"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-meta-row">
+                    <span class="project-pill">Egyedi kategória- és termékstruktúra</span>
+                    <span class="project-pill">Több ezer termék kezelése</span>
+                    <span class="project-pill">Rendezett admin felület</span>
+                </div>
+                <p class="project-text">
+                    A Serlegkirálynál a legnagyobb kihívás az volt, hogy a sokféle serleget, érmet és kiegészítőt
+                    olyan rendszerben jelenítsük meg, ahol a vásárló gyorsan eljut a számára releváns termékekhez.
+                    A háttérben kézzel felépített logika dolgozik, nem pluginek egymásra pakolva.
+                </p>
+                <ul class="project-bullets">
+                    <li>Átgondolt kategóriafa és szűrési struktúra, több ezer termékre tervezve.</li>
+                    <li>Olyan admin felület, ahol a termékek, akciók és tartalmak kezelése vállalható marad.</li>
+                    <li>Stabil, hosszú távra tervezett kód – nem egy szezonra, hanem évekre építve.</li>
+                </ul>
+                <div class="project-link-row">
+                    <a href="https://serlegkiraly.hu" target="_blank" class="project-link-btn">
+                        Megnézem az oldalt
+                    </a>
+                    <span class="project-link-note">
+                        Élő, éles rendszer – nem demo, hanem napi szinten használt webshop.
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <!-- MALFIRUHA -->
+        <article class="project-block animate-on-scroll">
+            <div class="project-header">
+                <div class="project-tag">
+                    <span class="project-tag-dot"></span>
+                    <span>Ruházati webshop – finomhangolás és stabilizálás</span>
+                </div>
+                <h3 class="project-title">Malfiruha.hu – ruházat, ami mögött rend van a rendszerben is</h3>
+                <p class="project-lead">
+                    Egy meglévő, évek óta működő ruhawebshop, ahol a cél nem a teljes újraépítés volt,
+                    hanem a háttér logikájának rendbetétele és a hosszú távon is fenntartható működés.
+                </p>
+            </div>
+
+            <div class="project-mockup">
+                <div class="device-laptop">
+                    <div class="device-laptop-bezel">
+                        <div class="device-laptop-camera"></div>
+                        <div class="device-laptop-screen">
+                            <img src="malfiruha-hero.png" alt="Malfiruha.hu – ruházati webshop">
+                        </div>
+                    </div>
+                    <div class="device-laptop-base"></div>
+                </div>
+
+                <div class="device-phone">
+                    <div class="device-phone-inner">
+                        <div class="device-phone-notch"></div>
+                        <div class="device-phone-screen">
+                            <img src="malfiruha-hero.png" alt="Malfiruha.hu mobil nézet">
+                        </div>
+                        <div class="device-phone-home"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-meta-row">
+                    <span class="project-pill">Meglévő rendszer továbbfejlesztése</span>
+                    <span class="project-pill">Jobban átlátható folyamatok</span>
+                    <span class="project-pill">Gyorsabb működés</span>
+                </div>
+                <p class="project-text">
+                    A Malfiruhánál az volt a feladat, hogy egy korábban felépített, sokfunkciós webshopot
+                    úgy tegyünk átláthatóbbá, hogy közben megmaradjanak a már bevált elemek. Nem “kidobtuk”
+                    a teljes rendszert, hanem célzottan ott nyúltunk hozzá, ahol valódi eredményt hoz.
+                </p>
+                <ul class="project-bullets">
+                    <li>A legfontosabb oldalak, kategóriák és folyamatok újragondolása fejlesztői szemmel.</li>
+                    <li>A működés stabilizálása – kevesebb hiba, kiszámíthatóbb rendelési folyamat.</li>
+                    <li>Olyan struktúra, amit később is tovább lehet építeni, nem kell mindent elölről kezdeni.</li>
+                </ul>
+                <div class="project-link-row">
+                    <a href="https://malfiruha.hu" target="_blank" class="project-link-btn">
+                        Megnézem az oldalt
+                    </a>
+                    <span class="project-link-note">
+                        Élő ruházati webshop, valós ügyfelekkel és mindennapi forgalommal.
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <!-- SZŐKE ÉPKER -->
+        <article class="project-block animate-on-scroll">
+            <div class="project-header">
+                <div class="project-tag">
+                    <span class="project-tag-dot"></span>
+                    <span>Szolgáltatói honlap – bizalomépítés online</span>
+                </div>
+                <h3 class="project-title">Szőke Épker – generálkivitelezés, weben is érthetően elmondva</h3>
+                <p class="project-lead">
+                    Egy építőipari cég, ahol a hitelesség és a bizalom az alap. A honlap célja, hogy
+                    néhány másodperc alatt átadja: itt nem sablonos ígéretekről, hanem konkrét, vállalható munkáról van szó.
+                </p>
+            </div>
+
+            <div class="project-mockup">
+                <div class="device-laptop">
+                    <div class="device-laptop-bezel">
+                        <div class="device-laptop-camera"></div>
+                        <div class="device-laptop-screen">
+                            <img src="szokeepker-hero.png" alt="Szőke Épker – generálkivitelezés honlap">
+                        </div>
+                    </div>
+                    <div class="device-laptop-base"></div>
+                </div>
+
+                <div class="device-phone">
+                    <div class="device-phone-inner">
+                        <div class="device-phone-notch"></div>
+                        <div class="device-phone-screen">
+                            <img src="szokeepker-hero.png" alt="Szőke Épker mobil nézet">
+                        </div>
+                        <div class="device-phone-home"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-meta-row">
+                    <span class="project-pill">Letisztult bemutatkozó oldal</span>
+                    <span class="project-pill">Világos szolgáltatás-struktúra</span>
+                    <span class="project-pill">AI-chat integráció lehetőséggel</span>
+                </div>
+                <p class="project-text">
+                    A Szőke Épkernél az volt a cél, hogy a látogató az első blokk alapján értse:
+                    mivel foglalkozik a cég, milyen típusú munkákat vállal, és miért érdemes ajánlatot kérni.
+                    Mindezt túlbeszélés nélkül, érthető, emberi nyelven.
+                </p>
+                <ul class="project-bullets">
+                    <li>Nagy, jól olvasható typográfia – mobilon és asztali gépen egyaránt.</li>
+                    <li>Átlátható szolgáltatásblokkok, amelyek támogatják az ajánlatkérési folyamatot.</li>
+                    <li>Olyan technikai háttér, amihez később könnyen kapcsolható AI-chat és további funkció.</li>
+                </ul>
+                <div class="project-link-row">
+                    <a href="https://szoke-epker.com" target="_blank" class="project-link-btn">
+                        Megnézem az oldalt
+                    </a>
+                    <span class="project-link-note">
+                        Pozicionáló, bizalomépítő honlap – egyszerűen, érthetően, működőképesen.
+                    </span>
+                </div>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <span>Aurion Studio – egyedi webes megoldások</span>
+        <a href="#top" class="footer-link">Vissza az elejére</a>
+    </div>
+</footer>
+
+<script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('show');
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('show');
+            });
+        });
+    }
+
+    // Scroll animáció
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
