@@ -27,7 +27,7 @@
             color: inherit;
         }
 
-        /* ===== ANIMÁCIÓK – FINOM, ELEGÁNS ===== */
+        /* ===== ANIMÁCIÓK ===== */
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(18px); }
@@ -57,10 +57,6 @@
             transform: translateY(0);
         }
 
-        .float-slow {
-            animation: floatSlow 14s ease-in-out infinite;
-        }
-
         /* ===== FEJLÉC ===== */
 
         header {
@@ -68,7 +64,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(249, 250, 251, 0.92);
+            background: rgba(249, 250, 251, 0.94);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(148, 163, 184, 0.3);
         }
@@ -93,12 +89,14 @@
         }
 
         .logo-img {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: #ffffff;
-            box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.8);
+            background: #111827;
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 12px 30px rgba(15, 23, 42, 0.6);
         }
 
         .logo .aurion {
@@ -114,7 +112,7 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 18px;
             align-items: center;
         }
 
@@ -145,6 +143,18 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        .nav-links a.contact-link {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.7);
+            background: linear-gradient(90deg, #fef9c3, #fffbeb);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+        }
+
+        .nav-links a.contact-link::after {
+            display: none;
         }
 
         .hamburger {
@@ -286,44 +296,33 @@
         }
 
         .hero-right {
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 24px;
         }
 
-        .hero-card-stack {
-            position: relative;
+        /* ===== HERO TELEFON – KÓD + ÜZENET ===== */
+
+        .hero-phone {
             width: 100%;
-            max-width: 420px;
-        }
-
-        /* iPhone – nagyobb, hangsúlyosabb */
-
-        .iphone-wrapper {
+            max-width: 320px;
+            padding: 14px;
+            border-radius: 40px;
+            background: radial-gradient(circle at top, #ffffff 0%, #e5e7eb 40%, #d4d4dd 100%);
+            box-shadow:
+                0 30px 70px rgba(15, 23, 42, 0.5),
+                0 0 0 1px rgba(148, 163, 184, 0.8);
             position: relative;
-            z-index: 2;
+            animation: floatSlow 16s ease-in-out infinite;
         }
 
-        .iphone {
-            width: 100%;
-            max-width: 260px;
-            margin: 0 auto;
-            border-radius: 36px;
-            padding: 12px;
-            background: linear-gradient(145deg, #edeff4, #ffffff);
-            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.35);
-            position: relative;
-        }
-
-        .iphone-inner {
-            border-radius: 28px;
+        .phone-inner {
+            border-radius: 30px;
             background:
-                radial-gradient(circle at top, rgba(255, 255, 255, 0.7) 0%, transparent 60%),
-                linear-gradient(145deg, #111827, #1f2937);
-            padding: 42px 16px 16px;
-            color: #f9fafb;
+                radial-gradient(circle at top, rgba(255, 255, 255, 0.3) 0%, transparent 55%),
+                linear-gradient(145deg, #020617, #020617 35%, #111827 90%);
+            padding: 40px 14px 16px;
+            color: #e5e7eb;
             position: relative;
             overflow: hidden;
         }
@@ -333,158 +332,90 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 110px;
+            width: 120px;
             height: 22px;
             border-radius: 0 0 16px 16px;
             background: #020617;
         }
 
-        .phone-content h3 {
-            font-size: 17px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .phone-content {
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 15px;
-            background: #f9fafb;
-            animation: blink 1s infinite;
-            margin-left: 2px;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        /* Live editor – kicsit mögötte, eltolva */
-
-        .editor-wrapper {
-            position: absolute;
-            right: -10px;
-            bottom: -10px;
-            width: 260px;
-            max-width: 280px;
-            border-radius: 22px;
-            background: linear-gradient(145deg, #0b1120, #020617);
-            padding: 12px;
-            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.5);
-        }
-
-        .live-editor {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(30, 64, 175, 0.6);
-            display: flex;
-            flex-direction: column;
-            height: 220px;
-        }
-
-        .editor-header {
-            background: radial-gradient(circle at top left, #1d283a, #020617);
-            padding: 8px 10px;
+        .phone-header {
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .editor-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-        }
-
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
-
-        .editor-title {
-            margin-left: 8px;
-            font-size: 11px;
+            margin-bottom: 8px;
+            font-size: 10px;
             color: #9ca3af;
         }
 
-        .editor-body {
-            flex: 1;
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        .phone-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+        }
+        .phone-dot.red { background: #f97373; }
+        .phone-dot.yellow { background: #facc15; }
+        .phone-dot.green { background: #4ade80; }
+
+        .phone-file {
+            margin-left: 4px;
         }
 
-        .code-pane {
-            padding: 10px;
+        .phone-screen {
+            position: relative;
+            border-radius: 18px;
+            background: radial-gradient(circle at top left, #020617, #020617 60%, #0b1120 100%);
+            padding: 10px 10px 12px;
+            min-height: 190px;
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.9),
+                0 18px 45px rgba(15, 23, 42, 0.75);
+        }
+
+        .phone-code {
             font-family: "Fira Code", monospace;
             font-size: 11px;
-            line-height: 1.5;
+            line-height: 1.4;
+            white-space: pre-wrap;
             color: #e5e7eb;
-            background: #020617;
-            overflow-y: auto;
+            min-height: 170px;
         }
 
-        .preview-pane {
-            padding: 12px;
-            background: radial-gradient(circle at top, #ffffff 0%, #e5e7eb 55%, #d4d4dd 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .preview-box {
-            padding: 18px 16px;
+        .phone-message {
+            position: absolute;
+            inset: 8px 8px 10px 8px;
             border-radius: 16px;
-            background: linear-gradient(135deg, #111827, #1f2937 50%, #facc15 100%);
-            color: #f9fafb;
-            text-align: center;
+            background: linear-gradient(135deg, #fefce8 0%, #facc15 55%, #f97316 100%);
+            color: #111827;
+            padding: 14px 14px 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            box-shadow:
+                0 18px 45px rgba(234, 179, 8, 0.8),
+                0 0 0 1px rgba(250, 204, 21, 0.8);
+        }
+
+        .phone-message-title {
             font-size: 13px;
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.4);
-            transform: scale(0);
-            animation: previewPop 0.5s ease-out forwards;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
-        @keyframes previewPop {
-            0% { transform: scale(0.7); opacity: 0; }
-            70% { transform: scale(1.04); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .code-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 13px;
-            background: #ffffff;
-            animation: blink 0.8s infinite;
-            margin-left: 1px;
-        }
-
-        .tag { color: #569CD6; }
-        .attr { color: #fbbf24; }
-        .string { color: #CE9178; }
-        .comment { color: #6A9955; }
-        .number { color: #B5CEA8; }
-        .variable { color: #9CDCFE; }
-
-        .hero-note {
-            margin-top: 12px;
+        .phone-message-text {
             font-size: 12px;
-            color: rgba(55, 65, 81, 0.85);
+            line-height: 1.7;
         }
 
-        @media (max-width: 1024px) {
-            .hero-right {
-                justify-content: flex-start;
-            }
-            .editor-wrapper {
-                position: relative;
-                right: 0;
-                bottom: 0;
-                margin-top: 14px;
-            }
+        .phone-inner.show-message .phone-code {
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .phone-inner.show-message .phone-message {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         /* ===== MAIN WRAPPER ===== */
@@ -538,15 +469,15 @@
         .service-card {
             padding: 16px 14px;
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.96);
             border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.3);
+            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .service-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.5);
+            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.55);
             border-color: rgba(250, 204, 21, 0.9);
         }
 
@@ -615,7 +546,7 @@
             border-radius: 999px;
             border: 1px solid rgba(209, 213, 219, 0.9);
             font-size: 11px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.96);
         }
 
         .about-highlight {
@@ -623,7 +554,7 @@
             padding: 16px 16px 14px;
             background: linear-gradient(135deg, #0b1120, #111827);
             color: #e5e7eb;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.6);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
         }
 
         .about-highlight-title {
@@ -652,7 +583,7 @@
             color: #facc15;
         }
 
-        /* ===== RÓLUNK – HOSSZABB, TÖBB SZÖVEG ===== */
+        /* ===== RÓLUNK ===== */
 
         #rolunk.section {
             background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 60%, #f9fafb 100%);
@@ -676,15 +607,15 @@
         .value-card {
             padding: 16px 14px;
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.96);
             border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.3);
+            box-shadow: 0 10px 28px rgba(148, 163, 184, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
         .value-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.5);
+            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.55);
             border-color: rgba(250, 204, 21, 0.9);
         }
 
@@ -729,7 +660,9 @@
             border-radius: 20px;
             background: linear-gradient(135deg, #ffffff, #eef2ff);
             border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 16px 40px rgba(148, 163, 184, 0.35);
+            box-shadow:
+                0 16px 40px rgba(148, 163, 184, 0.35),
+                0 0 0 1px rgba(226, 232, 240, 0.9);
         }
 
         .contact-info-title {
@@ -774,7 +707,10 @@
             border-radius: 20px;
             background: linear-gradient(135deg, #ffffff, #fefce8);
             border: 1px solid rgba(250, 204, 21, 0.7);
-            box-shadow: 0 16px 40px rgba(245, 158, 11, 0.28);
+            box-shadow:
+                0 18px 50px rgba(245, 158, 11, 0.38),
+                0 0 0 1px rgba(250, 204, 21, 0.7);
+            animation: floatSlow 22s ease-in-out infinite;
         }
 
         .contact-form-title {
@@ -857,14 +793,14 @@
             background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
             cursor: pointer;
-            box-shadow: 0 14px 30px rgba(234, 179, 8, 0.6);
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.75);
             transition: transform 0.15s ease, box-shadow 0.15s ease;
             white-space: nowrap;
         }
 
         .contact-button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 18px 40px rgba(234, 179, 8, 0.8);
+            box-shadow: 0 20px 46px rgba(234, 179, 8, 0.9);
         }
 
         .contact-small {
@@ -970,14 +906,6 @@
                 grid-template-columns: minmax(0, 1fr);
             }
 
-            .editor-body {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .preview-pane {
-                display: none;
-            }
-
             .values-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -1020,13 +948,6 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
-
-            .editor-wrapper {
-                position: relative;
-                right: 0;
-                bottom: 0;
-                margin-top: 14px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1034,12 +955,8 @@
                 gap: 28px;
             }
 
-            .iphone {
-                max-width: 220px;
-            }
-
-            .live-editor {
-                height: 230px;
+            .hero-phone {
+                max-width: 260px;
             }
         }
     </style>
@@ -1062,7 +979,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <li><a href="#kapcsolat">Kapcsolat</a></li>
+            <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
         </ul>
 
@@ -1098,32 +1015,23 @@
             </div>
         </div>
 
-        <div class="hero-right float-slow">
-            <div class="hero-card-stack">
-                <div class="iphone-wrapper">
-                    <div class="iphone">
-                        <div class="iphone-inner">
-                            <div class="notch"></div>
-                            <div class="phone-content">
-                                <h3>Üdvözöljük!</h3>
-                                <div id="typingText"></div>
-                            </div>
-                        </div>
+        <div class="hero-right">
+            <div class="hero-phone">
+                <div class="phone-inner" id="phoneInner">
+                    <div class="notch"></div>
+                    <div class="phone-header">
+                        <span class="phone-dot red"></span>
+                        <span class="phone-dot yellow"></span>
+                        <span class="phone-dot green"></span>
+                        <span class="phone-file">index.html</span>
                     </div>
-                </div>
-
-                <div class="editor-wrapper">
-                    <div class="live-editor">
-                        <div class="editor-header">
-                            <div class="editor-dot dot-red"></div>
-                            <div class="editor-dot dot-yellow"></div>
-                            <div class="editor-dot dot-green"></div>
-                            <span class="editor-title">index.html</span>
-                        </div>
-                        <div class="editor-body">
-                            <div class="code-pane" id="codePane"></div>
-                            <div class="preview-pane" id="previewPane">
-                                <div class="preview-content"></div>
+                    <div class="phone-screen">
+                        <pre class="phone-code" id="phoneCode"></pre>
+                        <div class="phone-message" id="phoneMessage">
+                            <div class="phone-message-title">Üdvözlünk az Aurion Studiónál</div>
+                            <div class="phone-message-text">
+                                Bízd ránk a weboldalad vagy webshopod –
+                                egyedi, átlátható és hosszú távon is működő megoldást kapsz vissza.
                             </div>
                         </div>
                     </div>
@@ -1257,7 +1165,7 @@
         </div>
     </section>
 
-    <!-- RÓLUNK – HOSSZABB -->
+    <!-- RÓLUNK -->
     <section class="section animate-on-scroll" id="rolunk">
         <div class="section-header">
             <div class="section-kicker">RÓLUNK</div>
@@ -1440,152 +1348,44 @@
         });
     });
 
-    // iPhone gépelés
-    const text = "Az Aurion Studio oldalán!\\n\\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldalról, webshopról vagy AI-chat integrációról.\\n\\nLépjen kapcsolatba velünk!";
-    let index = 0;
-    const typingElement = document.getElementById('typingText');
+    // HERO telefon – kód gépelés + üzenet
+    const phoneCodeEl = document.getElementById('phoneCode');
+    const phoneInner = document.getElementById('phoneInner');
 
-    function type() {
-        if (!typingElement) return;
-        if (index < text.length) {
-            const char = text.charAt(index);
-            if (char === "\\n") {
-                typingElement.innerHTML += "<br>";
-            } else {
-                typingElement.innerHTML += char;
-            }
-            index++;
-            setTimeout(type, 30);
+    const heroCode = `<!-- Aurion Studio -->
+<section class="hero">
+  <h1>Világos, letisztult,
+    működő online jelenlét.</h1>
+</section>`;
+
+    let codeIndex = 0;
+
+    function typePhoneCode() {
+        if (!phoneCodeEl || !phoneInner) return;
+        if (codeIndex < heroCode.length) {
+            const ch = heroCode.charAt(codeIndex);
+            phoneCodeEl.textContent += ch;
+            codeIndex++;
+            let delay = 30;
+            if (ch === '\\n') delay = 90;
+            else if (ch === ' ') delay = 18;
+            setTimeout(typePhoneCode, delay);
         } else {
-            typingElement.innerHTML += '<span class="typing-cursor"></span>';
+            // kód kész → üzenet
             setTimeout(() => {
-                index = 0;
-                typingElement.innerHTML = "";
-                type();
-            }, 4500);
-        }
-    }
-    setTimeout(type, 800);
-
-    // Live kód editor
-    const fullCode = `<!-- Weboldal -->
-<div class="hero">
-  <h1>Üdvözöljük!</h1>
-  <p>Professzionális
-    weboldal</p>
-</div>
-
-<style>
-.hero {
-  background: linear-gradient(
-    135deg, 
-    #111827, 
-    #facc15
-  );
-  padding: 40px;
-  border-radius: 18px;
-  text-align: center;
-  color: white;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-
-p {
-  font-size: 15px;
-  opacity: 0.95;
-}
-</style>`;
-
-    const codePane = document.getElementById('codePane');
-    const previewPane = document.getElementById('previewPane');
-    let currentCode = '';
-    let charIndex = 0;
-    let isDeleting = false;
-    let deleteToIndex = 0;
-
-    function escapeHtml(txt) {
-        return txt.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-
-    function highlightCode(code) {
-        return code
-            .replace(/(&lt;!--.*?--&gt;)/g, '<span class="comment">$1</span>')
-            .replace(/(&lt;\/?)(\w+)/g, '$1<span class="tag">$2</span>')
-            .replace(/(class|style)=/g, '<span class="attr">$1</span>=')
-            .replace(/("[^"]*")/g, '<span class="string">$1</span>')
-            .replace(/(\d+px)/g, '<span class="number">$1</span>')
-            .replace(/(\.\w+)/g, '<span class="variable">$1</span>')
-            .replace(/(linear-gradient|background|padding|border-radius|text-align|color|font-size|margin-bottom|font-weight|opacity)/g, '<span class="attr">$1</span>');
-    }
-
-    function updateLivePreview() {
-        if (!previewPane) return;
-        if (currentCode.includes('</style>')) {
-            previewPane.innerHTML = `
-                <div class="preview-content">
-                    <div class="preview-box">
-                        <h1>Üdvözöljük!</h1>
-                        <p>Professzionális weboldal</p>
-                    </div>
-                </div>`;
-        } else if (currentCode.includes('<h1>')) {
-            previewPane.innerHTML = `
-                <div class="preview-content" style="text-align:center;padding:20px;">
-                    <h1 style="font-size:22px;color:#111827;">Üdvözöljük!</h1>
-                    ${currentCode.includes('<p') ? '<p style="font-size:13px;color:#4b5563;">Professzionális weboldal</p>' : ''}
-                </div>`;
-        }
-    }
-
-    function typeCode() {
-        if (!codePane) return;
-        if (isDeleting) {
-            if (charIndex > deleteToIndex) {
-                charIndex--;
-                currentCode = fullCode.substring(0, charIndex);
-                const escaped = escapeHtml(currentCode);
-                codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                setTimeout(typeCode, 10);
-            } else {
-                isDeleting = false;
-                setTimeout(typeCode, 200);
-            }
-        } else {
-            if (charIndex < fullCode.length) {
-                if (Math.random() < 0.05 && charIndex > 15) {
-                    isDeleting = true;
-                    deleteToIndex = Math.max(0, charIndex - Math.floor(Math.random() * 12 + 4));
-                    setTimeout(typeCode, 250);
-                    return;
-                }
-                charIndex++;
-                currentCode = fullCode.substring(0, charIndex);
-                const escaped = escapeHtml(currentCode);
-                codePane.innerHTML = highlightCode(escaped) + '<span class="code-cursor"></span>';
-                updateLivePreview();
-                let speed = 30;
-                if (fullCode[charIndex - 1] === '\n') speed = 100;
-                else if (fullCode[charIndex - 1] === ' ') speed = 25;
-                else speed = Math.random() * 35 + 25;
-                setTimeout(typeCode, speed);
-            } else {
+                phoneInner.classList.add('show-message');
+                // pár másodperc után újraindítjuk a ciklust
                 setTimeout(() => {
-                    charIndex = 0;
-                    currentCode = '';
-                    codePane.innerHTML = '<span class="code-cursor"></span>';
-                    if (previewPane) {
-                        previewPane.innerHTML = '<div class="preview-content"></div>';
-                    }
-                    setTimeout(typeCode, 900);
-                }, 2500);
-            }
+                    phoneInner.classList.remove('show-message');
+                    phoneCodeEl.textContent = '';
+                    codeIndex = 0;
+                    setTimeout(typePhoneCode, 900);
+                }, 4500);
+            }, 600);
         }
     }
-    setTimeout(typeCode, 1800);
+
+    setTimeout(typePhoneCode, 1200);
 
     // Scroll animáció
     const observer = new IntersectionObserver((entries) => {
