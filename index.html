@@ -13,23 +13,23 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
+            background: #050507;
+            color: #f5f5f7;
             overflow-x: hidden;
         }
 
         /* Header - WOW animáció */
         header {
-            background: rgba(15, 12, 41, 0.9);
+            background: rgba(5, 5, 7, 0.96);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding: 25px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             animation: headerSlide 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
         }
 
         @keyframes headerSlide {
@@ -53,7 +53,7 @@
         }
 
         .logo {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 800;
             letter-spacing: 3px;
             position: relative;
@@ -62,26 +62,26 @@
 
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-4px); }
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5d76e 0%, #f7b733 40%, #f1c40f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-            animation: shimmer 3s ease-in-out infinite;
+            animation: shimmer 5s ease-in-out infinite;
         }
 
         @keyframes shimmer {
-            0% { filter: brightness(1) hue-rotate(0deg); }
-            50% { filter: brightness(1.3) hue-rotate(10deg); }
-            100% { filter: brightness(1) hue-rotate(0deg); }
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
         }
 
         .logo .studio {
-            color: #fff;
+            color: #f5f5f7;
             margin-left: 10px;
         }
 
@@ -92,9 +92,9 @@
         }
 
         .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(245, 245, 247, 0.8);
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
@@ -104,50 +104,56 @@
         .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -6px;
             left: 50%;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: linear-gradient(135deg, #f5d76e 0%, #f7b733 60%, #f1c40f 100%);
+            border-radius: 999px;
+            transition: all 0.35s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform: translateX(-50%);
         }
 
         .nav-links a:hover {
-            color: #fff;
+            color: #ffffff;
         }
 
         .nav-links a:hover::before {
             width: 100%;
         }
 
-        /* Hero Section - MINDEN BENNE */
+        /* Hero Section - Apple / Premium Gold hangulat */
         .hero {
             margin-top: 90px;
             padding: 80px 60px;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background:
+                radial-gradient(circle at top center, rgba(245, 215, 110, 0.18) 0%, transparent 55%),
+                radial-gradient(circle at bottom right, rgba(247, 183, 51, 0.08) 0%, transparent 60%),
+                #050507;
+            background-size: 140% 140%;
+            animation: gradientShift 22s ease-in-out infinite;
             position: relative;
             overflow: hidden;
             min-height: 100vh;
         }
 
         @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+            50% { background-position: 50% 20%, 80% 120%, 50% 50%; }
+            100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            top: -40%;
+            left: -40%;
+            width: 180%;
+            height: 180%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 65%);
+            opacity: 0.6;
+            animation: rotate 35s linear infinite;
+            pointer-events: none;
         }
 
         @keyframes rotate {
@@ -171,31 +177,62 @@
             font-size: 64px;
             font-weight: 900;
             margin-bottom: 25px;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #764ba2 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f5d76e 45%, #f7b733 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: titleFade 1.5s ease-out;
-            text-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+            text-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
         }
 
         @keyframes titleFade {
             from {
                 opacity: 0;
-                transform: scale(0.8);
+                transform: scale(0.9) translateY(10px);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
             }
         }
 
+        /* Szolgáltatások sor – arany, végtelen kitöltő animáció */
         .hero-services {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.85);
-            animation: fadeUp 1.5s ease-out 0.3s both;
-            font-weight: 300;
+            display: inline-block;
+            padding: 10px 26px;
+            border-radius: 999px;
+            font-size: 18px;
+            margin-bottom: 22px;
+            color: #0b0b0f;
+            background: linear-gradient(
+                120deg,
+                rgba(30, 30, 34, 0.9) 0%,
+                rgba(245, 215, 110, 0.18) 20%,
+                rgba(247, 183, 51, 0.7) 50%,
+                rgba(245, 215, 110, 0.18) 80%,
+                rgba(30, 30, 34, 0.9) 100%
+            );
+            background-size: 220% 100%;
+            animation: pillSweep 6s linear infinite;
+            backdrop-filter: blur(24px);
+            box-shadow:
+                0 0 0 1px rgba(247, 183, 51, 0.15),
+                0 22px 55px rgba(0, 0, 0, 0.85);
+            font-weight: 400;
+        }
+
+        @keyframes pillSweep {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .hero-description {
+            font-size: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+            color: rgba(245, 245, 247, 0.72);
+            animation: fadeUp 1.5s ease-out 0.6s both;
         }
 
         @keyframes fadeUp {
@@ -209,15 +246,6 @@
             }
         }
 
-        .hero-description {
-            font-size: 16px;
-            max-width: 900px;
-            margin: 0 auto;
-            line-height: 1.7;
-            color: rgba(255, 255, 255, 0.7);
-            animation: fadeUp 1.5s ease-out 0.6s both;
-        }
-
         /* 3 Szekció egymás mellett */
         .hero-sections {
             display: grid;
@@ -228,6 +256,23 @@
 
         .hero-section {
             animation: fadeUp 1s ease-out both;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(245, 215, 110, 0.22), rgba(247, 183, 51, 0.02));
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .hero-section:hover::before {
+            opacity: 1;
+            transform: scale(1.01);
         }
 
         .hero-section:nth-child(1) { animation-delay: 0.8s; }
@@ -239,16 +284,22 @@
             width: 100%;
             max-width: 280px;
             height: 550px;
-            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            background: linear-gradient(145deg, #15151a, #23232b);
             border-radius: 50px;
             padding: 16px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            box-shadow:
+                0 30px 90px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(255, 255, 255, 0.04);
             margin: 0 auto 30px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
         .iphone:hover {
             transform: translateY(-10px) scale(1.02);
+            box-shadow:
+                0 40px 110px rgba(0, 0, 0, 0.95),
+                0 0 0 1px rgba(247, 183, 51, 0.3);
         }
 
         .notch {
@@ -266,10 +317,12 @@
         .screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background:
+                radial-gradient(circle at top, rgba(255, 255, 255, 0.12) 0%, transparent 55%),
+                linear-gradient(145deg, #121217 0%, #2b2b33 45%, #f0c96c 100%);
             border-radius: 40px;
             padding: 50px 20px 20px;
-            color: #fff;
+            color: #ffffff;
             overflow: hidden;
             position: relative;
         }
@@ -305,22 +358,27 @@
         .live-editor {
             width: 100%;
             height: 550px;
-            background: #1e1e1e;
-            border-radius: 15px;
+            background: radial-gradient(circle at top left, #22222a, #15151b);
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(255, 255, 255, 0.04);
             display: flex;
             flex-direction: column;
             margin-bottom: 30px;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .live-editor:hover {
             transform: translateY(-10px) scale(1.02);
+            box-shadow:
+                0 40px 110px rgba(0, 0, 0, 0.95),
+                0 0 0 1px rgba(247, 183, 51, 0.3);
         }
 
         .editor-header {
-            background: #2d2d2d;
+            background: linear-gradient(90deg, #111111, #1c1c22);
             padding: 10px 18px;
             display: flex;
             align-items: center;
@@ -357,11 +415,12 @@
             font-size: 12px;
             line-height: 1.6;
             border-right: 1px solid #3d3d3d;
+            color: #e0e0e6;
         }
 
         .preview-pane {
             padding: 18px;
-            background: #fff;
+            background: radial-gradient(circle at top, #f5f5f7 0%, #e3e3ea 50%, #d0d0da 100%);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -372,7 +431,7 @@
             display: inline-block;
             width: 2px;
             height: 14px;
-            background: #fff;
+            background: #ffffff;
             animation: blink 0.8s infinite;
             margin-left: 1px;
         }
@@ -384,7 +443,7 @@
         .variable { color: #9CDCFE; }
         .number { color: #B5CEA8; }
         .tag { color: #569CD6; }
-        .attr { color: #9CDCFE; }
+        .attr { color: #f7b733; }
 
         .preview-content {
             font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -392,23 +451,25 @@
         }
 
         .preview-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #111111 0%, #29292f 40%, #f0c96c 100%);
             padding: 40px 30px;
-            border-radius: 18px;
+            border-radius: 22px;
             color: white;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(247, 183, 51, 0.35);
             transform: scale(0);
             animation: previewPop 0.6s ease-out forwards;
         }
 
         @keyframes previewPop {
             0% {
-                transform: scale(0) rotate(-10deg);
+                transform: scale(0) rotate(-6deg);
                 opacity: 0;
             }
             60% {
-                transform: scale(1.1) rotate(2deg);
+                transform: scale(1.05) rotate(1.5deg);
             }
             100% {
                 transform: scale(1) rotate(0);
@@ -429,52 +490,60 @@
 
         /* Welcome Box */
         .welcome-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: radial-gradient(circle at top, #fef3d0 0%, #f6d37a 40%, #f1c05a 100%);
             padding: 60px 40px;
-            border-radius: 20px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 30px 80px rgba(102, 126, 234, 0.5);
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(196, 143, 32, 0.6);
             margin: 0 auto 30px;
-            animation: pulse 3s ease-in-out infinite;
-            transition: transform 0.3s;
+            animation: pulse 5s ease-in-out infinite;
+            transition: transform 0.3s, box-shadow 0.3s;
             height: 550px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            color: #141418;
         }
 
         .welcome-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
+            box-shadow:
+                0 40px 110px rgba(0, 0, 0, 0.95),
+                0 0 0 1px rgba(255, 255, 255, 0.4);
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 30px 80px rgba(102, 126, 234, 0.5); }
-            50% { box-shadow: 0 40px 100px rgba(102, 126, 234, 0.7); }
+            0%, 100% { box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9); }
+            50% { box-shadow: 0 40px 110px rgba(0, 0, 0, 1); }
         }
 
         .welcome-box h2 {
             font-size: 42px;
             margin-bottom: 25px;
             font-weight: 900;
+            letter-spacing: 1px;
         }
 
         .welcome-box p {
             font-size: 20px;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* Marketing Text */
         .marketing-text {
             text-align: center;
             padding: 0 10px;
+            margin-top: 5px;
         }
 
         .marketing-text h3 {
             font-size: 22px;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f5d76e 0%, #f7b733 60%, #ffffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -484,7 +553,7 @@
         .marketing-text p {
             font-size: 14px;
             line-height: 1.7;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(245, 245, 247, 0.75);
         }
 
         @media (max-width: 1400px) {
@@ -492,11 +561,11 @@
                 grid-template-columns: 1fr;
                 gap: 60px;
             }
-            
+
             .hero h1 {
                 font-size: 48px;
             }
-            
+
             .iphone,
             .live-editor,
             .welcome-box {
@@ -606,14 +675,14 @@
 
     <script>
         // iPhone gépelés
-        const text = "Az Aurion Studio oldalán!\n\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldal fejlesztésről, webshop indításról vagy komplex online jelenlét kiépítéséről.\n\nLépjen kapcsolatba velünk!";
+        const text = "Az Aurion Studio oldalán!\\n\\nKészek vagyunk segíteni Önnek a digitális térben. Legyen szó weboldal fejlesztésről, webshop indításról vagy komplex online jelenlét kiépítéséről.\\n\\nLépjen kapcsolatba velünk!";
         let index = 0;
         const typingElement = document.getElementById('typingText');
         
         function type() {
             if (index < text.length) {
                 const char = text.charAt(index);
-                if (char === '\n') {
+                if (char === '\\n') {
                     typingElement.innerHTML += '<br>';
                 } else {
                     typingElement.innerHTML += char;
@@ -644,8 +713,8 @@
 .hero {
   background: linear-gradient(
     135deg, 
-    #667eea, 
-    #764ba2
+    #111111, 
+    #f0c96c
   );
   padding: 40px;
   border-radius: 18px;
@@ -716,7 +785,7 @@ p {
                     updateLivePreview();
                     
                     let speed = 30;
-                    if (fullCode[charIndex - 1] === '\n') speed = 100;
+                    if (fullCode[charIndex - 1] === '\\n') speed = 100;
                     else if (fullCode[charIndex - 1] === ' ') speed = 20;
                     else speed = Math.random() * 40 + 20;
                     
@@ -747,8 +816,8 @@ p {
             } else if (currentCode.includes('<h1>')) {
                 const previewHTML = `
                     <div class="preview-content" style="text-align: center; padding: 30px;">
-                        <h1 style="font-size: 28px; color: #333;">Üdvözöljük!</h1>
-                        ${currentCode.includes('<p') ? '<p style="font-size: 15px; color: #666;">Professzionális weboldal</p>' : ''}
+                        <h1 style="font-size: 28px; color: #111;">Üdvözöljük!</h1>
+                        ${currentCode.includes('<p') ? '<p style="font-size: 15px; color: #555;">Professzionális weboldal</p>' : ''}
                     </div>
                 `;
                 previewPane.innerHTML = previewHTML;
