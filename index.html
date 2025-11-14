@@ -30,8 +30,8 @@
         /* ===== ANIMÁCIÓK ===== */
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(22px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes floatSlow {
@@ -46,21 +46,17 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes heroStripeMove {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
         .animate-on-scroll {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(22px) scale(0.98);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
         }
 
         .animate-on-scroll.in-view {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* ===== FEJLÉC ===== */
@@ -221,31 +217,34 @@
             pointer-events: auto;
         }
 
-        /* ===== HERO ===== */
+        /* ===== HERO – VIDEO HÁTTÉR ===== */
 
         .hero {
             padding: 110px 16px 70px;
             position: relative;
             overflow: hidden;
+            background: #020617; /* fallback, ha a video nem tölt be */
         }
 
-        /* Aranyozott, végtelenül mozgó csík a hero háttérben */
-        .hero::before {
+        .hero-bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: saturate(1.15) contrast(1.05);
+        }
+
+        /* sötét + arany overlay a szöveg olvashatóságához */
+        .hero::after {
             content: "";
             position: absolute;
-            inset: -40% -40%;
-            background: linear-gradient(
-                120deg,
-                rgba(250, 204, 21, 0) 0%,
-                rgba(250, 204, 21, 0.16) 30%,
-                rgba(249, 115, 22, 0.32) 50%,
-                rgba(250, 204, 21, 0.16) 70%,
-                rgba(250, 204, 21, 0) 100%
-            );
-            transform: skewY(-10deg);
-            background-size: 220% 100%;
-            animation: heroStripeMove 16s linear infinite;
-            pointer-events: none;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(248, 250, 252, 0.06), transparent 55%),
+                linear-gradient(120deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.75)),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.7), transparent 40%, rgba(15, 23, 42, 0.9));
             z-index: -1;
         }
 
@@ -260,25 +259,21 @@
             z-index: 1;
         }
 
-        .hero-left {
-            /* részletesebb, lépcsőzetes animáció az elemekre */
-        }
-
         .hero-kicker {
             font-size: 11px;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(75, 85, 99, 0.9);
+            color: rgba(209, 213, 219, 0.9);
             margin-bottom: 8px;
             animation: fadeUp 0.7s ease-out both;
             animation-delay: 0.05s;
         }
 
         .hero-title {
-            font-size: 42px;
+            font-size: 44px;
             line-height: 1.1;
             margin-bottom: 12px;
-            background: linear-gradient(120deg, #111827 0%, #caa85a 45%, #f7b733 75%);
+            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeUp 0.8s ease-out both;
@@ -305,8 +300,8 @@
         }
 
         .hero-subtitle {
-            font-size: 15px;
-            color: rgba(31, 41, 55, 0.9);
+            font-size: 16px;
+            color: rgba(229, 231, 235, 0.9);
             margin-bottom: 18px;
             max-width: 520px;
             animation: fadeUp 0.8s ease-out both;
@@ -315,7 +310,7 @@
 
         .hero-sub-strong {
             font-weight: 600;
-            color: #111827;
+            color: #fef9c3;
         }
 
         .hero-pill {
@@ -324,10 +319,10 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #fefce8, #fef9c3);
-            border: 1px solid rgba(234, 179, 8, 0.35);
+            background: linear-gradient(90deg, rgba(254, 252, 232, 0.9), rgba(254, 249, 195, 0.95));
+            border: 1px solid rgba(234, 179, 8, 0.4);
             font-size: 12px;
-            color: #92400e;
+            color: #78350f;
             margin-bottom: 18px;
             animation: gradientMove 8s linear infinite, fadeUp 0.8s ease-out both;
             animation-delay: 0.28s;
@@ -347,7 +342,7 @@
             flex-wrap: wrap;
             gap: 10px;
             font-size: 12px;
-            color: rgba(55, 65, 81, 0.9);
+            color: rgba(229, 231, 235, 0.95);
             margin-top: 8px;
             animation: fadeUp 0.8s ease-out both;
             animation-delay: 0.36s;
@@ -356,8 +351,8 @@
         .hero-feature-pill {
             padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            background: rgba(15, 23, 42, 0.85);
         }
 
         .hero-cta-row {
@@ -378,7 +373,11 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background 0.15s ease,
+                color 0.15s ease;
             white-space: nowrap;
         }
 
@@ -394,14 +393,14 @@
         }
 
         .hero-cta-secondary {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(15, 23, 42, 0.85);
             border: 1px solid rgba(148, 163, 184, 0.9);
-            color: #111827;
+            color: #e5e7eb;
         }
 
         .hero-cta-secondary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 14px 32px rgba(148, 163, 184, 0.6);
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
             border-color: rgba(250, 204, 21, 0.9);
         }
 
@@ -411,16 +410,16 @@
             justify-content: center;
         }
 
-        /* ===== HERO TELEFON – KESKENYEBB, VALÓSÁGSZERŰ ===== */
+        /* ===== HERO TELEFON – KESKENYEBB ===== */
 
         .hero-phone {
             width: 100%;
-            max-width: 300px; /* KESKENYEBB, hogy ne nyomja el a szöveget */
+            max-width: 300px;
             padding: 16px;
             border-radius: 44px;
             background: radial-gradient(circle at top, #ffffff 0%, #e5e7eb 40%, #d4d4dd 100%);
             box-shadow:
-                0 30px 70px rgba(15, 23, 42, 0.5),
+                0 30px 70px rgba(15, 23, 42, 0.7),
                 0 0 0 1px rgba(148, 163, 184, 0.8);
             position: relative;
             animation: floatSlow 16s ease-in-out infinite;
@@ -435,7 +434,7 @@
             color: #e5e7eb;
             position: relative;
             overflow: hidden;
-            height: 430px; /* kicsit alacsonyabb, karcsúbb */
+            height: 430px;
             display: flex;
             flex-direction: column;
         }
@@ -541,7 +540,7 @@
         }
 
         .section {
-            padding: 60px 0;
+            padding: 64px 0;
             border-top: 1px solid rgba(148, 163, 184, 0.25);
         }
 
@@ -559,14 +558,29 @@
         }
 
         .section-title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 800;
             color: #111827;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 80px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            background-size: 200% 100%;
+            animation: gradientMove 10s linear infinite;
         }
 
         .section-subtitle {
-            font-size: 13px;
+            font-size: 14px;
             color: rgba(75, 85, 99, 0.95);
             max-width: 640px;
         }
@@ -606,46 +620,51 @@
         .service-card {
             padding: 16px 14px;
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.97);
             border: 1px solid rgba(209, 213, 219, 0.9);
             box-shadow: 0 10px 28px rgba(148, 163, 184, 0.35);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.01);
             box-shadow: 0 18px 40px rgba(148, 163, 184, 0.55);
             border-color: rgba(250, 204, 21, 0.9);
+            background: #ffffff;
         }
 
         .service-icon {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 999px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: #fef3c7;
             margin-bottom: 8px;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .service-title {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             margin-bottom: 6px;
             color: #111827;
         }
 
         .service-text {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.6;
             color: rgba(75, 85, 99, 0.95);
             margin-bottom: 6px;
         }
 
         .service-meta {
-            font-size: 11px;
+            font-size: 12px;
             color: rgba(107, 114, 128, 0.95);
         }
 
@@ -660,7 +679,7 @@
         }
 
         .about-text {
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.8;
             color: rgba(55, 65, 81, 0.96);
             margin-bottom: 10px;
@@ -696,13 +715,13 @@
         }
 
         .about-highlight-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             margin-bottom: 6px;
         }
 
         .about-highlight-text {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.7;
             margin-bottom: 10px;
             color: rgba(209, 213, 219, 0.95);
@@ -711,12 +730,12 @@
         .about-stats {
             display: flex;
             gap: 16px;
-            font-size: 11px;
+            font-size: 12px;
             color: rgba(209, 213, 219, 0.95);
         }
 
         .about-stat-number {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
             color: #facc15;
         }
@@ -729,7 +748,7 @@
 
         .values-intro {
             margin-top: 12px;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.8;
             color: rgba(55, 65, 81, 0.96);
             max-width: 720px;
@@ -745,16 +764,21 @@
         .value-card {
             padding: 16px 14px;
             border-radius: 18px;
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.97);
             border: 1px solid rgba(209, 213, 219, 0.9);
             box-shadow: 0 10px 28px rgba(148, 163, 184, 0.35);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
         }
 
         .value-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.01);
             box-shadow: 0 18px 40px rgba(148, 163, 184, 0.55);
             border-color: rgba(250, 204, 21, 0.9);
+            background: #ffffff;
         }
 
         .value-badge {
@@ -768,13 +792,13 @@
         }
 
         .value-title {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             margin-bottom: 4px;
         }
 
         .value-text {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.7;
             color: rgba(75, 85, 99, 0.95);
         }
@@ -804,14 +828,14 @@
         }
 
         .contact-info-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 800;
             margin-bottom: 6px;
             color: #111827;
         }
 
         .contact-info-text {
-            font-size: 12px;
+            font-size: 13px;
             line-height: 1.7;
             color: rgba(55, 65, 81, 0.96);
             margin-bottom: 12px;
@@ -819,7 +843,7 @@
 
         .contact-info-list {
             list-style: none;
-            font-size: 12px;
+            font-size: 13px;
             color: rgba(55, 65, 81, 0.96);
         }
 
@@ -852,7 +876,7 @@
         }
 
         .contact-form-title {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             margin-bottom: 10px;
             color: #111827;
@@ -882,7 +906,7 @@
             border-radius: 10px;
             border: 1px solid rgba(209, 213, 219, 0.9);
             padding: 8px 10px;
-            font-size: 12px;
+            font-size: 13px;
             font-family: inherit;
             color: #111827;
             background: #ffffff;
@@ -926,7 +950,7 @@
             border: none;
             border-radius: 999px;
             padding: 8px 16px;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
@@ -942,7 +966,7 @@
         }
 
         .contact-small {
-            font-size: 11px;
+            font-size: 12px;
             color: rgba(107, 114, 128, 0.96);
             flex: 1;
             min-width: 180px;
@@ -964,7 +988,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 10px;
-            font-size: 11px;
+            font-size: 12px;
             flex-wrap: wrap;
         }
 
@@ -1067,7 +1091,7 @@
             }
 
             .hero-title {
-                font-size: 30px;
+                font-size: 32px;
             }
 
             .hero-cta-row {
@@ -1088,7 +1112,7 @@
             }
 
             .section {
-                padding: 46px 0;
+                padding: 50px 0;
             }
 
             .cookie-banner {
@@ -1143,6 +1167,9 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
+    <!-- Video háttér -->
+    <video class="hero-bg-video" src="hero.mp4" autoplay muted loop playsinline></video>
+
     <div class="hero-inner">
         <div class="hero-left">
             <div class="hero-kicker">EGYEDI WEBES MEGOLDÁSOK</div>
@@ -1202,7 +1229,7 @@
 <main>
     <!-- SZOLGÁLTATÁSOK -->
     <section class="section animate-on-scroll" id="szolgaltatasok">
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
             <div class="section-kicker">SZOLGÁLTATÁSOK</div>
             <h2 class="section-title">Amiben a legerősebbek vagyunk</h2>
             <p class="section-subtitle">
@@ -1211,7 +1238,7 @@
             </p>
         </div>
 
-        <div class="services-grid">
+        <div class="services-grid animate-on-scroll">
             <div class="service-card animate-on-scroll">
                 <div class="service-icon">🖥️</div>
                 <h3 class="service-title">Egyedi weboldalak</h3>
@@ -1270,7 +1297,7 @@
 
     <!-- BEMUTATKOZÁS -->
     <section class="section animate-on-scroll" id="bemutatkozas">
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
             <div class="section-kicker">BEMUTATKOZÁS</div>
             <h2 class="section-title">Kik állnak az Aurion Studio mögött?</h2>
             <p class="section-subtitle">
@@ -1283,7 +1310,7 @@
             </div>
         </div>
 
-        <div class="about-layout">
+        <div class="about-layout animate-on-scroll">
             <div>
                 <p class="about-text">
                     Az <span class="about-strong">Aurion Studio</span> célja, hogy olyan webes megoldásokat hozzon létre,
@@ -1329,7 +1356,7 @@
 
     <!-- RÓLUNK -->
     <section class="section animate-on-scroll" id="rolunk">
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
             <div class="section-kicker">RÓLUNK</div>
             <h2 class="section-title">Ahogyan a közös munkát látjuk</h2>
             <p class="section-subtitle">
@@ -1347,7 +1374,7 @@
             </div>
         </div>
 
-        <div class="values-grid">
+        <div class="values-grid animate-on-scroll">
             <div class="value-card animate-on-scroll">
                 <span class="value-badge">1. Lépésről lépésre</span>
                 <h3 class="value-title">Átlátható folyamat</h3>
@@ -1390,7 +1417,7 @@
 
     <!-- KAPCSOLAT -->
     <section class="section animate-on-scroll" id="kapcsolat">
-        <div class="section-header">
+        <div class="section-header animate-on-scroll">
             <div class="section-kicker">KAPCSOLAT</div>
             <h2 class="section-title">Írj néhány mondatot az ötletedről</h2>
             <p class="section-subtitle">
@@ -1399,7 +1426,7 @@
             </p>
         </div>
 
-        <div class="contact-layout">
+        <div class="contact-layout animate-on-scroll">
             <div class="contact-info animate-on-scroll">
                 <h3 class="contact-info-title">Aurion Studio – elérhetőség</h3>
                 <p class="contact-info-text">
