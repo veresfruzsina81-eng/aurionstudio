@@ -550,15 +550,18 @@
             z-index: 3;
         }
 
-        .device-phone-screen {
-            position: absolute;
-            inset: 16px 6px 8px 6px;
-            border-radius: 16px;
-            overflow: hidden;
-            background-size: cover;
-            background-position: top center;
-            background-repeat: no-repeat;
-        }
+      .device-phone-screen {
+    position: absolute;
+    inset: 16px 6px 8px 6px;
+    border-radius: 16px;
+    overflow: hidden;
+    /* FONTOS: ne nagyítson bele, hanem férjen bele az egész screenshot */
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: #000; /* ha marad egy kis sáv, elegáns fekete */
+}
+
 
         .phone-screen-serleg {
             background-image: url('serlegkiraly-clean.png');
