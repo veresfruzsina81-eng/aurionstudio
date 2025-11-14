@@ -86,19 +86,19 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 800;
             letter-spacing: 3px;
             white-space: nowrap;
         }
 
         .logo-img {
-            width: 30px;
-            height: 30px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
             object-fit: contain;
             background: #ffffff;
-            box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.6);
+            box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.8);
         }
 
         .logo .aurion {
@@ -286,13 +286,25 @@
         }
 
         .hero-right {
-            display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-            gap: 18px;
-            align-items: stretch;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
         }
 
-        /* iPhone – világosabb, elegáns */
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        /* iPhone – nagyobb, hangsúlyosabb */
+
+        .iphone-wrapper {
+            position: relative;
+            z-index: 2;
+        }
 
         .iphone {
             width: 100%;
@@ -301,7 +313,7 @@
             border-radius: 36px;
             padding: 12px;
             background: linear-gradient(145deg, #edeff4, #ffffff);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+            box-shadow: 0 26px 70px rgba(15, 23, 42, 0.35);
             position: relative;
         }
 
@@ -352,13 +364,18 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Live editor – könnyebb, kevésbé dobozos */
+        /* Live editor – kicsit mögötte, eltolva */
 
         .editor-wrapper {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            width: 260px;
+            max-width: 280px;
             border-radius: 22px;
             background: linear-gradient(145deg, #0b1120, #020617);
             padding: 12px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
+            box-shadow: 0 30px 70px rgba(15, 23, 42, 0.5);
         }
 
         .live-editor {
@@ -367,7 +384,7 @@
             border: 1px solid rgba(30, 64, 175, 0.6);
             display: flex;
             flex-direction: column;
-            height: 260px;
+            height: 220px;
         }
 
         .editor-header {
@@ -458,6 +475,18 @@
             color: rgba(55, 65, 81, 0.85);
         }
 
+        @media (max-width: 1024px) {
+            .hero-right {
+                justify-content: flex-start;
+            }
+            .editor-wrapper {
+                position: relative;
+                right: 0;
+                bottom: 0;
+                margin-top: 14px;
+            }
+        }
+
         /* ===== MAIN WRAPPER ===== */
 
         main {
@@ -494,7 +523,7 @@
         .section-subtitle {
             font-size: 13px;
             color: rgba(75, 85, 99, 0.95);
-            max-width: 520px;
+            max-width: 640px;
         }
 
         /* ===== SZOLGÁLTATÁSOK ===== */
@@ -566,7 +595,7 @@
             font-size: 13px;
             line-height: 1.8;
             color: rgba(55, 65, 81, 0.96);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .about-strong {
@@ -623,12 +652,24 @@
             color: #facc15;
         }
 
-        /* ===== RÓLUNK ===== */
+        /* ===== RÓLUNK – HOSSZABB, TÖBB SZÖVEG ===== */
+
+        #rolunk.section {
+            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 60%, #f9fafb 100%);
+        }
+
+        .values-intro {
+            margin-top: 12px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(55, 65, 81, 0.96);
+            max-width: 720px;
+        }
 
         .values-grid {
             margin-top: 22px;
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 18px;
         }
 
@@ -669,7 +710,7 @@
             color: rgba(75, 85, 99, 0.95);
         }
 
-        /* ===== KAPCSOLAT – világos, széles sáv ===== */
+        /* ===== KAPCSOLAT ===== */
 
         #kapcsolat.section {
             border-top: 1px solid rgba(148, 163, 184, 0.35);
@@ -861,7 +902,7 @@
             text-decoration: underline;
         }
 
-        /* ===== COOKIE SÁV – világos ===== */
+        /* ===== COOKIE SÁV ===== */
 
         .cookie-banner {
             position: fixed;
@@ -936,6 +977,10 @@
             .preview-pane {
                 display: none;
             }
+
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
@@ -955,7 +1000,14 @@
                 font-size: 30px;
             }
 
-            .services-grid,
+            .services-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #rolunk.section {
+                padding-top: 46px;
+            }
+
             .values-grid {
                 grid-template-columns: minmax(0, 1fr);
             }
@@ -967,6 +1019,13 @@
             .cookie-banner {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+
+            .editor-wrapper {
+                position: relative;
+                right: 0;
+                bottom: 0;
+                margin-top: 14px;
             }
         }
 
@@ -1040,17 +1099,19 @@
         </div>
 
         <div class="hero-right float-slow">
-            <div class="iphone">
-                <div class="iphone-inner">
-                    <div class="notch"></div>
-                    <div class="phone-content">
-                        <h3>Üdvözöljük!</h3>
-                        <div id="typingText"></div>
+            <div class="hero-card-stack">
+                <div class="iphone-wrapper">
+                    <div class="iphone">
+                        <div class="iphone-inner">
+                            <div class="notch"></div>
+                            <div class="phone-content">
+                                <h3>Üdvözöljük!</h3>
+                                <div id="typingText"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div>
                 <div class="editor-wrapper">
                     <div class="live-editor">
                         <div class="editor-header">
@@ -1067,9 +1128,6 @@
                         </div>
                     </div>
                 </div>
-                <p class="hero-note">
-                    Karakterről karakterre építjük a kódot – nem “összekattintjuk”.
-                </p>
             </div>
         </div>
     </div>
@@ -1083,7 +1141,7 @@
             <h2 class="section-title">Amiben a legerősebbek vagyunk</h2>
             <p class="section-subtitle">
                 A koncepciótól a technikai megvalósításig segítünk – úgy, hogy közben érthető maradjon,
-                mi miért készül el.
+                mi miért készül el. Nem „varázsolunk”, hanem átlátható, visszakövethető rendszert építünk.
             </p>
         </div>
 
@@ -1151,7 +1209,7 @@
             <h2 class="section-title">Kik állnak az Aurion Studio mögött?</h2>
             <p class="section-subtitle">
                 Emberközeli kommunikáció, őszinte visszajelzések és olyan fejlesztés,
-                amit mi magunk is szívesen vállalunk a nevünkkel.
+                amit mi magunk is szívesen vállalunk a nevünkkel. Nem gyárban készülő sablonmegoldásokban gondolkodunk.
             </p>
         </div>
 
@@ -1160,11 +1218,13 @@
                 <p class="about-text">
                     Az <span class="about-strong">Aurion Studio</span> célja, hogy olyan webes megoldásokat hozzon létre,
                     amelyek hosszú távon is stabilak, érthetők és könnyen továbbfejleszthetők. 
-                    Nem “varázslatban” gondolkodunk, hanem átlátható struktúrában.
+                    Nem az a célunk, hogy “minél gyorsabban összerakjunk valamit”, hanem hogy olyan rendszert kapj,
+                    aminek minden lépését érted.
                 </p>
                 <p class="about-text">
                     Kifejezetten szeretjük azokat a projekteket, ahol partnerként tudunk együtt gondolkodni:
-                    kérdezel, elmondjuk, mit miért javaslunk, és közösen döntünk. Így lesz az oldal valóban a tiéd.
+                    kérdezel, elmondjuk, mit miért javaslunk, és közösen döntünk. Így lesz az oldal valóban a tiéd,
+                    és nem egy cserélhető sablon a sok közül.
                 </p>
 
                 <div class="about-tags">
@@ -1172,6 +1232,7 @@
                     <span class="about-tag">Pixel-pontos dizájn</span>
                     <span class="about-tag">Stabil technikai háttér</span>
                     <span class="about-tag">Őszinte kommunikáció</span>
+                    <span class="about-tag">Fejlesztői szemlélet, nem “összekattintás”</span>
                 </div>
             </div>
 
@@ -1180,6 +1241,7 @@
                 <p class="about-highlight-text">
                     Nem vállalunk el mindent, csak amit jó szívvel le tudunk fejleszteni. 
                     Ha valamit nem érdemes megvalósítani, azt is elmondjuk – akkor is, ha rövid távon kevesebb munkát jelent.
+                    Hosszú távon az a célunk, hogy stabil, vállalható rendszerek fűződjenek az Aurion névhez.
                 </p>
                 <div class="about-stats">
                     <div>
@@ -1195,14 +1257,19 @@
         </div>
     </section>
 
-    <!-- RÓLUNK -->
+    <!-- RÓLUNK – HOSSZABB -->
     <section class="section animate-on-scroll" id="rolunk">
         <div class="section-header">
             <div class="section-kicker">RÓLUNK</div>
             <h2 class="section-title">Ahogyan a közös munkát látjuk</h2>
             <p class="section-subtitle">
-                Nem egy újabb “legyártott” weboldalt kapsz, hanem egy olyan rendszert, 
-                ami a vállalkozásodat segíti – és érthető, hogyan működik.
+                Nem egy újabb “legyártott” weboldalt kapsz, hanem egy olyan rendszert, ami a vállalkozásodat segíti –
+                és amit évekkel később is szívesen nézel vissza, mert érthető, hogyan épül fel.
+            </p>
+            <p class="values-intro">
+                A legtöbb partnerünk úgy érkezik hozzánk, hogy már van egy félig működő vagy sablonokból összerakott oldala,
+                amiről érzi: ennél sokkal többet ki lehetne hozni. Mi ebben segítünk – lépésről lépésre feltárjuk,
+                <strong>mi maradhat</strong>, mit érdemes lecserélni, és hogyan lesz az egészből egy rendezett, letisztult rendszer.
             </p>
         </div>
 
@@ -1211,24 +1278,37 @@
                 <span class="value-badge">1. Lépésről lépésre</span>
                 <h3 class="value-title">Átlátható folyamat</h3>
                 <p class="value-text">
-                    Elmondjuk, mi történik, mire van szükség, és mit miért csinálunk.
-                    Nem kérünk el semmit úgy, hogy ne értenéd, miért van rá szükség.
+                    Elmondjuk, mi történik, mire van szükség, és mit miért csinálunk. Nem kérünk el semmit úgy,
+                    hogy ne értenéd, mi a célja. A folyamatot végig látod, nem csak az eredményt a végén.
                 </p>
             </div>
+
             <div class="value-card animate-on-scroll">
                 <span class="value-badge">2. Nem sablonokkal dolgozunk</span>
                 <h3 class="value-title">Valóban egyedi megoldások</h3>
                 <p class="value-text">
                     A struktúra, a dizájn és a funkciók is a te projektedre készülnek.
-                    Nem fogsz ugyanilyen oldalt viszontlátni máshol egy logócsere után.
+                    Nem fogsz ugyanilyen oldalt viszontlátni máshol egy logócsere után –
+                    mert az alapoktól a te igényeidre van szabva.
                 </p>
             </div>
+
             <div class="value-card animate-on-scroll">
-                <span class="value-badge">3. Utógondozás</span>
+                <span class="value-badge">3. Valódi fejlesztés</span>
+                <h3 class="value-title">Nem “összekattintjuk”</h3>
+                <p class="value-text">
+                    A kódot mi írjuk, nem pluginek és vizuális builder-ek rakják össze. 
+                    Így tudjuk garantálni, hogy érthető, javítható és bővíthető marad a rendszer – akkor is, ha évekkel később nyúlunk hozzá.
+                </p>
+            </div>
+
+            <div class="value-card animate-on-scroll">
+                <span class="value-badge">4. Utógondozás</span>
                 <h3 class="value-title">Nem tűnünk el átadás után</h3>
                 <p class="value-text">
                     Ha fél év múlva bővíteni szeretnél, ugyanúgy számíthatsz ránk.
-                    Nem egy egyszeri projektként tekintünk rád, hanem hosszabb távú partnerként.
+                    Nem egy egyszeri projektként tekintünk rád, hanem hosszabb távú partnerként,
+                    akinek az online jelenléte velünk együtt fejlődik.
                 </p>
             </div>
         </div>
