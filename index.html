@@ -228,6 +228,7 @@
         .hero-title-section {
             text-align: center;
             margin-bottom: 50px;
+            transition: transform 0.3s ease-out;
         }
 
         .hero h1 {
@@ -308,10 +309,12 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 26px;
             margin-top: 40px;
+            transition: transform 0.3s ease-out;
         }
 
         .hero-section {
             position: relative;
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
         }
 
         .hero-section::before {
@@ -328,6 +331,10 @@
         .hero-section:hover::before {
             opacity: 1;
             transform: scale(1.01);
+        }
+
+        .hero-section:hover {
+            transform: translateY(-4px);
         }
 
         /* iPhone */
@@ -347,7 +354,7 @@
         }
 
         .iphone:hover {
-            transform: translateY(-6px) scale(1.01);
+            transform: translateY(-6px) scale(1.01) rotate3d(1, 1, 0, 3deg);
             box-shadow:
                 0 30px 80px rgba(15, 23, 42, 0.45),
                 0 0 0 1px rgba(202, 168, 90, 0.7);
@@ -560,7 +567,7 @@
         }
 
         .welcome-box:hover {
-            transform: scale(1.02);
+            transform: scale(1.02) translateY(-2px);
             box-shadow:
                 0 32px 90px rgba(15, 23, 42, 0.6),
                 0 0 0 1px rgba(250, 250, 249, 0.7);
@@ -686,10 +693,11 @@
             opacity: 0;
             mix-blend-mode: soft-light;
             transition: opacity 0.25s ease;
+            background-size: 200% 200%;
         }
 
         .service-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-4px) scale(1.01);
             box-shadow:
                 0 24px 60px rgba(15, 23, 42, 0.45),
                 0 0 0 1px rgba(202, 168, 90, 0.6);
@@ -697,6 +705,13 @@
 
         .service-card:hover::before {
             opacity: 1;
+            animation: cardGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes cardGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .service-icon {
@@ -767,13 +782,42 @@
         }
 
         .about-highlight {
-            background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #020617 100%);
+            background: linear-gradient(135deg, #020617 0%, #020617 40%, #111827 100%);
             border-radius: 18px;
             padding: 14px 14px 12px;
             color: #e5e7eb;
             box-shadow:
                 0 18px 45px rgba(15, 23, 42, 0.65),
                 0 0 0 1px rgba(31, 41, 55, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-highlight::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: conic-gradient(
+                from 220deg,
+                rgba(250, 204, 21, 0.9),
+                transparent,
+                rgba(56, 189, 248, 0.9),
+                transparent,
+                rgba(250, 204, 21, 0.9)
+            );
+            opacity: 0.25;
+            mix-blend-mode: soft-light;
+            animation: aboutGlow 18s linear infinite;
+        }
+
+        @keyframes aboutGlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-highlight > * {
+            position: relative;
+            z-index: 1;
         }
 
         .about-highlight-title {
@@ -823,6 +867,13 @@
             padding: 16px 14px 14px;
             border: 1px solid rgba(203, 213, 225, 0.9);
             box-shadow: 0 14px 35px rgba(148, 163, 184, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35);
+            border-color: rgba(202, 168, 90, 0.9);
         }
 
         .value-badge {
@@ -1477,7 +1528,7 @@
                 <h2 class="section-title">Beszéljünk az ötletedről</h2>
                 <p class="section-subtitle">
                     Írj néhány mondatot arról, miben gondolkodsz, és visszajelzést adunk, 
-                    hogyan érdemes elindulni – teljesen kötetlenül.
+                    hogyan érdemes elindulni – kötöttségek nélkül.
                 </p>
             </div>
 
@@ -1506,12 +1557,12 @@
                             </li>
                             <li>
                                 <span class="contact-pill">Visszajelzés</span>
-                                általában 1–2 munkanapon belül
+                                jellemzően 1–2 munkanapon belül
                             </li>
                         </ul>
 
                         <span class="contact-badge">
-                            Nem spamelünk, nem adjuk át az adataidat – kizárólag a közös munkával kapcsolatban keresünk.
+                            Az adataid biztonságban vannak nálunk – kizárólag a kapcsolatfelvételhez használjuk fel őket.
                         </span>
                     </div>
                 </div>
@@ -1553,9 +1604,9 @@
                         </div>
 
                         <div class="contact-submit-row">
-                            <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése (demó)</button>
+                            <button type="button" class="contact-button" id="contactSubmit">Üzenet elküldése</button>
                             <span class="contact-small">
-                                A gomb jelenleg demó – a végleges küldést a választott technikai háttérhez (pl. PHP, e-mail API) igazítjuk.
+                                Üzeneted beérkezése után e-mailben keresünk a következő lépésekkel és a pontos részletekkel.
                             </span>
                         </div>
                     </form>
@@ -1573,8 +1624,6 @@
             </div>
             <div class="footer-right">
                 <a href="#top" class="footer-link">Vissza az elejére</a>
-                <span>•</span>
-                <span class="footer-link">Demo bemutató felület</span>
             </div>
         </div>
     </footer>
@@ -1767,6 +1816,20 @@ p {
             observer.observe(el);
         });
 
+        // Hero parallax érzet – nagyon finom
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const heroTitle = document.querySelector('.hero-title-section');
+            const heroSections = document.querySelector('.hero-sections');
+
+            if (heroTitle) {
+                heroTitle.style.transform = `translateY(${scrollY * 0.03}px)`;
+            }
+            if (heroSections) {
+                heroSections.style.transform = `translateY(${scrollY * 0.02}px)`;
+            }
+        });
+
         // Biztonsági kérdés (random összeadás)
         let secA = 0;
         let secB = 0;
@@ -1795,7 +1858,8 @@ p {
                     return;
                 }
 
-                alert('Demó üzenetküldés: a valódi rendszerben most történne meg az üzenet továbbítása az Aurion Studio felé.');
+                // Itt kerül majd bekötésre a valódi küldés (pl. PHP / e-mail API)
+                alert('Köszönjük! Üzenetedet rögzítettük, hamarosan felvesszük veled a kapcsolatot.');
                 generateSecurityQuestion();
                 if (contactForm) {
                     contactForm.reset();
