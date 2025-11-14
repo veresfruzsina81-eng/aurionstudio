@@ -472,7 +472,7 @@
         .device-laptop-screen img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* teljes oldal látszik, nem vágjuk */
+            object-fit: contain; /* laptopon teljes oldal, nem vágjuk */
             display: block;
         }
 
@@ -550,19 +550,26 @@
             z-index: 3;
         }
 
-       .device-phone-screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;      /* tölti a teljes kijelzőt */
-    display: block;
-    transform: scale(1.08); /* picit ránagyít, hogy még jobban kitöltse */
-}
+        .device-phone-screen {
+            position: absolute;
+            inset: 16px 6px 8px 6px;
+            border-radius: 16px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+        }
 
-        .device-phone-screen img {
-            width: 200%;
-            height: 200%;
-            object-fit: contain; /* teljes oldal, nem vágjuk */
-            display: block;
+        .phone-screen-serleg {
+            background-image: url('serlegkiraly-clean.png');
+        }
+
+        .phone-screen-malfi {
+            background-image: url('malfiruha-clean.png');
+        }
+
+        .phone-screen-szoke {
+            background-image: url('szokeepker-clean.png');
         }
 
         .device-phone-home {
@@ -727,7 +734,7 @@
             .project-mockup {
                 max-width: 420px;
                 margin: 24px auto 24px;
-                animation: none; /* mobilon ne “ússzon” össze-vissza */
+                animation: none;
             }
 
             .device-laptop {
@@ -874,9 +881,7 @@
                 <div class="device-phone">
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen">
-                            <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu mobil nézet">
-                        </div>
+                        <div class="device-phone-screen phone-screen-serleg"></div>
                         <div class="device-phone-home"></div>
                     </div>
                 </div>
@@ -937,9 +942,7 @@
                 <div class="device-phone">
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen">
-                            <img src="malfiruha-clean.png" alt="Malfiruha.hu mobil nézet">
-                        </div>
+                        <div class="device-phone-screen phone-screen-malfi"></div>
                         <div class="device-phone-home"></div>
                     </div>
                 </div>
@@ -1000,9 +1003,7 @@
                 <div class="device-phone">
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen">
-                            <img src="szokeepker-clean.png" alt="Szőke Épker mobil nézet">
-                        </div>
+                        <div class="device-phone-screen phone-screen-szoke"></div>
                         <div class="device-phone-home"></div>
                     </div>
                 </div>
