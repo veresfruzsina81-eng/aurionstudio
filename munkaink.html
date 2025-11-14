@@ -46,12 +46,6 @@
             100% { transform: translate(-50%, 0) rotate(-4deg); }
         }
 
-        @keyframes glowPulse {
-            0%   { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
-            70%  { box-shadow: 0 0 0 18px rgba(250, 204, 21, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
-        }
-
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(24px) scale(0.97);
@@ -65,7 +59,7 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC (ugyanaz a feeling, mint az indexen) ===== */
+        /* ===== FEJLÉC ===== */
 
         header {
             position: fixed;
@@ -317,23 +311,6 @@
             background: radial-gradient(circle at top, rgba(250, 204, 21, 0.18), transparent 60%);
         }
 
-        .hero-ring::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background:
-                conic-gradient(from 220deg,
-                rgba(250, 204, 21, 0.0),
-                rgba(250, 204, 21, 0.5),
-                rgba(250, 204, 21, 0.0));
-            animation: spinRing 6s linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes spinRing {
-            to { transform: rotate(360deg); }
-        }
-
         .hero-ring-inner {
             position: relative;
             border-radius: 999px;
@@ -353,8 +330,6 @@
             text-align: center;
             color: rgba(248, 250, 252, 0.9);
         }
-
-        /* ===== MAIN ===== */
 
         main {
             max-width: 1200px;
@@ -399,13 +374,6 @@
             border-radius: 999px;
             background: linear-gradient(90deg, #facc15, #f97316);
             background-size: 220% 100%;
-            animation: glowBar 8s linear infinite;
-        }
-
-        @keyframes glowBar {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .section-subtitle {
@@ -414,7 +382,7 @@
             max-width: 720px;
         }
 
-        /* ===== PROJEKT BLOKKOK – FEKETE–ARANY MACBOOK + IPHONE ===== */
+        /* ===== PROJEKT BLOKKOK ===== */
 
         .project-block {
             padding: 40px 0 50px;
@@ -498,13 +466,14 @@
             inset: 6px 10px 10px 10px;
             border-radius: 12px;
             overflow: hidden;
+            background: #000;
         }
 
         .device-laptop-screen img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transform: scale(1.02);
+            object-fit: contain; /* teljes oldal látszik, nem vágjuk */
+            display: block;
         }
 
         .device-laptop-camera {
@@ -543,7 +512,7 @@
             background: linear-gradient(90deg, rgba(148, 163, 184, 0.6), rgba(55, 65, 81, 0.9));
         }
 
-        /* Phone – elöl, lebegve */
+        /* Phone – desktopon a laptop előtt lebeg */
 
         .device-phone {
             position: absolute;
@@ -586,12 +555,14 @@
             inset: 16px 6px 8px 6px;
             border-radius: 16px;
             overflow: hidden;
+            background: #000;
         }
 
         .device-phone-screen img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* teljes oldal, nem vágjuk */
+            display: block;
         }
 
         .device-phone-home {
@@ -754,15 +725,29 @@
             }
 
             .project-mockup {
-                max-width: 100%;
+                max-width: 420px;
+                margin: 24px auto 24px;
+                animation: none; /* mobilon ne “ússzon” össze-vissza */
             }
 
             .device-laptop {
                 max-width: 100%;
             }
 
+            /* Mobilon a telefon már NEM abszolút,
+               hanem a laptop alatt, külön blokkban */
             .device-phone {
-                width: 140px;
+                position: relative;
+                left: auto;
+                bottom: auto;
+                transform: none;
+                margin: -40px auto 0;
+                width: 150px;
+                animation: floatSlow 16s ease-in-out infinite;
+            }
+
+            .device-phone-inner {
+                height: 260px;
             }
         }
 
@@ -776,7 +761,12 @@
             }
 
             .device-phone {
-                width: 130px;
+                margin: -32px auto 0;
+                width: 140px;
+            }
+
+            .device-phone-inner {
+                height: 240px;
             }
         }
     </style>
@@ -814,7 +804,6 @@
     </nav>
 </header>
 
-<!-- HERO – MUNKÁINK ÁTTEKINTÉS -->
 <section class="hero">
     <div class="hero-inner animate-on-scroll">
         <div>
@@ -876,8 +865,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <!-- Ide tedd a Serlegkirály screenshotot -->
-                            <img src="serlegkiraly-hero.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
+                            <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -887,8 +875,7 @@
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
                         <div class="device-phone-screen">
-                            <!-- Ugyanaz a kép mobilban is megállja a helyét -->
-                            <img src="serlegkiraly-hero.png" alt="Serlegkirály.hu mobil nézet">
+                            <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu mobil nézet">
                         </div>
                         <div class="device-phone-home"></div>
                     </div>
@@ -941,7 +928,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <img src="malfiruha-hero.png" alt="Malfiruha.hu – ruházati webshop">
+                            <img src="malfiruha-clean.png" alt="Malfiruha.hu – ruházati webshop">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -951,7 +938,7 @@
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
                         <div class="device-phone-screen">
-                            <img src="malfiruha-hero.png" alt="Malfiruha.hu mobil nézet">
+                            <img src="malfiruha-clean.png" alt="Malfiruha.hu mobil nézet">
                         </div>
                         <div class="device-phone-home"></div>
                     </div>
@@ -1004,7 +991,7 @@
                     <div class="device-laptop-bezel">
                         <div class="device-laptop-camera"></div>
                         <div class="device-laptop-screen">
-                            <img src="szokeepker-hero.png" alt="Szőke Épker – generálkivitelezés honlap">
+                            <img src="szokeepker-clean.png" alt="Szőke Épker – generálkivitelezés honlap">
                         </div>
                     </div>
                     <div class="device-laptop-base"></div>
@@ -1014,7 +1001,7 @@
                     <div class="device-phone-inner">
                         <div class="device-phone-notch"></div>
                         <div class="device-phone-screen">
-                            <img src="szokeepker-hero.png" alt="Szőke Épker mobil nézet">
+                            <img src="szokeepker-clean.png" alt="Szőke Épker mobil nézet">
                         </div>
                         <div class="device-phone-home"></div>
                     </div>
