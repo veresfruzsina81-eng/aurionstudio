@@ -550,13 +550,13 @@
             z-index: 3;
         }
 
-        .device-phone-screen {
-            position: absolute;
-            inset: 16px 6px 8px 6px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #000;
-        }
+       .device-phone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* tölti a teljes kijelzőt */
+    display: block;
+    transform: scale(1.08); /* picit ránagyít, hogy még jobban kitöltse */
+}
 
         .device-phone-screen img {
             width: 100%;
