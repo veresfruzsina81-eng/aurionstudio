@@ -1,14 +1,12 @@
 // netlify/functions/aurion-chat.js
 
-const fetch = (...args) =>
-  import('node-fetch').then(({ default: fetch }) => fetch(...args));
-
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
 exports.handler = async (event) => {
+  // CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
@@ -37,20 +35,42 @@ exports.handler = async (event) => {
     }
 
     const body = JSON.parse(event.body || '{}');
-    const messages = body.messages;
+
+    // 1) Ha a frontend egyetlen "message" stringet küld (ahogy most):
+    const singleMessage = body.message;
+
+    // 2) Ha később messages tömböt küldenél, azt is elfogadjuk:
+    let messages = body.messages;
 
     if (!messages || !Array.isArray(messages)) {
-      return {
-        statusCode: 400,
-        headers: CORS_HEADERS,
-        body: JSON.stringify({ error: 'Hiányzó vagy hibás messages tömb.' }),
-      };
+      if (!singleMessage || typeof singleMessage !== 'string') {
+        return {
+          statusCode: 400,
+          headers: CORS_HEADERS,
+          body: JSON.stringify({ error: 'Hiányzó üzenet (message vagy messages).' }),
+        };
+      }
+
+      // Itt építjük fel a teljes chat kontextust
+      messages = [
+        {
+          role: 'system',
+          content:
+            'Te az Aurion Studio weboldal AI asszisztense vagy. ' +
+            'Segíts barátságosan és érthetően válaszolni webfejlesztés, webshop, AI chat és együttműködés témában. ' +
+            'Válaszaid legyenek rövidek, lényegre törők, és tegező hangvételűek.',
+        },
+        {
+          role: 'user',
+          content: singleMessage,
+        },
+      ];
     }
 
     const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
