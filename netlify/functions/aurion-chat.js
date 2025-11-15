@@ -1,112 +1,141 @@
-// netlify/functions/aurion-chat.js
+<script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-};
+    if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileNav.classList.toggle('show');
+        });
 
-exports.handler = async (event) => {
-  // CORS preflight
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers: CORS_HEADERS,
-      body: '',
-    };
-  }
-
-  if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      headers: CORS_HEADERS,
-      body: 'Method Not Allowed',
-    };
-  }
-
-  try {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
-      console.error('Hiányzó OPENAI_API_KEY environment variable');
-      return {
-        statusCode: 500,
-        headers: CORS_HEADERS,
-        body: JSON.stringify({ error: 'AI motor nincs bekötve (hiányzó API key).' }),
-      };
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileNav.classList.remove('show');
+            });
+        });
     }
 
-    const body = JSON.parse(event.body || '{}');
+    // Scroll animáció
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
 
-    // 1) Ha a frontend egyetlen "message" stringet küld (ahogy most):
-    const singleMessage = body.message;
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-    // 2) Ha később messages tömböt küldenél, azt is elfogadjuk:
-    let messages = body.messages;
+    // === CHAT LOGIKA – API hívás + 10 üzenet limit ===
 
-    if (!messages || !Array.isArray(messages)) {
-      if (!singleMessage || typeof singleMessage !== 'string') {
-        return {
-          statusCode: 400,
-          headers: CORS_HEADERS,
-          body: JSON.stringify({ error: 'Hiányzó üzenet (message vagy messages).' }),
-        };
-      }
+    const chatWindow = document.getElementById('chatWindow');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
 
-      // Itt építjük fel a teljes chat kontextust
-      messages = [
-        {
-          role: 'system',
-          content:
-            'Te az Aurion Studio weboldal AI asszisztense vagy. ' +
-            'Segíts barátságosan és érthetően válaszolni webfejlesztés, webshop, AI chat és együttműködés témában. ' +
-            'Válaszaid legyenek rövidek, lényegre törők, és tegező hangvételűek.',
-        },
-        {
-          role: 'user',
-          content: singleMessage,
-        },
-      ];
+    let messageCount = 0;
+    const MAX_MESSAGES = 10;
+
+    function addMessage(text, role = 'user') {
+        if (!chatWindow) return null;
+        const msg = document.createElement('div');
+        msg.classList.add('chat-message');
+        if (role === 'user') {
+            msg.classList.add('user');
+        } else {
+            msg.classList.add('bot');
+        }
+        msg.textContent = text;
+        chatWindow.appendChild(msg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        return msg;
     }
 
-    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages,
-        temperature: 0.6,
-      }),
-    });
-
-    if (!openaiRes.ok) {
-      const text = await openaiRes.text();
-      console.error('OpenAI hiba:', openaiRes.status, text);
-      return {
-        statusCode: 500,
-        headers: CORS_HEADERS,
-        body: JSON.stringify({ error: 'AI válasz hiba.', detail: text }),
-      };
+    function showLimitReached() {
+        addMessage(
+            'Ebben a demó chatben 10 üzenet után lezárjuk a beszélgetést, ' +
+            'hogy védjük az AI erőforrásokat. Ha szeretnél saját, korlátlan AI asszisztenst, írj az ajánlatkérő űrlapon keresztül.',
+            'bot'
+        );
+        if (chatInput) chatInput.disabled = true;
+        if (chatSendBtn) chatSendBtn.disabled = true;
     }
 
-    const data = await openaiRes.json();
-    const reply = data.choices?.[0]?.message?.content?.trim() || '';
+    async function callBackend(userText) {
+        // „gépelés” placeholder
+        const thinkingBubble = addMessage('Gondolkodom a válaszon…', 'bot');
 
-    return {
-      statusCode: 200,
-      headers: {
-        ...CORS_HEADERS,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ reply }),
-    };
-  } catch (err) {
-    console.error('Function hiba:', err);
-    return {
-      statusCode: 500,
-      headers: CORS_HEADERS,
-      body: JSON.stringify({ error: 'Belső szerverhiba.' }),
-    };
-  }
-};
+        try {
+            const res = await fetch('/.netlify/functions/aurion-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: userText,
+                    count: messageCount
+                }),
+            });
+
+            if (!res.ok) {
+                // ha a function limitet dob
+                if (res.status === 429) {
+                    const data = await res.json().catch(() => ({}));
+                    if (thinkingBubble) {
+                        thinkingBubble.textContent =
+                            data.message ||
+                            'Ebben a demó chatben elértük az üzenetlimitet. Ha szeretnél saját AI asszisztenst, jelezd nekünk.';
+                    }
+                    showLimitReached();
+                    return;
+                }
+
+                throw new Error('Hibás HTTP státusz: ' + res.status);
+            }
+
+            const data = await res.json();
+            const reply = (data && data.reply) ? data.reply : '';
+
+            if (thinkingBubble) {
+                thinkingBubble.textContent = reply || 'Jelenleg nem érkezett válasz a motortól.';
+            }
+        } catch (err) {
+            console.error('Chat hiba:', err);
+            if (thinkingBubble) {
+                thinkingBubble.textContent =
+                    'Most nem tudom elérni a chat motort. ' +
+                    'Valószínűleg technikai probléma van – próbáld meg egy kicsit később, ' +
+                    'vagy írj közvetlenül az ajánlatkérő űrlapon.';
+            }
+        }
+    }
+
+    function handleUserSend() {
+        if (!chatInput) return;
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        if (messageCount >= MAX_MESSAGES) {
+            showLimitReached();
+            return;
+        }
+
+        // növeljük a számlálót és kirakjuk a user üzenetet
+        messageCount += 1;
+        addMessage(text, 'user');
+        chatInput.value = '';
+
+        // backend hívás
+        callBackend(text);
+    }
+
+    if (chatSendBtn && chatInput) {
+        chatSendBtn.addEventListener('click', handleUserSend);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleUserSend();
+            }
+        });
+    }
+</script>
