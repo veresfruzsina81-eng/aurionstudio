@@ -1,1036 +1,1182 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurion Studio – AI Chat</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(180deg, #f9fafb 0%, #e5e7eb 35%, #f9fafb 100%);
-            color: #0f172a;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ===== ANIMÁCIÓK ===== */
-
-        @keyframes floatSlow {
-            0%   { transform: translateY(0); }
-            50%  { transform: translateY(-6px); }
-            100% { transform: translateY(0); }
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px) scale(0.97); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes gradientMove {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px) scale(0.97);
-            transition:
-                opacity 0.7s ease,
-                transform 0.7s ease;
-        }
-
-        .animate-on-scroll.in-view {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* ===== FEJLÉC ===== */
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 9999;
-            background: rgba(249, 250, 251, 0.94);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            white-space: nowrap;
-        }
-
-        .logo-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
-            object-fit: contain;
-            background: #111827;
-            box-shadow:
-                0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.6);
-        }
-
-        .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .logo .studio {
-            color: #111827;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(15, 23, 42, 0.8);
-            position: relative;
-            padding: 4px 0;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -4px;
-            width: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            transform: translateX(-50%);
-            transition: width 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: #0f172a;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.contact-link {
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.7);
-            background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
-            color: #111827;
-        }
-
-        .nav-links a.contact-link::after {
-            display: none;
-        }
-
-        .nav-links a.active {
-            color: #facc15;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .hamburger {
-            display: none;
-            width: 40px;
-            height: 32px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(255, 255, 255, 0.95);
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 10000;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 18px;
-            height: 2px;
-            border-radius: 999px;
-            background: #111827;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .hamburger.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        .nav-links.mobile {
-            position: fixed;
-            inset: 56px 16px auto 16px;
-            background: rgba(249, 250, 251, 0.97);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
-            padding: 12px 16px;
-            flex-direction: column;
-            gap: 10px;
-            transform: translateY(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            z-index: 9999;
-        }
-
-        .nav-links.mobile.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* ===== HERO ===== */
-
-        .hero {
-            padding: 110px 16px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero-inner {
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
-            gap: 40px;
-            align-items: center;
-        }
-
-        .hero-kicker {
-            font-size: 11px;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.95);
-            margin-bottom: 10px;
-        }
-
-        .hero-title {
-            font-size: 40px;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            background: linear-gradient(120deg, #111827 0%, #caa85a 45%, #f7b733 75%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeUp 0.9s ease-out;
-        }
-
-        .hero-subtitle {
-            font-size: 16px;
-            color: rgba(55, 65, 81, 0.95);
-            margin-bottom: 16px;
-            max-width: 520px;
-        }
-
-        .hero-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #fefce8, #fef9c3);
-            border: 1px solid rgba(234, 179, 8, 0.4);
-            font-size: 12px;
-            color: #92400e;
-            margin-bottom: 10px;
-            background-size: 200% 100%;
-            animation: gradientMove 10s linear infinite;
-        }
-
-        .hero-pill-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #22c55e, #16a34a);
-        }
-
-        .hero-info {
-            font-size: 13px;
-            color: rgba(75, 85, 99, 0.96);
-            margin-top: 8px;
-        }
-
-        .hero-cta-wrapper {
-            animation: floatSlow 18s ease-in-out infinite;
-        }
-
-        .hero-cta-card {
-            border-radius: 24px;
-            background: #ffffff;
-            box-shadow:
-                0 22px 50px rgba(148, 163, 184, 0.35),
-                0 0 0 1px rgba(226, 232, 240, 0.9);
-            padding: 16px 18px 16px;
-            max-width: 420px;
-            margin: 0 auto;
-        }
-
-        .hero-cta-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            background: #f9fafb;
-            color: #374151;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            margin-bottom: 8px;
-        }
-
-        .hero-cta-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #22c55e, #16a34a);
-        }
-
-        .hero-cta-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 6px;
-        }
-
-        .hero-cta-text {
-            font-size: 13px;
-            color: rgba(55, 65, 81, 0.96);
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .hero-cta-list {
-            font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
-            margin-bottom: 12px;
-            padding-left: 16px;
-        }
-
-        .hero-cta-list li {
-            margin-bottom: 4px;
-        }
-
-        .hero-cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 18px;
-            border-radius: 999px;
-            font-size: 13px;
-            font-weight: 600;
-            background: linear-gradient(90deg, #e0c075, #facc6b);
-            color: #111827;
-            box-shadow: 0 14px 34px rgba(214, 178, 96, 0.65);
-            cursor: pointer;
-            border: none;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .hero-cta-btn span.icon {
-            font-size: 14px;
-        }
-
-        .hero-cta-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 22px 50px rgba(214, 178, 96, 0.95);
-        }
-
-        /* ===== MAIN & SZEKCIÓK ===== */
-
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 16px 60px;
-        }
-
-        .section {
-            padding: 40px 0;
-        }
-
-        .section-header {
-            text-align: left;
-            margin-bottom: 26px;
-        }
-
-        .section-kicker {
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.96);
-            margin-bottom: 6px;
-        }
-
-        .section-title {
-            font-size: 24px;
-            font-weight: 800;
-            color: #111827;
-            margin-bottom: 8px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 90px;
-            height: 3px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            background-size: 220% 100%;
-            animation: gradientMove 8s linear infinite;
-        }
-
-        .section-subtitle {
-            font-size: 14px;
-            color: rgba(75, 85, 99, 0.96);
-            max-width: 720px;
-        }
-
-        /* ===== FUNKCIÓK / MIT TUD ===== */
-
-        .features-grid {
-            margin-top: 24px;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .feature-card {
-            border-radius: 18px;
-            background: #ffffff;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 16px 40px rgba(148, 163, 184, 0.3);
-            padding: 14px 14px 12px;
-            font-size: 13px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            width: 26px;
-            height: 26px;
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 6px;
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #111827;
-        }
-
-        .feature-text {
-            font-size: 12px;
-            color: rgba(55, 65, 81, 0.96);
-            line-height: 1.6;
-        }
-
-        /* ===== PRÉMIUM CHAT SZEKCIÓ ===== */
-
-        .chat-section {
-            border-top: 1px solid rgba(148, 163, 184, 0.35);
-            background: linear-gradient(180deg, #f9fafb 0%, #e5e7eb 60%, #f9fafb 100%);
-            padding-bottom: 50px;
-        }
-
-        .chat-layout {
-            margin-top: 24px;
-            max-width: 980px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .chat-card-big {
-            border-radius: 30px;
-            background: linear-gradient(145deg, #f3f4f6, #e5e7eb);
-            box-shadow:
-                0 28px 60px rgba(148, 163, 184, 0.55),
-                0 0 0 1px rgba(209, 213, 219, 0.9);
-            border: 1px solid rgba(209, 213, 219, 0.95);
-            padding: 18px 20px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            animation: floatSlow 20s ease-in-out infinite;
-            color: #111827;
-        }
-
-        .chat-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 4px;
-        }
-
-        .chat-header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .chat-header-logo {
-            width: 34px;
-            height: 34px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #020617;
-            box-shadow:
-                0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 6px 16px rgba(0, 0, 0, 0.9);
-        }
-
-        .chat-header-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .chat-header-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chat-card-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .chat-meta {
-            font-size: 11px;
-            color: rgba(75, 85, 99, 0.9);
-        }
-
-        .chat-status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            background: rgba(22, 163, 74, 0.06);
-            color: #166534;
-            border: 1px solid rgba(34, 197, 94, 0.45);
-        }
-
-        .chat-status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 999px;
-            background: radial-gradient(circle, #22c55e, #16a34a);
-        }
-
-        .chat-window {
-            border-radius: 20px;
-            background: radial-gradient(circle at top, #1f2937, #4b5563 55%, #111827 100%);
-            padding: 12px 12px 14px;
-            min-height: 330px;
-            max-height: 420px;
-            overflow-y: auto;
-            box-shadow:
-                0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 18px 45px rgba(15, 23, 42, 0.7);
-        }
-
-        .chat-message {
-            max-width: 85%;
-            padding: 8px 10px;
-            border-radius: 14px;
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 6px;
-            word-wrap: break-word;
-        }
-
-        .chat-message.user {
-            margin-left: auto;
-            border-bottom-right-radius: 4px;
-            background: linear-gradient(135deg, #0f172a, #111827);
-            border-left: 3px solid #facc6b;
-            color: #e5e7eb;
-            font-weight: 500;
-        }
-
-        .chat-input-row {
-            margin-top: 10px;
-            display: flex;
-            gap: 8px;
-            align-items: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .chat-input {
-            flex: 1;
-            border-radius: 999px;
-            padding: 9px 14px;
-            border: 1px solid rgba(148, 163, 184, 0.95);
-            font-size: 13px;
-            font-family: inherit;
-            outline: none;
-            background: #111827;
-            min-width: 200px;
-            color: #f9fafb;
-        }
-
-        .chat-input::placeholder {
-            color: rgba(156, 163, 175, 0.9);
-        }
-
-        .chat-input:focus {
-            border-color: #facc6b;
-            box-shadow: 0 0 0 1px rgba(250, 204, 107, 0.7);
-        }
-
-        .chat-send-btn {
-            border: none;
-            border-radius: 999px;
-            padding: 9px 16px;
-            font-size: 13px;
-            font-weight: 600;
-            background: linear-gradient(90deg, #e0c075, #facc6b);
-            color: #111827;
-            cursor: pointer;
-            box-shadow: 0 12px 30px rgba(214, 178, 96, 0.8);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .chat-send-btn span.icon {
-            font-size: 14px;
-        }
-
-        .chat-send-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 20px 46px rgba(214, 178, 96, 1);
-        }
-
-        /* ===== LÁBLÉC ===== */
-
-        footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.5);
-            background: #020617;
-            color: #e5e7eb;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 12px 16px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: rgba(209, 213, 219, 0.9);
-        }
-
-        .footer-link:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== RESPONSIVE ===== */
-
-        @media (max-width: 1024px) {
-            .hero-inner {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 28px;
-            }
-
-            .hero-cta-wrapper {
-                order: -1;
-            }
-
-            .hero {
-                padding-top: 96px;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .chat-card-big {
-                border-radius: 24px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links.desktop {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 32px;
-            }
-
-            .features-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .chat-card-big {
-                padding: 16px 14px 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding-top: 92px;
-            }
-
-            .hero-title {
-                font-size: 28px;
-            }
-
-            .chat-window {
-                min-height: 280px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurion Studio – AI Chat asszisztens</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
+      color: #e5e7eb;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== Animációk ===== */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes floatSlow {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-8px); }
+      100% { transform: translateY(0); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(24px) scale(0.97);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ===== Fejléc ===== */
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 9999;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .logo-img {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      object-fit: contain;
+      background: #111827;
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.9),
+        0 12px 30px rgba(15, 23, 42, 0.7);
+    }
+
+    .logo .aurion {
+      background: linear-gradient(135deg, #d4af37, #facc15, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo .studio {
+      color: #f9fafb;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(248, 250, 252, 0.8);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      transform: translateX(-50%);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: #f9fafb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a.contact-link {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(250, 204, 21, 0.7);
+      background: linear-gradient(90deg, #fef9c3, #fffbeb);
+      box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+      color: #111827;
+    }
+
+    .nav-links a.contact-link::after {
+      display: none;
+    }
+
+    .nav-links a.active {
+      color: #facc15;
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 10000;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: #f9fafb;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-links.mobile {
+      position: fixed;
+      inset: 56px 16px auto 16px;
+      background: rgba(15, 23, 42, 0.97);
+      backdrop-filter: blur(18px);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.8);
+      padding: 12px 16px;
+      flex-direction: column;
+      gap: 10px;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 9999;
+    }
+
+    .nav-links.mobile.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ===== Hero ===== */
+
+    .hero {
+      padding: 110px 16px 56px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.95);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: 38px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: rgba(209, 213, 219, 0.96);
+      margin-bottom: 18px;
+      max-width: 520px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(31, 41, 55, 0.95), rgba(55, 65, 81, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 12px;
+      color: rgba(229, 231, 235, 0.96);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+      margin-bottom: 18px;
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #22c55e, #16a34a);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #facc15, #f97316);
+      color: #111827;
+      box-shadow: 0 16px 36px rgba(234, 179, 8, 0.8);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 52px rgba(234, 179, 8, 0.95);
+    }
+
+    .btn-ghost {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: rgba(209, 213, 219, 0.96);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(30, 64, 175, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .hero-right {
+      justify-self: center;
+    }
+
+    .hero-preview-card {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      padding: 20px 16px;
+      background: radial-gradient(circle at top, #1f2933, #020617 70%);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      animation: floatSlow 20s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-preview-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .hero-preview-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #facc15, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+      box-shadow: 0 8px 20px rgba(234, 179, 8, 0.8);
+    }
+
+    .hero-preview-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero-preview-sub {
+      font-size: 12px;
+      color: rgba(156, 163, 175, 0.96);
+    }
+
+    .hero-preview-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 10px;
+    }
+
+    .hero-preview-badge {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: rgba(209, 213, 219, 0.9);
+    }
+
+    .hero-preview-footnote {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.96);
+      margin-top: 6px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px 60px;
+    }
+
+    .section {
+      padding: 32px 0 12px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .section-header {
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(148, 163, 184, 0.9);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 6px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 70px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #facc15, #f97316);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: rgba(156, 163, 175, 0.96);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .feature-card {
+      padding: 14px 14px 16px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, #111827, #020617 70%);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+      font-size: 13px;
+      color: rgba(209, 213, 219, 0.96);
+    }
+
+    .feature-card-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #f9fafb;
+    }
+
+    /* ===== Chat szekció ===== */
+
+    .chat-section {
+      padding: 40px 0 0;
+    }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    .chat-copy {
+      font-size: 14px;
+      color: rgba(209, 213, 219, 0.96);
+    }
+
+    .chat-copy p {
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .chat-copy ul {
+      margin-left: 18px;
+      margin-top: 4px;
+      color: rgba(156, 163, 175, 0.96);
+      font-size: 13px;
+    }
+
+    .chat-copy li {
+      margin-bottom: 4px;
+    }
+
+    .chat-copy-highlight {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: rgba(209, 213, 219, 0.96);
+    }
+
+    .chat-window-wrap {
+      position: relative;
+    }
+
+    .chat-window {
+      border-radius: 22px;
+      background: radial-gradient(circle at top, #1f2933, #020617 70%);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.95),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+      max-height: 520px;
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: radial-gradient(circle, #facc15, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(234, 179, 8, 0.9);
+      overflow: hidden;
+    }
+
+    .chat-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .chat-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .chat-subtitle {
+      font-size: 11px;
+      color: rgba(156, 163, 175, 0.96);
+    }
+
+    .chat-status-pill {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.15);
+      color: #bbf7d0;
+      border: 1px solid rgba(22, 163, 74, 0.7);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(148, 163, 184, 0.8) transparent;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.8);
+      border-radius: 999px;
+    }
+
+    .message-row {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .message-row.user {
+      justify-content: flex-end;
+    }
+
+    .message-bubble {
+      max-width: 78%;
+      padding: 8px 11px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      position: relative;
+      animation: fadeUp 0.25s ease-out;
+    }
+
+    .message-row.user .message-bubble {
+      border-bottom-right-radius: 4px;
+      background: linear-gradient(120deg, #facc15, #f97316);
+      color: #111827;
+      box-shadow: 0 10px 24px rgba(234, 179, 8, 0.9);
+    }
+
+    .message-row.bot .message-bubble {
+      border-bottom-left-radius: 4px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      color: rgba(229, 231, 235, 0.98);
+    }
+
+    .message-meta {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.96);
+      margin-top: 2px;
+    }
+
+    .chat-input-row {
+      margin-top: 10px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 6px 8px 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-input-row textarea {
+      flex: 1;
+      resize: none;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 13px;
+      max-height: 72px;
+    }
+
+    .chat-input-row textarea::placeholder {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .chat-send-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #d4af37, #facc15);
+      color: #111827;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(234, 179, 8, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    .chat-send-btn:hover:not([disabled]) {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(234, 179, 8, 1);
+    }
+
+    .chat-send-btn[disabled] {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .chat-helper-text {
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.96);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chat-helper-text strong {
+      color: #e5e7eb;
+    }
+
+    .scroll-to-chat {
+      font-size: 12px;
+      color: rgba(156, 163, 175, 0.96);
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .scroll-to-chat span {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    /* ===== Lábléc ===== */
+
+    footer {
+      border-top: 1px solid rgba(31, 41, 55, 0.95);
+      background: #020617;
+      color: #e5e7eb;
+      padding: 10px 0 12px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: rgba(209, 213, 219, 0.9);
+    }
+
+    .footer-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Responsív ===== */
+
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: minmax(0,1fr);
+        gap: 30px;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .chat-layout {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links.desktop {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero {
+        padding-top: 96px;
+      }
+
+      .hero-title {
+        font-size: 30px;
+      }
+
+      .feature-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+
+      .chat-window {
+        min-height: 340px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding-top: 92px;
+      }
+
+      .hero-title {
+        font-size: 26px;
+      }
+
+      .hero-preview-card {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 <header>
-    <nav>
-        <div class="logo">
-            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
-            <span class="aurion">Aurion</span>
-            <span class="studio">Studio</span>
-        </div>
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+      <span class="aurion">Aurion</span>
+      <span class="studio">Studio</span>
+    </div>
 
-        <button class="hamburger" id="hamburger" aria-label="Menü">
-            <span></span><span></span><span></span>
-        </button>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
 
-        <ul class="nav-links desktop">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html" class="active">AI Chat</a></li>
-        </ul>
+    <ul class="nav-links desktop">
+      <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+      <li><a href="munkaink.html">Munkáink</a></li>
+      <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+      <li><a href="index.html#rolunk">Rólunk</a></li>
+      <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
+      <li><a href="ai.html" class="active">AI Chat</a></li>
+    </ul>
 
-        <ul class="nav-links mobile" id="mobileNav">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
-            <li><a href="al.html" class="active">AI Chat</a></li>
-        </ul>
-    </nav>
+    <ul class="nav-links mobile" id="mobileNav">
+      <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+      <li><a href="munkaink.html">Munkáink</a></li>
+      <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+      <li><a href="index.html#rolunk">Rólunk</a></li>
+      <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
+      <li><a href="ai.html" class="active">AI Chat</a></li>
+    </ul>
+  </nav>
 </header>
 
-<section class="hero" id="top">
-    <div class="hero-inner animate-on-scroll">
-        <div>
-            <div class="hero-kicker">AURION AI CHAT</div>
-            <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
-            <p class="hero-subtitle">
-                Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
-                a te szabályaid szerint. Nem elszabadult mesterséges intelligencia,
-                hanem kontrollált, átlátható rendszer.
-            </p>
-            <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
-            </div>
-            <p class="hero-info">
-                Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles,
-                prémium szürke–arany chat ablak vár, ahol kipróbálhatod a felület működését.
-            </p>
-        </div>
-
-        <div class="hero-cta-wrapper">
-            <div class="hero-cta-card">
-                <div class="hero-cta-badge">
-                    <span class="hero-cta-dot"></span>
-                    <span>Saját fejlesztésű AI asszisztens</span>
-                </div>
-                <div class="hero-cta-title">Prémium felület, amit a márkádhoz igazítunk.</div>
-                <p class="hero-cta-text">
-                    A chat dizájnja, stílusa és válaszainak hangvétele mind hozzád igazodik.
-                    Nem egy kész dobozt kapsz, hanem egy saját „digitális kollégát” a honlapodra.
-                </p>
-                <ul class="hero-cta-list">
-                    <li>• Márkára szabott megjelenés és szövegvilág.</li>
-                    <li>• Szabályozott válaszok, átlátható működés.</li>
-                    <li>• Stabil technikai háttér, hosszú távra tervezve.</li>
-                </ul>
-                <a href="#chat-demo" class="hero-cta-btn">
-                    <span>Ugrás a chat felülethez</span>
-                    <span class="icon">➤</span>
-                </a>
-            </div>
-        </div>
+<section class="hero">
+  <div class="hero-inner animate-on-scroll">
+    <div>
+      <div class="hero-kicker">AURION STUDIO – AI CHAT</div>
+      <h1 class="hero-title">Próbáld ki a saját fejlesztésű AI asszisztensünket.</h1>
+      <p class="hero-subtitle">
+        Ugyanazzal a logikával gondolkodik, ahogy mi építjük a rendszereket: érti a weboldalakat,
+        webshopokat, admin felületeket – és normális, emberi nyelven válaszol.
+      </p>
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span>Nem általános “chatbot”, hanem webes projektekre finomhangolt asszisztens.</span>
+      </div>
+      <p class="hero-subtitle" style="font-size:14px; margin-bottom:12px;">
+        Kérdezz tőle fejlesztésről, ötletekről vagy arról, hogyan lehetne a saját rendszeredet
+        továbbvinni – ugyanúgy válaszol, mintha velünk beszélgetnél.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="scrollToChatBtn">
+          Ugrás a chathez
+        </button>
+        <button class="btn-ghost" onclick="window.location.href='index.html#kapcsolat'">
+          Kérek ajánlatot a projektemre
+        </button>
+      </div>
+      <div class="scroll-to-chat" id="scrollToChatLink">
+        <span>↓</span>
+        Ugrás közvetlenül az AI chat ablakhoz
+      </div>
     </div>
+
+    <div class="hero-right">
+      <div class="hero-preview-card">
+        <div class="hero-preview-header">
+          <div class="hero-preview-logo">A</div>
+          <div>
+            <div class="hero-preview-title">Aurion Studio – AI asszisztens</div>
+            <div class="hero-preview-sub">Weboldalakra, webshopokra hangolva</div>
+          </div>
+        </div>
+        <div class="hero-preview-badge-row">
+          <span class="hero-preview-badge">Webfejlesztés + AI</span>
+          <span class="hero-preview-badge">Struktúrában gondolkodik</span>
+          <span class="hero-preview-badge">Magyar nyelven válaszol</span>
+        </div>
+        <p class="hero-preview-footnote">
+          Ugyanaz az AI motor, amivel a saját rendszereinket is tervezzük – most kipróbálhatod
+          saját kérdésekkel, kockázat nélkül.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <main>
-    <!-- FUNKCIÓK / MIT TUD -->
-    <section class="section">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">MIT TUD</div>
-            <h2 class="section-title">Miben segít az Aurion Studio AI asszisztens?</h2>
-            <p class="section-subtitle">
-                Az asszisztens nem általános csevegésre készült – a vállalkozásod folyamatait,
-                szolgáltatásait és szabályait követi, hogy valódi terhet vegyen le a válladról.
-            </p>
+  <section class="section animate-on-scroll">
+    <div class="section-header">
+      <div class="section-kicker">MIRE JÓ</div>
+      <h2 class="section-title">Mit tud az Aurion Studio AI asszisztens?</h2>
+      <p class="section-subtitle">
+        Nem “small talkra” optimalizáltuk, hanem arra, hogy segítse a döntést, a tervezést
+        és a fejlesztést. Ha komolyan gondolod az online jelenlétet, itt tudsz vele ötletelni.
+      </p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-card-title">Weboldal és webshop stratégia</div>
+        <p>
+          Végig tud menni veled a teljes folyamaton: célok, funkciók, struktúra, tartalom.
+          Nem helyetted dönt, de segít letisztázni, mire van <strong>valóban</strong> szükség.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">Fejlesztői szemléletben gondolkodik</div>
+        <p>
+          Struktúrában látja a rendszert: adatbázis, admin, integrációk, folyamatok. Olyan
+          kérdéseket vet fel, amik egy átlagos chatbotnak eszébe sem jutnak.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-title">Magyar nyelv + érthető magyarázat</div>
+        <p>
+          Nem szakzsargonban beszél, hanem érthetően elmondja, mi miért fontos. Ha kell,
+          <em>lefordítja fejlesztőre</em> az ötleteidet – és fordítva.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section chat-section" id="chat">
+    <div class="section-header">
+      <div class="section-kicker">ÉLŐ DEMÓ</div>
+      <h2 class="section-title">Kipróbálható Aurion Studio AI chat</h2>
+      <p class="section-subtitle">
+        Írj neki úgy, mintha velünk beszélgetnél egy első egyeztetésen. Néhány üzenet elég,
+        hogy lásd, hogyan gondolkodik egy olyan AI, amit kifejezetten webes projektekre hangoltunk.
+      </p>
+    </div>
+
+    <div class="chat-layout animate-on-scroll">
+      <div class="chat-copy">
+        <p>
+          A chatben egy olyan AI-val beszélgetsz, amit kifejezetten arra tanítottunk,
+          hogy weboldal / webshop tulajdonosként, cégként vagy projektgazdaként segítsen neked
+          tisztábban látni.
+        </p>
+        <p>
+          Nyugodtan kérdezz tőle például:
+        </p>
+        <ul>
+          <li>milyen funkciók kellenek egy induló webshophoz,</li>
+          <li>hogyan épülhetne fel a saját honlapod menüje,</li>
+          <li>mire kell figyelni admin felület vagy integrációk tervezésénél.</li>
+        </ul>
+        <div class="chat-copy-highlight">
+          <strong>Tipp:</strong> ha szimpatikus, amit válaszol, a beszélgetés végén egy kattintással
+          továbbléphetsz: egy rövid ajánlatkérésben összefoglalja neked a megbeszélteket.
         </div>
+      </div>
 
-        <div class="features-grid">
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">💬</div>
-                <div class="feature-title">Ügyfélkérdések megválaszolása</div>
-                <div class="feature-text">
-                    Nyitvatartás, árak, szolgáltatások, rendelés menete – a visszatérő kérdésekre
-                    egységes, gyors választ ad, akkor is, amikor Te épp nem vagy gépnél.
-                </div>
+      <div class="chat-window-wrap">
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="chat-header-left">
+              <div class="chat-avatar">
+                <img src="logo.png" alt="Aurion Studio AI">
+              </div>
+              <div>
+                <div class="chat-title">Aurion Studio – AI asszisztens</div>
+                <div class="chat-subtitle">Webes projektekre hangolt, magyarul válaszol</div>
+              </div>
             </div>
+            <span class="chat-status-pill">Online • válaszol néhány másodpercen belül</span>
+          </div>
 
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧭</div>
-                <div class="feature-title">Irányítás a megfelelő oldalra</div>
-                <div class="feature-text">
-                    Segít eligazodni az oldalon: ajánlatkérés, termékek, szolgáltatások,
-                    kapcsolat – mindig a következő logikus lépés felé tereli a látogatót.
-                </div>
-            </div>
+          <div class="chat-messages" id="chatMessages">
+            <!-- Dinamikus üzenetek ide kerülnek -->
+          </div>
 
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧱</div>
-                <div class="feature-title">Szabályozott viselkedés</div>
-                <div class="feature-text">
-                    Előre lefektetett keretek szerint működik: mit válaszolhat, mit kerül,
-                    mikor adja át a beszélgetést kollégának. Nem kísérletezünk – rendszert építünk.
-                </div>
-            </div>
+          <form class="chat-input-row" id="chatForm">
+            <textarea
+              id="chatInput"
+              rows="1"
+              placeholder="Írj ide egy kérdést vagy ötletet a weboldaladdal / webshopoddal kapcsolatban..."></textarea>
+            <button type="submit" class="chat-send-btn" id="chatSendBtn">
+              Küldés
+            </button>
+          </form>
 
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Beszélgetések átnézése</div>
-                <div class="feature-text">
-                    Láthatod, mire kérdeznek legtöbbet az ügyfelek – ez irányt ad a fejlesztésnek,
-                    az ajánlatoknak és akár a honlap tartalmának is.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧠</div>
-                <div class="feature-title">Saját tudásbázisra építve</div>
-                <div class="feature-text">
-                    A Te anyagaidból tanul: GYIK, belső leírások, folyamatok, dokumentumok alapján
-                    építjük fel a válaszlogikát – nem a „teljes internetet” engedjük rá.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">⚙️</div>
-                <div class="feature-title">Honlapodhoz illesztve</div>
-                <div class="feature-text">
-                    A chat megjelenése, mozgása és működése illeszkedik a márkához:
-                    arculat, színek, betűk, hangulat – mintha mindig is része lett volna az oldaladnak.
-                </div>
-            </div>
+          <div class="chat-helper-text">
+            <span><strong>Tipp:</strong> Enter = küldés, Shift+Enter = új sor.</span>
+            <span>Első verzió – a végleges projekthez külön, rád szabjuk a logikát.</span>
+          </div>
         </div>
-    </section>
-
-    <!-- PRÉMIUM SZÜRKE–ARANY CHAT LEGALUL -->
-    <section class="section chat-section" id="chat-demo">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">CHAT FELÜLET</div>
-            <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
-            <p class="section-subtitle">
-                Itt azt a felületet látod, ahol az ügyfeleid kérdeznének: letisztult, márkához illesztett,
-                szürke–arany chat ablak, ami asztali gépen és mobilon is kényelmesen használható.
-            </p>
-        </div>
-
-        <div class="chat-layout">
-            <div class="chat-card-big animate-on-scroll">
-                <div class="chat-card-header">
-                    <div class="chat-header-left">
-                        <div class="chat-header-logo">
-                            <img src="logo.png" alt="Aurion Studio logó a chatben">
-                        </div>
-                        <div class="chat-header-text">
-                            <div class="chat-card-title">Aurion Studio AI asszisztens</div>
-                            <div class="chat-meta">Online – írj egy kérdést, mintha az oldaladra érkező ügyfél lennél.</div>
-                        </div>
-                    </div>
-                    <div class="chat-status-pill">
-                        <span class="chat-status-dot"></span>
-                        <span>Elérhető</span>
-                    </div>
-                </div>
-
-                <div class="chat-window" id="chatWindow">
-                    <!-- Kezdetben üres – ide érkeznek a beírt üzenetek -->
-                </div>
-
-                <div class="chat-input-row">
-                    <input
-                        type="text"
-                        id="chatInput"
-                        class="chat-input"
-                        placeholder="Írj valamit, pl.: Miben segítene nekünk egy AI asszisztens?"
-                    >
-                    <button class="chat-send-btn" id="chatSendBtn">
-                        <span class="icon">➤</span>
-                        <span>Üzenet küldése</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
-    <div class="footer-inner">
-        <span>Aurion Studio – egyedi webes megoldások</span>
-        <a href="#top" class="footer-link">Vissza az elejére</a>
-    </div>
+  <div class="footer-inner">
+    <span>Aurion Studio – egyedi webes megoldások & AI asszisztens</span>
+    <a href="#top" class="footer-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+      Vissza az elejére
+    </a>
+  </div>
 </footer>
 
 <script>
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
+  // ===== Hamburger =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileNav.classList.toggle('show');
-        });
+  if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('show');
+    });
 
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                mobileNav.classList.remove('show');
-            });
-        });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('show');
+      });
+    });
+  }
+
+  // ===== Scroll animáció =====
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+  // ===== Ugrás a chathez =====
+  const scrollBtn = document.getElementById('scrollToChatBtn');
+  const scrollLink = document.getElementById('scrollToChatLink');
+  const chatSection = document.getElementById('chat');
+
+  function scrollToChat() {
+    if (!chatSection) return;
+    const rect = chatSection.getBoundingClientRect();
+    const offset = window.scrollY + rect.top - 80;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+
+  if (scrollBtn) scrollBtn.addEventListener('click', scrollToChat);
+  if (scrollLink) scrollLink.addEventListener('click', scrollToChat);
+
+  // ===== AI chat logika – Netlify Function hívás =====
+
+  const chatMessagesEl = document.getElementById('chatMessages');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const chatSendBtn = document.getElementById('chatSendBtn');
+
+  // Teljes beszélgetés, amit átküldünk a szervernek
+  const conversation = [
+    {
+      role: 'system',
+      content:
+        'Te az Aurion Studio webes AI asszisztense vagy. ' +
+        'Segítesz weboldal, webshop, admin felület és AI integráció tervezésében. ' +
+        'Magyarul válaszolsz, barátságosan, érthetően, de szakmailag pontosan. ' +
+        'Nem ígérsz lehetetlent, és ha valamihez fejlesztő kell, azt őszintén elmondod.'
+    }
+  ];
+
+  function addMessage(role, text) {
+    const row = document.createElement('div');
+    row.className = 'message-row ' + (role === 'user' ? 'user' : 'bot');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+    bubble.textContent = text;
+
+    row.appendChild(bubble);
+    chatMessagesEl.appendChild(row);
+
+    // Auto scroll le
+    chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+
+    return bubble;
+  }
+
+  function addMeta(text) {
+    const meta = document.createElement('div');
+    meta.className = 'message-meta';
+    meta.textContent = text;
+    chatMessagesEl.appendChild(meta);
+    chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+  }
+
+  // Kezdő üzenet
+  addMessage(
+    'assistant',
+    'Szia! 🙂 Aurion Studio AI asszisztens vagyok. Mesélj kicsit: ' +
+    'milyen weboldalon vagy webshopon gondolkodsz, miben segítsek legelőször?'
+  );
+
+  async function sendMessageToServer(userText) {
+    conversation.push({ role: 'user', content: userText });
+
+    const endpoint = '/.netlify/functions/aurion-chat';
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: conversation })
+    });
+
+    if (!response.ok) {
+      throw new Error('Szerver hiba: ' + response.status);
     }
 
-    // Scroll animáció
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
+    const data = await response.json();
+    const reply = data.reply || 'Valami hiba történt, kérlek próbáld újra pár perc múlva.';
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    conversation.push({ role: 'assistant', content: reply });
+    return reply;
+  }
 
-    // Chat – jelenleg a felhasználó üzenetét jelenítjük meg (backend nélkül)
-    const chatWindow = document.getElementById('chatWindow');
-    const chatInput = document.getElementById('chatInput');
-    const chatSendBtn = document.getElementById('chatSendBtn');
+  if (chatForm && chatInput && chatSendBtn) {
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
 
-    function addMessage(text) {
-        if (!chatWindow) return;
-        const msg = document.createElement('div');
-        msg.classList.add('chat-message', 'user');
-        msg.textContent = text;
-        chatWindow.appendChild(msg);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
+      // User buborék
+      addMessage('user', text);
+      chatInput.value = '';
+      chatInput.style.height = 'auto';
 
-    function handleUserSend() {
-        if (!chatInput) return;
-        const text = chatInput.value.trim();
-        if (!text) return;
-        addMessage(text);
-        chatInput.value = "";
-    }
+      // Gondolkodó buborék
+      const thinkingBubble = addMessage('assistant', 'Gondolkodom a válaszon…');
+      chatSendBtn.disabled = true;
 
-    if (chatSendBtn && chatInput) {
-        chatSendBtn.addEventListener('click', handleUserSend);
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleUserSend();
-            }
-        });
-    }
+      try {
+        const reply = await sendMessageToServer(text);
+        thinkingBubble.textContent = reply;
+      } catch (err) {
+        console.error(err);
+        thinkingBubble.textContent =
+          'Most valamiért nem érem el az AI motort. Kérlek próbáld meg pár perc múlva újra, ' +
+          'vagy írj közvetlenül nekünk az ajánlatkérő űrlapon.';
+      } finally {
+        chatSendBtn.disabled = false;
+        chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+      }
+    });
+
+    // Enter = küldés, Shift+Enter = új sor
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        chatForm.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // Auto-magasság a textarea-hoz
+    chatInput.addEventListener('input', () => {
+      chatInput.style.height = 'auto';
+      chatInput.style.height = (chatInput.scrollHeight) + 'px';
+    });
+  }
 </script>
 </body>
 </html>
