@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurion Studio – Ismerj meg minket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 35%, #f9fafb 100%);
+            color: #0f172a;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== ANIMÁCIÓK ===== */
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes floatSlow {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-6px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes gradientMove {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(22px) scale(0.98);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ===== FEJLÉC – ugyanaz a stílus, mint indexen ===== */
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+            background: rgba(249, 250, 251, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, #facc15, #f97316, #facc15);
+            background-size: 200% 100%;
+            animation: gradientMove 14s linear infinite;
+            opacity: 0.8;
+        }
+
+        nav {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+
+        .logo-img {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            object-fit: contain;
+            background: #111827;
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 12px 30px rgba(15, 23, 42, 0.6);
+        }
+
+        .logo .aurion {
+            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo .studio {
+            color: #111827;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(15, 23, 42, 0.8);
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            transform: translateX(-50%);
+            transition: width 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0f172a;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.contact-link {
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.7);
+            background: linear-gradient(90deg, #fef9c3, #fffbeb);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+            font-size: 13px;
+        }
+
+        .nav-links a.contact-link::after {
+            display: none;
+        }
+
+        .nav-links a.active {
+            color: #f97316;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            width: 40px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10000;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: #111827;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .nav-links.mobile {
+            position: fixed;
+            inset: 56px 16px auto 16px;
+            background: rgba(249, 250, 251, 0.97);
+            backdrop-filter: blur(18px);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+            padding: 12px 16px;
+            flex-direction: column;
+            gap: 10px;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            z-index: 9999;
+        }
+
+        .nav-links.mobile.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ===== HERO – Laptop + videó ===== */
+
+        .hero {
+            padding: 120px 16px 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-kicker {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(107, 114, 128, 0.9);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            background: linear-gradient(120deg, #111827 0%, #facc15 45%, #f97316 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 18px;
+            max-width: 520px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #fefce8, #fef9c3);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            font-size: 12px;
+            color: #92400e;
+            margin-bottom: 10px;
+            background-size: 200% 100%;
+            animation: gradientMove 10s linear infinite;
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.45);
+        }
+
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .hero-note {
+            font-size: 13px;
+            color: rgba(107, 114, 128, 0.96);
+            margin-top: 6px;
+        }
+
+        .hero-right {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===== Laptop keret + saját videó lejátszó ===== */
+
+        .laptop-wrapper {
+            width: 100%;
+            max-width: 520px;
+            animation: floatSlow 18s ease-in-out infinite;
+        }
+
+        .laptop-top-glow {
+            position: absolute;
+            inset: -80px -160px auto;
+            background:
+                radial-gradient(circle at top, rgba(250, 204, 21, 0.22), transparent 60%),
+                radial-gradient(circle at right, rgba(248, 250, 252, 0.22), transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .laptop {
+            position: relative;
+            border-radius: 22px 22px 12px 12px;
+            padding: 18px 14px 8px;
+            background: linear-gradient(145deg, #020617, #020617 40%, #111827 100%);
+            box-shadow:
+                0 28px 70px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(148, 163, 184, 0.8);
+        }
+
+        .laptop::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 22px 22px 12px 12px;
+            background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.22), transparent 60%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .laptop-camera {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 6px;
+            border-radius: 999px;
+            background: #020617;
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.9),
+                0 0 0 2px rgba(15, 23, 42, 0.9);
+        }
+
+        .laptop-screen {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #020617, #020617 60%, #0b1120 100%);
+            box-shadow:
+                0 0 0 1px rgba(15, 23, 42, 0.9),
+                0 18px 45px rgba(15, 23, 42, 0.75);
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 */
+            background: #000;
+        }
+
+        .video-frame video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay-gradient {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.3), transparent 60%);
+            pointer-events: none;
+        }
+
+        .video-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 10px 9px;
+            background: linear-gradient(90deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+            border-top: 1px solid rgba(15, 23, 42, 0.9);
+        }
+
+        .video-main-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .video-play-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.75);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .video-play-btn span.icon {
+            font-size: 14px;
+        }
+
+        .video-time {
+            font-size: 11px;
+            color: rgba(209, 213, 219, 0.9);
+            white-space: nowrap;
+        }
+
+        .video-progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .video-progress {
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(31, 41, 55, 0.9);
+            cursor: pointer;
+        }
+
+        .video-progress::-webkit-slider-thumb {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: #facc15;
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.35);
+            margin-top: -5px;
+        }
+
+        .video-progress::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: #facc15;
+            border: none;
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.35);
+        }
+
+        .video-volume-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .video-mute-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 4px 8px;
+            font-size: 13px;
+            cursor: pointer;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            border: 1px solid rgba(55, 65, 81, 0.96);
+        }
+
+        .video-volume {
+            appearance: none;
+            width: 70px;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(31, 41, 55, 0.9);
+            cursor: pointer;
+        }
+
+        .video-volume::-webkit-slider-thumb {
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #facc15;
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
+            margin-top: -3px;
+        }
+
+        .video-volume::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #facc15;
+            border: none;
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
+        }
+
+        .laptop-bottom {
+            margin-top: 8px;
+            height: 10px;
+            border-radius: 0 0 12px 12px;
+            background: linear-gradient(90deg, #d1d5db, #9ca3af, #e5e7eb);
+            box-shadow: 0 10px 34px rgba(148, 163, 184, 0.8);
+        }
+
+        .laptop-shadow {
+            margin: 8px auto 0;
+            width: 80%;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.45), transparent 70%);
+            filter: blur(2px);
+        }
+
+        /* ===== ALATTA: Brutál animált marketing blokk ===== */
+
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 16px 80px;
+        }
+
+        .section {
+            padding: 10px 0 80px;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(107, 114, 128, 0.96);
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 110px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            background-size: 200% 100%;
+            animation: gradientMove 10s linear infinite;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: rgba(55, 65, 81, 0.96);
+            max-width: 680px;
+        }
+
+        .highlight-strip {
+            margin-top: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            background: linear-gradient(120deg, #fefce8 0%, #facc15 40%, #f97316 70%, #fef3c7 100%);
+            background-size: 220% 100%;
+            animation: gradientMove 9s linear infinite;
+            color: #78350f;
+            box-shadow: 0 12px 28px rgba(234, 179, 8, 0.45);
+        }
+
+        .highlight-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .values-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .value-card {
+            position: relative;
+            padding: 20px 18px 18px;
+            border-radius: 22px;
+            background: radial-gradient(circle at top left, #ffffff, #f9fafb);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow:
+                0 18px 40px rgba(148, 163, 184, 0.3),
+                0 0 0 1px rgba(226, 232, 240, 0.9);
+            overflow: hidden;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .value-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at top, rgba(250, 204, 21, 0.18), transparent 65%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(250, 204, 21, 0.95);
+            box-shadow:
+                0 26px 56px rgba(148, 163, 184, 0.4),
+                0 0 0 1px rgba(250, 204, 21, 0.5);
+            background: #ffffff;
+        }
+
+        .value-card:hover::before {
+            opacity: 1;
+        }
+
+        .value-badge {
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #f9fafb;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            margin-bottom: 8px;
+            display: inline-block;
+            color: #4b5563;
+        }
+
+        .value-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #111827;
+        }
+
+        .value-text {
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(75, 85, 99, 0.96);
+        }
+
+        .value-accent {
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        /* ===== LÁBLÉC ===== */
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.4);
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 14px 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 32px;
+            }
+
+            .hero-right {
+                order: -1;
+            }
+
+            .hero {
+                padding-top: 110px;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links.desktop {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 110px 16px 60px;
+            }
+
+            .hero-title {
+                font-size: 30px;
+            }
+
+            .values-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .video-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .video-main-controls {
+                width: 100%;
+            }
+
+            .video-volume-wrap {
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-inner {
+                gap: 24px;
+            }
+
+            .hero-title {
+                font-size: 26px;
+            }
+
+            .laptop-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="index.html#top" class="logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+            <span class="aurion">Aurion</span>
+            <span class="studio">Studio</span>
+        </a>
+
+        <button class="hamburger" id="hamburger" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links desktop">
+            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#rolunk">Rólunk</a></li>
+            <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
+            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+
+        <ul class="nav-links mobile" id="mobileNav">
+            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#rolunk">Rólunk</a></li>
+            <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
+            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero" id="top">
+    <div class="laptop-top-glow"></div>
+    <div class="hero-inner animate-on-scroll">
+        <div class="hero-left">
+            <div class="hero-kicker">ISMERJ MEG MINKET</div>
+            <h1 class="hero-title">Nézd meg, hogyan gondolkodunk a projektekről.</h1>
+            <p class="hero-subtitle">
+                Egy rövid videóban mutatjuk meg, hogyan dolgozunk, miről szól az Aurion Studio
+                és miért építünk inkább vállalható, hosszú távon is stabil rendszereket, nem gyors sablonmegoldásokat.
+            </p>
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Nézd meg videónkat, mielőtt döntesz a következő webes lépésről.</span>
+            </div>
+            <p class="hero-note">
+                Ha tetszik, amit látsz, a videó alatt találsz pár gondolatot arról, hogyan tudunk együtt dolgozni.
+            </p>
+        </div>
+
+        <div class="hero-right">
+            <div class="laptop-wrapper">
+                <div class="laptop">
+                    <div class="laptop-camera"></div>
+                    <div class="laptop-screen">
+                        <div class="video-frame">
+                            <video id="introVideo" preload="metadata">
+                                <source src="video.mp4" type="video/mp4">
+                                A böngésződ sajnos nem támogatja a beágyazott videókat.
+                            </video>
+                            <div class="video-overlay-gradient"></div>
+                        </div>
+                        <div class="video-controls">
+                            <div class="video-main-controls">
+                                <button class="video-play-btn" id="playPauseBtn">
+                                    <span class="icon">▶</span>
+                                    <span id="playPauseLabel">Lejátszás</span>
+                                </button>
+                                <div class="video-progress-wrap">
+                                    <span class="video-time" id="currentTime">0:00</span>
+                                    <input type="range" id="progressBar" class="video-progress" min="0" max="100" value="0">
+                                    <span class="video-time" id="duration">0:00</span>
+                                </div>
+                            </div>
+                            <div class="video-volume-wrap">
+                                <button class="video-mute-btn" id="muteBtn" title="Némítás / hang">
+                                    🔊
+                                </button>
+                                <input type="range" id="volumeSlider" class="video-volume" min="0" max="1" step="0.05" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="laptop-bottom"></div>
+                <div class="laptop-shadow"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+    <section class="section">
+        <div class="section-header animate-on-scroll">
+            <div class="section-kicker">MIÉRT AZ AURION?</div>
+            <h2 class="section-title">Nem csak kódot írunk – logikát építünk a márkád köré.</h2>
+            <p class="section-subtitle">
+                Azokat a projekteket szeretjük, ahol partnerként tudunk gondolkodni veled.
+                A videóban látott folyamatok mögött nagyon egyszerű elv áll:
+                <strong>csak olyan rendszert adunk át, amit mi is bármikor aláírnánk a nevünkkel.</strong>
+            </p>
+            <div class="highlight-strip">
+                <span class="highlight-dot"></span>
+                <span>Transzparens fejlesztés, őszinte visszajelzés, hosszú távon is vállalható megoldások.</span>
+            </div>
+        </div>
+
+        <div class="values-grid animate-on-scroll">
+            <div class="value-card">
+                <span class="value-badge">1. Egyértelmű indulás</span>
+                <h3 class="value-title">Először értjük, utána építjük</h3>
+                <p class="value-text">
+                    Az első lépés mindig az, hogy <span class="value-accent">megértjük az üzleti céljaidat</span>:
+                    mit szeretnél elérni az oldallal, kinek készül, mire legyen képes.
+                    Nem technikai zsargonnal dobálózunk, hanem lefordítjuk érthető, emberi nyelvre,
+                    mit miért érdemes megépíteni – és mit nem.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <span class="value-badge">2. Vállalható kód</span>
+                <h3 class="value-title">Nem „összekattintjuk”, megépítjük</h3>
+                <p class="value-text">
+                    Ha egy funkciót érdemes kézzel megírni, nem sablonnal oldjuk meg.
+                    Így lesz a rendszered <span class="value-accent">átlátható, bővíthető és javítható</span>
+                    évekkel később is. Nem az a célunk, hogy minél gyorsabban „legyártsunk” valamit,
+                    hanem hogy olyan alapot kapj, amire tényleg tudsz építkezni.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <span class="value-badge">3. Hosszú távú gondolkodás</span>
+                <h3 class="value-title">Nem tűnünk el a projekt végén</h3>
+                <p class="value-text">
+                    Egy jól felépített weboldal vagy webshop élő rendszer:
+                    új ötletek, új termékek, új funkciók jönnek.
+                    <span class="value-accent">Úgy építjük fel a logikát</span>, hogy később is
+                    vissza tudjunk nyúlni hozzá – és szívesen vállaljuk akkor is, ha 1–2 év múlva
+                    szeretnél bővülni, finomhangolni vagy teljesen új irányt venni.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <span>© 2025 Aurion Studio – Minden jog fenntartva</span>
+        <a href="#top" class="footer-link">Vissza az oldal tetejére</a>
+    </div>
+</footer>
+
+<script>
+    /* ==== NAV – MOBIL MENÜ ==== */
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
+
+    if (hamburger && mobileNav) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("open");
+            mobileNav.classList.toggle("show");
+        });
+
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("open");
+                mobileNav.classList.remove("show");
+            });
+        });
+    }
+
+    /* ==== SCROLL ANIMÁCIÓ ==== */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".animate-on-scroll").forEach(el => observer.observe(el));
+
+    /* ==== VIDEÓ LEJÁTSZÓ LOGIKA ==== */
+    const video = document.getElementById("introVideo");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const playPauseLabel = document.getElementById("playPauseLabel");
+    const progressBar = document.getElementById("progressBar");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationEl = document.getElementById("duration");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const muteBtn = document.getElementById("muteBtn");
+
+    function formatTime(time) {
+        if (!isFinite(time)) return "0:00";
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    }
+
+    if (video) {
+        // Metaadatok betöltése – hossz kiírása
+        video.addEventListener("loadedmetadata", () => {
+            durationEl.textContent = formatTime(video.duration || 0);
+        });
+
+        // Idő frissítése
+        video.addEventListener("timeupdate", () => {
+            const current = video.currentTime || 0;
+            const duration = video.duration || 0;
+            currentTimeEl.textContent = formatTime(current);
+            if (duration > 0) {
+                const percent = (current / duration) * 100;
+                progressBar.value = percent;
+            }
+        });
+
+        // Ha vége a videónak
+        video.addEventListener("ended", () => {
+            playPauseLabel.textContent = "Újraindítás";
+            if (playPauseBtn.querySelector(".icon")) {
+                playPauseBtn.querySelector(".icon").textContent = "↺";
+            }
+        });
+    }
+
+    function togglePlayPause() {
+        if (!video) return;
+        if (video.paused || video.ended) {
+            video.play();
+            playPauseLabel.textContent = "Szünet";
+            const iconEl = playPauseBtn.querySelector(".icon");
+            if (iconEl) iconEl.textContent = "⏸";
+        } else {
+            video.pause();
+            playPauseLabel.textContent = "Folytatás";
+            const iconEl = playPauseBtn.querySelector(".icon");
+            if (iconEl) iconEl.textContent = "▶";
+        }
+    }
+
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener("click", togglePlayPause);
+    }
+
+    if (progressBar && video) {
+        progressBar.addEventListener("input", () => {
+            const duration = video.duration || 0;
+            if (duration > 0) {
+                const percent = parseFloat(progressBar.value) || 0;
+                video.currentTime = (percent / 100) * duration;
+            }
+        });
+    }
+
+    if (volumeSlider && video) {
+        volumeSlider.addEventListener("input", () => {
+            const vol = parseFloat(volumeSlider.value);
+            video.volume = isNaN(vol) ? 1 : vol;
+            if (video.muted && vol > 0) {
+                video.muted = false;
+                muteBtn.textContent = "🔊";
+            }
+        });
+    }
+
+    if (muteBtn && video) {
+        muteBtn.addEventListener("click", () => {
+            video.muted = !video.muted;
+            if (video.muted) {
+                muteBtn.textContent = "🔈";
+            } else {
+                muteBtn.textContent = "🔊";
+            }
+        });
+    }
+</script>
+</body>
+</html>
