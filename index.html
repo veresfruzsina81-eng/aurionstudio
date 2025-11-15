@@ -956,14 +956,15 @@
             color: rgba(107, 114, 128, 0.96);
         }
 
+        /* KAPCSOLAT FORM – FEHÉR + ENYHE ARANY KERET, NEM SÁRGÁS BLOKK */
         .contact-form-wrapper {
             padding: 18px 16px;
             border-radius: 20px;
-            background: linear-gradient(135deg, #ffffff, #fefce8);
-            border: 1px solid rgba(250, 204, 21, 0.7);
+            background: #ffffff;
+            border: 1px solid rgba(250, 204, 21, 0.55);
             box-shadow:
-                0 18px 50px rgba(245, 158, 11, 0.38),
-                0 0 0 1px rgba(250, 204, 21, 0.7);
+                0 18px 40px rgba(148, 163, 184, 0.35),
+                0 0 0 1px rgba(250, 204, 21, 0.3);
             animation: floatSlow 22s ease-in-out infinite;
         }
 
@@ -1231,7 +1232,7 @@
 <body>
 <header>
     <nav>
-        <!-- LOGÓ MOST KATTINTHATÓ, A LAP TETEJÉRE UGRIK -->
+        <!-- LOGÓ KATTINTHATÓ – A LAP TETEJÉRE GÖRGET (#top) -->
         <a href="#top" class="logo">
             <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
             <span class="aurion">Aurion</span>
@@ -1247,8 +1248,8 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <!-- ÚJ MENÜ: ISMERJ MEG MINKET -->
-            <li><a href="minket.html">Ismerj meg minket</a></li>
+            <!-- ISMERJ MEG MINKET KIEMELVE, MINT A KAPCSOLAT -->
+            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
         </ul>
@@ -1258,9 +1259,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <!-- ÚJ MENÜ: ISMERJ MEG MINKET (MOBILON IS) -->
-            <li><a href="minket.html">Ismerj meg minket</a></li>
-            <!-- Kapcsolat mobilon is pill-stílusban -->
+            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
         </ul>
