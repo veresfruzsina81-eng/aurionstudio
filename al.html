@@ -17,8 +17,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at top, #fefce8 0%, #f3f4f6 40%, #e5e7eb 100%);
-            color: #111827;
+            background:
+                radial-gradient(circle at top, #020617 0%, #020617 35%, #030712 70%),
+                linear-gradient(135deg, #111827, #020617);
+            color: #e5e7eb;
             overflow-x: hidden;
         }
 
@@ -33,6 +35,23 @@
             0%   { transform: translateY(0); }
             50%  { transform: translateY(-8px); }
             100% { transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes gradientMove {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes subtleGlow {
+            0%   { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.2); }
+            50%  { box-shadow: 0 0 30px 0 rgba(250, 204, 21, 0.55); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.2); }
         }
 
         .animate-on-scroll {
@@ -55,9 +74,9 @@
             top: 0;
             width: 100%;
             z-index: 9999;
-            background: rgba(248, 250, 252, 0.98);
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
             backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(209, 213, 219, 0.9);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.4);
         }
 
         nav {
@@ -87,17 +106,17 @@
             background: #020617;
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.35);
+                0 12px 30px rgba(0, 0, 0, 0.9);
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f59e0b 45%, #facc15 100%);
+            background: linear-gradient(135deg, #facc15 0%, #f59e0b 40%, #fbbf24 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .logo .studio {
-            color: #111827;
+            color: #e5e7eb;
         }
 
         .nav-links {
@@ -110,7 +129,7 @@
         .nav-links a {
             font-size: 13px;
             font-weight: 500;
-            color: rgba(30, 64, 175, 0.85);
+            color: rgba(209, 213, 219, 0.85);
             position: relative;
             padding: 4px 0;
         }
@@ -129,7 +148,7 @@
         }
 
         .nav-links a:hover {
-            color: #111827;
+            color: #f9fafb;
         }
 
         .nav-links a:hover::after {
@@ -139,9 +158,9 @@
         .nav-links a.contact-link {
             padding: 6px 14px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.8);
+            border: 1px solid rgba(250, 204, 21, 0.9);
             background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 20px rgba(234, 179, 8, 0.45);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.75);
             color: #111827;
         }
 
@@ -150,7 +169,7 @@
         }
 
         .nav-links a.active {
-            color: #f59e0b;
+            color: #facc15;
         }
 
         .nav-links a.active::after {
@@ -163,7 +182,7 @@
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(248, 250, 252, 0.98);
+            background: rgba(15, 23, 42, 0.98);
             cursor: pointer;
             align-items: center;
             justify-content: center;
@@ -177,7 +196,7 @@
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #111827;
+            background: #f9fafb;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
@@ -196,10 +215,10 @@
         .nav-links.mobile {
             position: fixed;
             inset: 56px 16px auto 16px;
-            background: rgba(248, 250, 252, 0.98);
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.96));
             backdrop-filter: blur(18px);
             border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             padding: 12px 16px;
             flex-direction: column;
             gap: 10px;
@@ -243,14 +262,15 @@
             font-size: 40px;
             line-height: 1.1;
             margin-bottom: 12px;
-            background: linear-gradient(120deg, #0f172a 0%, #f59e0b 45%, #f97316 75%);
+            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeUp 0.9s ease-out;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(55, 65, 81, 0.95);
+            color: rgba(209, 213, 219, 0.9);
             margin-bottom: 16px;
             max-width: 520px;
         }
@@ -261,12 +281,13 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 999px;
-            background: linear-gradient(90deg, rgba(254, 252, 232, 0.95), rgba(254, 249, 195, 0.98));
-            border: 1px solid rgba(234, 179, 8, 0.7);
+            background: linear-gradient(90deg, rgba(24, 24, 27, 0.9), rgba(30, 64, 175, 0.9));
+            border: 1px solid rgba(148, 163, 184, 0.8);
             font-size: 12px;
-            color: #78350f;
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.45);
+            color: #e5e7eb;
             margin-bottom: 10px;
+            background-size: 200% 100%;
+            animation: gradientMove 10s linear infinite;
         }
 
         .hero-pill-dot {
@@ -278,7 +299,7 @@
 
         .hero-info {
             font-size: 13px;
-            color: rgba(75, 85, 99, 0.95);
+            color: rgba(156, 163, 175, 0.95);
             margin-top: 8px;
         }
 
@@ -288,10 +309,12 @@
 
         .hero-cta-card {
             border-radius: 26px;
-            background: radial-gradient(circle at top left, #ffffff 0%, #f9fafb 45%, #e5e7eb 100%);
+            background:
+                radial-gradient(circle at top left, rgba(250, 204, 21, 0.28), transparent 60%),
+                linear-gradient(145deg, #020617, #020617 45%, #111827 100%);
             box-shadow:
-                0 26px 60px rgba(15, 23, 42, 0.18),
-                0 0 0 1px rgba(209, 213, 219, 0.9);
+                0 26px 60px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(55, 65, 81, 1);
             padding: 16px 18px 16px;
             max-width: 420px;
             margin: 0 auto;
@@ -304,9 +327,9 @@
             padding: 4px 10px;
             border-radius: 999px;
             font-size: 11px;
-            background: #ecfdf5;
-            color: #166534;
-            border: 1px solid rgba(34, 197, 94, 0.6);
+            background: rgba(15, 23, 42, 0.96);
+            color: #e5e7eb;
+            border: 1px solid rgba(148, 163, 184, 0.9);
             margin-bottom: 8px;
         }
 
@@ -320,20 +343,20 @@
         .hero-cta-title {
             font-size: 16px;
             font-weight: 700;
-            color: #0f172a;
+            color: #f9fafb;
             margin-bottom: 6px;
         }
 
         .hero-cta-text {
             font-size: 13px;
-            color: rgba(55, 65, 81, 0.96);
+            color: rgba(209, 213, 219, 0.9);
             line-height: 1.6;
             margin-bottom: 10px;
         }
 
         .hero-cta-list {
             font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(148, 163, 184, 0.98);
             margin-bottom: 12px;
             padding-left: 16px;
         }
@@ -352,10 +375,11 @@
             font-weight: 600;
             background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
-            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.8);
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.95);
             cursor: pointer;
             border: none;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
+            animation: subtleGlow 5s ease-in-out infinite;
         }
 
         .hero-cta-btn span.icon {
@@ -364,7 +388,7 @@
 
         .hero-cta-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 22px 50px rgba(234, 179, 8, 0.95);
+            box-shadow: 0 22px 60px rgba(234, 179, 8, 1);
         }
 
         /* ===== MAIN & SZEKCIÓK ===== */
@@ -395,7 +419,7 @@
         .section-title {
             font-size: 24px;
             font-weight: 800;
-            color: #0f172a;
+            color: #f9fafb;
             margin-bottom: 8px;
             position: relative;
             display: inline-block;
@@ -406,16 +430,17 @@
             position: absolute;
             left: 0;
             bottom: -4px;
-            width: 80px;
+            width: 90px;
             height: 3px;
             border-radius: 999px;
             background: linear-gradient(90deg, #facc15, #f97316);
             background-size: 220% 100%;
+            animation: gradientMove 8s linear infinite;
         }
 
         .section-subtitle {
             font-size: 14px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(156, 163, 175, 0.96);
             max-width: 720px;
         }
 
@@ -430,11 +455,26 @@
 
         .feature-card {
             border-radius: 20px;
-            background: #ffffff;
-            border: 1px solid rgba(209, 213, 219, 0.95);
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
             padding: 14px 14px 12px;
             font-size: 13px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.25), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-icon {
@@ -445,25 +485,26 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 6px;
-            background: #fef3c7;
+            background: rgba(250, 204, 21, 0.12);
+            color: #facc15;
         }
 
         .feature-title {
             font-weight: 600;
             margin-bottom: 4px;
-            color: #111827;
+            color: #f9fafb;
         }
 
         .feature-text {
             font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(209, 213, 219, 0.96);
             line-height: 1.6;
         }
 
         /* ===== BRUTÁL CHAT SZEKCIÓ – LEGALUL ===== */
 
         .chat-section {
-            border-top: 1px solid rgba(209, 213, 219, 0.9);
+            border-top: 1px solid rgba(31, 41, 55, 0.95);
             padding-bottom: 50px;
         }
 
@@ -476,14 +517,16 @@
 
         .chat-card-big {
             border-radius: 30px;
-            background: radial-gradient(circle at top left, #fef3c7 0%, #fffbeb 40%, #fefce8 100%);
+            background:
+                radial-gradient(circle at top left, #facc15 0%, #f59e0b 25%, #fbbf24 55%, #fef3c7 100%);
             box-shadow:
-                0 34px 80px rgba(245, 158, 11, 0.38),
-                0 0 0 1px rgba(250, 204, 21, 0.85);
+                0 34px 80px rgba(0, 0, 0, 0.9),
+                0 0 0 1px rgba(250, 204, 21, 0.9);
             padding: 18px 20px 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            animation: floatSlow 20s ease-in-out infinite;
         }
 
         .chat-card-header {
@@ -508,7 +551,7 @@
             background: #020617;
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 6px 16px rgba(15, 23, 42, 0.35);
+                0 6px 16px rgba(0, 0, 0, 0.9);
         }
 
         .chat-header-logo img {
@@ -525,12 +568,12 @@
         .chat-card-title {
             font-size: 15px;
             font-weight: 700;
-            color: #0f172a;
+            color: #111827;
         }
 
         .chat-meta {
             font-size: 11px;
-            color: rgba(107, 114, 128, 0.96);
+            color: rgba(55, 65, 81, 0.9);
         }
 
         .chat-status-pill {
@@ -554,14 +597,14 @@
 
         .chat-window {
             border-radius: 20px;
-            background: #ffffff;
+            background: linear-gradient(135deg, #fefce8, #fffbeb);
             padding: 12px 12px 14px;
             min-height: 330px;
             max-height: 420px;
             overflow-y: auto;
             box-shadow:
-                0 0 0 1px rgba(250, 204, 21, 0.3),
-                0 18px 45px rgba(250, 204, 21, 0.35);
+                0 0 0 1px rgba(250, 204, 21, 0.5),
+                0 18px 45px rgba(202, 138, 4, 0.55);
         }
 
         .chat-message {
@@ -577,7 +620,7 @@
         .chat-message.user {
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            background: linear-gradient(135deg, #facc15, #f97316);
+            background: linear-gradient(135deg, #f59e0b, #f97316);
             color: #111827;
             font-weight: 500;
         }
@@ -594,21 +637,22 @@
             flex: 1;
             border-radius: 999px;
             padding: 9px 14px;
-            border: 1px solid rgba(209, 213, 219, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.95);
             font-size: 13px;
             font-family: inherit;
             outline: none;
-            background: #ffffff;
+            background: rgba(248, 250, 252, 0.96);
             min-width: 200px;
+            color: #111827;
         }
 
         .chat-input::placeholder {
-            color: rgba(148, 163, 184, 0.9);
+            color: rgba(156, 163, 175, 0.9);
         }
 
         .chat-input:focus {
             border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.5);
+            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.7);
         }
 
         .chat-send-btn {
@@ -617,10 +661,10 @@
             padding: 9px 16px;
             font-size: 13px;
             font-weight: 600;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            color: #111827;
+            background: linear-gradient(90deg, #111827, #020617);
+            color: #facc15;
             cursor: pointer;
-            box-shadow: 0 12px 30px rgba(234, 179, 8, 0.7);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -634,21 +678,15 @@
 
         .chat-send-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 20px 46px rgba(234, 179, 8, 0.95);
-        }
-
-        .chat-demo-note {
-            font-size: 11px;
-            color: rgba(107, 114, 128, 0.96);
-            margin-top: 4px;
+            box-shadow: 0 20px 46px rgba(0, 0, 0, 1);
         }
 
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(209, 213, 219, 1);
-            background: #f9fafb;
-            color: #111827;
+            border-top: 1px solid rgba(31, 41, 55, 0.95);
+            background: #020617;
+            color: #e5e7eb;
         }
 
         .footer-inner {
@@ -664,7 +702,7 @@
         }
 
         .footer-link {
-            color: rgba(55, 65, 81, 0.9);
+            color: rgba(148, 163, 184, 0.9);
         }
 
         .footer-link:hover {
@@ -775,7 +813,7 @@
             <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
             <p class="hero-subtitle">
                 Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
-                a te szabályaid szerint. Nem “elszabadult” mesterséges intelligencia,
+                a te szabályaid szerint. Nem elszabadult mesterséges intelligencia,
                 hanem kontrollált, átlátható rendszer.
             </p>
             <div class="hero-pill">
@@ -783,8 +821,8 @@
                 <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
             </div>
             <p class="hero-info">
-                Először mutatjuk, hogy mit tud a rendszer – a lap alján pedig egy nagy, arany chat ablakban
-                ki is próbálhatja a felületet.
+                Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles, arany chat ablakban
+                azt is láthatod, milyen felületen beszélgetne az ügyfeleiddel.
             </p>
         </div>
 
@@ -794,18 +832,18 @@
                     <span class="hero-cta-dot"></span>
                     <span>Saját fejlesztésű AI asszisztens</span>
                 </div>
-                <div class="hero-cta-title">Próbálja ki, hogyan működne az oldalán.</div>
+                <div class="hero-cta-title">Prémium felület, amit a márkádhoz igazítunk.</div>
                 <p class="hero-cta-text">
-                    A chat úgy viselkedik, mintha egy kolléga lenne a honlapon:
-                    köszön, eligazít, válaszol az alapvető kérdésekre, és ha kell, átadja a beszélgetést embernek.
+                    A chat dizájnja, stílusa és válaszainak hangvétele mind hozzád igazodik.
+                    Nem egy kész dobozt kapsz, hanem egy saját „digitális kollégát” a honlapodra.
                 </p>
                 <ul class="hero-cta-list">
-                    <li>• Nem sablon, hanem a saját márkádra szabott megoldás.</li>
+                    <li>• Márkára szabott megjelenés és szövegvilág.</li>
                     <li>• Szabályozott válaszok, átlátható működés.</li>
-                    <li>• Mobilon és asztali gépen is kényelmes élmény.</li>
+                    <li>• Stabil technikai háttér, hosszú távra tervezve.</li>
                 </ul>
                 <a href="#chat-demo" class="hero-cta-btn">
-                    <span>Ugrás a chat ablakhoz</span>
+                    <span>Ugrás a chat felülethez</span>
                     <span class="icon">➤</span>
                 </a>
             </div>
@@ -818,10 +856,10 @@
     <section class="section">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">MIT TUD</div>
-            <h2 class="section-title">Miben segít az Aurion AI Chat?</h2>
+            <h2 class="section-title">Miben segít az Aurion Studio AI asszisztens?</h2>
             <p class="section-subtitle">
-                Nem általános “okoskodó” chat, hanem olyan asszisztens, amit konkrétan a te vállalkozásodra hangolunk:
-                mit válaszolhat, mit nem, hogyan kezelje a kérdéseket.
+                Az asszisztens nem általános csevegésre készült – a vállalkozásod folyamatait,
+                szolgáltatásait és szabályait követi, hogy valódi terhet vegyen le a válladról.
             </p>
         </div>
 
@@ -830,8 +868,8 @@
                 <div class="feature-icon">💬</div>
                 <div class="feature-title">Ügyfélkérdések megválaszolása</div>
                 <div class="feature-text">
-                    Nyitvatartás, szolgáltatások, alapvető kérdések, gyakran ismételt infók – mind automatikusan,
-                    egységes stílusban, éjjel-nappal.
+                    Nyitvatartás, árak, szolgáltatások, rendelés menete – a visszatérő kérdésekre
+                    egységes, gyors választ ad, akkor is, amikor Te épp nem vagy gépnél.
                 </div>
             </div>
 
@@ -839,8 +877,8 @@
                 <div class="feature-icon">🧭</div>
                 <div class="feature-title">Irányítás a megfelelő oldalra</div>
                 <div class="feature-text">
-                    Segít eligazodni az oldalon: ajánlatkérés, termékkategória, szolgáltatás, kapcsolat –
-                    mindig a következő logikus lépés felé tereli a látogatót.
+                    Segít eligazodni az oldalon: ajánlatkérés, termékek, szolgáltatások,
+                    kapcsolat – mindig a következő logikus lépés felé tereli a látogatót.
                 </div>
             </div>
 
@@ -848,8 +886,8 @@
                 <div class="feature-icon">🧱</div>
                 <div class="feature-title">Szabályozott viselkedés</div>
                 <div class="feature-text">
-                    Előre lefektetett keretek: mit válaszolhat, milyen témákat kerül, mikor irányít inkább emberhez.
-                    Nem chatbottal kísérletezünk, hanem kontrollált rendszert építünk.
+                    Előre lefektetett keretek szerint működik: mit válaszolhat, mit kerül,
+                    mikor adja át a beszélgetést kollégának. Nem kísérletezünk – rendszert építünk.
                 </div>
             </div>
 
@@ -857,8 +895,8 @@
                 <div class="feature-icon">📊</div>
                 <div class="feature-title">Beszélgetések átnézése</div>
                 <div class="feature-text">
-                    A fontosabb beszélgetéseket vissza lehet nézni, így látod, mire kérdeznek legtöbbet,
-                    és hol érdemes az oldalt finomhangolni.
+                    Láthatod, mire kérdeznek legtöbbet az ügyfelek – ez irányt ad a fejlesztésnek,
+                    az ajánlatoknak és akár a honlap tartalmának is.
                 </div>
             </div>
 
@@ -866,17 +904,17 @@
                 <div class="feature-icon">🧠</div>
                 <div class="feature-title">Saját tudásbázisra építve</div>
                 <div class="feature-text">
-                    Nem az egész internetről “okoskodik”, hanem a te anyagaidra, folyamataidra, szabályaidra építjük:
-                    dokumentumok, GYIK, belső leírások alapján.
+                    A Te anyagaidból tanul: GYIK, belső leírások, folyamatok, dokumentumok alapján
+                    építjük fel a válaszlogikát – nem a „teljes internetet” engedjük rá.
                 </div>
             </div>
 
             <div class="feature-card animate-on-scroll">
                 <div class="feature-icon">⚙️</div>
-                <div class="feature-title">Weboldaladhoz illesztve</div>
+                <div class="feature-title">Honlapodhoz illesztve</div>
                 <div class="feature-text">
-                    A chat dizájnja és működése illeszkedik az oldaladhoz – nem különálló “doboz”,
-                    hanem a márka része, egységes élménnyel.
+                    A chat megjelenése, mozgása és működése illeszkedik a márkához:
+                    arculat, színek, betűk, hangulat – mintha mindig is része lett volna az oldaladnak.
                 </div>
             </div>
         </div>
@@ -885,11 +923,11 @@
     <!-- BRUTÁL ARANY CHAT LEGALUL -->
     <section class="section chat-section" id="chat-demo">
         <div class="section-header animate-on-scroll">
-            <div class="section-kicker">ÉLŐ FELÜLET</div>
-            <h2 class="section-title">Próbálja ki az Aurion Studio AI asszisztenst</h2>
+            <div class="section-kicker">CHAT FELÜLET</div>
+            <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
             <p class="section-subtitle">
-                Az alábbi, széles chat ablak azt mutatja, hogyan nézhet ki egy prémium, márkára szabott AI felület.
-                Jelenleg demó módban fut – a valós logika később kerül bekötésre.
+                Az alábbi, széles arany chat ablak azt mutatja, milyen felületen találkozhatna az
+                ügyfeleiddel az AI asszisztens – mobilon és asztali gépen egyaránt kényelmesen használható módon.
             </p>
         </div>
 
@@ -902,7 +940,7 @@
                         </div>
                         <div class="chat-header-text">
                             <div class="chat-card-title">Aurion Studio AI asszisztens</div>
-                            <div class="chat-meta">Online – írd be, miről szeretnél kérdezni.</div>
+                            <div class="chat-meta">Online – írj egy kérdést, mintha az oldaladra érkező ügyfél lennél.</div>
                         </div>
                     </div>
                     <div class="chat-status-pill">
@@ -912,7 +950,7 @@
                 </div>
 
                 <div class="chat-window" id="chatWindow">
-                    <!-- Kezdetben üres – később ide jön a valódi AI válaszlogika -->
+                    <!-- Kezdetben üres – ide érkeznek a beírt üzenetek -->
                 </div>
 
                 <div class="chat-input-row">
@@ -926,10 +964,6 @@
                         <span class="icon">➤</span>
                         <span>Üzenet küldése</span>
                     </button>
-                </div>
-                <div class="chat-demo-note">
-                    Demó üzemmód: jelenleg csak a beírt üzenetet jelenítjük meg. A valódi AI válaszok a háttérben,
-                    külön kulccsal és logikával kerülnek majd bekötésre.
                 </div>
             </div>
         </div>
@@ -974,7 +1008,7 @@
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-    // Chat – jelenleg csak a felhasználó üzenetét jelenítjük meg
+    // Chat – jelenleg a felhasználó üzenetét jelenítjük meg
     const chatWindow = document.getElementById('chatWindow');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
