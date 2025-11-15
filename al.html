@@ -608,6 +608,7 @@
             word-wrap: break-word;
         }
 
+        /* Felhasználó – sötét buborék, arany csík */
         .chat-message.user {
             margin-left: auto;
             border-bottom-right-radius: 4px;
@@ -615,6 +616,16 @@
             border-left: 3px solid #facc6b;
             color: #e5e7eb;
             font-weight: 500;
+        }
+
+        /* Asszisztens – világos buborék, jól olvasható szöveg */
+        .chat-message.assistant {
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            background: #f9fafb;
+            color: #111827;
+            border-left: 3px solid #e5e7eb;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.45);
         }
 
         .chat-input-row {
@@ -942,7 +953,7 @@
                 </div>
 
                 <div class="chat-window" id="chatWindow">
-                    <!-- Kezdetben üres – ide érkeznek a beírt üzenetek -->
+                    <!-- üzenetek ide érkeznek -->
                 </div>
 
                 <div class="chat-input-row">
@@ -1000,30 +1011,22 @@
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-    // ===== AI CHAT BEKÖTÉS – Netlify Function hívása =====
+    // CHAT LOGIKA – user + asszisztens buborék, Netlify function hívással
     const chatWindow = document.getElementById('chatWindow');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
-
-    // Teljes beszélgetés, amit elküldünk a szervernek
-    const conversation = [
-        {
-            role: 'system',
-            content:
-                'Te az Aurion Studio webes AI asszisztense vagy. ' +
-                'Segítesz weboldal, webshop, admin felület és AI integráció tervezésében. ' +
-                'Magyarul válaszolsz, barátságosan, érthetően, de szakmailag pontosan. ' +
-                'Nem ígérsz lehetetlent, és ha valamihez fejlesztő kell, azt őszintén elmondod.'
-        }
-    ];
 
     function addMessage(role, text) {
         if (!chatWindow) return;
         const msg = document.createElement('div');
         msg.classList.add('chat-message');
+
         if (role === 'user') {
             msg.classList.add('user');
+        } else if (role === 'assistant') {
+            msg.classList.add('assistant');
         }
+
         msg.textContent = text;
         chatWindow.appendChild(msg);
         chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -1031,61 +1034,48 @@
     }
 
     async function sendToServer(userText) {
-        conversation.push({ role: 'user', content: userText });
+        // ideiglenes "gondolkodom" buborék
+        let thinkingBubble = addMessage('assistant', 'Gondolkodom a válaszon…');
 
-        const res = await fetch('/.netlify/functions/aurion-chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ messages: conversation })
-        });
+        try {
+            const response = await fetch('/.netlify/functions/aurion-chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userText })
+            });
 
-        if (!res.ok) {
-            throw new Error('Szerver hiba: ' + res.status);
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+            }
+
+            const data = await response.json();
+            const reply = data && data.reply
+                ? data.reply
+                : 'Most nem kaptam választ a chat motortól.';
+
+            thinkingBubble.textContent = reply;
+        } catch (err) {
+            // hiba esetén jól olvasható fehér buborékban jelenik meg:
+            thinkingBubble.textContent =
+                'Most nem tudom elérni a chat motort. Valószínűleg technikai probléma van – ' +
+                'próbáld meg kicsit később, vagy írj közvetlenül az ajánlatkérő űrlapon.';
         }
-
-        const data = await res.json();
-        const reply = (data.reply || '').trim() ||
-            'Most valamiért nem tudok választ adni. Kérlek próbáld meg pár perc múlva újra.';
-
-        conversation.push({ role: 'assistant', content: reply });
-        return reply;
     }
 
-    async function handleUserSend() {
-        if (!chatInput || !chatSendBtn) return;
+    function handleUserSend() {
+        if (!chatInput) return;
         const text = chatInput.value.trim();
         if (!text) return;
 
-        // user üzenet a buborékba
         addMessage('user', text);
-        chatInput.value = '';
-
-        // "gondolkodom" buborék
-        const thinkingBubble = addMessage('assistant', 'Gondolkodom a válaszon…');
-        chatSendBtn.disabled = true;
-
-        try {
-            const reply = await sendToServer(text);
-            if (thinkingBubble) thinkingBubble.textContent = reply;
-        } catch (err) {
-            console.error(err);
-            if (thinkingBubble) {
-                thinkingBubble.textContent =
-                    'Most nem tudom elérni a chat motort. Valószínűleg technikai probléma van – ' +
-                    'próbáld meg kicsit később, vagy írj közvetlenül az ajánlatkérő űrlapon.';
-            }
-        } finally {
-            chatSendBtn.disabled = false;
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
+        chatInput.value = "";
+        sendToServer(text);
     }
 
     if (chatSendBtn && chatInput) {
-        chatSendBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleUserSend();
-        });
-
+        chatSendBtn.addEventListener('click', handleUserSend);
         chatInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
