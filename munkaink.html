@@ -17,9 +17,23 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at top, #fefce8 0%, #f3f4f6 40%, #e5e7eb 100%);
+            background:
+                radial-gradient(circle at top, #fef9c3 0%, #f3f4f6 40%, #e5e7eb 100%);
             color: #111827;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -120px;
+            background:
+                radial-gradient(circle at 10% -10%, rgba(250, 204, 21, 0.24), transparent 55%),
+                radial-gradient(circle at 100% 0%, rgba(248, 250, 252, 0.9), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: -1;
         }
 
         a {
@@ -44,6 +58,12 @@
             0%   { transform: translate(-50%, 0) rotate(-4deg); }
             50%  { transform: translate(-50%, -10px) rotate(-1deg); }
             100% { transform: translate(-50%, 0) rotate(-4deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%   { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4); }
+            70%  { box-shadow: 0 0 0 18px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
         }
 
         .animate-on-scroll {
@@ -95,7 +115,7 @@
             height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: #020617;
+            background: radial-gradient(circle at 30% 0, #facc15, #020617 65%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
                 0 12px 30px rgba(15, 23, 42, 0.35);
@@ -236,11 +256,43 @@
             position: relative;
         }
 
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 36px;
+            background:
+                linear-gradient(135deg, rgba(250, 204, 21, 0.25), transparent 40%),
+                radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.9), transparent 55%);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
         .hero-inner {
             display: grid;
             grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
             gap: 40px;
             align-items: center;
+            padding: 30px 26px;
+            border-radius: 32px;
+            background: rgba(248, 250, 252, 0.96);
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, 0.18),
+                0 0 0 1px rgba(209, 213, 219, 0.85);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            bottom: -80px;
+            width: 220px;
+            height: 220px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.5), transparent 65%);
+            opacity: 0.7;
         }
 
         .hero-kicker {
@@ -295,6 +347,18 @@
 
         .hero-right-preview {
             justify-self: center;
+            position: relative;
+        }
+
+        .hero-right-preview::before {
+            content: "";
+            position: absolute;
+            inset: -30px;
+            border-radius: 999px;
+            background:
+                conic-gradient(from 220deg, rgba(250, 204, 21, 0.12), transparent 35%, rgba(249, 115, 22, 0.2), transparent 75%, rgba(250, 204, 21, 0.4));
+            filter: blur(12px);
+            opacity: 0.9;
         }
 
         .hero-ring {
@@ -311,6 +375,15 @@
             box-shadow: 0 26px 60px rgba(15, 23, 42, 0.25);
         }
 
+        .hero-ring::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+        }
+
         .hero-ring-inner {
             position: relative;
             border-radius: 999px;
@@ -323,6 +396,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulseGlow 4.5s ease-out infinite;
         }
 
         .hero-ring-inner span {
@@ -339,11 +413,27 @@
 
         .section {
             padding: 40px 0;
+            position: relative;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: 40px;
+            width: 260px;
+            height: 260px;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(148, 163, 184, 0.18), transparent 65%);
+            opacity: 0.7;
+            pointer-events: none;
         }
 
         .section-header {
             text-align: left;
             margin-bottom: 26px;
+            position: relative;
+            z-index: 1;
         }
 
         .section-kicker {
@@ -386,17 +476,58 @@
         .project-block {
             padding: 40px 30px 50px;
             border-radius: 32px;
-            background: radial-gradient(circle at top left, #ffffff 0%, #f9fafb 40%, #e5e7eb 100%);
+            background:
+                radial-gradient(circle at top left, #ffffff 0%, #f9fafb 40%, #e5e7eb 100%);
             box-shadow:
                 0 24px 60px rgba(15, 23, 42, 0.10),
                 0 0 0 1px rgba(209, 213, 219, 0.8);
             margin-bottom: 26px;
+            position: relative;
+            overflow: hidden;
+            transition:
+                transform 0.22s ease,
+                box-shadow 0.22s ease,
+                border-color 0.22s ease;
+        }
+
+        .project-block::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background:
+                conic-gradient(from 210deg, rgba(250, 204, 21, 0.4), transparent 36%, rgba(249, 115, 22, 0.55), transparent 72%, rgba(250, 204, 21, 0.8));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .project-block:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 32px 80px rgba(15, 23, 42, 0.22),
+                0 0 0 1px rgba(250, 204, 21, 0.7);
+        }
+
+        .project-block:hover::before {
+            opacity: 0.35;
         }
 
         .project-header {
             max-width: 720px;
             margin: 0 auto 26px;
             text-align: center;
+            position: relative;
+        }
+
+        .project-index {
+            position: absolute;
+            left: 50%;
+            top: -22px;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(250, 204, 21, 0.9);
         }
 
         .project-tag {
@@ -411,6 +542,19 @@
             background: rgba(255, 251, 235, 0.98);
             box-shadow: 0 10px 26px rgba(250, 204, 21, 0.35);
             margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-tag::before {
+            content: "";
+            position: absolute;
+            left: -18px;
+            top: 0;
+            width: 36px;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(250, 204, 21, 0.3), transparent);
+            opacity: 0.8;
         }
 
         .project-tag-dot {
@@ -418,6 +562,13 @@
             height: 7px;
             border-radius: 999px;
             background: radial-gradient(circle, #22c55e, #16a34a);
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-tag span {
+            position: relative;
+            z-index: 1;
         }
 
         .project-title {
@@ -453,6 +604,18 @@
                 0 0 0 1px rgba(15, 23, 42, 0.9);
             padding: 18px 26px 26px;
             overflow: hidden;
+        }
+
+        .device-laptop::before {
+            content: "";
+            position: absolute;
+            inset: -40px;
+            border-radius: inherit;
+            background:
+                radial-gradient(circle at top left, rgba(250, 204, 21, 0.21), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.8), transparent 65%);
+            opacity: 0.9;
+            pointer-events: none;
         }
 
         .device-laptop-bezel {
@@ -743,6 +906,11 @@
                 font-size: 32px;
             }
 
+            .hero-inner {
+                padding: 22px 18px;
+                border-radius: 26px;
+            }
+
             .project-mockup {
                 max-width: 420px;
                 margin: 24px auto 24px;
@@ -785,6 +953,10 @@
 
             .device-phone-inner {
                 height: 240px;
+            }
+
+            .project-block {
+                padding: 24px 16px 32px;
             }
         }
     </style>
@@ -866,6 +1038,7 @@
         <!-- SERLEGKIRALY -->
         <article class="project-block animate-on-scroll">
             <div class="project-header">
+                <span class="project-index">01</span>
                 <div class="project-tag">
                     <span class="project-tag-dot"></span>
                     <span>Teljesen egyedi webshop fejlesztés</span>
@@ -928,6 +1101,7 @@
         <!-- MALFIRUHA -->
         <article class="project-block animate-on-scroll">
             <div class="project-header">
+                <span class="project-index">02</span>
                 <div class="project-tag">
                     <span class="project-tag-dot"></span>
                     <span>Ruházati webshop – finomhangolás és stabilizálás</span>
@@ -989,6 +1163,7 @@
         <!-- SZŐKE ÉPKER -->
         <article class="project-block animate-on-scroll">
             <div class="project-header">
+                <span class="project-index">03</span>
                 <div class="project-tag">
                     <span class="project-tag-dot"></span>
                     <span>Szolgáltatói honlap – bizalomépítés online</span>
