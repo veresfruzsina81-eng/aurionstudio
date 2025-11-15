@@ -17,8 +17,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(180deg, #f9fafb 0%, #e5e7eb 35%, #f9fafb 100%);
-            color: #0f172a;
+            background:
+                radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%),
+                radial-gradient(circle at bottom right, #0f172a 0, #020617 50%, #020617 100%);
+            color: #e5e7eb;
             overflow-x: hidden;
         }
 
@@ -66,19 +68,33 @@
             top: 0;
             width: 100%;
             z-index: 9999;
-            background: rgba(249, 250, 251, 0.94);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+            background: radial-gradient(circle at top, rgba(30, 64, 175, 0.35), transparent 55%),
+                        rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7, #facc15);
+            background-size: 240% 100%;
+            animation: gradientMove 16s linear infinite;
+            opacity: 0.9;
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
             padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
@@ -95,20 +111,20 @@
             height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: #111827;
+            background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.6);
+                0 12px 30px rgba(15, 23, 42, 0.95);
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
+            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .logo .studio {
-            color: #111827;
+            color: #e5e7eb;
         }
 
         .nav-links {
@@ -121,7 +137,7 @@
         .nav-links a {
             font-size: 13px;
             font-weight: 500;
-            color: rgba(15, 23, 42, 0.8);
+            color: rgba(226, 232, 240, 0.8);
             position: relative;
             padding: 4px 0;
         }
@@ -134,13 +150,13 @@
             width: 0;
             height: 2px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
             transform: translateX(-50%);
             transition: width 0.25s ease;
         }
 
         .nav-links a:hover {
-            color: #0f172a;
+            color: #f9fafb;
         }
 
         .nav-links a:hover::after {
@@ -150,10 +166,13 @@
         .nav-links a.contact-link {
             padding: 6px 14px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.7);
-            background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
-            color: #111827;
+            border: 1px solid rgba(56, 189, 248, 0.8);
+            background: radial-gradient(circle at top, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.98));
+            box-shadow:
+                0 10px 26px rgba(37, 99, 235, 0.7),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            font-size: 13px;
         }
 
         .nav-links a.contact-link::after {
@@ -161,7 +180,7 @@
         }
 
         .nav-links a.active {
-            color: #facc15;
+            color: #22d3ee;
         }
 
         .nav-links a.active::after {
@@ -174,7 +193,7 @@
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             cursor: pointer;
             align-items: center;
             justify-content: center;
@@ -188,7 +207,7 @@
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #111827;
+            background: #e5e7eb;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
@@ -207,10 +226,11 @@
         .nav-links.mobile {
             position: fixed;
             inset: 56px 16px auto 16px;
-            background: rgba(249, 250, 251, 0.97);
+            background: radial-gradient(circle at top, rgba(37, 99, 235, 0.45), transparent 55%),
+                        rgba(15, 23, 42, 0.98);
             backdrop-filter: blur(18px);
             border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
             padding: 12px 16px;
             flex-direction: column;
             gap: 10px;
@@ -230,9 +250,22 @@
         /* ===== HERO ===== */
 
         .hero {
-            padding: 110px 16px 40px;
-            max-width: 1200px;
+            padding: 120px 16px 60px;
+            max-width: 1120px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -120px -240px auto -240px;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 60%),
+                radial-gradient(circle at top right, rgba(129, 140, 248, 0.18), transparent 60%);
+            opacity: 1;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .hero-inner {
@@ -246,7 +279,7 @@
             font-size: 11px;
             letter-spacing: 0.24em;
             text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.95);
+            color: rgba(148, 163, 184, 0.95);
             margin-bottom: 10px;
         }
 
@@ -254,7 +287,7 @@
             font-size: 40px;
             line-height: 1.1;
             margin-bottom: 12px;
-            background: linear-gradient(120deg, #111827 0%, #caa85a 45%, #f7b733 75%);
+            background: linear-gradient(120deg, #e5e7eb 0%, #22d3ee 30%, #6366f1 60%, #a855f7 85%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeUp 0.9s ease-out;
@@ -262,7 +295,7 @@
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(55, 65, 81, 0.95);
+            color: rgba(209, 213, 219, 0.9);
             margin-bottom: 16px;
             max-width: 520px;
         }
@@ -273,13 +306,16 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #fefce8, #fef9c3);
-            border: 1px solid rgba(234, 179, 8, 0.4);
+            background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(56, 189, 248, 0.5);
             font-size: 12px;
-            color: #92400e;
+            color: #e0f2fe;
             margin-bottom: 10px;
             background-size: 200% 100%;
             animation: gradientMove 10s linear infinite;
+            box-shadow:
+                0 10px 26px rgba(37, 99, 235, 0.65),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
         }
 
         .hero-pill-dot {
@@ -291,7 +327,7 @@
 
         .hero-info {
             font-size: 13px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(156, 163, 175, 0.96);
             margin-top: 8px;
         }
 
@@ -300,14 +336,18 @@
         }
 
         .hero-cta-card {
-            border-radius: 24px;
-            background: #ffffff;
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.28), transparent 65%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.24), transparent 65%),
+                rgba(15, 23, 42, 0.96);
             box-shadow:
-                0 22px 50px rgba(148, 163, 184, 0.35),
-                0 0 0 1px rgba(226, 232, 240, 0.9);
-            padding: 16px 18px 16px;
+                0 28px 70px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(56, 189, 248, 0.25);
+            padding: 18px 20px 18px;
             max-width: 420px;
             margin: 0 auto;
+            color: #e5e7eb;
         }
 
         .hero-cta-badge {
@@ -317,9 +357,9 @@
             padding: 4px 10px;
             border-radius: 999px;
             font-size: 11px;
-            background: #f9fafb;
-            color: #374151;
-            border: 1px solid rgba(209, 213, 219, 0.9);
+            background: rgba(15, 23, 42, 0.9);
+            color: #e0f2fe;
+            border: 1px solid rgba(148, 163, 184, 0.7);
             margin-bottom: 8px;
         }
 
@@ -333,20 +373,20 @@
         .hero-cta-title {
             font-size: 16px;
             font-weight: 700;
-            color: #111827;
+            color: #f9fafb;
             margin-bottom: 6px;
         }
 
         .hero-cta-text {
             font-size: 13px;
-            color: rgba(55, 65, 81, 0.96);
-            line-height: 1.6;
+            color: rgba(209, 213, 219, 0.92);
+            line-height: 1.7;
             margin-bottom: 10px;
         }
 
         .hero-cta-list {
             font-size: 12px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(148, 163, 184, 0.96);
             margin-bottom: 12px;
             padding-left: 16px;
         }
@@ -363,9 +403,11 @@
             border-radius: 999px;
             font-size: 13px;
             font-weight: 600;
-            background: linear-gradient(90deg, #e0c075, #facc6b);
-            color: #111827;
-            box-shadow: 0 14px 34px rgba(214, 178, 96, 0.65);
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #0b1120;
+            box-shadow:
+                0 18px 40px rgba(56, 189, 248, 0.9),
+                0 0 30px rgba(59, 130, 246, 0.9);
             cursor: pointer;
             border: none;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -377,23 +419,25 @@
 
         .hero-cta-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 22px 50px rgba(214, 178, 96, 0.95);
+            box-shadow:
+                0 26px 60px rgba(56, 189, 248, 1),
+                0 0 40px rgba(129, 140, 248, 0.9);
         }
 
         /* ===== MAIN & SZEKCIÓK ===== */
 
         main {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 0 16px 60px;
+            padding: 0 16px 70px;
         }
 
         .section {
-            padding: 40px 0;
+            padding: 50px 0;
         }
 
         .section-header {
-            text-align: lef;
+            text-align: left;
             margin-bottom: 26px;
         }
 
@@ -401,14 +445,14 @@
             font-size: 11px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.96);
+            color: rgba(148, 163, 184, 0.96);
             margin-bottom: 6px;
         }
 
         .section-title {
             font-size: 24px;
             font-weight: 800;
-            color: #111827;
+            color: #f9fafb;
             margin-bottom: 8px;
             position: relative;
             display: inline-block;
@@ -419,17 +463,18 @@
             position: absolute;
             left: 0;
             bottom: -4px;
-            width: 90px;
+            width: 110px;
             height: 3px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
             background-size: 220% 100%;
             animation: gradientMove 8s linear infinite;
+            box-shadow: 0 10px 26px rgba(37, 99, 235, 0.8);
         }
 
         .section-subtitle {
             font-size: 14px;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(209, 213, 219, 0.92);
             max-width: 720px;
         }
 
@@ -439,14 +484,19 @@
             margin-top: 24px;
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
+            gap: 18px;
         }
 
         .feature-card {
-            border-radius: 18px;
-            background: #ffffff;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 16px 40px rgba(148, 163, 184, 0.3);
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.14), transparent 60%),
+                rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            box-shadow:
+                0 18px 50px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(30, 64, 175, 0.35);
             padding: 14px 14px 12px;
             font-size: 13px;
             position: relative;
@@ -457,7 +507,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.18), transparent 60%);
+            background: radial-gradient(circle at top left, rgba(94, 234, 212, 0.18), transparent 60%);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -467,35 +517,40 @@
         }
 
         .feature-icon {
-            width: 26px;
-            height: 26px;
+            width: 30px;
+            height: 30px;
             border-radius: 999px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 6px;
-            background: #fef3c7;
-            color: #92400e;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.3), rgba(15, 23, 42, 1));
+            color: #e0f2fe;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.6);
+            font-size: 15px;
         }
 
         .feature-title {
             font-weight: 600;
             margin-bottom: 4px;
-            color: #111827;
+            color: #f9fafb;
         }
 
         .feature-text {
             font-size: 12px;
-            color: rgba(55, 65, 81, 0.96);
-            line-height: 1.6;
+            color: rgba(209, 213, 219, 0.94);
+            line-height: 1.7;
         }
 
         /* ===== PRÉMIUM CHAT SZEKCIÓ ===== */
 
         .chat-section {
-            border-top: 1px solid rgba(148, 163, 184, 0.35);
-            background: linear-gradient(180deg, #f9fafb 0%, #e5e7eb 60%, #f9fafb 100%);
-            padding-bottom: 50px;
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            margin-top: 10px;
+            background:
+                radial-gradient(circle at top, rgba(37, 99, 235, 0.2), transparent 60%),
+                radial-gradient(circle at bottom, rgba(15, 23, 42, 1), #020617 70%);
+            padding-bottom: 60px;
         }
 
         .chat-layout {
@@ -507,17 +562,20 @@
 
         .chat-card-big {
             border-radius: 30px;
-            background: linear-gradient(145deg, #f3f4f6, #e5e7eb);
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 65%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.22), transparent 65%),
+                linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
             box-shadow:
-                0 28px 60px rgba(148, 163, 184, 0.55),
-                0 0 0 1px rgba(209, 213, 219, 0.9);
-            border: 1px solid rgba(209, 213, 219, 0.95);
+                0 40px 80px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(30, 64, 175, 0.7);
+            border: 1px solid rgba(30, 64, 175, 0.8);
             padding: 18px 20px 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             animation: floatSlow 20s ease-in-out infinite;
-            color: #111827;
+            color: #e5e7eb;
         }
 
         .chat-card-header {
@@ -539,10 +597,10 @@
             height: 34px;
             border-radius: 12px;
             overflow: hidden;
-            background: #020617;
+            background: radial-gradient(circle at top, #22d3ee, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 6px 16px rgba(0, 0, 0, 0.9);
+                0 8px 18px rgba(0, 0, 0, 0.95);
         }
 
         .chat-header-logo img {
@@ -559,12 +617,12 @@
         .chat-card-title {
             font-size: 15px;
             font-weight: 700;
-            color: #111827;
+            color: #f9fafb;
         }
 
         .chat-meta {
             font-size: 11px;
-            color: rgba(75, 85, 99, 0.9);
+            color: rgba(148, 163, 184, 0.96);
         }
 
         .chat-status-pill {
@@ -574,9 +632,9 @@
             padding: 4px 10px;
             border-radius: 999px;
             font-size: 11px;
-            background: rgba(22, 163, 74, 0.06);
-            color: #166534;
-            border: 1px solid rgba(34, 197, 94, 0.45);
+            background: rgba(22, 163, 74, 0.12);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.5);
         }
 
         .chat-status-dot {
@@ -588,14 +646,16 @@
 
         .chat-window {
             border-radius: 20px;
-            background: radial-gradient(circle at top, #1f2937, #4b5563 55%, #111827 100%);
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 60%),
+                radial-gradient(circle at bottom, rgba(15, 23, 42, 1), #020617 80%);
             padding: 12px 12px 14px;
             min-height: 330px;
             max-height: 420px;
             overflow-y: auto;
             box-shadow:
-                0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 18px 45px rgba(15, 23, 42, 0.7);
+                0 0 0 1px rgba(30, 64, 175, 0.9),
+                inset 0 0 40px rgba(15, 23, 42, 0.95);
         }
 
         .chat-message {
@@ -611,20 +671,20 @@
         .chat-message.user {
             margin-left: auto;
             border-bottom-right-radius: 4px;
-            background: linear-gradient(135deg, #0f172a, #111827);
-            border-left: 3px solid #facc6b;
-            color: #e5e7eb;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            border-left: 3px solid #facc15;
+            color: #0b1120;
             font-weight: 500;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.9);
         }
 
-        /* BOT üzenet – világos buborék, jól olvasható */
         .chat-message.bot {
             margin-right: auto;
             border-bottom-left-radius: 4px;
-            background: rgba(243, 244, 246, 0.96);
-            border-left: 3px solid #e0c075;
-            color: #111827;
-            box-shadow: 0 4px 14px rgba(148, 163, 184, 0.45);
+            background: rgba(15, 23, 42, 0.96);
+            border-left: 3px solid #22d3ee;
+            color: #e5e7eb;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.95);
         }
 
         .chat-cta-link {
@@ -633,16 +693,20 @@
             padding: 6px 12px;
             border-radius: 999px;
             font-size: 12px;
-            background: linear-gradient(90deg, #e0c075, #facc6b);
+            background: linear-gradient(90deg, #facc15, #f97316);
             color: #111827;
             font-weight: 600;
             text-decoration: none;
-            box-shadow: 0 8px 20px rgba(214, 178, 96, 0.7);
+            box-shadow:
+                0 10px 26px rgba(234, 179, 8, 0.9),
+                0 0 26px rgba(245, 158, 11, 0.9);
         }
 
         .chat-cta-link:hover {
-            box-shadow: 0 12px 28px rgba(214, 178, 96, 0.9);
             transform: translateY(-1px);
+            box-shadow:
+                0 18px 40px rgba(234, 179, 8, 1),
+                0 0 34px rgba(245, 158, 11, 1);
         }
 
         .chat-quick-options {
@@ -657,13 +721,15 @@
             border-radius: 999px;
             padding: 4px 10px;
             font-size: 11px;
-            background: #e5e7eb;
-            color: #111827;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
             cursor: pointer;
+            border: 1px solid rgba(51, 65, 85, 0.9);
         }
 
         .chat-quick-btn:hover {
-            background: #d1d5db;
+            background: rgba(30, 64, 175, 0.9);
+            border-color: rgba(59, 130, 246, 0.9);
         }
 
         .chat-input-row {
@@ -678,22 +744,24 @@
             flex: 1;
             border-radius: 999px;
             padding: 9px 14px;
-            border: 1px solid rgba(148, 163, 184, 0.95);
+            border: 1px solid rgba(51, 65, 85, 0.95);
             font-size: 13px;
             font-family: inherit;
             outline: none;
-            background: #111827;
+            background: radial-gradient(circle at top, #020617, #020617 70%);
             min-width: 200px;
-            color: #f9fafb;
+            color: #e5e7eb;
         }
 
         .chat-input::placeholder {
-            color: rgba(156, 163, 175, 0.9);
+            color: rgba(148, 163, 184, 0.9);
         }
 
         .chat-input:focus {
-            border-color: #facc6b;
-            box-shadow: 0 0 0 1px rgba(250, 204, 107, 0.7);
+            border-color: #22d3ee;
+            box-shadow:
+                0 0 0 1px rgba(56, 189, 248, 0.9),
+                0 0 30px rgba(37, 99, 235, 0.9);
         }
 
         .chat-send-btn {
@@ -702,10 +770,12 @@
             padding: 9px 16px;
             font-size: 13px;
             font-weight: 600;
-            background: linear-gradient(90deg, #e0c075, #facc6b);
-            color: #111827;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
             cursor: pointer;
-            box-shadow: 0 12px 30px rgba(214, 178, 96, 0.8);
+            box-shadow:
+                0 18px 40px rgba(59, 130, 246, 0.95),
+                0 0 34px rgba(129, 140, 248, 0.9);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -719,19 +789,21 @@
 
         .chat-send-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 20px 46px rgba(214, 178, 96, 1);
+            box-shadow:
+                0 26px 60px rgba(59, 130, 246, 1),
+                0 0 40px rgba(129, 140, 248, 1);
         }
 
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.5);
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
             background: #020617;
             color: #e5e7eb;
         }
 
         .footer-inner {
-            max-width: 1200px;
+            max-width: 1120px;
             margin: 0 auto;
             padding: 12px 16px 14px;
             display: flex;
@@ -743,7 +815,7 @@
         }
 
         .footer-link {
-            color: rgba(209, 213, 219, 0.9);
+            color: rgba(148, 163, 184, 0.9);
         }
 
         .footer-link:hover {
@@ -763,15 +835,15 @@
             }
 
             .hero {
-                padding-top: 96px;
+                padding-top: 110px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
         @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
             .chat-card-big {
                 border-radius: 24px;
             }
@@ -797,11 +869,15 @@
             .chat-card-big {
                 padding: 16px 14px 14px;
             }
+
+            .hero {
+                padding: 110px 16px 70px;
+            }
         }
 
         @media (max-width: 480px) {
             .hero {
-                padding-top: 92px;
+                padding-top: 100px;
             }
 
             .hero-title {
@@ -863,7 +939,7 @@
             </div>
             <p class="hero-info">
                 Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles,
-                prémium szürke–arany chat ablak vár, ahol kipróbálhatod a felület működését.
+                prémium neon chat ablak vár, ahol kipróbálhatod a felület működését.
             </p>
         </div>
 
@@ -961,13 +1037,13 @@
         </div>
     </section>
 
-    <!-- PRÉMIUM SZÜRKE–ARANY CHAT LEGALUL -->
+    <!-- NEON CHAT LEGALUL -->
     <section class="section chat-section" id="chat-demo">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">CHAT FELÜLET</div>
             <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
             <p class="section-subtitle">
-               Kérdezz bátran — mi itt vagyunk, hogy segítsünk!”
+                Kérdezz bátran — mi itt vagyunk, hogy segítsünk!
             </p>
         </div>
 
