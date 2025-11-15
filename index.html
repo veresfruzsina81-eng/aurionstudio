@@ -28,7 +28,7 @@
             color: inherit;
         }
 
-        /* ===== ANIMÁCIÓK ===== */
+        /* ===== ALAP ANIMÁCIÓK ===== */
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(22px) scale(0.98); }
@@ -47,6 +47,12 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes headerGlow {
+            0%   { background-position: 0% 50%; opacity: 0.45; }
+            50%  { background-position: 100% 50%; opacity: 0.9;  }
+            100% { background-position: 0% 50%; opacity: 0.45; }
+        }
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(22px) scale(0.98);
@@ -60,16 +66,33 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC ===== */
+        /* ===== FEJLÉC – FIX, ÜVEGHATÁS, ARANY CSÍK ANIMÁCIÓVAL ===== */
 
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 9999;
-            background: rgba(249, 250, 251, 0.96);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+            background: rgba(249, 250, 251, 0.92);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                120deg,
+                rgba(250, 204, 21, 0.18),
+                rgba(56, 189, 248, 0.0),
+                rgba(249, 115, 22, 0.18)
+            );
+            background-size: 220% 100%;
+            animation: headerGlow 14s ease-in-out infinite;
+            pointer-events: none;
+            mix-blend-mode: soft-light;
         }
 
         nav {
@@ -80,6 +103,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
@@ -92,14 +117,14 @@
         }
 
         .logo-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
             object-fit: contain;
-            background: #111827;
+            background: #020617;
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.6);
+                0 12px 30px rgba(15, 23, 42, 0.8);
         }
 
         .logo .aurion {
@@ -109,7 +134,7 @@
         }
 
         .logo .studio {
-            color: #111827;
+            color: #020617;
         }
 
         .nav-links {
@@ -120,9 +145,9 @@
         }
 
         .nav-links a {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            color: rgba(15, 23, 42, 0.8);
+            color: rgba(15, 23, 42, 0.82);
             position: relative;
             padding: 4px 0;
         }
@@ -141,7 +166,7 @@
         }
 
         .nav-links a:hover {
-            color: #0f172a;
+            color: #020617;
         }
 
         .nav-links a:hover::after {
@@ -149,11 +174,12 @@
         }
 
         .nav-links a.contact-link {
-            padding: 6px 14px;
+            padding: 7px 18px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.7);
-            background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
+            border: 1px solid rgba(250, 204, 21, 0.8);
+            background: radial-gradient(circle at top left, #fefce8, #fffbeb);
+            box-shadow: 0 10px 26px rgba(234, 179, 8, 0.55);
+            font-size: 13px;
         }
 
         .nav-links a.contact-link::after {
@@ -166,7 +192,7 @@
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             cursor: pointer;
             align-items: center;
             justify-content: center;
@@ -180,7 +206,7 @@
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #111827;
+            background: #020617;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
@@ -198,8 +224,8 @@
 
         .nav-links.mobile {
             position: fixed;
-            inset: 56px 16px auto 16px;
-            background: rgba(249, 250, 251, 0.97);
+            inset: 60px 16px auto 16px;
+            background: rgba(249, 250, 251, 0.98);
             backdrop-filter: blur(18px);
             border-radius: 18px;
             box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
@@ -219,25 +245,24 @@
             pointer-events: auto;
         }
 
-        /* ===== HERO – VIDEO HÁTTÉR ===== */
+        /* ===== HERO – VIDEÓ + SÖTÉT FELSŐ BLOKK ===== */
 
         .hero {
-            padding: 120px 16px 80px;
+            padding: 132px 16px 96px;
             position: relative;
             overflow: hidden;
             background: #020617;
-            min-height: 620px;
+            min-height: 660px;
             z-index: 0;
         }
 
         .hero-bg-video {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(1.15) contrast(1.05);
+            filter: saturate(1.18) contrast(1.06);
             z-index: 0;
         }
 
@@ -246,9 +271,9 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at top right, rgba(248, 250, 252, 0.08), transparent 55%),
-                linear-gradient(120deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.75)),
-                linear-gradient(to bottom, rgba(15, 23, 42, 0.55), transparent 40%, rgba(15, 23, 42, 0.85));
+                radial-gradient(circle at top right, rgba(248, 250, 252, 0.12), transparent 55%),
+                linear-gradient(120deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.85)),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.65), transparent 40%, rgba(15, 23, 42, 0.9));
             z-index: 1;
         }
 
@@ -256,8 +281,8 @@
             max-width: 1120px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-            gap: 48px;
+            grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+            gap: 52px;
             align-items: center;
             position: relative;
             z-index: 2;
@@ -268,15 +293,15 @@
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: rgba(209, 213, 219, 0.9);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             animation: fadeUp 0.7s ease-out both;
             animation-delay: 0.05s;
         }
 
         .hero-title {
-            font-size: 48px;
-            line-height: 1.08;
-            margin-bottom: 14px;
+            font-size: 50px;
+            line-height: 1.04;
+            margin-bottom: 16px;
             background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -306,8 +331,8 @@
         .hero-subtitle {
             font-size: 18px;
             color: rgba(229, 231, 235, 0.9);
-            margin-bottom: 20px;
-            max-width: 520px;
+            margin-bottom: 22px;
+            max-width: 540px;
             animation: fadeUp 0.8s ease-out both;
             animation-delay: 0.2s;
         }
@@ -363,7 +388,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 18px;
+            margin-top: 20px;
             animation: fadeUp 0.8s ease-out both;
             animation-delay: 0.45s;
         }
@@ -373,7 +398,7 @@
             font-size: 14px;
             font-weight: 600;
             border-radius: 999px;
-            padding: 9px 18px;
+            padding: 10px 20px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -414,7 +439,7 @@
             justify-content: center;
         }
 
-        /* ===== HERO TELEFON – KARCSÚ, MAGASABB IPHONE ===== */
+        /* ===== HERO TELEFON ===== */
 
         .hero-phone {
             width: 100%;
@@ -593,7 +618,6 @@
             line-height: 1.7;
         }
 
-        /* LOGÓ A TELEFON ÜZENETÉBEN */
         .phone-message-logo {
             display: block;
             width: 90px;
@@ -625,22 +649,22 @@
             background: rgba(248, 250, 252, 0.7);
         }
 
-        /* ===== MAIN WRAPPER ===== */
+        /* ===== MAIN WRAPPER ALAP ===== */
 
         main {
             max-width: 1120px;
             margin: 0 auto;
-            padding: 0 16px 80px;
+            padding: 0 16px 90px;
         }
 
         .section {
-            padding: 80px 0;
-            border-top: 1px solid rgba(148, 163, 184, 0.18);
+            padding: 90px 0;
+            border-top: 1px solid rgba(148, 163, 184, 0.14);
         }
 
         .section-header {
             text-align: left;
-            margin-bottom: 32px;
+            margin-bottom: 34px;
         }
 
         .section-kicker {
@@ -652,10 +676,10 @@
         }
 
         .section-title {
-            font-size: 30px;
+            font-size: 34px;
             font-weight: 800;
             color: #111827;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             position: relative;
             display: inline-block;
         }
@@ -665,7 +689,7 @@
             position: absolute;
             left: 0;
             bottom: -6px;
-            width: 80px;
+            width: 90px;
             height: 3px;
             border-radius: 999px;
             background: linear-gradient(90deg, #facc15, #f97316);
@@ -674,8 +698,8 @@
         }
 
         .section-subtitle {
-            font-size: 15px;
-            color: rgba(75, 85, 99, 0.95);
+            font-size: 16px;
+            color: rgba(55, 65, 81, 0.96);
             max-width: 640px;
         }
 
@@ -701,452 +725,6 @@
             background: radial-gradient(circle, #22c55e, #16a34a);
         }
 
-        /* ===== SZOLGÁLTATÁSOK ===== */
-
-        .services-grid {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .service-card {
-            padding: 18px 16px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 10px 24px rgba(148, 163, 184, 0.25);
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease,
-                background 0.2s ease;
-            min-height: 170px;
-        }
-
-        .service-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.45);
-            border-color: rgba(250, 204, 21, 0.9);
-            background: #ffffff;
-        }
-
-        .service-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fef3c7;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .service-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #111827;
-        }
-
-        .service-text {
-            font-size: 14px;
-            line-height: 1.6;
-            color: rgba(75, 85, 99, 0.95);
-            margin-bottom: 6px;
-        }
-
-        .service-meta {
-            font-size: 13px;
-            color: rgba(107, 114, 128, 0.95);
-        }
-
-        /* ===== BEMUTATKOZÁS ===== */
-
-        .about-layout {
-            margin-top: 26px;
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-            gap: 28px;
-            align-items: flex-start;
-        }
-
-        .about-text {
-            font-size: 15px;
-            line-height: 1.8;
-            color: rgba(55, 65, 81, 0.96);
-            margin-bottom: 12px;
-        }
-
-        .about-strong {
-            font-weight: 600;
-            color: #111827;
-        }
-
-        .about-tags {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .about-tag {
-            padding: 6px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            font-size: 12px;
-            background: rgba(255, 255, 255, 0.96);
-        }
-
-        .about-highlight {
-            border-radius: 20px;
-            padding: 18px 18px 16px;
-            background: linear-gradient(135deg, #0b1120, #111827);
-            color: #e5e7eb;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
-            animation: floatSlow 18s ease-in-out infinite;
-        }
-
-        .about-highlight-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .about-highlight-text {
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 12px;
-            color: rgba(209, 213, 219, 0.95);
-        }
-
-        .about-stats {
-            display: flex;
-            gap: 18px;
-            font-size: 12px;
-            color: rgba(209, 213, 219, 0.95);
-        }
-
-        .about-stat-number {
-            font-size: 18px;
-            font-weight: 800;
-            color: #facc15;
-        }
-
-        /* ===== RÓLUNK ===== */
-
-        #rolunk.section {
-            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 60%, #f9fafb 100%);
-        }
-
-        .values-intro {
-            margin-top: 12px;
-            font-size: 14px;
-            line-height: 1.8;
-            color: rgba(55, 65, 81, 0.96);
-            max-width: 720px;
-        }
-
-        .values-grid {
-            margin-top: 26px;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .value-card {
-            padding: 18px 16px;
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 10px 24px rgba(148, 163, 184, 0.25);
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease,
-                background 0.2s ease;
-        }
-
-        .value-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 18px 40px rgba(148, 163, 184, 0.45);
-            border-color: rgba(250, 204, 21, 0.9);
-            background: #ffffff;
-        }
-
-        .value-badge {
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 999px;
-            background: #f9fafb;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            margin-bottom: 6px;
-            display: inline-block;
-        }
-
-        .value-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .value-text {
-            font-size: 14px;
-            line-height: 1.7;
-            color: rgba(75, 85, 99, 0.95);
-        }
-
-        /* ===== KAPCSOLAT ===== */
-
-        #kapcsolat.section {
-            border-top: 1px solid rgba(148, 163, 184, 0.25);
-        }
-
-        .contact-layout {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-            gap: 28px;
-            align-items: stretch;
-        }
-
-        .contact-info {
-            padding: 20px 18px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, #ffffff, #f9fafb);
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow:
-                0 14px 36px rgba(148, 163, 184, 0.28),
-                0 0 0 1px rgba(226, 232, 240, 0.9);
-        }
-
-        .contact-info-title {
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 8px;
-            color: #111827;
-        }
-
-        .contact-info-text {
-            font-size: 14px;
-            line-height: 1.7;
-            color: rgba(55, 65, 81, 0.96);
-            margin-bottom: 12px;
-        }
-
-        .contact-info-list {
-            list-style: none;
-            font-size: 14px;
-            color: rgba(55, 65, 81, 0.96);
-        }
-
-        .contact-info-item {
-            margin-bottom: 7px;
-        }
-
-        .contact-label {
-            display: inline-block;
-            min-width: 60px;
-            font-weight: 600;
-            color: #111827;
-        }
-
-        .contact-note {
-            margin-top: 10px;
-            font-size: 12px;
-            color: rgba(107, 114, 128, 0.96);
-        }
-
-        /* KAPCSOLAT FORM – TISZTA FEHÉR BLOKK, FINOM KERETTEL */
-        .contact-form-wrapper {
-            padding: 20px 18px;
-            border-radius: 20px;
-            background: #ffffff;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow:
-                0 16px 40px rgba(148, 163, 184, 0.28),
-                0 0 0 1px rgba(226, 232, 240, 0.8);
-            animation: floatSlow 22s ease-in-out infinite;
-        }
-
-        .contact-form-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #111827;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 160px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        label {
-            font-size: 11px;
-            color: #4b5563;
-        }
-
-        input, textarea {
-            border-radius: 10px;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            padding: 8px 10px;
-            font-size: 14px;
-            font-family: inherit;
-            color: #111827;
-            background: #ffffff;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        input::placeholder,
-        textarea::placeholder {
-            color: rgba(148, 163, 184, 0.9);
-        }
-
-        input:focus, textarea:focus {
-            border-color: #facc15;
-            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .security-row {
-            padding: 7px 10px;
-            border-radius: 10px;
-            border: 1px dashed rgba(156, 163, 175, 0.9);
-            font-size: 12px;
-            color: #111827;
-            background: #f9fafb;
-        }
-
-        .contact-submit-row {
-            margin-top: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .contact-button {
-            border: none;
-            border-radius: 999px;
-            padding: 8px 16px;
-            font-size: 14px;
-            font-weight: 600;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            color: #111827;
-            cursor: pointer;
-            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.75);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            white-space: nowrap;
-        }
-
-        .contact-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 20px 46px rgba(234, 179, 8, 0.9);
-        }
-
-        .contact-small {
-            font-size: 13px;
-            color: rgba(107, 114, 128, 0.96);
-            flex: 1;
-            min-width: 180px;
-        }
-
-        /* ===== LÁBLÉC ===== */
-
-        footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.4);
-            background: #020617;
-            color: #e5e7eb;
-        }
-
-        .footer-inner {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 12px 16px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: rgba(209, 213, 219, 0.9);
-        }
-
-        .footer-link:hover {
-            text-decoration: underline;
-        }
-
-        /* ===== COOKIE SÁV ===== */
-
-        .cookie-banner {
-            position: fixed;
-            bottom: 18px;
-            left: 50%;
-            transform: translateX(-50%) translateY(15px);
-            width: calc(100% - 32px);
-            max-width: 900px;
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 16px;
-            border: 1px solid rgba(209, 213, 219, 0.9);
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.2);
-            padding: 10px 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            font-size: 11px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            z-index: 2000;
-        }
-
-        .cookie-banner.show {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .cookie-text strong {
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        .cookie-actions {
-            flex-shrink: 0;
-        }
-
-        .cookie-btn-primary {
-            border: none;
-            border-radius: 999px;
-            padding: 7px 14px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            color: #111827;
-            box-shadow: 0 10px 25px rgba(234, 179, 8, 0.6);
-        }
-
         /* ===== RESPONSIVE ===== */
 
         @media (max-width: 1024px) {
@@ -1158,17 +736,8 @@
                 order: -1;
             }
 
-            .about-layout,
-            .contact-layout {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .values-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
             .hero {
-                padding-top: 110px;
+                padding-top: 120px;
             }
         }
 
@@ -1182,32 +751,16 @@
             }
 
             .hero {
-                padding: 110px 16px 60px;
+                padding: 120px 16px 80px;
             }
 
             .hero-title {
-                font-size: 34px;
+                font-size: 36px;
             }
 
             .hero-cta-row {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-
-            .services-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            #rolunk.section {
-                padding-top: 60px;
-            }
-
-            .values-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .section {
-                padding: 60px 0;
             }
 
             .cookie-banner {
@@ -1217,6 +770,10 @@
 
             .hero-phone {
                 max-width: 280px;
+            }
+
+            .section {
+                padding: 70px 0;
             }
         }
 
@@ -1234,7 +791,6 @@
 <body>
 <header>
     <nav>
-        <!-- LOGÓ KATTINTHATÓ – A LAP TETEJÉRE GÖRGET (#top) -->
         <a href="#top" class="logo">
             <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
             <span class="aurion">Aurion</span>
@@ -1250,7 +806,6 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <!-- ISMERJ MEG MINKET KIEMELVE, MINT A KAPCSOLAT -->
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -1268,7 +823,6 @@
     </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="top">
     <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
         <source src="hero.mp4" type="video/mp4">
@@ -1341,6 +895,163 @@
 </section>
 
 <main>
+    <!-- SZEKCIÓK EXTRA STÍLUSAI (SZOLGÁLTATÁSOK + BEMUTATKOZÁS) -->
+    <style>
+        /* ===== SZOLGÁLTATÁSOK ===== */
+
+        .services-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            padding: 22px 20px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 12px 26px rgba(148, 163, 184, 0.2);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+            min-height: 190px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(148, 163, 184, 0.35);
+            border-color: rgba(250, 204, 21, 0.95);
+            background: #ffffff;
+        }
+
+        .service-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top left, #fefce8, #fde68a, #facc15);
+            margin-bottom: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: #111827;
+            box-shadow: 0 8px 18px rgba(234, 179, 8, 0.45);
+        }
+
+        .service-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .service-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 8px;
+        }
+
+        .service-meta {
+            font-size: 13px;
+            color: rgba(107, 114, 128, 0.95);
+        }
+
+        /* ===== BEMUTATKOZÁS ===== */
+
+        #bemutatkozas.section {
+            background: radial-gradient(circle at top, #eef2ff 0, #f9fafb 55%);
+        }
+
+        .about-layout {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .about-text {
+            font-size: 15px;
+            line-height: 1.9;
+            color: rgba(55, 65, 81, 0.97);
+            margin-bottom: 12px;
+        }
+
+        .about-strong {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .about-tags {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .about-tag {
+            padding: 6px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .about-highlight {
+            border-radius: 24px;
+            padding: 20px 20px 18px;
+            background: linear-gradient(135deg, #020617, #020617 30%, #020617 100%);
+            color: #e5e7eb;
+            box-shadow: 0 22px 52px rgba(15, 23, 42, 0.85);
+            animation: floatSlow 18s ease-in-out infinite;
+        }
+
+        .about-highlight-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .about-highlight-text {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            color: rgba(209, 213, 219, 0.95);
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: rgba(209, 213, 219, 0.95);
+        }
+
+        .about-stat-number {
+            font-size: 18px;
+            font-weight: 800;
+            color: #facc15;
+        }
+
+        @media (max-width: 1024px) {
+            .about-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    </style>
+
     <!-- SZOLGÁLTATÁSOK -->
     <section class="section animate-on-scroll" id="szolgaltatasok">
         <div class="section-header animate-on-scroll">
@@ -1354,7 +1065,7 @@
 
         <div class="services-grid animate-on-scroll">
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">🖥️</div>
+                <div class="service-icon">WEB</div>
                 <h3 class="service-title">Egyedi weboldalak</h3>
                 <p class="service-text">
                     Letisztult, gyors és átlátható oldalak, amelyek jól működnek mobilon és asztali gépen is.
@@ -1363,7 +1074,7 @@
             </div>
 
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">🛒</div>
+                <div class="service-icon">SHOP</div>
                 <h3 class="service-title">Webshop fejlesztés</h3>
                 <p class="service-text">
                     Stabil, könnyen kezelhető áruházak, átlátható admin felülettel és rendezett logikával.
@@ -1372,7 +1083,7 @@
             </div>
 
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">⚙️</div>
+                <div class="service-icon">WP</div>
                 <h3 class="service-title">WordPress / WooCommerce</h3>
                 <p class="service-text">
                     Ha fontos, hogy te is tudj adminisztrálni: modern, biztonságos WordPress alapú rendszereket készítünk.
@@ -1381,7 +1092,7 @@
             </div>
 
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">🤖</div>
+                <div class="service-icon">AI</div>
                 <h3 class="service-title">AI-chat integráció</h3>
                 <p class="service-text">
                     Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol a beállított kereteken belül.
@@ -1390,7 +1101,7 @@
             </div>
 
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">📈</div>
+                <div class="service-icon">OPT</div>
                 <h3 class="service-title">Finomhangolás, javítás</h3>
                 <p class="service-text">
                     Már meglévő oldalakat is átnézünk: gyorsítunk, javítunk, mobilra igazítunk, ahol szükséges.
@@ -1399,7 +1110,7 @@
             </div>
 
             <div class="service-card animate-on-scroll">
-                <div class="service-icon">🤝</div>
+                <div class="service-icon">CARE</div>
                 <h3 class="service-title">Hosszú távú támogatás</h3>
                 <p class="service-text">
                     Nem egyszeri projektként tekintünk rád – később is számíthatsz ránk, ha bővülni szeretnél.
@@ -1467,6 +1178,266 @@
             </div>
         </div>
     </section>
+    <!-- RÓLUNK + KAPCSOLAT STÍLUSOK -->
+    <style>
+        /* ===== RÓLUNK ===== */
+
+        #rolunk.section {
+            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 55%, #f9fafb 100%);
+        }
+
+        .values-intro {
+            margin-top: 12px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(55, 65, 81, 0.96);
+            max-width: 720px;
+        }
+
+        .values-grid {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .value-card {
+            padding: 18px 16px 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 12px 26px rgba(148, 163, 184, 0.2);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(148, 163, 184, 0.35);
+            border-color: rgba(250, 204, 21, 0.95);
+            background: #ffffff;
+        }
+
+        .value-badge {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: #f9fafb;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .value-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .value-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(75, 85, 99, 0.95);
+        }
+
+        /* ===== KAPCSOLAT – KÜLÖN KÁRTYÁK ===== */
+
+        #kapcsolat.section {
+            background: radial-gradient(circle at top, #e5edff 0, #f9fafb 55%);
+            border-top: none;
+        }
+
+        .contact-layout {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .contact-info {
+            padding: 20px 18px 18px;
+            border-radius: 22px;
+            background: #ffffff;
+            border: 1px solid rgba(209, 213, 219, 0.95);
+            box-shadow:
+                0 16px 38px rgba(148, 163, 184, 0.32),
+                0 0 0 1px rgba(226, 232, 240, 0.9);
+            border-left: 4px solid rgba(250, 204, 21, 0.9);
+        }
+
+        .contact-info-title {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .contact-info-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 12px;
+        }
+
+        .contact-info-list {
+            list-style: none;
+            font-size: 14px;
+            color: rgba(55, 65, 81, 0.96);
+        }
+
+        .contact-info-item {
+            margin-bottom: 7px;
+        }
+
+        .contact-label {
+            display: inline-block;
+            min-width: 60px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .contact-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: rgba(107, 114, 128, 0.96);
+        }
+
+        .contact-form-wrapper {
+            padding: 22px 20px 20px;
+            border-radius: 24px;
+            background: #ffffff;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow:
+                0 22px 52px rgba(148, 163, 184, 0.35),
+                0 0 0 1px rgba(226, 232, 240, 0.8);
+            animation: floatSlow 22s ease-in-out infinite;
+        }
+
+        .contact-form-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 160px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 11px;
+            color: #4b5563;
+        }
+
+        input, textarea {
+            border-radius: 10px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            padding: 8px 10px;
+            font-size: 14px;
+            font-family: inherit;
+            color: #111827;
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        input:focus, textarea:focus {
+            border-color: #facc15;
+            box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .security-row {
+            padding: 7px 10px;
+            border-radius: 10px;
+            border: 1px dashed rgba(156, 163, 175, 0.9);
+            font-size: 12px;
+            color: #111827;
+            background: #f9fafb;
+        }
+
+        .contact-submit-row {
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-button {
+            border: none;
+            border-radius: 999px;
+            padding: 9px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            cursor: pointer;
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.75);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 20px 46px rgba(234, 179, 8, 0.9);
+        }
+
+        .contact-small {
+            font-size: 13px;
+            color: rgba(107, 114, 128, 0.96);
+            flex: 1;
+            min-width: 180px;
+        }
+
+        @media (max-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #rolunk.section {
+                padding-top: 70px;
+            }
+
+            .contact-layout {
+                gap: 20px;
+            }
+        }
+    </style>
 
     <!-- RÓLUNK -->
     <section class="section animate-on-scroll" id="rolunk">
@@ -1621,43 +1592,44 @@
 
 <footer>
     <div class="footer-inner">
-        <span>Aurion Studio – egyedi webes megoldások</span>
-        <a href="#top" class="footer-link">Vissza az elejére</a>
+        <span>© 2025 Aurion Studio – Minden jog fenntartva</span>
+        <a href="#top" class="footer-link">Vissza az oldal tetejére</a>
     </div>
 </footer>
 
 <!-- COOKIE SÁV -->
 <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-text">
-        <strong>Sütiket használunk</strong>
-        Az oldal működéséhez és a jobb felhasználói élményért sütiket alkalmazunk.
-        A böngészés folytatásával elfogadod a használatukat.
+        <strong>Cookie-k és sütik</strong>
+        Az oldal a működéshez szükséges sütiket használ.
     </div>
     <div class="cookie-actions">
-        <button class="cookie-btn-primary" id="cookieAcceptBtn">Elfogadom</button>
+        <button class="cookie-btn-primary" id="cookieAccept">Rendben</button>
     </div>
 </div>
 
 <script>
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
+    /* ==== NAV – MOBIL MENÜ ==== */
+    const hamburger = document.getElementById("hamburger");
+    const mobileNav = document.getElementById("mobileNav");
 
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('open');
-        mobileNav.classList.toggle('show');
-    });
-
-    mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('open');
-            mobileNav.classList.remove('show');
+    if (hamburger && mobileNav) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("open");
+            mobileNav.classList.toggle("show");
         });
-    });
 
-    // HERO telefon – kód gépelés + üzenet
-    const phoneCodeEl = document.getElementById('phoneCode');
-    const phoneInner = document.getElementById('phoneInner');
+        mobileNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("open");
+                mobileNav.classList.remove("show");
+            });
+        });
+    }
+
+    /* ==== HERO – TELEFON KÓDGÉPELÉS + ÜZENET VÁLTÁS ==== */
+    const phoneCodeBlock = document.getElementById("phoneCode");
+    const phoneInner = document.getElementById("phoneInner");
 
     const heroCode = `<!-- Aurion Studio: egyedi webes megoldások -->
 <section class="hero">
@@ -1677,21 +1649,25 @@
     let codeIndex = 0;
 
     function typePhoneCode() {
-        if (!phoneCodeEl || !phoneInner) return;
+        if (!phoneCodeBlock || !phoneInner) return;
+
         if (codeIndex < heroCode.length) {
             const ch = heroCode.charAt(codeIndex);
-            phoneCodeEl.textContent += ch;
+            phoneCodeBlock.textContent += ch;
             codeIndex++;
+
             let delay = 30;
-            if (ch === '\\n') delay = 90;
-            else if (ch === ' ') delay = 18;
+            if (ch === "\n") delay = 90;
+            else if (ch === " ") delay = 18;
+
             setTimeout(typePhoneCode, delay);
         } else {
+            // Ha végigértünk a kódon: üzenet fel, kód el
             setTimeout(() => {
-                phoneInner.classList.add('show-message');
+                phoneInner.classList.add("show-message");
                 setTimeout(() => {
-                    phoneInner.classList.remove('show-message');
-                    phoneCodeEl.textContent = '';
+                    phoneInner.classList.remove("show-message");
+                    phoneCodeBlock.textContent = "";
                     codeIndex = 0;
                     setTimeout(typePhoneCode, 900);
                 }, 4500);
@@ -1701,25 +1677,25 @@
 
     setTimeout(typePhoneCode, 1200);
 
-    // Scroll animáció
+    /* ==== SCROLL ANIMÁCIÓ – .animate-on-scroll ==== */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
+                entry.target.classList.add("in-view");
                 observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    document.querySelectorAll(".animate-on-scroll").forEach(el => observer.observe(el));
 
-    // Biztonsági kérdés
+    /* ==== KAPCSOLAT – BIZTONSÁGI KÉRDÉS ==== */
     let secA = 0;
     let secB = 0;
-    const securityText = document.getElementById('securityText');
-    const securityAnswer = document.getElementById('securityAnswer');
-    const contactSubmit = document.getElementById('contactSubmit');
-    const contactForm = document.getElementById('contactForm');
+    const securityText = document.getElementById("securityText");
+    const securityAnswer = document.getElementById("securityAnswer");
+    const contactSubmit = document.getElementById("contactSubmit");
+    const contactForm = document.getElementById("contactForm");
 
     function generateSecurityQuestion() {
         if (!securityText) return;
@@ -1728,10 +1704,11 @@
         securityText.textContent = secA + " + " + secB + " = ?";
         if (securityAnswer) securityAnswer.value = "";
     }
+
     generateSecurityQuestion();
 
     if (contactSubmit) {
-        contactSubmit.addEventListener('click', () => {
+        contactSubmit.addEventListener("click", () => {
             if (!securityAnswer) return;
             const val = parseInt(securityAnswer.value, 10);
             if (isNaN(val) || val !== secA + secB) {
@@ -1745,26 +1722,27 @@
         });
     }
 
-    // Cookie sáv
-    const cookieBanner = document.getElementById('cookieBanner');
-    const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
+    /* ==== COOKIE SÁV ==== */
+    const cookieBanner = document.getElementById("cookieBanner");
+    const cookieAcceptBtn = document.getElementById("cookieAccept");
 
     function showCookieBanner() {
         if (!cookieBanner) return;
-        cookieBanner.classList.add('show');
+        cookieBanner.classList.add("show");
     }
 
     function hideCookieBanner() {
         if (!cookieBanner) return;
-        cookieBanner.classList.remove('show');
+        cookieBanner.classList.remove("show");
     }
 
     if (cookieBanner && cookieAcceptBtn) {
-        if (!localStorage.getItem('aurion_cookie_consent')) {
-            setTimeout(showCookieBanner, 1200);
+        if (!localStorage.getItem("aurion_cookie_consent")) {
+            setTimeout(showCookieBanner, 1500);
         }
-        cookieAcceptBtn.addEventListener('click', () => {
-            localStorage.setItem('aurion_cookie_consent', 'accepted');
+
+        cookieAcceptBtn.addEventListener("click", () => {
+            localStorage.setItem("aurion_cookie_consent", "accepted");
             hideCookieBanner();
         });
     }
