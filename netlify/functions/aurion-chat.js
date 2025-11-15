@@ -1,8 +1,5 @@
 // netlify/functions/aurion-chat.js
 
-const fetch = (...args) =>
-  import('node-fetch').then(({ default: fetch }) => fetch(...args));
-
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -14,7 +11,7 @@ Te az Aurion Studio AI asszisztense vagy.
 
 - Mindig magyarul válaszolsz.
 - Csak az Aurion Studio szolgáltatásairól beszélsz: egyedi weboldal, webshop fejlesztés, AI chat integráció, WordPress / WooCommerce megoldások.
-- Ha a felhasználó más témáról kérdez (politika, magánélet, programozás általában, stb.), udvariasan visszatereld a beszélgetést az Aurion Studio szolgáltatásaira.
+- Ha a felhasználó más témáról kérdez (politika, magánélet, általános programozás, stb.), udvariasan visszatereld a beszélgetést az Aurion Studio szolgáltatásaira.
 - A hangnemed pozitív, profi, marketinges, de nem tolakodó.
 - Válaszaid legyenek 3–6 mondatos, jól tagolt, könnyen olvasható szövegek.
 - Gyakran javasold, hogy a részleteket az oldal kapcsolat szekcióján keresztül beszéljék meg az Aurion Studioval.
@@ -53,7 +50,7 @@ exports.handler = async (event) => {
 
     const body = JSON.parse(event.body || '{}');
 
-    // ÚJ: a frontend "message" és "count" mezőt küld
+    // A frontend "message" és "count" mezőt küld
     const userMessage = (body.message || '').toString().trim();
     const count = Number(body.count ?? 0);
 
@@ -65,7 +62,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // Szerver oldali védelem – 10 üzenet után limit
+    // 10 üzenet után limit – API kulcs védelem
     if (count >= 10) {
       return {
         statusCode: 429,
@@ -89,6 +86,7 @@ exports.handler = async (event) => {
       },
     ];
 
+    // Itt már a beépített fetch-et használjuk
     const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
