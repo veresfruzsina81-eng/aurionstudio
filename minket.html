@@ -241,12 +241,24 @@
             pointer-events: auto;
         }
 
-        /* ===== HERO – Laptop + videó ===== */
+        /* ===== HERO – Dark, Aurion stílus + laptop ===== */
 
         .hero {
-            padding: 120px 16px 70px;
+            padding: 120px 16px 80px;
             position: relative;
             overflow: hidden;
+            background: radial-gradient(circle at top left, #020617 0, #020617 45%, #020617 60%, #020617 100%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -120px -200px auto;
+            background:
+                radial-gradient(circle at top, rgba(248, 250, 252, 0.18), transparent 55%),
+                radial-gradient(circle at right, rgba(250, 204, 21, 0.28), transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
         }
 
         .hero-inner {
@@ -256,6 +268,8 @@
             grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr);
             gap: 40px;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-left {
@@ -267,7 +281,7 @@
             font-size: 11px;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.9);
+            color: rgba(209, 213, 219, 0.8);
             margin-bottom: 10px;
         }
 
@@ -275,14 +289,14 @@
             font-size: 38px;
             line-height: 1.1;
             margin-bottom: 14px;
-            background: linear-gradient(120deg, #111827 0%, #facc15 45%, #f97316 80%);
+            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(55, 65, 81, 0.96);
+            color: rgba(229, 231, 235, 0.92);
             margin-bottom: 18px;
             max-width: 520px;
         }
@@ -300,7 +314,7 @@
             margin-bottom: 10px;
             background-size: 200% 100%;
             animation: gradientMove 10s linear infinite;
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.45);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.65);
         }
 
         .hero-pill-dot {
@@ -312,8 +326,9 @@
 
         .hero-note {
             font-size: 13px;
-            color: rgba(107, 114, 128, 0.96);
+            color: rgba(209, 213, 219, 0.9);
             margin-top: 6px;
+            max-width: 480px;
         }
 
         .hero-right {
@@ -324,28 +339,17 @@
             align-items: center;
         }
 
-        /* ===== Laptop keret + saját videó lejátszó ===== */
+        /* ===== Laptop – képernyő + TÉNYLEGES billentyűzetes alap ===== */
 
         .laptop-wrapper {
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             animation: floatSlow 18s ease-in-out infinite;
         }
 
-        .laptop-top-glow {
-            position: absolute;
-            inset: -80px -160px auto;
-            background:
-                radial-gradient(circle at top, rgba(250, 204, 21, 0.22), transparent 60%),
-                radial-gradient(circle at right, rgba(248, 250, 252, 0.22), transparent 60%);
-            opacity: 0.9;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .laptop {
+        .laptop-shell {
             position: relative;
-            border-radius: 22px 22px 12px 12px;
+            border-radius: 22px 22px 10px 10px;
             padding: 18px 14px 8px;
             background: linear-gradient(145deg, #020617, #020617 40%, #111827 100%);
             box-shadow:
@@ -353,13 +357,13 @@
                 0 0 0 1px rgba(148, 163, 184, 0.8);
         }
 
-        .laptop::before {
+        .laptop-shell::before {
             content: "";
             position: absolute;
             inset: 0;
-            border-radius: 22px 22px 12px 12px;
-            background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.22), transparent 60%);
-            opacity: 0.8;
+            border-radius: 22px 22px 10px 10px;
+            background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.2), transparent 60%);
+            opacity: 0.9;
             pointer-events: none;
         }
 
@@ -533,20 +537,72 @@
             box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
         }
 
-        .laptop-bottom {
-            margin-top: 8px;
-            height: 10px;
-            border-radius: 0 0 12px 12px;
-            background: linear-gradient(90deg, #d1d5db, #9ca3af, #e5e7eb);
-            box-shadow: 0 10px 34px rgba(148, 163, 184, 0.8);
+        /* HINGE + BILLENTYŰZETES ALAP */
+
+        .laptop-hinge {
+            margin: 6px auto 0;
+            width: 72%;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #111827, #4b5563, #111827);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.8);
+        }
+
+        .laptop-base {
+            margin: 8px auto 0;
+            width: 100%;
+            max-width: 560px;
+            border-radius: 0 0 20px 20px;
+            background: linear-gradient(145deg, #e5e7eb, #9ca3af, #f9fafb);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.5),
+                0 0 0 1px rgba(148, 163, 184, 0.8);
+            padding: 12px 18px 14px;
+            position: relative;
+            transform: perspective(900px) rotateX(12deg);
+            transform-origin: top;
+        }
+
+        .laptop-keyboard {
+            height: 52px;
+            border-radius: 10px;
+            background:
+                linear-gradient(180deg, #111827, #111827 65%, #020617 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow:
+                inset 0 0 0 1px rgba(55, 65, 81, 0.7),
+                0 8px 18px rgba(15, 23, 42, 0.7);
+        }
+
+        .laptop-keyboard::before {
+            content: "";
+            position: absolute;
+            inset: 6px 10px 10px 10px;
+            background-image:
+                linear-gradient(90deg, rgba(248, 250, 252, 0.3) 18%, transparent 18%),
+                linear-gradient(180deg, rgba(248, 250, 252, 0.3) 45%, transparent 45%);
+            background-size: 30px 100%, 100% 14px;
+            opacity: 0.35;
+        }
+
+        .laptop-trackpad {
+            margin: 10px auto 0;
+            width: 32%;
+            height: 30px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #d1d5db, #9ca3af);
+            box-shadow:
+                inset 0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 4px 10px rgba(15, 23, 42, 0.4);
         }
 
         .laptop-shadow {
-            margin: 8px auto 0;
+            margin: 10px auto 0;
             width: 80%;
-            height: 10px;
+            height: 12px;
             border-radius: 999px;
-            background: radial-gradient(circle, rgba(15, 23, 42, 0.45), transparent 70%);
+            background: radial-gradient(circle, rgba(15, 23, 42, 0.6), transparent 70%);
             filter: blur(2px);
         }
 
@@ -815,7 +871,7 @@
         <ul class="nav-links desktop">
             <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
             <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#bemutatkozás">Bemutatkozás</a></li>
             <li><a href="index.html#rolunk">Rólunk</a></li>
             <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
             <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
@@ -825,7 +881,7 @@
         <ul class="nav-links mobile" id="mobileNav">
             <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
             <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="index.html#bemutatkozás">Bemutatkozás</a></li>
             <li><a href="index.html#rolunk">Rólunk</a></li>
             <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
             <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
@@ -835,7 +891,6 @@
 </header>
 
 <section class="hero" id="top">
-    <div class="laptop-top-glow"></div>
     <div class="hero-inner animate-on-scroll">
         <div class="hero-left">
             <div class="hero-kicker">ISMERJ MEG MINKET</div>
@@ -855,7 +910,7 @@
 
         <div class="hero-right">
             <div class="laptop-wrapper">
-                <div class="laptop">
+                <div class="laptop-shell">
                     <div class="laptop-camera"></div>
                     <div class="laptop-screen">
                         <div class="video-frame">
@@ -886,7 +941,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="laptop-bottom"></div>
+                <div class="laptop-hinge"></div>
+                <div class="laptop-base">
+                    <div class="laptop-keyboard"></div>
+                    <div class="laptop-trackpad"></div>
+                </div>
                 <div class="laptop-shadow"></div>
             </div>
         </div>
@@ -1003,12 +1062,10 @@
     }
 
     if (video) {
-        // Metaadatok betöltése – hossz kiírása
         video.addEventListener("loadedmetadata", () => {
             durationEl.textContent = formatTime(video.duration || 0);
         });
 
-        // Idő frissítése
         video.addEventListener("timeupdate", () => {
             const current = video.currentTime || 0;
             const duration = video.duration || 0;
@@ -1019,12 +1076,10 @@
             }
         });
 
-        // Ha vége a videónak
         video.addEventListener("ended", () => {
             playPauseLabel.textContent = "Újraindítás";
-            if (playPauseBtn.querySelector(".icon")) {
-                playPauseBtn.querySelector(".icon").textContent = "↺";
-            }
+            const iconEl = playPauseBtn.querySelector(".icon");
+            if (iconEl) iconEl.textContent = "↺";
         });
     }
 
