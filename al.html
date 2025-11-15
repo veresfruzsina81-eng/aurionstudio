@@ -608,7 +608,6 @@
             word-wrap: break-word;
         }
 
-        /* Felhasználó – sötét buborék, arany csík */
         .chat-message.user {
             margin-left: auto;
             border-bottom-right-radius: 4px;
@@ -618,14 +617,20 @@
             font-weight: 500;
         }
 
-        /* Asszisztens – világos buborék, jól olvasható szöveg */
-        .chat-message.assistant {
+        /* BOT ÜZENET – világos buborék, jól olvasható szöveg */
+        .chat-message.bot {
             margin-right: auto;
             border-bottom-left-radius: 4px;
-            background: #f9fafb;
+            background: rgba(249, 250, 251, 0.96);
             color: #111827;
-            border-left: 3px solid #e5e7eb;
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.35);
+        }
+
+        .chat-message.bot.error {
+            border-color: rgba(248, 113, 113, 0.9);
+            background: #fef2f2;
+            color: #991b1b;
         }
 
         .chat-input-row {
@@ -672,7 +677,7 @@
             align-items: center;
             gap: 6px;
             white-space: nowrap;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
         }
 
         .chat-send-btn span.icon {
@@ -682,6 +687,13 @@
         .chat-send-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 20px 46px rgba(214, 178, 96, 1);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.65;
+            cursor: default;
+            box-shadow: 0 8px 20px rgba(148, 163, 184, 0.6);
+            transform: none;
         }
 
         /* ===== LÁBLÉC ===== */
@@ -953,7 +965,7 @@
                 </div>
 
                 <div class="chat-window" id="chatWindow">
-                    <!-- üzenetek ide érkeznek -->
+                    <!-- Kezdetben üres – ide érkeznek a beírt üzenetek -->
                 </div>
 
                 <div class="chat-input-row">
@@ -1011,31 +1023,55 @@
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-    // CHAT LOGIKA – user + asszisztens buborék, Netlify function hívással
+    // ===== CHAT LOGIKA – Netlify Function + jól látható bot buborék =====
+
     const chatWindow = document.getElementById('chatWindow');
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
 
-    function addMessage(role, text) {
+    function addUserMessage(text) {
         if (!chatWindow) return;
         const msg = document.createElement('div');
-        msg.classList.add('chat-message');
-
-        if (role === 'user') {
-            msg.classList.add('user');
-        } else if (role === 'assistant') {
-            msg.classList.add('assistant');
-        }
-
+        msg.classList.add('chat-message', 'user');
         msg.textContent = text;
         chatWindow.appendChild(msg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function addBotMessage(text, isError = false, existingEl = null) {
+        if (!chatWindow) return;
+
+        const msg = existingEl || document.createElement('div');
+        msg.className = 'chat-message bot';
+        if (isError) {
+            msg.classList.add('error');
+        }
+        msg.textContent = text;
+
+        if (!existingEl) {
+            chatWindow.appendChild(msg);
+        }
+
         chatWindow.scrollTop = chatWindow.scrollHeight;
         return msg;
     }
 
-    async function sendToServer(userText) {
-        // ideiglenes "gondolkodom" buborék
-        let thinkingBubble = addMessage('assistant', 'Gondolkodom a válaszon…');
+    let sending = false;
+
+    async function handleUserSend() {
+        if (!chatInput || sending) return;
+
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        addUserMessage(text);
+        chatInput.value = '';
+
+        // „gépelés” jelzés – világos bot buborékban
+        let typingMsg = addBotMessage('Gondolkodom… 💭');
+
+        sending = true;
+        chatSendBtn.disabled = true;
 
         try {
             const response = await fetch('/.netlify/functions/aurion-chat', {
@@ -1043,7 +1079,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message: userText })
+                body: JSON.stringify({ message: text })
             });
 
             if (!response.ok) {
@@ -1051,27 +1087,20 @@
             }
 
             const data = await response.json();
-            const reply = data && data.reply
-                ? data.reply
-                : 'Most nem kaptam választ a chat motortól.';
+            const reply = data.reply || data.message || 'Rendben, de most nem találtam megfelelő választ.';
 
-            thinkingBubble.textContent = reply;
-        } catch (err) {
-            // hiba esetén jól olvasható fehér buborékban jelenik meg:
-            thinkingBubble.textContent =
+            typingMsg = addBotMessage(reply, false, typingMsg);
+        } catch (error) {
+            const errText =
                 'Most nem tudom elérni a chat motort. Valószínűleg technikai probléma van – ' +
-                'próbáld meg kicsit később, vagy írj közvetlenül az ajánlatkérő űrlapon.';
+                'próbáld meg egy kicsit később, vagy írj közvetlenül az ajánlatkérő űrlapon.';
+            typingMsg = addBotMessage(errText, true, typingMsg);
+            console.error('Chat hiba:', error);
+        } finally {
+            sending = false;
+            chatSendBtn.disabled = false;
+            chatInput.focus();
         }
-    }
-
-    function handleUserSend() {
-        if (!chatInput) return;
-        const text = chatInput.value.trim();
-        if (!text) return;
-
-        addMessage('user', text);
-        chatInput.value = "";
-        sendToServer(text);
     }
 
     if (chatSendBtn && chatInput) {
