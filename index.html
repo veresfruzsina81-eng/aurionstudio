@@ -28,7 +28,7 @@
             color: inherit;
         }
 
-        /* ===== ALAP ANIMÁCIÓK ===== */
+        /* ===== ANIMÁCIÓK ===== */
 
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(22px) scale(0.98); }
@@ -47,12 +47,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        @keyframes headerGlow {
-            0%   { background-position: 0% 50%; opacity: 0.45; }
-            50%  { background-position: 100% 50%; opacity: 0.9;  }
-            100% { background-position: 0% 50%; opacity: 0.45; }
-        }
-
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(22px) scale(0.98);
@@ -66,33 +60,27 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC – FIX, ÜVEGHATÁS, ARANY CSÍK ANIMÁCIÓVAL ===== */
+        /* ===== FEJLÉC ===== */
 
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 9999;
-            background: rgba(249, 250, 251, 0.92);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+            background: rgba(249, 250, 251, 0.96);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
         }
 
-        header::before {
+        header::after {
             content: "";
             position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                120deg,
-                rgba(250, 204, 21, 0.18),
-                rgba(56, 189, 248, 0.0),
-                rgba(249, 115, 22, 0.18)
-            );
-            background-size: 220% 100%;
-            animation: headerGlow 14s ease-in-out infinite;
-            pointer-events: none;
-            mix-blend-mode: soft-light;
+            inset: auto 0 0 0;
+            height: 2px;
+            background: linear-gradient(90deg, #facc15, #f97316, #facc15);
+            background-size: 200% 100%;
+            animation: gradientMove 14s linear infinite;
+            opacity: 0.8;
         }
 
         nav {
@@ -121,10 +109,10 @@
             height: 46px;
             border-radius: 16px;
             object-fit: contain;
-            background: #020617;
+            background: #111827;
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.8);
+                0 12px 30px rgba(15, 23, 42, 0.6);
         }
 
         .logo .aurion {
@@ -134,7 +122,7 @@
         }
 
         .logo .studio {
-            color: #020617;
+            color: #111827;
         }
 
         .nav-links {
@@ -147,7 +135,7 @@
         .nav-links a {
             font-size: 14px;
             font-weight: 500;
-            color: rgba(15, 23, 42, 0.82);
+            color: rgba(15, 23, 42, 0.8);
             position: relative;
             padding: 4px 0;
         }
@@ -166,7 +154,7 @@
         }
 
         .nav-links a:hover {
-            color: #020617;
+            color: #0f172a;
         }
 
         .nav-links a:hover::after {
@@ -174,11 +162,11 @@
         }
 
         .nav-links a.contact-link {
-            padding: 7px 18px;
+            padding: 6px 16px;
             border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.8);
-            background: radial-gradient(circle at top left, #fefce8, #fffbeb);
-            box-shadow: 0 10px 26px rgba(234, 179, 8, 0.55);
+            border: 1px solid rgba(250, 204, 21, 0.7);
+            background: linear-gradient(90deg, #fef9c3, #fffbeb);
+            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
             font-size: 13px;
         }
 
@@ -192,7 +180,7 @@
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
             cursor: pointer;
             align-items: center;
             justify-content: center;
@@ -206,7 +194,7 @@
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #020617;
+            background: #111827;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
@@ -224,8 +212,8 @@
 
         .nav-links.mobile {
             position: fixed;
-            inset: 60px 16px auto 16px;
-            background: rgba(249, 250, 251, 0.98);
+            inset: 56px 16px auto 16px;
+            background: rgba(249, 250, 251, 0.97);
             backdrop-filter: blur(18px);
             border-radius: 18px;
             box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
@@ -245,24 +233,25 @@
             pointer-events: auto;
         }
 
-        /* ===== HERO – VIDEÓ + SÖTÉT FELSŐ BLOKK ===== */
+        /* ===== HERO ===== */
 
         .hero {
-            padding: 132px 16px 96px;
+            padding: 120px 16px 90px;
             position: relative;
             overflow: hidden;
             background: #020617;
-            min-height: 660px;
+            min-height: 640px;
             z-index: 0;
         }
 
         .hero-bg-video {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(1.18) contrast(1.06);
+            filter: saturate(1.15) contrast(1.05);
             z-index: 0;
         }
 
@@ -271,9 +260,9 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at top right, rgba(248, 250, 252, 0.12), transparent 55%),
-                linear-gradient(120deg, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.85)),
-                linear-gradient(to bottom, rgba(15, 23, 42, 0.65), transparent 40%, rgba(15, 23, 42, 0.9));
+                radial-gradient(circle at top right, rgba(248, 250, 252, 0.08), transparent 55%),
+                linear-gradient(120deg, rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.75)),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.55), transparent 40%, rgba(15, 23, 42, 0.85));
             z-index: 1;
         }
 
@@ -281,7 +270,7 @@
             max-width: 1120px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
             gap: 52px;
             align-items: center;
             position: relative;
@@ -649,7 +638,7 @@
             background: rgba(248, 250, 252, 0.7);
         }
 
-        /* ===== MAIN WRAPPER ALAP ===== */
+        /* ===== MAIN WRAPPER ===== */
 
         main {
             max-width: 1120px;
@@ -725,178 +714,6 @@
             background: radial-gradient(circle, #22c55e, #16a34a);
         }
 
-        /* ===== RESPONSIVE ===== */
-
-        @media (max-width: 1024px) {
-            .hero-inner {
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .hero-right {
-                order: -1;
-            }
-
-            .hero {
-                padding-top: 120px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links.desktop {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero {
-                padding: 120px 16px 80px;
-            }
-
-            .hero-title {
-                font-size: 36px;
-            }
-
-            .hero-cta-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .cookie-banner {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .hero-phone {
-                max-width: 280px;
-            }
-
-            .section {
-                padding: 70px 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-inner {
-                gap: 28px;
-            }
-
-            .hero-phone {
-                max-width: 270px;
-            }
-        }
-    </style>
-</head>
-<body>
-<header>
-    <nav>
-        <a href="#top" class="logo">
-            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
-            <span class="aurion">Aurion</span>
-            <span class="studio">Studio</span>
-        </a>
-
-        <button class="hamburger" id="hamburger" aria-label="Menü">
-            <span></span><span></span><span></span>
-        </button>
-
-        <ul class="nav-links desktop">
-            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="#rolunk">Rólunk</a></li>
-            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
-            <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
-        </ul>
-
-        <ul class="nav-links mobile" id="mobileNav">
-            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="#rolunk">Rólunk</a></li>
-            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
-            <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="hero" id="top">
-    <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
-        <source src="hero.mp4" type="video/mp4">
-    </video>
-
-    <div class="hero-inner">
-        <div class="hero-left">
-            <div class="hero-kicker">EGYEDI WEBES MEGOLDÁSOK</div>
-            <h1 class="hero-title">
-                Világos, letisztult,<br>
-                <span class="hero-title-accent">működő online jelenlét.</span>
-            </h1>
-            <p class="hero-subtitle">
-                Olyan weboldalakat és webshopokat építünk, amelyek nemcsak szépek,
-                hanem hosszú távon is <span class="hero-sub-strong">stabilan működnek</span> – felesleges bonyolítás nélkül.
-            </p>
-            <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                <span>Egyedi fejlesztés, nem sablonokból.</span>
-            </div>
-            <div class="hero-feature-row">
-                <span class="hero-feature-pill">Reszponzív, mobil-first gondolkodás</span>
-                <span class="hero-feature-pill">WordPress / WooCommerce</span>
-                <span class="hero-feature-pill">AI-chat integráció</span>
-            </div>
-            <div class="hero-cta-row">
-                <a href="#kapcsolat" class="hero-cta-primary">
-                    Kérek ajánlatot
-                </a>
-                <a href="munkaink.html" class="hero-cta-secondary">
-                    Megnézem a munkákat
-                </a>
-            </div>
-        </div>
-
-        <div class="hero-right">
-            <div class="hero-phone">
-                <div class="phone-inner" id="phoneInner">
-                    <div class="notch"></div>
-                    <div class="phone-status">
-                        <div class="phone-status-left">9:41</div>
-                        <div class="phone-status-right">
-                            <div class="status-bar-icon"></div>
-                            <div class="status-bar-icon"></div>
-                            <div class="status-bar-icon status-bar-battery"></div>
-                        </div>
-                    </div>
-                    <div class="phone-header">
-                        <span class="phone-dot red"></span>
-                        <span class="phone-dot yellow"></span>
-                        <span class="phone-dot green"></span>
-                        <span class="phone-file">index.html</span>
-                    </div>
-                    <div class="phone-screen">
-                        <pre class="phone-code" id="phoneCode"></pre>
-                        <div class="phone-message" id="phoneMessage">
-                            <div class="phone-message-title">Üdvözlünk az Aurion Studiónál</div>
-                            <div class="phone-message-text">
-                                Bízd ránk a weboldalad vagy webshopod –
-                                egyedi, átlátható és hosszú távon is működő megoldást kapsz vissza.
-                            </div>
-                            <img src="logo.png" alt="Aurion logó" class="phone-message-logo">
-                        </div>
-                        <div class="phone-home-indicator"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<main>
-    <!-- SZEKCIÓK EXTRA STÍLUSAI (SZOLGÁLTATÁSOK + BEMUTATKOZÁS) -->
-    <style>
         /* ===== SZOLGÁLTATÁSOK ===== */
 
         .services-grid {
@@ -927,21 +744,18 @@
             background: #ffffff;
         }
 
-        .service-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 16px;
+        .service-icon-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(250, 204, 21, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 10px;
             background: radial-gradient(circle at top left, #fefce8, #fde68a, #facc15);
-            margin-bottom: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-            color: #111827;
-            box-shadow: 0 8px 18px rgba(234, 179, 8, 0.45);
+            box-shadow: 0 8px 18px rgba(234, 179, 8, 0.35);
+            font-size: 18px;
         }
 
         .service-title {
@@ -1039,147 +853,6 @@
             color: #facc15;
         }
 
-        @media (max-width: 1024px) {
-            .about-layout {
-                grid-template-columns: minmax(0, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .services-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-        }
-    </style>
-
-    <!-- SZOLGÁLTATÁSOK -->
-    <section class="section animate-on-scroll" id="szolgaltatasok">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">SZOLGÁLTATÁSOK</div>
-            <h2 class="section-title">Amiben a legerősebbek vagyunk</h2>
-            <p class="section-subtitle">
-                A koncepciótól a technikai megvalósításig segítünk – úgy, hogy közben érthető maradjon,
-                mi miért készül el. Nem „varázsolunk”, hanem átlátható, visszakövethető rendszert építünk.
-            </p>
-        </div>
-
-        <div class="services-grid animate-on-scroll">
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">WEB</div>
-                <h3 class="service-title">Egyedi weboldalak</h3>
-                <p class="service-text">
-                    Letisztult, gyors és átlátható oldalak, amelyek jól működnek mobilon és asztali gépen is.
-                </p>
-                <p class="service-meta">Bemutatkozó oldalak • Landingek • Portfóliók</p>
-            </div>
-
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">SHOP</div>
-                <h3 class="service-title">Webshop fejlesztés</h3>
-                <p class="service-text">
-                    Stabil, könnyen kezelhető áruházak, átlátható admin felülettel és rendezett logikával.
-                </p>
-                <p class="service-meta">Kosár • Fizetés • Szállítási módok összekötése</p>
-            </div>
-
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">WP</div>
-                <h3 class="service-title">WordPress / WooCommerce</h3>
-                <p class="service-text">
-                    Ha fontos, hogy te is tudj adminisztrálni: modern, biztonságos WordPress alapú rendszereket készítünk.
-                </p>
-                <p class="service-meta">Egyedi sablonok • Optimalizált működés</p>
-            </div>
-
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">AI</div>
-                <h3 class="service-title">AI-chat integráció</h3>
-                <p class="service-text">
-                    Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol a beállított kereteken belül.
-                </p>
-                <p class="service-meta">ChatGPT alapú megoldások • Testreszabott logika</p>
-            </div>
-
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">OPT</div>
-                <h3 class="service-title">Finomhangolás, javítás</h3>
-                <p class="service-text">
-                    Már meglévő oldalakat is átnézünk: gyorsítunk, javítunk, mobilra igazítunk, ahol szükséges.
-                </p>
-                <p class="service-meta">Sebesség • Biztonság • Reszponzivitás</p>
-            </div>
-
-            <div class="service-card animate-on-scroll">
-                <div class="service-icon">CARE</div>
-                <h3 class="service-title">Hosszú távú támogatás</h3>
-                <p class="service-text">
-                    Nem egyszeri projektként tekintünk rád – később is számíthatsz ránk, ha bővülni szeretnél.
-                </p>
-                <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- BEMUTATKOZÁS -->
-    <section class="section animate-on-scroll" id="bemutatkozas">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">BEMUTATKOZÁS</div>
-            <h2 class="section-title">Kik állnak az Aurion Studio mögött?</h2>
-            <p class="section-subtitle">
-                Emberközeli kommunikáció, őszinte visszajelzések és olyan fejlesztés,
-                amit mi magunk is szívesen vállalunk a nevünkkel. Nem gyárban készülő sablonmegoldásokban gondolkodunk.
-            </p>
-            <div class="highlight-strip">
-                <span class="highlight-dot"></span>
-                <span>Fejlesztői gondolkodás, nem “összekattintott” sablonok.</span>
-            </div>
-        </div>
-
-        <div class="about-layout animate-on-scroll">
-            <div>
-                <p class="about-text">
-                    Az <span class="about-strong">Aurion Studio</span> célja, hogy olyan webes megoldásokat hozzon létre,
-                    amelyek hosszú távon is stabilak, érthetők és könnyen továbbfejleszthetők. 
-                    Nem az a célunk, hogy “minél gyorsabban összerakjunk valamit”, hanem hogy olyan rendszert kapj,
-                    aminek minden lépését érted.
-                </p>
-                <p class="about-text">
-                    Kifejezetten szeretjük azokat a projekteket, ahol partnerként tudunk együtt gondolkodni:
-                    kérdezel, elmondjuk, mit miért javaslunk, és közösen döntünk. Így lesz az oldal valóban a tiéd,
-                    és nem egy cserélhető sablon a sok közül.
-                </p>
-
-                <div class="about-tags">
-                    <span class="about-tag">Egyedi logika, nem sablon</span>
-                    <span class="about-tag">Pixel-pontos dizájn</span>
-                    <span class="about-tag">Stabil technikai háttér</span>
-                    <span class="about-tag">Őszinte kommunikáció</span>
-                    <span class="about-tag">Fejlesztői szemlélet, nem “összekattintás”</span>
-                </div>
-            </div>
-
-            <div class="about-highlight animate-on-scroll">
-                <div class="about-highlight-title">Mit jelent ez a gyakorlatban?</div>
-                <p class="about-highlight-text">
-                    Nem vállalunk el mindent, csak amit jó szívvel le tudunk fejleszteni. 
-                    Ha valamit nem érdemes megvalósítani, azt is elmondjuk – akkor is, ha rövid távon kevesebb munkát jelent.
-                    Hosszú távon az a célunk, hogy stabil, vállalható rendszerek fűződjenek az Aurion névhez.
-                </p>
-                <div class="about-stats">
-                    <div>
-                        <div class="about-stat-number">100%</div>
-                        <div>Átlátható, kézzel felépített kódlogika</div>
-                    </div>
-                    <div>
-                        <div class="about-stat-number">Aurion</div>
-                        <div>Név, amit vállalunk minden munkánk mellett</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- RÓLUNK + KAPCSOLAT STÍLUSOK -->
-    <style>
         /* ===== RÓLUNK ===== */
 
         #rolunk.section {
@@ -1243,7 +916,7 @@
             color: rgba(75, 85, 99, 0.95);
         }
 
-        /* ===== KAPCSOLAT – KÜLÖN KÁRTYÁK ===== */
+        /* ===== KAPCSOLAT ===== */
 
         #kapcsolat.section {
             background: radial-gradient(circle at top, #e5edff 0, #f9fafb 55%);
@@ -1414,18 +1087,243 @@
             min-width: 180px;
         }
 
+        /* ===== LÁBLÉC ===== */
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.4);
+            background: #020617;
+            color: #e5e7eb;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 14px 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(209, 213, 219, 0.9);
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== COOKIE SÁV ===== */
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            width: calc(100% - 32px);
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            border: 1px solid rgba(209, 213, 219, 0.9);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 11px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            z-index: 2000;
+        }
+
+        .cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cookie-text strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .cookie-actions {
+            flex-shrink: 0;
+        }
+
+        .cookie-btn-primary {
+            border: none;
+            border-radius: 999px;
+            padding: 7px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            box-shadow: 0 10px 25px rgba(234, 179, 8, 0.6);
+        }
+
+        /* ===== MARKETING POPUP ===== */
+
+        .promo-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 2500;
+        }
+
+        .promo-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .promo-card {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 18px 18px 16px;
+            box-shadow:
+                0 28px 70px rgba(15, 23, 42, 0.5),
+                0 0 0 1px rgba(226, 232, 240, 0.9);
+            position: relative;
+        }
+
+        .promo-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(248, 250, 252, 0.95);
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .promo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .promo-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            object-fit: contain;
+            background: #020617;
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 12px 26px rgba(15, 23, 42, 0.6);
+        }
+
+        .promo-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .promo-text {
+            font-size: 14px;
+            color: rgba(55, 65, 81, 0.96);
+            margin-bottom: 12px;
+        }
+
+        .promo-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .promo-btn-primary {
+            border-radius: 999px;
+            border: none;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            box-shadow: 0 14px 34px rgba(234, 179, 8, 0.75);
+        }
+
+        .promo-btn-secondary {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #ffffff;
+            color: #4b5563;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
         @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-right {
+                order: -1;
+            }
+
+            .about-layout,
+            .contact-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
             .values-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .contact-layout {
-                grid-template-columns: minmax(0, 1fr);
+            .hero {
+                padding-top: 110px;
             }
         }
 
         @media (max-width: 768px) {
-            .values-grid {
+            .nav-links.desktop {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 110px 16px 70px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-cta-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .services-grid {
                 grid-template-columns: minmax(0, 1fr);
             }
 
@@ -1433,11 +1331,276 @@
                 padding-top: 70px;
             }
 
+            .values-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .cookie-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-phone {
+                max-width: 280px;
+            }
+
             .contact-layout {
                 gap: 20px;
             }
+
+            .promo-card {
+                margin: 0 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-inner {
+                gap: 28px;
+            }
+
+            .hero-phone {
+                max-width: 270px;
+            }
         }
     </style>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="#top" class="logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+            <span class="aurion">Aurion</span>
+            <span class="studio">Studio</span>
+        </a>
+
+        <button class="hamburger" id="hamburger" aria-label="Menü">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links desktop">
+            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
+            <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+
+        <ul class="nav-links mobile" id="mobileNav">
+            <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+            <li><a href="munkaink.html">Munkáink</a></li>
+            <li><a href="#bemutatkozas">Bemutatkozás</a></li>
+            <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
+            <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
+            <li><a href="al.html">AI Chat</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero" id="top">
+    <video class="hero-bg-video" autoplay muted loop playsinline preload="auto">
+        <source src="hero.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hero-kicker">EGYEDI WEBES MEGOLDÁSOK</div>
+            <h1 class="hero-title">
+                Világos, letisztult,<br>
+                <span class="hero-title-accent">működő online jelenlét.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Olyan weboldalakat és webshopokat építünk, amelyek nemcsak szépek,
+                hanem hosszú távon is <span class="hero-sub-strong">stabilan működnek</span> – felesleges bonyolítás nélkül.
+            </p>
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Egyedi fejlesztés, nem sablonokból.</span>
+            </div>
+            <div class="hero-feature-row">
+                <span class="hero-feature-pill">Reszponzív, mobil-first gondolkodás</span>
+                <span class="hero-feature-pill">WordPress / WooCommerce</span>
+                <span class="hero-feature-pill">AI-chat integráció</span>
+            </div>
+            <div class="hero-cta-row">
+                <a href="#kapcsolat" class="hero-cta-primary">
+                    Kérek ajánlatot
+                </a>
+                <a href="munkaink.html" class="hero-cta-secondary">
+                    Megnézem a munkákat
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-phone">
+                <div class="phone-inner" id="phoneInner">
+                    <div class="notch"></div>
+                    <div class="phone-status">
+                        <div class="phone-status-left">9:41</div>
+                        <div class="phone-status-right">
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon"></div>
+                            <div class="status-bar-icon status-bar-battery"></div>
+                        </div>
+                    </div>
+                    <div class="phone-header">
+                        <span class="phone-dot red"></span>
+                        <span class="phone-dot yellow"></span>
+                        <span class="phone-dot green"></span>
+                        <span class="phone-file">index.html</span>
+                    </div>
+                    <div class="phone-screen">
+                        <pre class="phone-code" id="phoneCode"></pre>
+                        <div class="phone-message" id="phoneMessage">
+                            <div class="phone-message-title">Üdvözlünk az Aurion Studiónál</div>
+                            <div class="phone-message-text">
+                                Bízd ránk a weboldalad vagy webshopod –
+                                egyedi, átlátható és hosszú távon is működő megoldást kapsz vissza.
+                            </div>
+                            <img src="logo.png" alt="Aurion logó" class="phone-message-logo">
+                        </div>
+                        <div class="phone-home-indicator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+    <!-- SZOLGÁLTATÁSOK -->
+    <section class="section animate-on-scroll" id="szolgaltatasok">
+        <div class="section-header animate-on-scroll">
+            <div class="section-kicker">SZOLGÁLTATÁSOK</div>
+            <h2 class="section-title">Amiben a legerősebbek vagyunk</h2>
+            <p class="section-subtitle">
+                A koncepciótól a technikai megvalósításig segítünk – úgy, hogy közben érthető maradjon,
+                mi miért készül el. Nem „varázsolunk”, hanem átlátható, visszakövethető rendszert építünk.
+            </p>
+        </div>
+
+        <div class="services-grid animate-on-scroll">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">💻</div>
+                <h3 class="service-title">Egyedi weboldalak</h3>
+                <p class="service-text">
+                    Letisztult, gyors és átlátható oldalak, amelyek jól működnek mobilon és asztali gépen is.
+                </p>
+                <p class="service-meta">Bemutatkozó oldalak • Landingek • Portfóliók</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">🛒</div>
+                <h3 class="service-title">Webshop fejlesztés</h3>
+                <p class="service-text">
+                    Stabil, könnyen kezelhető áruházak, átlátható admin felülettel és rendezett logikával.
+                </p>
+                <p class="service-meta">Kosár • Fizetés • Szállítási módok összekötése</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">WP</div>
+                <h3 class="service-title">WordPress / WooCommerce</h3>
+                <p class="service-text">
+                    Ha fontos, hogy te is tudj adminisztrálni: modern, biztonságos WordPress alapú rendszereket készítünk.
+                </p>
+                <p class="service-meta">Egyedi sablonok • Optimalizált működés</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">🤖</div>
+                <h3 class="service-title">AI-chat integráció</h3>
+                <p class="service-text">
+                    Okos ügyfélszolgálat a honlapodon, amely csak az üzleti kérdésekre válaszol a beállított kereteken belül.
+                </p>
+                <p class="service-meta">ChatGPT alapú megoldások • Testreszabott logika</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">⚙️</div>
+                <h3 class="service-title">Finomhangolás, javítás</h3>
+                <p class="service-text">
+                    Már meglévő oldalakat is átnézünk: gyorsítunk, javítunk, mobilra igazítunk, ahol szükséges.
+                </p>
+                <p class="service-meta">Sebesség • Biztonság • Reszponzivitás</p>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon-circle">🤝</div>
+                <h3 class="service-title">Hosszú távú támogatás</h3>
+                <p class="service-text">
+                    Nem egyszeri projektként tekintünk rád – később is számíthatsz ránk, ha bővülni szeretnél.
+                </p>
+                <p class="service-meta">Kisebb módosítások • Új funkciók • Tanácsadás</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEMUTATKOZÁS -->
+    <section class="section animate-on-scroll" id="bemutatkozas">
+        <div class="section-header animate-on-scroll">
+            <div class="section-kicker">BEMUTATKOZÁS</div>
+            <h2 class="section-title">Kik állnak az Aurion Studio mögött?</h2>
+            <p class="section-subtitle">
+                Emberközeli kommunikáció, őszinte visszajelzések és olyan fejlesztés,
+                amit mi magunk is szívesen vállalunk a nevünkkel. Nem gyárban készülő sablonmegoldásokban gondolkodunk.
+            </p>
+            <div class="highlight-strip">
+                <span class="highlight-dot"></span>
+                <span>Fejlesztői gondolkodás, nem “összekattintott” sablonok.</span>
+            </div>
+        </div>
+
+        <div class="about-layout animate-on-scroll">
+            <div>
+                <p class="about-text">
+                    Az <span class="about-strong">Aurion Studio</span> célja, hogy olyan webes megoldásokat hozzon létre,
+                    amelyek hosszú távon is stabilak, érthetők és könnyen továbbfejleszthetők. 
+                    Nem az a célunk, hogy “minél gyorsabban összerakjunk valamit”, hanem hogy olyan rendszert kapj,
+                    aminek minden lépését érted.
+                </p>
+                <p class="about-text">
+                    Kifejezetten szeretjük azokat a projekteket, ahol partnerként tudunk együtt gondolkodni:
+                    kérdezel, elmondjuk, mit miért javaslunk, és közösen döntünk. Így lesz az oldal valóban a tiéd,
+                    és nem egy cserélhető sablon a sok közül.
+                </p>
+
+                <div class="about-tags">
+                    <span class="about-tag">Egyedi logika, nem sablon</span>
+                    <span class="about-tag">Pixel-pontos dizájn</span>
+                    <span class="about-tag">Stabil technikai háttér</span>
+                    <span class="about-tag">Őszinte kommunikáció</span>
+                    <span class="about-tag">Fejlesztői szemlélet, nem “összekattintás”</span>
+                </div>
+            </div>
+
+            <div class="about-highlight animate-on-scroll">
+                <div class="about-highlight-title">Mit jelent ez a gyakorlatban?</div>
+                <p class="about-highlight-text">
+                    Nem vállalunk el mindent, csak amit jó szívvel le tudunk fejleszteni. 
+                    Ha valamit nem érdemes megvalósítani, azt is elmondjuk – akkor is, ha rövid távon kevesebb munkát jelent.
+                    Hosszú távon az a célunk, hogy stabil, vállalható rendszerek fűződjenek az Aurion névhez.
+                </p>
+                <div class="about-stats">
+                    <div>
+                        <div class="about-stat-number">100%</div>
+                        <div>Átlátható, kézzel felépített kódlogika</div>
+                    </div>
+                    <div>
+                        <div class="about-stat-number">Aurion</div>
+                        <div>Név, amit vállalunk minden munkánk mellett</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- RÓLUNK -->
     <section class="section animate-on-scroll" id="rolunk">
@@ -1608,6 +1771,25 @@
     </div>
 </div>
 
+<!-- MARKETING POPUP -->
+<div class="promo-overlay" id="promoOverlay">
+    <div class="promo-card">
+        <button class="promo-close" id="promoClose" aria-label="Bezárás">×</button>
+        <div class="promo-header">
+            <img src="logo.png" alt="Aurion Studio logó" class="promo-logo">
+            <div class="promo-title">Ismerd meg az Aurion Studio-t</div>
+        </div>
+        <p class="promo-text">
+            Ha szeretnéd, hogy a weboldalad vagy webshopod végre átlátható, stabil és hosszú távon is működő legyen,
+            nézd meg néhány korábbi munkánkat – és kérj egy őszinte, konkrét visszajelzést az ötletedre.
+        </p>
+        <div class="promo-cta-row">
+            <button class="promo-btn-primary" id="promoSeeWorks">Megnézem a munkákat</button>
+            <button class="promo-btn-secondary" id="promoLater">Most nem, köszönöm</button>
+        </div>
+    </div>
+</div>
+
 <script>
     /* ==== NAV – MOBIL MENÜ ==== */
     const hamburger = document.getElementById("hamburger");
@@ -1627,7 +1809,8 @@
         });
     }
 
-    /* ==== HERO – TELEFON KÓDGÉPELÉS + ÜZENET VÁLTÁS ==== */
+    /* ==== HERO – TELEFON KÓDGÉPELÉS + ÜZENET ==== */
+
     const phoneCodeBlock = document.getElementById("phoneCode");
     const phoneInner = document.getElementById("phoneInner");
 
@@ -1662,7 +1845,6 @@
 
             setTimeout(typePhoneCode, delay);
         } else {
-            // Ha végigértünk a kódon: üzenet fel, kód el
             setTimeout(() => {
                 phoneInner.classList.add("show-message");
                 setTimeout(() => {
@@ -1677,7 +1859,7 @@
 
     setTimeout(typePhoneCode, 1200);
 
-    /* ==== SCROLL ANIMÁCIÓ – .animate-on-scroll ==== */
+    /* ==== SCROLL ANIMÁCIÓ ==== */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -1745,6 +1927,40 @@
             localStorage.setItem("aurion_cookie_consent", "accepted");
             hideCookieBanner();
         });
+    }
+
+    /* ==== MARKETING POPUP ==== */
+    const promoOverlay = document.getElementById("promoOverlay");
+    const promoClose = document.getElementById("promoClose");
+    const promoLater = document.getElementById("promoLater");
+    const promoSeeWorks = document.getElementById("promoSeeWorks");
+
+    function hidePromo() {
+        if (!promoOverlay) return;
+        promoOverlay.classList.remove("show");
+        localStorage.setItem("aurion_promo_closed", "yes");
+    }
+
+    if (promoOverlay) {
+        if (!localStorage.getItem("aurion_promo_closed")) {
+            setTimeout(() => {
+                promoOverlay.classList.add("show");
+            }, 10000);
+        }
+
+        if (promoClose) {
+            promoClose.addEventListener("click", hidePromo);
+        }
+
+        if (promoLater) {
+            promoLater.addEventListener("click", hidePromo);
+        }
+
+        if (promoSeeWorks) {
+            promoSeeWorks.addEventListener("click", () => {
+                window.location.href = "munkaink.html";
+            });
+        }
     }
 </script>
 </body>
