@@ -135,7 +135,7 @@
 
         .content {
             flex:1;
-            padding:26px 40px 48px;
+            padding:26px 40px 60px;
             position:relative;
             overflow:hidden;
         }
@@ -576,9 +576,291 @@
             100% { opacity:1; }
         }
 
+        /* 09 – Rétegezett 3D jelenet */
+
+        .scene-wrap {
+            height:200px;
+            border-radius:18px;
+            perspective:900px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .scene {
+            width:260px;
+            height:160px;
+            position:relative;
+            transform-style:preserve-3d;
+            transform:rotateX(0deg) rotateY(0deg);
+            transition:transform .18s ease-out, box-shadow .2s;
+        }
+        .scene-layer {
+            position:absolute;
+            inset:0;
+            border-radius:22px;
+            box-shadow:0 18px 40px rgba(15,23,42,.85);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:12px;
+            font-size:12px;
+        }
+        .scene-layer.bg {
+            background:radial-gradient(circle at 0 0, #0f172a, #020617);
+            transform:translateZ(-40px);
+        }
+        .scene-layer.grid {
+            background:
+                linear-gradient(#1f2937 1px, transparent 1px),
+                linear-gradient(90deg, #1f2937 1px, transparent 1px);
+            background-size:18px 18px;
+            opacity:.8;
+            transform:translateZ(0px);
+            mix-blend-mode:screen;
+        }
+        .scene-layer.foreground {
+            background:radial-gradient(circle at 0 0, rgba(37,99,235,.7), rgba(15,23,42,.98));
+            border:1px solid rgba(191,219,254,.7);
+            transform:translateZ(40px);
+        }
+        .scene-title {
+            font-size:14px;
+            font-weight:600;
+            margin-bottom:4px;
+        }
+        .scene-text {
+            font-size:11px;
+            color:#e5e7eb;
+        }
+
+        /* 10 – 3D Aurion-kocka */
+
+        .cube-wrap {
+            height:200px;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            perspective:900px;
+        }
+        .cube {
+            width:120px;
+            height:120px;
+            position:relative;
+            transform-style:preserve-3d;
+            animation:spinCube 12s linear infinite;
+        }
+        .cube-face {
+            position:absolute;
+            inset:0;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:12px;
+            font-weight:600;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            background:radial-gradient(circle at 0 0,#1d4ed8,#020617);
+            border:1px solid rgba(148,163,184,.7);
+        }
+        .cube-face.front  { transform:translateZ(60px); }
+        .cube-face.back   { transform:rotateY(180deg) translateZ(60px); }
+        .cube-face.right  { transform:rotateY(90deg) translateZ(60px); }
+        .cube-face.left   { transform:rotateY(-90deg) translateZ(60px); }
+        .cube-face.top    { transform:rotateX(90deg) translateZ(60px); }
+        .cube-face.bottom { transform:rotateX(-90deg) translateZ(60px); }
+
+        .cube-face span {
+            background:linear-gradient(90deg,#facc15,#60a5fa);
+            -webkit-background-clip:text;
+            color:transparent;
+        }
+
+        @keyframes spinCube {
+            0%   { transform:rotateX(-20deg) rotateY(0deg); }
+            50%  { transform:rotateX(25deg) rotateY(180deg); }
+            100% { transform:rotateX(-20deg) rotateY(360deg); }
+        }
+
+        .cube-wrap:hover .cube {
+            animation-duration:20s;
+        }
+
+        /* 11 – Aurion-galaxis, orbitáló címkék */
+
+        .galaxy-shell {
+            height:220px;
+            border-radius:18px;
+            background:radial-gradient(circle at 50% 0,#020617,#020617 60%,#020617 100%);
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .galaxy-center {
+            width:70px;
+            height:70px;
+            border-radius:999px;
+            background:radial-gradient(circle at 30% 0,#facc15,#f97316);
+            box-shadow:0 0 30px rgba(250,204,21,.8);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:11px;
+            font-weight:700;
+            color:#111827;
+            text-align:center;
+        }
+        .orbit {
+            position:absolute;
+            width:180px;
+            height:180px;
+            border-radius:999px;
+            border:1px dashed rgba(148,163,184,.35);
+            animation:orbitSpin 18s linear infinite;
+        }
+        .orbit:nth-child(2) {
+            width:220px;
+            height:220px;
+            animation-duration:26s;
+            animation-direction:reverse;
+        }
+        @keyframes orbitSpin {
+            to { transform:rotate(360deg); }
+        }
+        .orbit-chip {
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            padding:4px 10px;
+            border-radius:999px;
+            font-size:10px;
+            background:rgba(15,23,42,.9);
+            border:1px solid rgba(148,163,184,.8);
+            box-shadow:0 0 12px rgba(15,23,42,.9);
+            white-space:nowrap;
+        }
+        .orbit-chip:nth-child(1) { transform:translate(-50%, -50%) translateY(-84px); }
+        .orbit-chip:nth-child(2) { transform:translate(-50%, -50%) translateX(84px); }
+        .orbit-chip:nth-child(3) { transform:translate(-50%, -50%) translateY(84px); }
+        .orbit-chip:nth-child(4) { transform:translate(-50%, -50%) translateX(-84px); }
+
+        .orbit:nth-child(2) .orbit-chip:nth-child(1) { transform:translate(-50%, -50%) translateY(-104px); }
+        .orbit:nth-child(2) .orbit-chip:nth-child(2) { transform:translate(-50%, -50%) translateX(104px); }
+        .orbit:nth-child(2) .orbit-chip:nth-child(3) { transform:translate(-50%, -50%) translateY(104px); }
+        .orbit:nth-child(2) .orbit-chip:nth-child(4) { transform:translate(-50%, -50%) translateX(-104px); }
+
+        /* 12 – Marketing blokk alul */
+
+        .marketing-block {
+            margin-top:30px;
+            border-radius:28px;
+            padding:20px 20px 22px;
+            border:1px solid rgba(148,163,184,.45);
+            background:
+                radial-gradient(circle at 0 0, rgba(252,211,77,.15), transparent 55%),
+                radial-gradient(circle at 100% 0, rgba(56,189,248,.2), transparent 55%),
+                rgba(15,23,42,.95);
+            box-shadow:0 20px 50px rgba(15,23,42,.95);
+            position:relative;
+            overflow:hidden;
+        }
+        .marketing-block::before {
+            content:"";
+            position:absolute;
+            inset:-40%;
+            background:radial-gradient(circle at 0 0, rgba(248,250,252,.15), transparent 60%);
+            opacity:0;
+            animation:marketingGlow 5s infinite;
+        }
+        @keyframes marketingGlow {
+            0%,100% { opacity:0; }
+            40% { opacity:1; }
+        }
+        .mk-glitch {
+            font-size:22px;
+            font-weight:700;
+            letter-spacing:.06em;
+            margin-bottom:10px;
+            position:relative;
+            display:inline-block;
+        }
+        .mk-glitch-main {
+            position:relative;
+            z-index:2;
+        }
+        .mk-glitch::after,
+        .mk-glitch::before {
+            content:attr(data-text);
+            position:absolute;
+            inset:0;
+            mix-blend-mode:screen;
+            opacity:.2;
+        }
+        .mk-glitch::before {
+            transform:translate(-2px,-1px);
+            color:#60a5fa;
+        }
+        .mk-glitch::after {
+            transform:translate(2px,1px);
+            color:#f97316;
+        }
+        .mk-row {
+            display:flex;
+            flex-wrap:wrap;
+            gap:16px;
+            margin-top:6px;
+            font-size:13px;
+            color:#e5e7eb;
+        }
+        .mk-col {
+            flex:1 1 200px;
+            min-width:0;
+        }
+        .mk-highlight {
+            display:inline-block;
+            padding:3px 8px;
+            border-radius:999px;
+            background:rgba(15,23,42,.9);
+            border:1px solid rgba(148,163,184,.7);
+            font-size:11px;
+            margin-bottom:6px;
+        }
+        .mk-line {
+            margin-bottom:6px;
+        }
+        .mk-strong {
+            background:linear-gradient(90deg,#facc15,#a855f7);
+            -webkit-background-clip:text;
+            color:transparent;
+        }
+        .mk-bottom {
+            margin-top:12px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            align-items:center;
+            font-size:12px;
+            color:#9ca3af;
+        }
+        .mk-cta {
+            padding:8px 16px;
+            border-radius:999px;
+            border:none;
+            cursor:pointer;
+            background:radial-gradient(circle at 0 0,#facc15,#f97316);
+            color:#111827;
+            font-size:13px;
+            font-weight:600;
+            box-shadow:0 0 22px rgba(250,204,21,.9);
+        }
+
         @media (max-width:1024px) {
             .sidebar { display:none; }
-            .content { padding:18px 14px 32px; }
+            .content { padding:18px 14px 40px; }
         }
         @media (max-width:640px) {
             .fx-status-bar {
@@ -588,6 +870,7 @@
             }
             .fx-command { max-width:none; width:100%; }
             .fx-spot { height:150px; }
+            .galaxy-shell { height:260px; }
         }
 
     </style>
@@ -640,7 +923,7 @@
     <!-- MAIN -->
     <main class="content">
         <div class="page-tag">Különleges kérések</div>
-        <h1 class="page-title">Vizuális trükkök, amikre az ügyfelek azt mondják: „ez hogy a jó életben készült?”</h1>
+        <h1 class="page-title">Vizuális trükkök, amikre még a fejlesztők is azt mondják: „oké, ez beteg jó”.</h1>
         <p class="page-sub">
             Ez az oldal olyan UI / UX megoldásokat mutat, amiket külön kérésre építünk be.
             Nem sablon, nem „letöltött theme”, hanem kézzel írt logika, valódi, élő hatás.
@@ -814,6 +1097,125 @@
                     </div>
                 </div>
             </article>
+
+            <!-- 09: Rétegezett 3D jelenet -->
+            <article class="fx-block">
+                <div class="fx-badge">09 • 3D rétegelt jelenet</div>
+                <div class="fx-headline">Három lebegő réteg – mintha belenéznél a rendszer „dobozába”.</div>
+                <p class="fx-desc">
+                    Hátul a sötét háttér, középen a rács / kód, elöl pedig az üveglap a szöveggel.
+                    Az egész blokk 3D-ben dől a kurzor felé, a rétegek külön mélységben mozognak –
+                    pont úgy néz ki, mintha egy mini UI-dobozt tartanál a kezedben.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Mozgasd felette az egeret</div>
+                    <div class="scene-wrap">
+                        <div class="scene" id="aurionScene">
+                            <div class="scene-layer bg"></div>
+                            <div class="scene-layer grid"></div>
+                            <div class="scene-layer foreground">
+                                <div>
+                                    <div class="scene-title">Aurion – rétegezett logika</div>
+                                    <div class="scene-text">
+                                        Hátul az infrastruktúra, középen a kód, elöl a felhasználó –
+                                        mindegyiket külön kezelem a rendszerben.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 10: 3D Aurion-kocka -->
+            <article class="fx-block">
+                <div class="fx-badge">10 • 3D Aurion-kocka</div>
+                <div class="fx-headline">Forgó Aurion-kocka – minden oldal egy világ, amit építesz.</div>
+                <p class="fx-desc">
+                    Egy kocka, amin körbe vannak írva a fő területek: webshop, admin, AI, játék, portfólió.
+                    Folyamatosan forog, hoverre lassul – olyan, mintha egy kis „brand-szobor” lenne az oldal közepén.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Figyeld, ahogy körbejárja a tengelyeit</div>
+                    <div class="cube-wrap">
+                        <div class="cube">
+                            <div class="cube-face front"><span>WEB<span>SHOP</span></span></div>
+                            <div class="cube-face back"><span>ADMIN</span></div>
+                            <div class="cube-face right"><span>AI MODUL</span></div>
+                            <div class="cube-face left"><span>JÁTÉK</span></div>
+                            <div class="cube-face top"><span>AURION</span></div>
+                            <div class="cube-face bottom"><span>PORTFÓLIÓ</span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 11: Aurion-galaxis -->
+            <article class="fx-block">
+                <div class="fx-badge">11 • Orbitáló címkék</div>
+                <div class="fx-headline">Aurion-galaxis – körülötted keringenek a modulok.</div>
+                <p class="fx-desc">
+                    Középen a márka, körülötte pályán keringő címkék: webshop, admin, AI, API, statisztika, automatizálás.
+                    Olyan, mintha egy kis naprendszert néznél UI-ban.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Finom, folyamatos orbitálás</div>
+                    <div class="galaxy-shell">
+                        <div class="galaxy-center">Aurion<br>Studio</div>
+
+                        <div class="orbit">
+                            <div class="orbit-chip">Webshop</div>
+                            <div class="orbit-chip">Admin panel</div>
+                            <div class="orbit-chip">AI integráció</div>
+                            <div class="orbit-chip">API kapcsolatok</div>
+                        </div>
+
+                        <div class="orbit">
+                            <div class="orbit-chip">Statisztika</div>
+                            <div class="orbit-chip">Automatizálás</div>
+                            <div class="orbit-chip">Felhasználói élmény</div>
+                            <div class="orbit-chip">Biztonság</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- 12: Animált marketing blokk alul -->
+        <section class="marketing-block">
+            <div class="mk-glitch" data-text="Programozás = teremtés.">
+                <span class="mk-glitch-main">Programozás = teremtés.</span>
+            </div>
+            <div class="mk-row">
+                <div class="mk-col">
+                    <div class="mk-highlight">Mit kapsz, ha rám bízod?</div>
+                    <div class="mk-line">
+                        Nem „összekattintott” sablont, hanem
+                        <span class="mk-strong">egyedi rendszert</span>, amin látszik, hogy
+                        valaki tényleg gondolkodott rajta.
+                    </div>
+                    <div class="mk-line">
+                        Ha kell, belemászom a logikádba, és olyan admin felületet építek,
+                        amin <span class="mk-strong">tényleg szeretsz dolgozni</span>, nem csak elviseled.
+                    </div>
+                </div>
+                <div class="mk-col">
+                    <div class="mk-highlight">Miben vagyok más?</div>
+                    <div class="mk-line">
+                        Nem állok meg ott, hogy „működik”.
+                        Addig csiszolom, amíg ránézésre is azt mondod:
+                        <span class="mk-strong">„oké, ilyen oldalam még nem volt”</span>.
+                    </div>
+                    <div class="mk-line">
+                        Ha eszedbe jut egy őrült ötlet – 3D, AI, játékos logika –
+                        az nem gond, hanem <span class="mk-strong">kihívás</span>.
+                    </div>
+                </div>
+            </div>
+            <div class="mk-bottom">
+                <button class="mk-cta">Írj rám egy őrült ötlettel</button>
+                <span>Mondd el, mit szeretnél látni a saját oldaladon, én pedig kitalálom, hogyan lehet megcsinálni.</span>
+            </div>
         </section>
     </main>
 </div>
@@ -995,6 +1397,30 @@
         }
 
         setInterval(nextWord, 2200);
+    })();
+
+    // 09 – Rétegezett 3D jelenet
+    (function () {
+        const scene = document.getElementById('aurionScene');
+        if (!scene) return;
+
+        const maxRot = 18;
+
+        const onMove = (e) => {
+            const rect = scene.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotY = maxRot * x;
+            const rotX = -maxRot * y;
+            scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+        };
+
+        const reset = () => {
+            scene.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        };
+
+        scene.addEventListener('mousemove', onMove);
+        scene.addEventListener('mouseleave', reset);
     })();
 </script>
 </body>
