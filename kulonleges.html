@@ -109,6 +109,7 @@
         .nav-cta-star { font-size:15px; }
 
         .nav-secondary { margin-top:auto; margin-bottom:6px; }
+        .ai-pill-link { text-decoration:none; }
         .ai-pill {
             margin-top:10px;
             padding:7px 11px;
@@ -120,6 +121,7 @@
             align-items:center;
             gap:7px;
             box-shadow:0 0 14px rgba(37,99,235,.4);
+            cursor:pointer;
         }
         .ai-dot {
             width:8px; height:8px; border-radius:999px;
@@ -753,7 +755,154 @@
         .orbit:nth-child(2) .orbit-chip:nth-child(3) { transform:translate(-50%, -50%) translateY(104px); }
         .orbit:nth-child(2) .orbit-chip:nth-child(4) { transform:translate(-50%, -50%) translateX(-104px); }
 
-        /* 12 – Marketing blokk alul */
+        /* 12 – 3D kártya-stack */
+
+        .stack-shell {
+            height:200px;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            perspective:900px;
+        }
+        .stack {
+            width:260px;
+            height:160px;
+            position:relative;
+            transform-style:preserve-3d;
+        }
+        .stack-card {
+            position:absolute;
+            inset:0;
+            border-radius:18px;
+            background:radial-gradient(circle at 0 0,#1e293b,#020617);
+            border:1px solid rgba(148,163,184,.7);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:11px;
+            text-align:center;
+            transition:transform .18s ease-out, box-shadow .18s ease-out;
+            box-shadow:0 18px 40px rgba(15,23,42,.9);
+        }
+        .stack-card:nth-child(1) { transform:translateZ(-40px) translateY(16px); opacity:.6; }
+        .stack-card:nth-child(2) { transform:translateZ(-20px) translateY(8px); opacity:.8; }
+        .stack-card:nth-child(3) { transform:translateZ(0) translateY(0); opacity:1; }
+
+        .stack:hover .stack-card:nth-child(1) { transform:translateZ(-20px) translateY(12px); }
+        .stack:hover .stack-card:nth-child(2) { transform:translateZ(10px) translateY(4px); }
+        .stack:hover .stack-card:nth-child(3) { transform:translateZ(30px) translateY(-4px); }
+
+        .stack-card span {
+            background:linear-gradient(90deg,#facc15,#60a5fa);
+            -webkit-background-clip:text;
+            color:transparent;
+            font-weight:600;
+            display:block;
+            margin-bottom:4px;
+        }
+
+        /* 13 – 3D gyűrű kártyákkal */
+
+        .ring-shell {
+            height:220px;
+            border-radius:18px;
+            perspective:900px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .ring {
+            width:260px;
+            height:160px;
+            position:relative;
+            transform-style:preserve-3d;
+            animation:ringTurn 18s linear infinite;
+        }
+        @keyframes ringTurn {
+            0%   { transform:rotateY(0deg) rotateX(-10deg); }
+            100% { transform:rotateY(360deg) rotateX(-10deg); }
+        }
+        .ring-item {
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:90px;
+            height:50px;
+            margin:-25px 0 0 -45px;
+            border-radius:12px;
+            background:radial-gradient(circle at 0 0,#1d4ed8,#020617);
+            border:1px solid rgba(148,163,184,.7);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:10px;
+            text-align:center;
+            color:#e5e7eb;
+            box-shadow:0 10px 25px rgba(15,23,42,.8);
+        }
+
+        /* 14 – 3D console ablak */
+
+        .console-shell {
+            height:200px;
+            border-radius:18px;
+            perspective:900px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .console {
+            width:280px;
+            height:160px;
+            border-radius:18px;
+            background:radial-gradient(circle at 0 0,#020617,#020617 60%);
+            border:1px solid rgba(148,163,184,.7);
+            position:relative;
+            overflow:hidden;
+            transform-style:preserve-3d;
+            transform:rotateX(12deg) rotateY(-12deg);
+            box-shadow:0 20px 45px rgba(15,23,42,.95);
+        }
+        .console-header {
+            height:26px;
+            background:linear-gradient(90deg,#0f172a,#020617);
+            display:flex;
+            align-items:center;
+            gap:6px;
+            padding:0 10px;
+            font-size:10px;
+            color:#9ca3af;
+        }
+        .console-dot {
+            width:8px;
+            height:8px;
+            border-radius:999px;
+            background:#4b5563;
+        }
+        .console-body {
+            position:absolute;
+            inset:26px 0 0;
+            padding:8px 10px;
+            font-family:monospace;
+            font-size:11px;
+            color:#e5e7eb;
+        }
+        .console-line-faint { color:#64748b; }
+        .console-scan {
+            position:absolute;
+            left:0;
+            right:0;
+            height:28px;
+            background:linear-gradient(to bottom, transparent, rgba(56,189,248,.18), transparent);
+            animation:scanMove 4.5s linear infinite;
+        }
+        @keyframes scanMove {
+            0%   { top:-30px; }
+            100% { top:100%; }
+        }
+
+        /* 15 – Marketing blokk alul */
 
         .marketing-block {
             margin-top:30px;
@@ -837,8 +986,65 @@
             -webkit-background-clip:text;
             color:transparent;
         }
+
+        .mk-cards {
+            margin-top:14px;
+            display:flex;
+            flex-wrap:wrap;
+            gap:14px;
+        }
+        .mk-card {
+            width:190px;
+            height:110px;
+            border-radius:16px;
+            perspective:800px;
+            flex:1 1 170px;
+            min-width:0;
+        }
+        .mk-card-inner {
+            width:100%;
+            height:100%;
+            position:relative;
+            transform-style:preserve-3d;
+            transition:transform .5s ease;
+        }
+        .mk-card:hover .mk-card-inner {
+            transform:rotateY(180deg);
+        }
+        .mk-card-face {
+            position:absolute;
+            inset:0;
+            border-radius:16px;
+            padding:10px 12px;
+            font-size:11px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            backface-visibility:hidden;
+        }
+        .mk-card-front {
+            background:radial-gradient(circle at 0 0,#1f2937,#020617);
+            border:1px solid rgba(148,163,184,.7);
+        }
+        .mk-card-back {
+            background:radial-gradient(circle at 0 0,#facc15,#f97316);
+            color:#111827;
+            border:1px solid rgba(248,250,252,.7);
+            transform:rotateY(180deg);
+        }
+        .mk-card-title {
+            font-weight:600;
+            margin-bottom:4px;
+        }
+        .mk-card-tag {
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.14em;
+            opacity:.7;
+        }
+
         .mk-bottom {
-            margin-top:12px;
+            margin-top:16px;
             display:flex;
             flex-wrap:wrap;
             gap:10px;
@@ -892,16 +1098,14 @@
             <ul class="nav-list">
                 <li><a href="index.html#szolgaltatasok" class="nav-link"><span>Szolgáltatások</span></a></li>
                 <li><a href="munkaink.html" class="nav-link"><span>Munkáink</span></a></li>
+                <li><a href="minket.html" class="nav-link"><span>Ismerj meg minket</span></a></li>
                 <li><a href="bemutatkozas.html" class="nav-link"><span>Bemutatkozás</span></a></li>
                 <li><a href="index.html#rolunk" class="nav-link"><span>Rólunk</span></a></li>
                 <li><a href="kulonleges.html" class="nav-link active">
                     <span>Különleges kérések</span><div class="nav-dot"></div></a>
                 </li>
+                <li><a href="ai.html" class="nav-link"><span>AI Chat</span></a></li>
             </ul>
-
-            <a href="ismerjmeg.html" class="nav-cta">
-                <span>Ismerj meg minket</span><span class="nav-cta-star">★</span>
-            </a>
 
             <div class="nav-section-title" style="margin-top:18px;">Kapcsolat</div>
             <ul class="nav-list">
@@ -910,13 +1114,15 @@
         </div>
 
         <div class="nav-secondary">
-            <div class="ai-pill">
-                <div class="ai-dot"></div>
-                <div>
-                    <div>AI Chat</div>
-                    <span>Valódi, egyedi válaszok</span>
+            <a href="ai.html" class="ai-pill-link">
+                <div class="ai-pill">
+                    <div class="ai-dot"></div>
+                    <div>
+                        <div>AI Chat</div>
+                        <span>Valódi, egyedi válaszok</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </aside>
 
@@ -1139,7 +1345,7 @@
                     <div class="fx-label">Figyeld, ahogy körbejárja a tengelyeit</div>
                     <div class="cube-wrap">
                         <div class="cube">
-                            <div class="cube-face front"><span>WEB<span>SHOP</span></span></div>
+                            <div class="cube-face front"><span>WEBSHOP</span></div>
                             <div class="cube-face back"><span>ADMIN</span></div>
                             <div class="cube-face right"><span>AI MODUL</span></div>
                             <div class="cube-face left"><span>JÁTÉK</span></div>
@@ -1179,9 +1385,105 @@
                     </div>
                 </div>
             </article>
+
+            <!-- 12: 3D kártya-stack -->
+            <article class="fx-block">
+                <div class="fx-badge">12 • 3D kártya-stack</div>
+                <div class="fx-headline">Lépcsőzetes stack – mintha egymás mögé tolt UI-kártyákat néznél.</div>
+                <p class="fx-desc">
+                    Három kártya egymás mögött, mindegyik másik réteget jelöl: stratégia, design, fejlesztés.
+                    Hoverre az egész stack „felnyílik”, mintha kicsit szétcsúszna előtted a rendszer.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Vidd fölé az egeret</div>
+                    <div class="stack-shell">
+                        <div class="stack">
+                            <div class="stack-card">
+                                <div>
+                                    <span>Stratégia</span>
+                                    Drótváz, üzleti logika, célok.
+                                </div>
+                            </div>
+                            <div class="stack-card">
+                                <div>
+                                    <span>Design</span>
+                                    UI, UX, márka – vizuális rendszer.
+                                </div>
+                            </div>
+                            <div class="stack-card">
+                                <div>
+                                    <span>Fejlesztés</span>
+                                    Tiszta kód, skálázható struktúra.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 13: 3D gyűrű kártyákkal -->
+            <article class="fx-block">
+                <div class="fx-badge">13 • 3D gyűrű</div>
+                <div class="fx-headline">Körben álló referenciakártyák – mini „work gyűrű”.</div>
+                <p class="fx-desc">
+                    Négy kártya egy 3D gyűrűn, lassan körbeforogva. Mindegyik más típusú munkát jelöl:
+                    webshop, portfólió, admin, egyedi rendszer. Olyan, mintha egy saját kis showreel lenne.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Automatikusan körbeforog</div>
+                    <div class="ring-shell">
+                        <div class="ring">
+                            <div class="ring-item" style="transform:rotateY(0deg) translateZ(120px);">
+                                Webshop projektek
+                            </div>
+                            <div class="ring-item" style="transform:rotateY(90deg) translateZ(120px);">
+                                Portfólió oldalak
+                            </div>
+                            <div class="ring-item" style="transform:rotateY(180deg) translateZ(120px);">
+                                Admin felületek
+                            </div>
+                            <div class="ring-item" style="transform:rotateY(270deg) translateZ(120px);">
+                                Egyedi rendszerek
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 14: 3D console ablak -->
+            <article class="fx-block">
+                <div class="fx-badge">14 • 3D console</div>
+                <div class="fx-headline">Dőlt console ablak – mintha épp deploy közben kapnál el.</div>
+                <p class="fx-desc">
+                    Egy kis konzol ablak, amiben futó log-sorok, felette pedig végigfutó scan-vonal.
+                    Az egész blokk enyhén döntve van, mintha egy 3D dashboard részlete lenne.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Futó scan-vonal</div>
+                    <div class="console-shell">
+                        <div class="console">
+                            <div class="console-header">
+                                <div class="console-dot"></div>
+                                <div class="console-dot"></div>
+                                <div class="console-dot"></div>
+                                <span>aurion-deploy › live.log</span>
+                            </div>
+                            <div class="console-body">
+                                <div class="console-line-faint">[00:00:01] Initializing build pipeline…</div>
+                                <div>[00:00:03] Assets bundled • 32 files</div>
+                                <div>[00:00:05] DB connection • OK</div>
+                                <div>[00:00:07] Admin panel routes • mapped</div>
+                                <div>[00:00:09] AI endpoint • ready</div>
+                                <div class="console-line-faint">[00:00:10] Status: deployed • no errors</div>
+                            </div>
+                            <div class="console-scan"></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
         </section>
 
-        <!-- 12: Animált marketing blokk alul -->
+        <!-- 15: Animált marketing blokk alul -->
         <section class="marketing-block">
             <div class="mk-glitch" data-text="Programozás = teremtés.">
                 <span class="mk-glitch-main">Programozás = teremtés.</span>
@@ -1212,6 +1514,46 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mk-cards">
+                <div class="mk-card">
+                    <div class="mk-card-inner">
+                        <div class="mk-card-face mk-card-front">
+                            <div>
+                                <div class="mk-card-tag">Kliens oldal</div>
+                                <div class="mk-card-title">Átlátható folyamat</div>
+                            </div>
+                            <div>Brief → vázlat → design → fejlesztés → finomhangolás.</div>
+                        </div>
+                        <div class="mk-card-face mk-card-back">
+                            <div>
+                                <div class="mk-card-tag">Mit érzel te?</div>
+                                <div class="mk-card-title">Nem káosz, hanem rend.</div>
+                            </div>
+                            <div>Mindig tudod, épp hol tartunk, miért azt csináljuk, amit.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mk-card">
+                    <div class="mk-card-inner">
+                        <div class="mk-card-face mk-card-front">
+                            <div>
+                                <div class="mk-card-tag">Technikai oldal</div>
+                                <div class="mk-card-title">Skálázható alapok</div>
+                            </div>
+                            <div>Úgy írom meg a rendszert, hogy később is lehessen rá építeni.</div>
+                        </div>
+                        <div class="mk-card-face mk-card-back">
+                            <div>
+                                <div class="mk-card-tag">Mit jelent ez?</div>
+                                <div class="mk-card-title">Nem dobjuk ki fél év múlva.</div>
+                            </div>
+                            <div>Ha nő az üzlet, a rendszer nem omlik össze, hanem veled nő.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mk-bottom">
                 <button class="mk-cta">Írj rám egy őrült ötlettel</button>
                 <span>Mondd el, mit szeretnél látni a saját oldaladon, én pedig kitalálom, hogyan lehet megcsinálni.</span>
