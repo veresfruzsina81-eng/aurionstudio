@@ -36,12 +36,16 @@
             gap:10px;
             margin-bottom:30px;
         }
+        /* LOGO.PNG + SZÖVEG EGYÜTT */
         .brand-logo {
-            width:40px; height:40px; border-radius:999px;
-            background:radial-gradient(circle at 30% 10%, #fde68a, #facc15, #92400e);
-            box-shadow:0 0 18px rgba(250,204,21,0.7);
-            display:flex; align-items:center; justify-content:center;
-            font-size:18px; font-weight:700; color:#020617;
+            width:40px;
+            height:40px;
+            border-radius:12px;
+            object-fit:contain;
+            background:#020617;
+            box-shadow:
+                0 0 0 1px rgba(148,163,184,0.7),
+                0 14px 28px rgba(15,23,42,0.95);
         }
         .brand-text-main {
             font-weight:700;
@@ -173,8 +177,6 @@
             line-height:1.7;
             margin-bottom:28px;
         }
-
-        /* Section wrappers */
 
         .fx-section {
             display:flex;
@@ -1078,7 +1080,6 @@
             .fx-spot { height:150px; }
             .galaxy-shell { height:260px; }
         }
-
     </style>
 </head>
 <body>
@@ -1086,7 +1087,7 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="brand">
-            <div class="brand-logo">A</div>
+            <img src="logo.png" alt="Aurion Studio logó" class="brand-logo">
             <div>
                 <div class="brand-text-main">Aurion Studio</div>
                 <div class="brand-text-sub">Prémium web & shop</div>
@@ -1104,7 +1105,7 @@
                 <li><a href="kulonleges.html" class="nav-link active">
                     <span>Különleges kérések</span><div class="nav-dot"></div></a>
                 </li>
-                <li><a href="ai.html" class="nav-link"><span>AI Chat</span></a></li>
+                <li><a href="al.html" class="nav-link"><span>AI Chat</span></a></li>
             </ul>
 
             <div class="nav-section-title" style="margin-top:18px;">Kapcsolat</div>
@@ -1114,7 +1115,7 @@
         </div>
 
         <div class="nav-secondary">
-            <a href="ai.html" class="ai-pill-link">
+            <a href="al.html" class="ai-pill-link">
                 <div class="ai-pill">
                     <div class="ai-dot"></div>
                     <div>
@@ -1580,7 +1581,7 @@
     (function () {
         const card = document.querySelector('.js-tilt');
         if (!card) return;
-        const maxRot = 15; // fok
+        const maxRot = 15;
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -1657,7 +1658,7 @@
             const centerY = rect.top + rect.height / 2;
             const dx = (e.clientX - centerX) / (rect.width / 2);
             const dy = (e.clientY - centerY) / (rect.height / 2);
-            const strength = 18; // mennyire mozduljon el
+            const strength = 18;
             const moveX = dx * strength;
             const moveY = dy * strength;
             btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
@@ -1732,9 +1733,8 @@
         function nextWord() {
             index = (index + 1) % words.length;
             el.textContent = words[index];
-            // újraindítjuk az animációt:
             el.classList.remove('morph-highlight');
-            void el.offsetWidth; // force reflow
+            void el.offsetWidth;
             el.classList.add('morph-highlight');
         }
 
