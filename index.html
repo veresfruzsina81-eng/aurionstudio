@@ -67,6 +67,22 @@
             100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
         }
 
+        /* Menü kiemeléshez külön pulzus */
+        @keyframes navPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7);
+            }
+            60% {
+                transform: scale(1.03);
+                box-shadow: 0 0 0 14px rgba(56, 189, 248, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+            }
+        }
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(22px) scale(0.98);
@@ -213,6 +229,19 @@
 
         .nav-links a.contact-link::after {
             display: none;
+        }
+
+        /* Kiemelt, pulzáló "Ismerj meg minket*" */
+        .nav-links a.pulse-link {
+            position: relative;
+            animation: navPulse 1.9s ease-out infinite;
+            border-radius: 999px;
+        }
+
+        .nav-links a.pulse-link .menu-star {
+            margin-left: 3px;
+            color: #facc15;
+            font-size: 13px;
         }
 
         .hamburger {
@@ -684,10 +713,11 @@
 
         /* ===== MAIN WRAPPER ===== */
 
+        /* jobb oldali rész töltse ki a teljes jobb oldalt, ne egy keskeny üvegdoboz legyen */
         main {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 16px 90px;
+            max-width: none;
+            margin: 0;
+            padding: 0 24px 90px;
         }
 
         .section {
@@ -1012,6 +1042,15 @@
             overflow: hidden;
         }
 
+        /* nagy második sor: Aurion Studio – elérhetőség */
+        .contact-main-subtitle {
+            display: block;
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #e5e7eb;
+        }
+
         .contact-layout {
             margin-top: 34px;
             display: grid;
@@ -1141,6 +1180,31 @@
             font-size: 12px;
             color: #e5e7eb;
             background: rgba(15, 23, 42, 0.9);
+        }
+
+        /* Feltételek elfogadása */
+        .terms-row {
+            margin-top: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+            color: rgba(156, 163, 175, 0.96);
+        }
+
+        .terms-row input[type="checkbox"] {
+            margin-top: 2px;
+            width: 14px;
+            height: 14px;
+        }
+
+        .terms-row a {
+            color: #bfdbfe;
+            text-decoration: underline;
+        }
+
+        .terms-row a:hover {
+            color: #e5e7eb;
         }
 
         .contact-submit-row {
@@ -1529,6 +1593,10 @@
                 padding-left: 0;
             }
 
+            main {
+                padding: 0 16px 70px;
+            }
+
             header {
                 width: 100%;
                 height: auto;
@@ -1661,7 +1729,11 @@
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
             <li><a href="kulonleges.html">Különleges kérések</a></li>
-            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
+            <li>
+                <a href="minket.html" class="contact-link pulse-link">
+                    Ismerj meg minket<span class="menu-star">*</span>
+                </a>
+            </li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
         </ul>
@@ -1672,7 +1744,11 @@
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
             <li><a href="kulonleges.html">Különleges kérések</a></li>
-            <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
+            <li>
+                <a href="minket.html" class="contact-link pulse-link">
+                    Ismerj meg minket<span class="menu-star">*</span>
+                </a>
+            </li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
         </ul>
@@ -1957,7 +2033,8 @@
     <section class="section animate-on-scroll" id="kapcsolat">
         <div class="section-header animate-on-scroll">
             <div class="section-kicker">KAPCSOLAT</div>
-            <h2 class="section-title">Írj néhány mondatot az ötletedről</h2>
+            <h2 class="section-title">Írj nekünk pár mondatot az ötletedről</h2>
+            <h3 class="contact-main-subtitle">Aurion Studio – elérhetőség</h3>
             <p class="section-subtitle">
                 Pár sorban leírhatod, miben gondolkodsz – válaszban segítünk tisztábban látni
                 a lehetőségeket, mielőtt döntést hoznál.
@@ -1966,7 +2043,7 @@
 
         <div class="contact-layout animate-on-scroll">
             <div class="contact-info animate-on-scroll">
-                <h3 class="contact-info-title">Aurion Studio – elérhetőség</h3>
+                <h3 class="contact-info-title">Elérhetőségeink</h3>
                 <p class="contact-info-text">
                     A legegyszerűbb, ha egy rövid üzenettel indítasz. Írd meg, miben gondolkodsz,
                     és milyen elképzeléseid vannak – válaszban konkrét javaslatot kapsz a következő lépésekről.
@@ -2008,6 +2085,14 @@
                         </div>
                     </div>
 
+                    <!-- Telefonszám (opcionális) -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Telefonszám (opcionális)</label>
+                            <input type="tel" id="phone" placeholder="+36 20 123 4567">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="topic">Miben gondolkodsz?</label>
                         <input type="text" id="topic" placeholder="Pl.: új webshop, meglévő oldal átalakítása, AI-chat...">
@@ -2029,6 +2114,17 @@
                             <label for="securityAnswer">Válasz</label>
                             <input type="number" id="securityAnswer" placeholder="Add meg az eredményt">
                         </div>
+                    </div>
+
+                    <!-- Feltételek elfogadása -->
+                    <div class="terms-row">
+                        <input type="checkbox" id="termsCheck">
+                        <label for="termsCheck">
+                            Elfogadom az
+                            <a href="feltetelek.html" target="_blank" rel="noopener">
+                                adatkezelési és együttműködési feltételeket
+                            </a>.
+                        </label>
                     </div>
 
                     <div class="contact-submit-row">
@@ -2164,13 +2260,14 @@
 
     document.querySelectorAll(".animate-on-scroll").forEach(el => observer.observe(el));
 
-    /* ==== KAPCSOLAT – BIZTONSÁGI KÉRDÉS ==== */
+    /* ==== KAPCSOLAT – BIZTONSÁGI KÉRDÉS + FELTÉTELEK ==== */
     let secA = 0;
     let secB = 0;
     const securityText = document.getElementById("securityText");
     const securityAnswer = document.getElementById("securityAnswer");
     const contactSubmit = document.getElementById("contactSubmit");
     const contactForm = document.getElementById("contactForm");
+    const termsCheck = document.getElementById("termsCheck");
 
     function generateSecurityQuestion() {
         if (!securityText) return;
@@ -2184,6 +2281,12 @@
 
     if (contactSubmit) {
         contactSubmit.addEventListener("click", () => {
+            /* Feltételek elfogadása ellenőrzés */
+            if (termsCheck && !termsCheck.checked) {
+                alert("Kérjük, fogadd el az adatkezelési és együttműködési feltételeket az üzenet elküldése előtt.");
+                return;
+            }
+
             if (!securityAnswer) return;
             const val = parseInt(securityAnswer.value, 10);
             if (isNaN(val) || val !== secA + secB) {
