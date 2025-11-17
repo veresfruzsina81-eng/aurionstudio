@@ -5,752 +5,519 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurion Studio – Különleges kérések</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
-            color: #e5e7eb;
-            overflow-x: hidden;
+            background:#020617;
+            color:#e5e7eb;
+            overflow-x:hidden;
         }
+        a { text-decoration:none; color:inherit; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        .layout { display:flex; min-height:100vh; }
 
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ==== SIDEBAR ==== */
+        /* ==== SIDEBAR – egységes minden oldalon ==== */
 
         .sidebar {
-            width: 260px;
-            background: radial-gradient(circle at top left, #1d4ed8 0, #020617 52%, #000 100%);
-            border-right: 1px solid rgba(148, 163, 184, 0.25);
-            padding: 22px 20px;
-            display: flex;
-            flex-direction: column;
-            position: sticky;
-            top: 0;
-            height: 100vh;
+            width:260px;
+            background: radial-gradient(circle at top left, #1d4ed8 0, #020617 55%, #000 100%);
+            border-right:1px solid rgba(148,163,184,0.25);
+            padding:22px 20px;
+            display:flex;
+            flex-direction:column;
+            position:sticky;
+            top:0;
+            height:100vh;
         }
-
         .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 30px;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-bottom:30px;
         }
-
         .brand-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 10%, #fde68a, #facc15, #92400e);
-            box-shadow: 0 0 18px rgba(250, 204, 21, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 700;
-            color: #020617;
+            width:40px; height:40px; border-radius:999px;
+            background:radial-gradient(circle at 30% 10%, #fde68a, #facc15, #92400e);
+            box-shadow:0 0 18px rgba(250,204,21,0.7);
+            display:flex; align-items:center; justify-content:center;
+            font-size:18px; font-weight:700; color:#020617;
         }
-
         .brand-text-main {
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: 0.12em;
+            font-weight:700;
+            font-size:18px;
+            letter-spacing:.12em;
         }
-
         .brand-text-sub {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #9ca3af;
+            font-size:11px;
+            text-transform:uppercase;
+            color:#9ca3af;
         }
-
         .nav-section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #6b7280;
-            margin: 14px 0 6px;
-            letter-spacing: 0.14em;
+            font-size:11px;
+            text-transform:uppercase;
+            color:#6b7280;
+            margin:14px 0 6px;
+            letter-spacing:.14em;
         }
-
-        .nav-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+        .nav-list { list-style:none; display:flex; flex-direction:column; gap:4px; }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 11px;
-            border-radius: 999px;
-            font-size: 14px;
-            color: #e5e7eb;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:8px 11px;
+            border-radius:999px;
+            font-size:14px;
+            color:#e5e7eb;
+            cursor:pointer;
+            transition:.2s;
+            border:1px solid transparent;
         }
-
-        .nav-link span {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
+        .nav-link span { display:flex; align-items:center; gap:7px; }
 
         .nav-link:hover {
-            background: radial-gradient(circle at left, rgba(59,130,246,0.25), transparent 70%);
-            border-color: rgba(148, 163, 184, 0.5);
+            background:radial-gradient(circle at left, rgba(59,130,246,.25), transparent 70%);
+            border-color:rgba(148,163,184,.5);
         }
-
         .nav-link.active {
-            background: radial-gradient(circle at left, rgba(59,130,246,0.45), rgba(15,23,42,0.95));
-            border-color: rgba(129, 140, 248, 0.8);
-            box-shadow: 0 0 20px rgba(37,99,235,0.55);
+            background:radial-gradient(circle at left, rgba(59,130,246,.45), rgba(15,23,42,.95));
+            border-color:rgba(129,140,248,.8);
+            box-shadow:0 0 20px rgba(37,99,235,.55);
         }
-
         .nav-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: #4ade80;
-            box-shadow: 0 0 10px #4ade80;
+            width:6px; height:6px; border-radius:999px;
+            background:#4ade80;
+            box-shadow:0 0 10px #4ade80;
         }
-
         .nav-cta {
-            margin-top: 16px;
-            padding: 9px 13px;
-            border-radius: 999px;
-            background: radial-gradient(circle at top left, #facc15, #f97316);
-            color: #111827;
-            font-weight: 600;
-            font-size: 14px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(251,191,36,0.65);
+            margin-top:16px;
+            padding:9px 13px;
+            border-radius:999px;
+            background:radial-gradient(circle at top left, #facc15, #f97316);
+            color:#111827;
+            font-weight:600;
+            font-size:14px;
+            border:none;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:8px;
+            cursor:pointer;
+            box-shadow:0 0 20px rgba(251,191,36,.65);
         }
+        .nav-cta-star { font-size:15px; }
 
-        .nav-cta-star {
-            font-size: 15px;
-        }
-
-        .nav-secondary {
-            margin-top: auto;
-            margin-bottom: 6px;
-        }
-
+        .nav-secondary { margin-top:auto; margin-bottom:6px; }
         .ai-pill {
-            margin-top: 10px;
-            padding: 7px 11px;
-            border-radius: 999px;
-            font-size: 13px;
-            background: rgba(15,23,42,0.9);
-            border: 1px solid rgba(96,165,250,0.6);
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            box-shadow: 0 0 14px rgba(37,99,235,0.4);
+            margin-top:10px;
+            padding:7px 11px;
+            border-radius:999px;
+            font-size:13px;
+            background:rgba(15,23,42,.9);
+            border:1px solid rgba(96,165,250,.6);
+            display:flex;
+            align-items:center;
+            gap:7px;
+            box-shadow:0 0 14px rgba(37,99,235,.4);
         }
-
         .ai-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: #22c55e;
-            box-shadow: 0 0 12px #22c55e;
+            width:8px; height:8px; border-radius:999px;
+            background:#22c55e;
+            box-shadow:0 0 12px #22c55e;
         }
-
         .ai-pill span:last-child {
-            font-size: 11px;
-            color: #9ca3af;
+            font-size:11px;
+            color:#9ca3af;
         }
 
-        /* ==== MAIN CONTENT ==== */
+        /* ==== MAIN ==== */
 
         .content {
-            flex: 1;
-            padding: 26px 40px 40px;
-            position: relative;
-            overflow: hidden;
+            flex:1;
+            padding:26px 40px 48px;
+            position:relative;
+            overflow:hidden;
         }
-
         .content::before {
-            content: "";
-            position: absolute;
-            inset: -200px;
+            content:"";
+            position:absolute;
+            inset:-200px;
             background:
-                radial-gradient(circle at 10% 0%, rgba(56,189,248,0.15), transparent 55%),
-                radial-gradient(circle at 90% 20%, rgba(129,140,248,0.2), transparent 55%),
-                radial-gradient(circle at 50% 100%, rgba(59,130,246,0.18), transparent 60%);
-            opacity: 0.9;
-            z-index: -1;
+                    radial-gradient(circle at 10% 0%, rgba(56,189,248,.18), transparent 55%),
+                    radial-gradient(circle at 90% 20%, rgba(129,140,248,.2), transparent 55%),
+                    radial-gradient(circle at 40% 100%, rgba(59,130,246,.24), transparent 60%);
+            opacity:.9;
+            z-index:-1;
         }
 
         .page-tag {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: #64748b;
-            margin-bottom: 8px;
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:.3em;
+            color:#64748b;
+            margin-bottom:8px;
         }
-
         .page-title {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            margin-bottom: 10px;
+            font-size:32px;
+            font-weight:700;
+            letter-spacing:.03em;
+            margin-bottom:10px;
         }
-
         .page-sub {
-            max-width: 620px;
-            font-size: 15px;
-            color: #9ca3af;
-            line-height: 1.7;
-            margin-bottom: 24px;
+            max-width:640px;
+            font-size:15px;
+            color:#9ca3af;
+            line-height:1.7;
+            margin-bottom:28px;
         }
 
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 26px;
+        /* Section wrappers */
+
+        .fx-section {
+            display:flex;
+            flex-direction:column;
+            gap:26px;
+        }
+        .fx-block {
+            border-radius:26px;
+            padding:18px 18px 18px;
+            border:1px solid rgba(148,163,184,.3);
+            background:radial-gradient(circle at top left, rgba(15,23,42,.96), rgba(15,23,42,.94));
+            box-shadow:0 18px 40px rgba(15,23,42,.9);
+            position:relative;
+            overflow:hidden;
+        }
+        .fx-badge {
+            font-size:11px;
+            text-transform:uppercase;
+            letter-spacing:.28em;
+            color:#64748b;
+            margin-bottom:6px;
+        }
+        .fx-headline {
+            font-size:20px;
+            font-weight:600;
+            margin-bottom:6px;
+        }
+        .fx-desc {
+            font-size:13px;
+            color:#9ca3af;
+            max-width:540px;
+            margin-bottom:14px;
+        }
+        .fx-inner {
+            border-radius:20px;
+            border:1px solid rgba(51,65,85,.85);
+            padding:16px 16px 18px;
+            background:radial-gradient(circle at top, rgba(15,23,42,.98), rgba(15,23,42,.96));
+            position:relative;
+            overflow:hidden;
+        }
+        .fx-label {
+            position:absolute;
+            top:11px;
+            right:14px;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            color:#6b7280;
         }
 
-        .pill {
-            padding: 6px 12px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.45);
-            background: rgba(15,23,42,0.7);
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        /* 01 – Követő fényfolt */
+
+        .fx-spot {
+            height:180px;
+            border-radius:18px;
+            position:relative;
+            background:
+                 radial-gradient(circle at var(--x,50%) var(--y,50%),
+                     rgba(250,204,21,.22), transparent 60%),
+                 radial-gradient(circle at 10% 0%, rgba(59,130,246,.35), transparent 55%),
+                 #020617;
+            transition:background .06s linear;
+            cursor:crosshair;
+        }
+        .fx-spot-text {
+            position:absolute;
+            inset:0;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            pointer-events:none;
+        }
+        .fx-spot-text h3 {
+            font-size:20px;
+            font-weight:600;
+            margin-bottom:6px;
+        }
+        .fx-spot-text span {
+            font-size:12px;
+            color:#9ca3af;
         }
 
-        .pill-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: #38bdf8;
-            box-shadow: 0 0 9px #38bdf8;
+        /* 02 – 3D tilt card */
+
+        .fx-tilt-wrap {
+            display:flex;
+            gap:18px;
+            align-items:stretch;
+            flex-wrap:wrap;
+        }
+        .fx-tilt-card {
+            width:260px;
+            height:160px;
+            border-radius:22px;
+            background: radial-gradient(circle at 0 0, #1d4ed8, #020617);
+            box-shadow:0 26px 50px rgba(15,23,42,.95);
+            position:relative;
+            transform-style:preserve-3d;
+            transform:rotateX(0) rotateY(0);
+            transition:transform .12s ease-out, box-shadow .2s;
+            cursor:pointer;
+        }
+        .fx-tilt-card::after {
+            content:"";
+            position:absolute;
+            inset:-40%;
+            background:radial-gradient(circle at 0 0, rgba(248,250,252,.32), transparent 60%);
+            opacity:.8;
+            mix-blend-mode:screen;
+            pointer-events:none;
+        }
+        .fx-tilt-inner {
+            position:absolute;
+            inset:18px;
+            transform:translateZ(40px);
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+        }
+        .fx-tilt-title {
+            font-size:15px;
+            font-weight:600;
+        }
+        .fx-tilt-sub {
+            font-size:12px;
+            color:#cbd5f5;
+        }
+        .fx-tilt-tag {
+            align-self:flex-start;
+            padding:4px 9px;
+            border-radius:999px;
+            font-size:10px;
+            text-transform:uppercase;
+            letter-spacing:.16em;
+            background:rgba(15,23,42,.8);
+            border:1px solid rgba(191,219,254,.7);
         }
 
-        /* ==== GRID OF SPECIALS ==== */
+        /* 03 – Folyékony „blob” CTA */
 
-        .special-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 18px;
+        .fx-blob-container {
+            height:190px;
+            position:relative;
+            overflow:hidden;
+            border-radius:18px;
+            background: radial-gradient(circle at 0 0, #1e293b, #020617);
         }
+        .blob {
+            position:absolute;
+            width:220px;
+            height:220px;
+            background:radial-gradient(circle at 30% 10%, #fde68a, #f97316);
+            filter:blur(2px);
+            opacity:.9;
+            animation:blobMove 9s ease-in-out infinite alternate;
+        }
+        .blob.two {
+            width:260px;
+            height:260px;
+            background:radial-gradient(circle at 10% 0%, #60a5fa, #4c1d95);
+            animation-duration:11s;
+            animation-delay:-2s;
+        }
+        @keyframes blobMove {
+            0%   { transform:translate(-10%, -20%) scale(1); border-radius:30% 70% 60% 40%/40% 30% 70% 60%; }
+            50%  { transform:translate(40%, 0%) scale(1.15); border-radius:50% 50% 40% 60%/60% 40% 60% 40%; }
+            100% { transform:translate(10%, 25%) scale(0.95); border-radius:70% 30% 40% 60%/40% 60% 40% 60%; }
+        }
+        .blob-cta {
+            position:absolute;
+            inset:0;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            backdrop-filter:blur(10px);
+        }
+        .blob-cta h3 {
+            font-size:20px;
+            font-weight:600;
+            margin-bottom:6px;
+        }
+        .blob-cta p {
+            font-size:13px;
+            max-width:340px;
+            color:#e5e7eb;
+            margin-bottom:10px;
+        }
+        .blob-btn {
+            padding:9px 18px;
+            border-radius:999px;
+            border:none;
+            background:rgba(15,23,42,.9);
+            color:#f9fafb;
+            font-size:13px;
+            display:flex;
+            align-items:center;
+            gap:6px;
+            cursor:pointer;
+            box-shadow:0 0 16px rgba(15,23,42,.9);
+        }
+        .blob-btn span:last-child { font-size:11px; color:#9ca3af; }
 
-        .card {
-            background: radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.92));
-            border-radius: 22px;
-            padding: 18px 18px 16px;
-            border: 1px solid rgba(148,163,184,0.35);
-            box-shadow: 0 18px 40px rgba(15,23,42,0.9);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
+        /* 04 – Húzható előtte–utána */
 
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(circle at top, rgba(59,130,246,0.14), transparent 60%);
-            opacity: 0;
-            transition: 0.35s;
+        .fx-compare {
+            height:190px;
+            border-radius:18px;
+            position:relative;
+            overflow:hidden;
+            background:#020617;
+            cursor:ew-resize;
         }
-
-        .card:hover::before {
-            opacity: 1;
+        .fx-compare-before,
+        .fx-compare-after {
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:18px;
+            font-weight:600;
         }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+        .fx-compare-before {
+            background:radial-gradient(circle at 0 0, #0f172a, #020617);
+            color:#9ca3af;
         }
-
-        .card-index {
-            width: 24px;
-            height: 24px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 0%, #e5e7eb, #94a3b8);
-            color: #020617;
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 12px rgba(148,163,184,0.7);
+        .fx-compare-after {
+            background:radial-gradient(circle at 100% 0, #22c55e, #166534);
+            color:#ecfdf5;
+            width:50%;
+            overflow:hidden;
         }
-
-        .card-title {
-            font-size: 15px;
-            font-weight: 600;
+        .fx-compare-after-inner {
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
         }
-
-        .card-desc {
-            font-size: 12px;
-            color: #9ca3af;
-            line-height: 1.6;
+        .fx-compare-handle {
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:50%;
+            width:2px;
+            background:#e5e7eb;
         }
-
-        .card-preview {
-            background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
-            border-radius: 16px;
-            padding: 12px 10px;
-            border: 1px solid rgba(51,65,85,0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 82px;
-            position: relative;
-            overflow: hidden;
+        .fx-compare-handle::before {
+            content:"";
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:34px;
+            height:34px;
+            border-radius:999px;
+            background:#020617;
+            border:2px solid #e5e7eb;
+            transform:translate(-50%, -50%);
+            box-shadow:0 0 16px rgba(15,23,42,.9);
         }
-
-        .preview-label {
-            position: absolute;
-            top: 7px;
-            right: 10px;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: #64748b;
-        }
-
-        /* ==== COMMON SMALL ELEMENTS FOR PREVIEWS ==== */
-
-        .btn-ghost {
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.7);
-            background: transparent;
-            color: #e5e7eb;
-            font-size: 12px;
-        }
-
-        /* ==== SPECIAL EFFECTS ==== */
-
-        /* 1 – Arany pulzáló CTA */
-        .lux-btn {
-            padding: 10px 22px;
-            font-size: 13px;
-            border-radius: 999px;
-            border: none;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            color: #111827;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(250,204,21,0.6);
-            animation: luxPulse 2.2s infinite;
-        }
-        @keyframes luxPulse {
-            0%,100% { transform: scale(1); box-shadow: 0 0 18px rgba(250,204,21,0.6);}
-            50% { transform: scale(1.06); box-shadow: 0 0 30px rgba(250,204,21,0.85);}
-        }
-
-        /* 2 – Üveghatású kártya fénycsíkkal */
-        .glass-demo {
-            width: 100%;
-            max-width: 210px;
-            padding: 14px;
-            border-radius: 16px;
-            backdrop-filter: blur(14px);
-            background: rgba(15,23,42,0.8);
-            border: 1px solid rgba(148,163,184,0.6);
-            position: relative;
-            overflow: hidden;
-            font-size: 11px;
-        }
-        .glass-demo::before {
-            content: "";
-            position: absolute;
-            top: -80%;
-            left: -80%;
-            width: 160%;
-            height: 160%;
-            background: linear-gradient(120deg, transparent, rgba(148,163,184,0.8), transparent);
-            opacity: 0.35;
-            animation: glassShine 5s linear infinite;
-        }
-        @keyframes glassShine {
-            0% { transform: translateX(-40%) rotate(10deg); }
-            100% { transform: translateX(40%) rotate(10deg); }
+        .fx-compare-handle::after {
+            content:"⇆";
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            font-size:13px;
         }
 
-        /* 3 – Betű-felcsúszás */
-        .fade-text {
-            font-size: 18px;
-            font-weight: 600;
-            opacity: 0;
-            transform: translateY(18px);
-            animation: fadeUpShow 1.3s forwards;
+        /* 05 – Élő státuszsáv + mini command vibe */
+
+        .fx-status-bar {
+            height:110px;
+            border-radius:16px;
+            background:linear-gradient(120deg,#020617,#020617 40%,#111827 100%);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:18px;
+            padding:12px 16px;
         }
-        @keyframes fadeUpShow {
-            to { opacity: 1; transform: translateY(0); }
+        .fx-status-left {
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .status-dot {
+            width:12px; height:12px; border-radius:999px;
+            background:#22c55e;
+            box-shadow:0 0 0 0 rgba(34,197,94,.7);
+            animation:dotPulse 1.6s infinite;
+        }
+        @keyframes dotPulse {
+            0%   { box-shadow:0 0 0 0 rgba(34,197,94,.7); }
+            70%  { box-shadow:0 0 0 10px rgba(34,197,94,0); }
+            100% { box-shadow:0 0 0 0 rgba(34,197,94,0); }
+        }
+        .fx-status-text-main { font-size:13px; font-weight:500; }
+        .fx-status-text-sub { font-size:11px; color:#9ca3af; }
+
+        .fx-command {
+            flex:1;
+            max-width:260px;
+            border-radius:999px;
+            border:1px solid rgba(148,163,184,.7);
+            background:rgba(15,23,42,.9);
+            display:flex;
+            align-items:center;
+            gap:8px;
+            padding:7px 10px;
+            font-size:11px;
+            color:#9ca3af;
+        }
+        .fx-command-kbd {
+            padding:2px 7px;
+            border-radius:4px;
+            border:1px solid rgba(148,163,184,.7);
+            font-size:10px;
+            color:#e5e7eb;
+        }
+        .fx-status-right {
+            font-size:11px;
+            color:#64748b;
+            text-align:right;
         }
 
-        /* 4 – Arany underline */
-        .gold-link {
-            position: relative;
-            font-size: 15px;
-            cursor: pointer;
+        @media (max-width:1024px) {
+            .sidebar { display:none; }
+            .content { padding:18px 14px 32px; }
         }
-        .gold-link::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0%;
-            height: 2px;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            transition: width .35s ease;
-            box-shadow: 0 0 10px rgba(251,191,36,0.8);
-        }
-        .gold-link:hover::after {
-            width: 100%;
-        }
-
-        /* 5 – Fénylő arany keret */
-        .gold-frame {
-            padding: 9px 14px;
-            border-radius: 14px;
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #facc15, #fde68a) 1;
-            font-size: 11px;
-            text-align: center;
-            background: #020617;
-            animation: goldBorder 3s infinite;
-        }
-        @keyframes goldBorder {
-            0%,100% { border-image: linear-gradient(45deg, #facc15, #fde68a) 1; }
-            50% { border-image: linear-gradient(45deg, #f97316, #facc15) 1; }
-        }
-
-        /* 6 – Betű „tágulás” hoverre */
-        .stretch-text {
-            font-size: 20px;
-            letter-spacing: 0.12em;
-            transition: 0.3s;
-        }
-        .stretch-text:hover {
-            letter-spacing: 0.4em;
-            transform: scale(1.04);
-        }
-
-        /* 7 – Mozgó arany csíkok */
-        .stripe-demo {
-            width: 100%;
-            height: 60px;
-            border-radius: 999px;
-            background: repeating-linear-gradient(
-                    -45deg,
-                    #f97316 0 10px,
-                    #020617 10px 20px
-            );
-            background-size: 260% 260%;
-            animation: stripeMove 5s linear infinite;
-        }
-        @keyframes stripeMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 260% 260%; }
-        }
-
-        /* 8 – Gold glitch cím */
-        .glitch {
-            position: relative;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            inset: 0;
-            color: #facc15;
-            opacity: 0;
-            animation: glitchMove 2.4s infinite;
-        }
-        @keyframes glitchMove {
-            0%,100% { opacity: 0; transform: translate(0,0); }
-            20% { opacity: 1; transform: translate(2px,-2px); }
-            40% { opacity: 1; transform: translate(-2px,2px); }
-            60% { opacity: 0; transform: translate(0,0); }
-        }
-
-        /* 9 – Üveg + glow gomb */
-        .glass-gold {
-            padding: 9px 18px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.8);
-            backdrop-filter: blur(8px);
-            background: rgba(15,23,42,0.85);
-            color: #fde68a;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 0 0 16px rgba(251,191,36,0.55);
-            transition: 0.22s;
-        }
-        .glass-gold:hover {
-            background: rgba(30,64,175,0.9);
-            transform: translateY(-1px);
-            box-shadow: 0 0 26px rgba(129,140,248,0.75);
-        }
-
-        /* 10 – Light sweep bar */
-        .light-bar {
-            width: 100%;
-            height: 36px;
-            border-radius: 999px;
-            background: #020617;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(30,64,175,0.8);
-        }
-        .light-bar::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(59,130,246,0.7), transparent);
-            transform: translateX(-100%);
-            animation: sweep 2.5s infinite;
-        }
-        @keyframes sweep {
-            0% { transform: translateX(-100%); }
-            60% { transform: translateX(100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* 11 – Írógép szöveg */
-        .type-demo {
-            font-size: 14px;
-            border-right: 2px solid #facc15;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(30), caretBlink .7s infinite;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes caretBlink {
-            50% { border-color: transparent; }
-        }
-
-        /* 12 – Badge sor animációval */
-        .mini-pills {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            font-size: 10px;
-        }
-        .mini-pill {
-            padding: 4px 8px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.9);
-            border: 1px solid rgba(96,165,250,0.7);
-            animation: pillGlow 3.5s infinite;
-        }
-        @keyframes pillGlow {
-            0%,100% { box-shadow: 0 0 0 rgba(56,189,248,0); }
-            50% { box-shadow: 0 0 18px rgba(56,189,248,0.8); }
-        }
-
-        /* 13 – Körkörös loader logó */
-        .circle-loader {
-            width: 50px;
-            height: 50px;
-            border-radius: 999px;
-            border: 3px solid rgba(148,163,184,0.45);
-            border-top-color: #facc15;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* 14 – Széteső gomb hoverre */
-        .split-btn {
-            padding: 8px 20px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.7);
-            background: rgba(15,23,42,0.95);
-            font-size: 12px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-        .split-btn span {
-            display: inline-block;
-            transition: 0.25s;
-        }
-        .split-btn:hover span:nth-child(1) {
-            transform: translateY(-110%);
-            opacity: 0;
-        }
-        .split-btn:hover span:nth-child(2) {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .split-btn span:nth-child(2) {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, 110%);
-            opacity: 0;
-        }
-
-        /* 15 – Kártya lebegés hoverre */
-        .floating-box {
-            width: 160px;
-            height: 60px;
-            border-radius: 18px;
-            border: 1px solid rgba(148,163,184,0.7);
-            background: rgba(15,23,42,0.94);
-            box-shadow: 0 14px 26px rgba(15,23,42,0.85);
-            transition: 0.25s;
-        }
-        .floating-box:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(15,23,42,0.95);
-        }
-
-        /* 16 – Progress bar */
-        .progress-wrap {
-            width: 100%;
-        }
-        .progress-track {
-            width: 100%;
-            height: 7px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.9);
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            width: 78%;
-            background: linear-gradient(90deg,#22c55e,#a3e635);
-            box-shadow: 0 0 18px rgba(34,197,94,0.8);
-            animation: progressPulse 2.4s infinite;
-        }
-        @keyframes progressPulse {
-            0%,100% { opacity: 0.9; }
-            50% { opacity: 1; }
-        }
-
-        /* 17 – Hoveres avatar glow */
-        .avatar-glow {
-            width: 46px;
-            height: 46px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 0%, #facc15, #f97316);
-            box-shadow: 0 0 18px rgba(250,204,21,0.7);
-            position: relative;
-            overflow: hidden;
-            transition: 0.25s;
-        }
-        .avatar-glow::after {
-            content: "AU";
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            color: #111827;
-        }
-        .avatar-glow:hover {
-            box-shadow: 0 0 28px rgba(129,140,248,0.9);
-            transform: translateY(-3px);
-        }
-
-        /* 18 – Mini stat kártya */
-        .stat-card {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-            font-size: 11px;
-        }
-        .stat-number {
-            font-size: 20px;
-            font-weight: 700;
-            background: linear-gradient(90deg,#60a5fa,#a855f7);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        /* 19 – Két színű háttér átmenet */
-        .dual-bg {
-            width: 100%;
-            height: 72px;
-            border-radius: 18px;
-            background: linear-gradient(120deg,#020617 0%,#0f172a 40%,#1d4ed8 100%);
-        }
-
-        /* 20 – Pulsing notification dot */
-        .notify-wrap {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-        }
-        .notify-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: #22c55e;
-            box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
-            animation: dotPing 1.5s infinite;
-        }
-        @keyframes dotPing {
-            0% {
-                box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+        @media (max-width:640px) {
+            .fx-status-bar {
+                flex-direction:column;
+                align-items:flex-start;
+                height:auto;
             }
-            70% {
-                box-shadow: 0 0 0 8px rgba(34,197,94,0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(34,197,94,0);
-            }
+            .fx-command { max-width:none; width:100%; }
+            .fx-spot { height:150px; }
         }
 
-        /* ==== RESPONSIVE ==== */
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                display: none;
-            }
-            .content {
-                padding: 20px 16px 32px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -768,46 +535,22 @@
         <div>
             <div class="nav-section-title">Navigáció</div>
             <ul class="nav-list">
-                <li>
-                    <a href="index.html#szolgaltatasok" class="nav-link">
-                        <span>Szolgáltatások</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="munkaink.html" class="nav-link">
-                        <span>Munkáink</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="bemutatkozas.html" class="nav-link">
-                        <span>Bemutatkozás</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="index.html#rolunk" class="nav-link">
-                        <span>Rólunk</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="kulonleges.html" class="nav-link active">
-                        <span>Különleges kérések</span>
-                        <div class="nav-dot"></div>
-                    </a>
+                <li><a href="index.html#szolgaltatasok" class="nav-link"><span>Szolgáltatások</span></a></li>
+                <li><a href="munkaink.html" class="nav-link"><span>Munkáink</span></a></li>
+                <li><a href="bemutatkozas.html" class="nav-link"><span>Bemutatkozás</span></a></li>
+                <li><a href="index.html#rolunk" class="nav-link"><span>Rólunk</span></a></li>
+                <li><a href="kulonleges.html" class="nav-link active">
+                    <span>Különleges kérések</span><div class="nav-dot"></div></a>
                 </li>
             </ul>
 
             <a href="ismerjmeg.html" class="nav-cta">
-                <span>Ismerj meg minket</span>
-                <span class="nav-cta-star">★</span>
+                <span>Ismerj meg minket</span><span class="nav-cta-star">★</span>
             </a>
 
-            <div class="nav-section-title" style="margin-top: 18px;">Kapcsolat</div>
+            <div class="nav-section-title" style="margin-top:18px;">Kapcsolat</div>
             <ul class="nav-list">
-                <li>
-                    <a href="index.html#kapcsolat" class="nav-link">
-                        <span>Kapcsolat</span>
-                    </a>
-                </li>
+                <li><a href="index.html#kapcsolat" class="nav-link"><span>Kapcsolat</span></a></li>
             </ul>
         </div>
 
@@ -822,347 +565,218 @@
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main class="content">
         <div class="page-tag">Különleges kérések</div>
-        <h1 class="page-title">Egyedi vizuális megoldások, amikre más csak azt mondja: „ilyen nincs”.</h1>
+        <h1 class="page-title">Vizuális trükkök, amikre az ügyfelek azt mondják: „ez hogy a jó életben készült?”</h1>
         <p class="page-sub">
-            Itt gyűjtöttük össze azokat a finom, mégis látványos UI / UX megoldásokat,
-            amiket kérhetsz a saját weboldaladhoz vagy webshopodhoz. Mindegyik kártya alatt
-            valós, élő minta látható – pontosan ilyen hangulatot tudunk beépíteni a rendszeredbe.
+            Ez az oldal olyan UI / UX megoldásokat mutat, amiket külön kérésre építünk be.
+            Nem sablon, nem „letöltött theme”, hanem kézzel írt logika, valódi, élő hatás.
         </p>
 
-        <div class="badge-row">
-            <div class="pill"><span class="pill-dot"></span> Premium micro-animációk</div>
-            <div class="pill"><span class="pill-dot"></span> Arany, üveg, fényhatások</div>
-            <div class="pill"><span class="pill-dot"></span> Egyedi komponensek, nem sablon</div>
-        </div>
-
-        <section class="special-grid">
-            <!-- 1 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">01</div>
-                    <div class="card-title">Arany, pulzáló CTA gomb</div>
-                </div>
-                <p class="card-desc">
-                    Fő hívógomb, ami finoman „lélegzik” – minden tekintetet odavonz a konverziós pontra.
+        <section class="fx-section">
+            <!-- 01: Követő fényfolt -->
+            <article class="fx-block">
+                <div class="fx-badge">01 • Interaktív háttér</div>
+                <div class="fx-headline">Követő fényfolt – mintha egy lámpával festenél a háttérre.</div>
+                <p class="fx-desc">
+                    A kurzor mozgására reagáló fénykör, ami azonnal „wow-effektet” ad a hero vagy bemutatkozó sávnak.
+                    Bárhová viszed az egeret, a fény odacsúszik – mobilon ujjlenyomatra is beállítható.
                 </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <button class="lux-btn">Időpontot kérek</button>
-                </div>
-            </article>
-
-            <!-- 2 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">02</div>
-                    <div class="card-title">Üveghatású információs kártya</div>
-                </div>
-                <p class="card-desc">
-                    Blur, fénycsík, üveglap – olyan, mintha egy prémium appból lépett volna ki a doboz.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="glass-demo">
-                        <strong>Átlátható folyamat</strong><br>
-                        Minden lépést elmagyarázunk, nincs „fekete doboz” kód.
-                    </div>
-                </div>
-            </article>
-
-            <!-- 3 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">03</div>
-                    <div class="card-title">Felcsúszó cím, amikor betölt az oldal</div>
-                </div>
-                <p class="card-desc">
-                    Finom belépő animáció, amitől az oldal „élőnek” érződik már az első másodpercben.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="fade-text">Tiszta logika. Tiszta kód.</div>
-                </div>
-            </article>
-
-            <!-- 4 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">04</div>
-                    <div class="card-title">Arany, fénycsíkos aláhúzás menüre</div>
-                </div>
-                <p class="card-desc">
-                    Ha egy menüpontra ráviszik az egeret, elegáns fénycsík húzódik végig alatta.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <span class="gold-link">Kiemelt szolgáltatás</span>
-                </div>
-            </article>
-
-            <!-- 5 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">05</div>
-                    <div class="card-title">Fénylő arany keret ajánlati blokk körül</div>
-                </div>
-                <p class="card-desc">
-                    „Top ajánlat” kiemelés, amitől rögtön látszik, melyik csomag a legerősebb.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="gold-frame">
-                        <strong>Ajánlott csomag</strong><br>
-                        Az a megoldás, amit a legtöbb ügyfelünk választ.
-                    </div>
-                </div>
-            </article>
-
-            <!-- 6 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">06</div>
-                    <div class="card-title">Betű-tágulás, amikor fölé viszik az egeret</div>
-                </div>
-                <p class="card-desc">
-                    Szlogen, ami „kitekeredik”, amikor érdeklődve fölé viszik a kurzort.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="stretch-text">Aurion Studio</div>
-                </div>
-            </article>
-
-            <!-- 7 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">07</div>
-                    <div class="card-title">Mozgó arany csíkok a hero mögött</div>
-                </div>
-                <p class="card-desc">
-                    Finom, diagonális csíkok, amik lassan mozognak – háttér, ami mégis aktív.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="stripe-demo"></div>
-                </div>
-            </article>
-
-            <!-- 8 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">08</div>
-                    <div class="card-title">Arany „glitch” logó / cím</div>
-                </div>
-                <p class="card-desc">
-                    Időnként felvillanó, enyhén glitch-es effekt – tech hangulatú márkaépítéshez.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="glitch" data-text="Aurion Studio">Aurion Studio</div>
-                </div>
-            </article>
-
-            <!-- 9 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">09</div>
-                    <div class="card-title">Üveg + arany glow rendelés gomb</div>
-                </div>
-                <p class="card-desc">
-                    Mintha egy prémium app „primary” gombja lenne – ezt nem lehet nem észrevenni.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <button class="glass-gold">Ajánlatot kérek</button>
-                </div>
-            </article>
-
-            <!-- 10 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">10</div>
-                    <div class="card-title">Fénycsóva, ami végigsöpör egy sávon</div>
-                </div>
-                <p class="card-desc">
-                    Kiemelt soroknál, statisztikáknál vagy call-to-action alatt használható atmoszféra.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="light-bar"></div>
-                </div>
-            </article>
-
-            <!-- 11 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">11</div>
-                    <div class="card-title">Írógép effekt – automatikus szöveg</div>
-                </div>
-                <p class="card-desc">
-                    Szlogen, ami úgy jelenik meg, mintha valaki élőben gépelné be az üzenetet.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="type-demo">Profi fejlesztés. Tiszta kód. Átlátható folyamat.</div>
-                </div>
-            </article>
-
-            <!-- 12 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">12</div>
-                    <div class="card-title">Pulzáló mini címkék extra infókhoz</div>
-                </div>
-                <p class="card-desc">
-                    Csomagok alá, apró, mégis látványos plusz információkhoz (garancia, support, stb.).
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="mini-pills">
-                        <div class="mini-pill">Élő státusz riport</div>
-                        <div class="mini-pill">Teszt környezet</div>
-                        <div class="mini-pill">1 év támogatás</div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 13 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">13</div>
-                    <div class="card-title">Körkörös „Aurion loader”</div>
-                </div>
-                <p class="card-desc">
-                    Márkázott töltés jelző – a sima, szürke spinner helyett saját arany verzió.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="circle-loader"></div>
-                </div>
-            </article>
-
-            <!-- 14 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">14</div>
-                    <div class="card-title">Szöveget váltó gomb hoverre</div>
-                </div>
-                <p class="card-desc">
-                    Egy gomb, ami más szöveget mutat, ha fölé viszik az egeret – játékos, mégis profi.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <button class="split-btn">
-                        <span>Részletek</span>
-                        <span>Mutasd!</span>
-                    </button>
-                </div>
-            </article>
-
-            <!-- 15 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">15</div>
-                    <div class="card-title">Lebegő ajánlatkártya</div>
-                </div>
-                <p class="card-desc">
-                    Az a doboz, ami kicsit „elválik” a háttértől, amikor fölé megy a kurzor.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="floating-box"></div>
-                </div>
-            </article>
-
-            <!-- 16 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">16</div>
-                    <div class="card-title">Élő, pulzáló teljesítmény sáv</div>
-                </div>
-                <p class="card-desc">
-                    Olyan progress bar, ami nem csak áll, hanem finoman pulzál – pl. projektkészültség.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="progress-wrap">
-                        <div class="progress-track">
-                            <div class="progress-fill"></div>
+                <div class="fx-inner">
+                    <div class="fx-label">Fogd meg az egeret, mozgasd</div>
+                    <div class="fx-spot" id="spotDemo">
+                        <div class="fx-spot-text">
+                            <h3>Világíts rá a részletekre</h3>
+                            <span>Ott jelenik meg a fény, ahol te mozogsz – igazi „él a háttér” érzés.</span>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- 17 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">17</div>
-                    <div class="card-title">Glow-os avatar / logó kocka</div>
-                </div>
-                <p class="card-desc">
-                    Márka-avatar, ami finoman felragyog, ha fölé mennek – bemutatkozó szekcióhoz ideális.
+            <!-- 02: 3D tilt card -->
+            <article class="fx-block">
+                <div class="fx-badge">02 • 3D mozgás</div>
+                <div class="fx-headline">Kurzorral irányított 3D kártya – mintha kézben tartanád.</div>
+                <p class="fx-desc">
+                    Az ajánlati doboz, ami szó szerint „megfordul” feléd. A kártya a kurzor helyzete szerint dől el,
+                    közben a fény is másképp csúszik végig rajta. Produkt, csomag vagy referencia kiemeléséhez brutális.
                 </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="avatar-glow"></div>
-                </div>
-            </article>
-
-            <!-- 18 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">18</div>
-                    <div class="card-title">Mini stat kártya gradient számmal</div>
-                </div>
-                <p class="card-desc">
-                    Számok, amik nem csak ki vannak írva, hanem vizuálisan is prémium hatást keltenek.
-                </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="stat-card">
-                        <div class="stat-number">100%</div>
-                        <div>átlátható kódlogika</div>
+                <div class="fx-inner">
+                    <div class="fx-label">Mozgasd fölé az egeret</div>
+                    <div class="fx-tilt-wrap">
+                        <div class="fx-tilt-card js-tilt">
+                            <div class="fx-tilt-inner">
+                                <div>
+                                    <div class="fx-tilt-title">Aurion PRO csomag</div>
+                                    <div class="fx-tilt-sub">Teljes webshop + admin + AI modulok.</div>
+                                </div>
+                                <div class="fx-tilt-tag">3D interactive card</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </article>
 
-            <!-- 19 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">19</div>
-                    <div class="card-title">Két tónusú, sötétkék háttérblokkok</div>
-                </div>
-                <p class="card-desc">
-                    Szöveg- vagy ajánlatblokkok mögé – nem sima fekete, hanem élő átmenetes háttér.
+            <!-- 03: Blob CTA -->
+            <article class="fx-block">
+                <div class="fx-badge">03 • Folyékony CTA</div>
+                <div class="fx-headline">Élő, folyékony „blob” gomb – mintha digitális láva lenne a háttérben.</div>
+                <p class="fx-desc">
+                    Két egymásba úszó színes blob mozog a háttérben, előtte pedig egy kristálytiszta CTA.
+                    Egyszerre nyers, organikus és high-tech – portfólió vagy fő ajánlati sáv brutál kiemeléséhez.
                 </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="dual-bg"></div>
+                <div class="fx-inner">
+                    <div class="fx-label">Valós idejű mozgás</div>
+                    <div class="fx-blob-container">
+                        <div class="blob"></div>
+                        <div class="blob two"></div>
+                        <div class="blob-cta">
+                            <h3>Dobd át az ötleted, kísérletezzünk.</h3>
+                            <p>Mondod, milyen őrült vizuált szeretnél, én pedig kitalálom rá a technikai megoldást.</p>
+                            <button class="blob-btn">
+                                <span>Elindítanám a beszélgetést</span>
+                                <span>1 perc, nem sales pitch.</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </article>
 
-            <!-- 20 -->
-            <article class="card">
-                <div class="card-header">
-                    <div class="card-index">20</div>
-                    <div class="card-title">Pingelő státusz jelzés (élő rendszer)</div>
-                </div>
-                <p class="card-desc">
-                    Kis pont, ami finoman „lélegzik” – jelezheti, hogy a rendszer vagy chat éppen aktív.
+            <!-- 04: Draggable before/after -->
+            <article class="fx-block">
+                <div class="fx-badge">04 • Előtte / utána</div>
+                <div class="fx-headline">Valódi, húzható előtte–utána sáv – nem csak képpár.</div>
+                <p class="fx-desc">
+                    Egy slider, amin a látogató fogja és fizikailag elhúzza a határvonalat. Használható
+                    régi–új weboldal, redesign, fotó retusálás vagy bármilyen „upgrade” bemutatására.
                 </p>
-                <div class="card-preview">
-                    <span class="preview-label">Minta</span>
-                    <div class="notify-wrap">
-                        <div class="notify-dot"></div>
-                        <div>Rendszer: online</div>
+                <div class="fx-inner">
+                    <div class="fx-label">Fogd meg középen, húzd jobbra-balra</div>
+                    <div class="fx-compare" id="compareDemo">
+                        <div class="fx-compare-before">Előtte</div>
+                        <div class="fx-compare-after" id="compareAfter">
+                            <div class="fx-compare-after-inner">Utána</div>
+                        </div>
+                        <div class="fx-compare-handle" id="compareHandle"></div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 05: Status + command bar -->
+            <article class="fx-block">
+                <div class="fx-badge">05 • „Élő rendszer” érzet</div>
+                <div class="fx-headline">Pingelő státuszsáv + mini command bar hangulat.</div>
+                <p class="fx-desc">
+                    Nem csak statikus „Online” felirat, hanem finoman pulzáló státusz, mellette pedig
+                    egy parancssor-szerű sáv: mintha egy saját kis vezérlőpultod lenne az oldal tetején.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Folyamatosan mozog, de nem zavaró</div>
+                    <div class="fx-status-bar">
+                        <div class="fx-status-left">
+                            <div class="status-dot"></div>
+                            <div>
+                                <div class="fx-status-text-main">Rendszer: stabil • 100% uptime</div>
+                                <div class="fx-status-text-sub">Deploy, mentés, monitorozás: automatizálva.</div>
+                            </div>
+                        </div>
+                        <div class="fx-command">
+                            <span class="fx-command-kbd">⌘ K</span>
+                            <span>Keresés a projektjeid, taskok, logok között – egy helyen.</span>
+                        </div>
+                        <div class="fx-status-right">
+                            Élő státuszsáv, amit beköthetünk<br>valós monitorozó rendszerbe is.
+                        </div>
                     </div>
                 </div>
             </article>
         </section>
     </main>
 </div>
+
+<script>
+    // 01 – követő fényfolt
+    (function () {
+        const spot = document.getElementById('spotDemo');
+        if (!spot) return;
+        spot.addEventListener('mousemove', (e) => {
+            const rect = spot.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            spot.style.setProperty('--x', x + '%');
+            spot.style.setProperty('--y', y + '%');
+        });
+    })();
+
+    // 02 – 3D tilt card
+    (function () {
+        const card = document.querySelector('.js-tilt');
+        if (!card) return;
+        const maxRot = 15; // fok
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const rotY = maxRot * x;
+            const rotX = -maxRot * y;
+            card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            card.style.boxShadow = `0 30px 60px rgba(15,23,42,.95)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            card.style.boxShadow = '0 26px 50px rgba(15,23,42,.95)';
+        });
+    })();
+
+    // 04 – draggable előtte/utána
+    (function () {
+        const wrapper = document.getElementById('compareDemo');
+        const after = document.getElementById('compareAfter');
+        const handle = document.getElementById('compareHandle');
+        if (!wrapper || !after || !handle) return;
+
+        let dragging = false;
+
+        const updatePos = (clientX) => {
+            const rect = wrapper.getBoundingClientRect();
+            let x = clientX - rect.left;
+            if (x < 0) x = 0;
+            if (x > rect.width) x = rect.width;
+            const percent = (x / rect.width) * 100;
+            after.style.width = percent + '%';
+            handle.style.left = percent + '%';
+        };
+
+        const onMove = (e) => {
+            if (!dragging) return;
+            if (e.type.startsWith('touch')) {
+                updatePos(e.touches[0].clientX);
+            } else {
+                updatePos(e.clientX);
+            }
+        };
+
+        const start = (e) => {
+            dragging = true;
+            if (e.type.startsWith('touch')) {
+                updatePos(e.touches[0].clientX);
+            } else {
+                updatePos(e.clientX);
+            }
+        };
+        const stop = () => { dragging = false; };
+
+        handle.addEventListener('mousedown', start);
+        wrapper.addEventListener('mousedown', start);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', stop);
+
+        handle.addEventListener('touchstart', start, {passive:true});
+        wrapper.addEventListener('touchstart', start, {passive:true});
+        window.addEventListener('touchmove', onMove, {passive:false});
+        window.addEventListener('touchend', stop);
+    })();
+</script>
 </body>
 </html>
