@@ -18,11 +18,23 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background:
-                radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%),
-                radial-gradient(circle at bottom right, #0f172a 0, #020617 50%, #020617 100%);
+                radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
             color: #e5e7eb;
             overflow-x: hidden;
+            position: relative;
             line-height: 1.6;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -120px;
+            background:
+                radial-gradient(circle at 10% -10%, rgba(59, 130, 246, 0.3), transparent 55%),
+                radial-gradient(circle at 100% 0%, rgba(76, 29, 149, 0.55), transparent 55%);
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: -1;
         }
 
         a {
@@ -49,6 +61,21 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes pulseCta {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.8);
+                transform: translateY(0);
+            }
+            60% {
+                box-shadow: 0 0 0 16px rgba(59, 130, 246, 0);
+                transform: translateY(-1px);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+                transform: translateY(0);
+            }
+        }
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(22px) scale(0.98);
@@ -62,161 +89,141 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== OLDALSÓ MENÜ (SIDE NAV) ===== */
+        /* ===== OLDALSÓ MENÜ / SIDE NAV (ugyanaz, mint Munkáinknál) ===== */
 
-        .sidebar {
+        .side-nav {
             position: fixed;
             inset: 0 auto 0 0;
             width: 260px;
-            background:
-                radial-gradient(circle at top, rgba(56, 189, 248, 0.22), transparent 60%),
-                radial-gradient(circle at bottom, rgba(129, 140, 248, 0.22), transparent 60%),
-                rgba(15, 23, 42, 0.98);
-            border-right: 1px solid rgba(30, 64, 175, 0.9);
-            box-shadow: 0 0 60px rgba(15, 23, 42, 0.95);
-            padding: 16px 16px 20px;
+            background: radial-gradient(circle at top left, #020617, #020617 60%, #020617 100%);
+            border-right: 1px solid rgba(37, 99, 235, 0.7);
+            box-shadow:
+                18px 0 50px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(15, 23, 42, 1);
+            padding: 18px 18px 20px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
             z-index: 9999;
         }
 
-        .sidebar-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .logo {
+        .side-nav-logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 800;
-            letter-spacing: 3px;
-            white-space: nowrap;
         }
 
-        .logo-img {
+        .side-nav-logo-img {
             width: 42px;
             height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
+            background: radial-gradient(circle at 30% 0, #38bdf8, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.95);
+                0 12px 30px rgba(15, 23, 42, 0.8);
         }
 
-        .logo .aurion {
-            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
+        .side-nav-logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .side-nav-logo-main {
+            font-weight: 800;
+            letter-spacing: 0.24em;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+
+        .side-nav-logo-main span:first-child {
+            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .logo .studio {
+        .side-nav-logo-main span:last-child {
             color: #e5e7eb;
         }
 
-        .sidebar-hamburger {
-            display: none;
-            width: 40px;
-            height: 32px;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(15, 23, 42, 0.95);
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 5px;
+        .side-nav-logo-sub {
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.95);
         }
 
-        .sidebar-hamburger span {
-            display: block;
-            width: 18px;
-            height: 2px;
-            border-radius: 999px;
-            background: #e5e7eb;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .sidebar-hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .sidebar-hamburger.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .sidebar-hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        .sidebar-nav {
+        .side-nav-main {
             margin-top: 8px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 12px;
             flex: 1;
-            gap: 20px;
         }
 
-        .sidebar-links {
-            list-style: none;
+        .side-nav-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
-        .sidebar-links a {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(226, 232, 240, 0.85);
-            padding: 6px 10px;
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 7px 10px;
             border-radius: 999px;
-            position: relative;
-            overflow: hidden;
-            transition:
-                color 0.2s ease,
-                background 0.2s ease,
-                transform 0.15s ease;
+            font-size: 13px;
+            color: rgba(191, 219, 254, 0.9);
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
         }
 
-        .sidebar-links a::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(circle at left, rgba(56, 189, 248, 0.22), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
+        .nav-link span.label {
+            white-space: nowrap;
         }
 
-        .sidebar-links a span {
-            position: relative;
-            z-index: 1;
+        .nav-link span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.8);
         }
 
-        .sidebar-links a:hover {
-            color: #f9fafb;
-            background: rgba(15, 23, 42, 0.9);
-            transform: translateY(-1px);
+        .nav-link:hover {
+            background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.95));
+            border-color: rgba(59, 130, 246, 0.7);
         }
 
-        .sidebar-links a:hover::before {
-            opacity: 1;
+        .nav-link.active {
+            background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.35), rgba(15, 23, 42, 1));
+            border-color: rgba(59, 130, 246, 0.9);
+            color: #e5e7eb;
+        }
+
+        .nav-link.active span.dot {
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
         }
 
         .nav-link-cta {
+            margin-top: 4px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
             background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
             color: #020617 !important;
+            border-radius: 999px;
+            border: none;
             box-shadow:
                 0 18px 40px rgba(59, 130, 246, 0.95),
                 0 0 40px rgba(129, 140, 248, 0.85);
-            font-weight: 600;
-            margin-top: 4px;
+            animation: pulseCta 3.6s ease-out infinite;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
         }
 
         .nav-link-cta.secondary {
@@ -226,30 +233,30 @@
                 0 0 32px rgba(245, 158, 11, 0.9);
         }
 
-        .nav-link-cta.active {
-            outline: 1px solid rgba(248, 250, 252, 0.9);
-        }
-
-        .sidebar-footer {
+        .side-nav-footer {
             font-size: 11px;
             color: rgba(148, 163, 184, 0.9);
+            border-top: 1px solid rgba(30, 64, 175, 0.8);
+            padding-top: 10px;
+            margin-top: 6px;
         }
 
-        .sidebar-footer strong {
+        .side-nav-footer strong {
             color: #e5e7eb;
         }
 
-        /* ===== OLDAL TARTALOM WRAPPER ===== */
+        /* ===== JOBB OLDALI TARTALOM KERET ===== */
 
         .page-wrapper {
             margin-left: 260px;
             min-height: 100vh;
+            width: calc(100% - 260px);
         }
 
-        /* ===== HERO – sötét aurion stílus + laptop ===== */
+        /* ===== HERO – VIDEÓS LAPTOP – DARK VÁLTOZAT ===== */
 
         .hero {
-            padding: 40px 16px 80px;
+            padding: 40px 16px 60px;
             position: relative;
             overflow: hidden;
         }
@@ -263,16 +270,22 @@
             align-items: center;
             position: relative;
             z-index: 2;
+            padding: 28px 26px 30px;
+            border-radius: 32px;
+            background: radial-gradient(circle at top left, #020617, #020617 65%, #020617 100%);
+            box-shadow:
+                0 30px 80px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(30, 64, 175, 0.6);
         }
 
         .hero::before {
             content: "";
             position: absolute;
-            inset: -160px -260px auto -80px;
+            inset: -120px -200px auto;
             background:
-                radial-gradient(circle at top left, rgba(56, 189, 248, 0.26), transparent 60%),
-                radial-gradient(circle at top right, rgba(129, 140, 248, 0.32), transparent 60%);
-            opacity: 1;
+                radial-gradient(circle at top, rgba(248, 250, 252, 0.18), transparent 55%),
+                radial-gradient(circle at right, rgba(250, 204, 21, 0.28), transparent 60%);
+            opacity: 0.9;
             pointer-events: none;
         }
 
@@ -285,22 +298,22 @@
             font-size: 11px;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(148, 163, 184, 0.9);
+            color: rgba(209, 213, 219, 0.8);
             margin-bottom: 10px;
         }
 
         .hero-title {
-            font-size: 36px;
+            font-size: 38px;
             line-height: 1.1;
             margin-bottom: 14px;
-            background: linear-gradient(120deg, #e5e7eb 0%, #facc15 40%, #f97316 80%);
+            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(209, 213, 219, 0.92);
+            color: rgba(229, 231, 235, 0.92);
             margin-bottom: 18px;
             max-width: 520px;
         }
@@ -343,7 +356,7 @@
             align-items: center;
         }
 
-        /* ===== Laptop – képernyő + billentyűzet ===== */
+        /* ===== Laptop – képernyő + billentyűzetes alap ===== */
 
         .laptop-wrapper {
             width: 100%;
@@ -608,7 +621,7 @@
             filter: blur(2px);
         }
 
-        /* ===== MAIN / ALSÓ RÉSZ ===== */
+        /* ===== ALATTA: Brutál animált marketing blokk ===== */
 
         main {
             max-width: 1120px;
@@ -617,11 +630,7 @@
         }
 
         .section {
-            padding: 10px 20px 80px;
-            margin: 0 -16px 0;
-            background: #f9fafb;
-            border-radius: 32px 32px 0 0;
-            box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.7);
+            padding: 10px 0 80px;
         }
 
         .section-header {
@@ -633,14 +642,14 @@
             font-size: 11px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(107, 114, 128, 0.96);
+            color: rgba(148, 163, 184, 0.96);
             margin-bottom: 6px;
         }
 
         .section-title {
             font-size: 30px;
             font-weight: 800;
-            color: #111827;
+            color: #f9fafb;
             margin-bottom: 10px;
             position: relative;
             display: inline-block;
@@ -661,13 +670,8 @@
 
         .section-subtitle {
             font-size: 15px;
-            color: rgba(55, 65, 81, 0.96);
+            color: rgba(209, 213, 219, 0.9);
             max-width: 680px;
-        }
-
-        .section-subtitle strong {
-            font-weight: 700;
-            color: #92400e;
         }
 
         .highlight-strip {
@@ -703,11 +707,11 @@
             position: relative;
             padding: 20px 18px 18px;
             border-radius: 22px;
-            background: radial-gradient(circle at top left, #ffffff, #f9fafb);
-            border: 1px solid rgba(209, 213, 219, 0.9);
+            background: radial-gradient(circle at top left, #020617, #020617 65%, #020617 100%);
+            border: 1px solid rgba(55, 65, 81, 0.9);
             box-shadow:
-                0 18px 40px rgba(148, 163, 184, 0.3),
-                0 0 0 1px rgba(226, 232, 240, 0.9);
+                0 18px 40px rgba(15, 23, 42, 0.7),
+                0 0 0 1px rgba(30, 64, 175, 0.7);
             overflow: hidden;
             transition:
                 transform 0.2s ease,
@@ -729,9 +733,9 @@
             transform: translateY(-6px);
             border-color: rgba(250, 204, 21, 0.95);
             box-shadow:
-                0 26px 56px rgba(148, 163, 184, 0.4),
+                0 26px 56px rgba(15, 23, 42, 0.9),
                 0 0 0 1px rgba(250, 204, 21, 0.5);
-            background: #ffffff;
+            background: #020617;
         }
 
         .value-card:hover::before {
@@ -742,37 +746,37 @@
             font-size: 11px;
             padding: 4px 9px;
             border-radius: 999px;
-            background: #f9fafb;
-            border: 1px solid rgba(209, 213, 219, 0.9);
+            background: #020617;
+            border: 1px solid rgba(55, 65, 81, 0.9);
             margin-bottom: 8px;
             display: inline-block;
-            color: #4b5563;
+            color: #e5e7eb;
         }
 
         .value-title {
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 6px;
-            color: #111827;
+            color: #f9fafb;
         }
 
         .value-text {
             font-size: 14px;
             line-height: 1.8;
-            color: rgba(75, 85, 99, 0.96);
+            color: rgba(209, 213, 219, 0.96);
         }
 
         .value-accent {
             font-weight: 600;
-            color: #92400e;
+            color: #fed7aa;
         }
 
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            border-top: 1px solid rgba(31, 41, 55, 1);
             background: #020617;
-            color: #e5e7eb;
+            color: #9ca3af;
         }
 
         .footer-inner {
@@ -797,6 +801,12 @@
 
         /* ===== RESPONSIVE ===== */
 
+        @media (max-width: 1200px) {
+            .hero {
+                padding: 32px 16px 40px;
+            }
+        }
+
         @media (max-width: 1024px) {
             .hero-inner {
                 grid-template-columns: minmax(0, 1fr);
@@ -806,62 +816,66 @@
             .hero-right {
                 order: -1;
             }
-
-            .hero {
-                padding-top: 32px;
-            }
-
-            .values-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
         }
 
         @media (max-width: 900px) {
-            .sidebar {
-                width: 100%;
+            .side-nav {
+                inset: auto 12px 12px 12px;
+                width: auto;
                 height: auto;
-                flex-direction: column;
-                padding: 10px 12px 10px;
                 border-right: none;
-                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
-            }
-
-            .sidebar-nav {
-                position: fixed;
-                top: 56px;
-                left: 0;
-                right: 0;
-                background:
-                    radial-gradient(circle at top, rgba(37, 99, 235, 0.4), transparent 60%),
-                    rgba(15, 23, 42, 0.98);
-                padding: 12px 16px 14px;
-                box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
-                transform: translateY(-10px);
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.2s ease, transform 0.2s ease;
-                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
+                border-radius: 18px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
                 gap: 12px;
+                padding: 10px 12px;
+                box-shadow:
+                    0 -10px 40px rgba(15, 23, 42, 0.95),
+                    0 0 0 1px rgba(15, 23, 42, 1);
+                background: radial-gradient(circle at top left, #020617, #020617 80%);
             }
 
-            .sidebar-nav.open {
-                opacity: 1;
-                transform: translateY(0);
-                pointer-events: auto;
+            .side-nav-main {
+                flex-direction: row;
+                gap: 8px;
+                align-items: center;
+                justify-content: flex-end;
+                overflow-x: auto;
             }
 
-            .sidebar-hamburger {
-                display: flex;
+            .side-nav-group {
+                flex-direction: row;
+                gap: 6px;
+            }
+
+            .nav-link {
+                font-size: 11px;
+                padding: 6px 9px;
+            }
+
+            .nav-link-cta {
+                font-size: 11px;
+                padding: 6px 10px;
+                white-space: nowrap;
+            }
+
+            .side-nav-footer {
+                display: none;
             }
 
             .page-wrapper {
                 margin-left: 0;
-                padding-top: 80px;
+                width: 100%;
+                padding-bottom: 80px;
             }
 
-            .section {
-                margin: 0;
-                border-radius: 0;
+            .hero {
+                padding-top: 24px;
+            }
+
+            .values-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
@@ -891,6 +905,8 @@
         @media (max-width: 480px) {
             .hero-inner {
                 gap: 24px;
+                padding: 22px 18px 24px;
+                border-radius: 26px;
             }
 
             .hero-title {
@@ -905,40 +921,56 @@
 </head>
 <body>
 
-<!-- OLDALSÓ MENÜ -->
-<aside class="sidebar">
-    <div class="sidebar-top">
-        <a href="index.html#top" class="logo">
-            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
-            <span class="aurion">Aurion</span>
-            <span class="studio">Studio</span>
-        </a>
-        <button class="sidebar-hamburger" id="sidebarHamburger" aria-label="Menü">
-            <span></span><span></span><span></span>
-        </button>
+<!-- OLDALSÓ MENÜ – ugyanaz a logika, itt a "Ismerj meg minket" aktív -->
+<aside class="side-nav">
+    <a href="index.html#top" class="side-nav-logo">
+        <img src="logo.png" alt="Aurion Studio logó" class="side-nav-logo-img">
+        <div class="side-nav-logo-text">
+            <div class="side-nav-logo-main">
+                <span>AURION</span><span> STUDIO</span>
+            </div>
+            <div class="side-nav-logo-sub">Egyedi weboldalak & webshopok</div>
+        </div>
+    </a>
+
+    <div class="side-nav-main">
+        <div class="side-nav-group">
+            <a href="index.html#szolgaltatasok" class="nav-link">
+                <span class="label">Szolgáltatások</span>
+                <span class="dot"></span>
+            </a>
+            <a href="munkaink.html" class="nav-link">
+                <span class="label">Munkáink</span>
+                <span class="dot"></span>
+            </a>
+            <a href="minket.html" class="nav-link active">
+                <span class="label">Ismerj meg minket</span>
+                <span class="dot"></span>
+            </a>
+            <a href="al.html" class="nav-link">
+                <span class="label">AI Chat</span>
+                <span class="dot"></span>
+            </a>
+        </div>
+
+        <div class="side-nav-group">
+            <a href="minket.html" class="nav-link-cta">
+                Ismerj meg minket videón
+            </a>
+            <a href="index.html#kapcsolat" class="nav-link-cta secondary">
+                Kérj ajánlatot
+            </a>
+        </div>
     </div>
 
-    <nav class="sidebar-nav" id="sidebarNav">
-        <ul class="sidebar-links">
-            <li><a href="index.html#szolgaltatasok"><span>Szolgáltatások</span></a></li>
-            <li><a href="munkaink.html"><span>Munkáink</span></a></li>
-            <li><a href="index.html#bemutatkozas"><span>Bemutatkozás</span></a></li>
-            <li><a href="index.html#rolunk"><span>Rólunk</span></a></li>
-            <li><a href="kulonleges.html"><span>Különleges kérések</span></a></li>
-            <li><a href="minket.html" class="nav-link-cta active"><span>Ismerj meg minket</span></a></li>
-            <li><a href="index.html#kapcsolat" class="nav-link-cta secondary"><span>Kapcsolat</span></a></li>
-            <li><a href="al.html"><span>AI Chat</span></a></li>
-        </ul>
-        <div class="sidebar-footer">
-            <strong>Aurion Studio</strong> – egyedi webes megoldások<br>
-            Kérdezz bátran, segítünk irányt találni.
-        </div>
-    </nav>
+    <div class="side-nav-footer">
+        <strong>Aurion Studio</strong> – hosszú távon vállalható webes megoldások, sablonok nélkül.
+    </div>
 </aside>
 
-<div class="page-wrapper">
-
-    <section class="hero" id="top">
+<!-- JOBB OLDALI TARTALOM -->
+<div class="page-wrapper" id="top">
+    <section class="hero">
         <div class="hero-inner animate-on-scroll">
             <div class="hero-left">
                 <div class="hero-kicker">ISMERJ MEG MINKET</div>
@@ -1063,24 +1095,6 @@
 </div>
 
 <script>
-    /* ==== OLDALSÓ MENÜ – MOBIL ==== */
-    const sidebarHamburger = document.getElementById("sidebarHamburger");
-    const sidebarNav = document.getElementById("sidebarNav");
-
-    if (sidebarHamburger && sidebarNav) {
-        sidebarHamburger.addEventListener("click", () => {
-            sidebarHamburger.classList.toggle("open");
-            sidebarNav.classList.toggle("open");
-        });
-
-        sidebarNav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                sidebarHamburger.classList.remove("open");
-                sidebarNav.classList.remove("open");
-            });
-        });
-    }
-
     /* ==== SCROLL ANIMÁCIÓ ==== */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
