@@ -80,11 +80,12 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC ===== */
+        /* ===== FEJLÉC / NAV – ALAP (MOBIL) ===== */
 
         header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             z-index: 9999;
             background: rgba(15, 23, 42, 0.9);
@@ -1348,6 +1349,72 @@
             color: #e5e7eb;
         }
 
+        /* ===== SIDE-NAV DESKTOPON ===== */
+
+        @media (min-width: 1024px) {
+            header {
+                top: 0;
+                left: 0;
+                width: 260px;
+                height: 100vh;
+                border-bottom: none;
+                border-right: 1px solid rgba(30, 64, 175, 0.6);
+                display: flex;
+                align-items: stretch;
+            }
+
+            header::after {
+                inset: 0 0 0 auto;
+                width: 2px;
+                height: 100%;
+                background: linear-gradient(180deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
+                background-size: 220% 100%;
+            }
+
+            nav {
+                max-width: none;
+                margin: 0;
+                padding: 22px 18px 22px;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 26px;
+            }
+
+            .nav-links.desktop {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .nav-links.desktop a {
+                font-size: 13px;
+            }
+
+            .nav-links.desktop li:last-child {
+                margin-top: 4px;
+            }
+
+            .hamburger {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 60px;
+                padding-bottom: 90px;
+                margin-left: 260px;
+            }
+
+            main {
+                margin-left: 260px;
+            }
+
+            footer .footer-inner {
+                margin-left: 260px;
+                max-width: calc(1120px + 260px);
+            }
+        }
+
         /* ===== RESPONSIVE ===== */
 
         @media (max-width: 1024px) {
@@ -1458,6 +1525,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -1468,6 +1536,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
