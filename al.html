@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --sidebar-width: 260px;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -48,6 +52,12 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes softPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
+            70%  { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(20px) scale(0.97);
@@ -61,162 +71,155 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== OLDALSÓ NAV (DESKTOP) ===== */
+        /* ===== OLDALSÓ MENÜ (SIDEBAR) ===== */
 
-        header {
+        .sidebar {
             position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 260px;
-            z-index: 9999;
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
             background:
-                radial-gradient(circle at top, rgba(30, 64, 175, 0.35), transparent 55%),
-                rgba(15, 23, 42, 0.96);
-            backdrop-filter: blur(18px);
-            border-right: 1px solid rgba(56, 189, 248, 0.25);
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.25), transparent 60%),
+                #020617;
+            border-right: 1px solid rgba(30, 64, 175, 0.7);
+            box-shadow: 0 0 40px rgba(15, 23, 42, 0.9);
+            z-index: 9999;
+            color: #e5e7eb;
         }
 
-        header::after {
-            content: "";
-            position: absolute;
-            inset: auto 0 0 0;
-            height: 2px;
-            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7, #facc15);
-            background-size: 240% 100%;
-            animation: gradientMove 16s linear infinite;
-            opacity: 0.9;
-        }
-
-        nav {
+        .sidebar-inner {
             height: 100%;
+            padding: 18px 18px 16px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
-            gap: 24px;
-            padding: 20px 20px 24px;
-            position: relative;
-            z-index: 1;
+            gap: 20px;
         }
 
-        .logo {
+        .sidebar-logo {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 800;
             letter-spacing: 3px;
-            white-space: nowrap;
+            margin-bottom: 10px;
         }
 
-        .logo-img {
-            width: 42px;
-            height: 42px;
-            border-radius: 14px;
+        .sidebar-logo-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
             object-fit: contain;
             background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.95);
+                0 14px 32px rgba(15, 23, 42, 0.95);
         }
 
-        .logo .aurion {
+        .sidebar-logo .aurion {
             background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .logo .studio {
+        .sidebar-logo .studio {
             color: #e5e7eb;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            flex-direction: column;
-            margin-top: 10px;
-        }
-
-        .nav-links a {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(226, 232, 240, 0.8);
-            position: relative;
-            padding: 4px 0;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
-            transition: width 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: #f9fafb;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.contact-link {
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(56, 189, 248, 0.8);
-            background: radial-gradient(circle at top, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.98));
-            box-shadow:
-                0 10px 26px rgba(37, 99, 235, 0.7),
-                0 0 0 1px rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            font-size: 13px;
-        }
-
-        .nav-links a.contact-link::after {
-            display: none;
-        }
-
-        .nav-links a.active {
-            color: #22d3ee;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-section-title {
+        .sidebar-section-title {
             font-size: 11px;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            letter-spacing: 0.18em;
             color: rgba(148, 163, 184, 0.9);
-            margin-top: 18px;
         }
 
-        .nav-spacer {
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            color: rgba(226, 232, 240, 0.9);
+            position: relative;
+            border: 1px solid transparent;
+            transition:
+                background 0.18s ease,
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                color 0.18s ease;
+        }
+
+        .nav-link span.label {
             flex: 1;
         }
 
-        .nav-mini-note {
+        .nav-link span.chevron {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .nav-link:hover {
+            background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.98));
+            border-color: rgba(56, 189, 248, 0.7);
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
+            font-weight: 600;
+            box-shadow:
+                0 16px 42px rgba(59, 130, 246, 0.95),
+                0 0 40px rgba(56, 189, 248, 0.8);
+        }
+
+        .nav-link.active span.chevron {
+            opacity: 1;
+        }
+
+        /* Kiemelt gombok: Ismerj meg minket + Kapcsolat */
+        .nav-link.nav-pill {
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.96));
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow:
+                0 10px 26px rgba(37, 99, 235, 0.85),
+                0 0 32px rgba(56, 189, 248, 0.7);
+            animation: softPulse 8s ease-out infinite;
+        }
+
+        .nav-link.nav-pill:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(130deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
             font-size: 11px;
             color: rgba(148, 163, 184, 0.9);
         }
 
-        /* HAMBURGER – alapból desktopon nem látszik */
-        .hamburger {
-            display: none;
+        /* Mobil hamburger a bal felső sarokban */
+        .sidebar-toggle {
+            position: fixed;
+            top: 12px;
+            left: 12px;
             width: 40px;
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.98);
             cursor: pointer;
+            display: none;
             align-items: center;
             justify-content: center;
             flex-direction: column;
@@ -224,7 +227,7 @@
             z-index: 10000;
         }
 
-        .hamburger span {
+        .sidebar-toggle span {
             display: block;
             width: 18px;
             height: 2px;
@@ -233,57 +236,35 @@
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .hamburger.open span:nth-child(1) {
+        .sidebar-toggle.open span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
 
-        .hamburger.open span:nth-child(2) {
+        .sidebar-toggle.open span:nth-child(2) {
             opacity: 0;
         }
 
-        .hamburger.open span:nth-child(3) {
+        .sidebar-toggle.open span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        /* Mobil nav overlay */
-        .nav-links.mobile {
-            position: fixed;
-            inset: 56px 16px auto 16px;
-            background: radial-gradient(circle at top, rgba(37, 99, 235, 0.45), transparent 55%),
-                        rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
-            padding: 12px 16px;
-            flex-direction: column;
-            gap: 10px;
-            transform: translateY(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            z-index: 9999;
+        /* ===== OLDAL TARTALOM ===== */
+
+        .page {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
         }
 
-        .nav-links.mobile.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* ===== OLDAL TARTALOM ELTOLÁS (DESKTOP) ===== */
-
-        .hero,
-        main,
-        footer {
-            margin-left: 260px;
+        .page-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 24px 70px;
         }
 
         /* ===== HERO ===== */
 
         .hero {
-            padding: 40px 16px 60px;
-            max-width: 1120px;
-            margin: 0 auto;
+            padding: 24px 0 50px;
             position: relative;
         }
 
@@ -458,13 +439,11 @@
         /* ===== MAIN & SZEKCIÓK ===== */
 
         main {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 0 16px 70px;
+            padding-bottom: 70px;
         }
 
         .section {
-            padding: 50px 0;
+            padding: 40px 0;
         }
 
         .section-header {
@@ -831,12 +810,13 @@
             border-top: 1px solid rgba(30, 64, 175, 0.7);
             background: #020617;
             color: #e5e7eb;
+            margin-top: 30px;
         }
 
         .footer-inner {
             max-width: 1120px;
             margin: 0 auto;
-            padding: 12px 16px 14px;
+            padding: 12px 24px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -856,35 +836,6 @@
         /* ===== RESPONSIVE ===== */
 
         @media (max-width: 1024px) {
-            /* Header felül mobilon/tableten */
-            header {
-                height: auto;
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(56, 189, 248, 0.25);
-            }
-
-            nav {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                padding: 10px 16px;
-            }
-
-            .nav-links.desktop {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero,
-            main,
-            footer {
-                margin-left: 0;
-            }
-
             .hero-inner {
                 grid-template-columns: minmax(0, 1fr);
                 gap: 28px;
@@ -893,17 +844,36 @@
             .hero-cta-wrapper {
                 order: -1;
             }
-
-            .hero {
-                padding-top: 110px;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
         }
 
         @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 78%;
+                max-width: 320px;
+                transition: transform 0.25s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                display: flex;
+            }
+
+            .page {
+                margin-left: 0;
+            }
+
+            .page-inner {
+                padding: 70px 16px 70px;
+            }
+
+            .hero {
+                padding-top: 0;
+            }
+
             .chat-card-big {
                 border-radius: 24px;
             }
@@ -921,17 +891,9 @@
             .chat-card-big {
                 padding: 16px 14px 14px;
             }
-
-            .hero {
-                padding: 110px 16px 70px;
-            }
         }
 
         @media (max-width: 480px) {
-            .hero {
-                padding-top: 100px;
-            }
-
             .hero-title {
                 font-size: 28px;
             }
@@ -943,232 +905,257 @@
     </style>
 </head>
 <body>
-<header>
-    <nav>
-        <div class="logo">
-            <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
+
+<!-- OLDALSÓ MENÜ -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="sidebar-logo-img">
             <span class="aurion">Aurion</span>
             <span class="studio">Studio</span>
         </div>
 
-        <button class="hamburger" id="hamburger" aria-label="Menü">
-            <span></span><span></span><span></span>
-        </button>
+        <div class="sidebar-section-title">Oldalak</div>
+        <nav class="sidebar-nav">
+            <a href="index.html#szolgaltatasok" class="nav-link">
+                <span class="label">Szolgáltatások</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="munkaink.html" class="nav-link">
+                <span class="label">Munkáink</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="minket.html" class="nav-link nav-pill">
+                <span class="label">Ismerj meg minket</span>
+                <span class="chevron">★</span>
+            </a>
+            <a href="kulonleges.html" class="nav-link">
+                <span class="label">Különleges kérések</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#bemutatkozas" class="nav-link">
+                <span class="label">Bemutatkozás</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#rolunk" class="nav-link">
+                <span class="label">Rólunk</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#kapcsolat" class="nav-link nav-pill">
+                <span class="label">Kapcsolat</span>
+                <span class="chevron">✉</span>
+            </a>
+            <a href="al.html" class="nav-link active">
+                <span class="label">AI Chat</span>
+                <span class="chevron">●</span>
+            </a>
+        </nav>
 
-        <!-- DESKTOP NAV (oldalsó) -->
-        <ul class="nav-links desktop">
-            <li class="nav-section-title">Oldalak</li>
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="minket.html">Ismerj meg minket</a></li>
-            <li><a href="kulonleges.html">Különleges kérések</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html" class="active">AI Chat</a></li>
-            <li class="nav-spacer"></li>
-            <li><span class="nav-mini-note">Aurion AI – egyedi asszisztens a márkádra hangolva.</span></li>
-        </ul>
-
-        <!-- MOBIL NAV (hamburger) -->
-        <ul class="nav-links mobile" id="mobileNav">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="minket.html">Ismerj meg minket</a></li>
-            <li><a href="kulonleges.html">Különleges kérések</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
-            <li><a href="al.html" class="active">AI Chat</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="hero" id="top">
-    <div class="hero-inner animate-on-scroll">
-        <div>
-            <div class="hero-kicker">AURION AI CHAT</div>
-            <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
-            <p class="hero-subtitle">
-                Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
-                a te szabályaid szerint. Nem elszabadult mesterséges intelligencia,
-                hanem kontrollált, átlátható rendszer.
-            </p>
-            <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
-            </div>
-            <p class="hero-info">
-                Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles,
-                prémium neon chat ablak vár, ahol kipróbálhatod a felület működését.
-            </p>
-        </div>
-
-        <div class="hero-cta-wrapper">
-            <div class="hero-cta-card">
-                <div class="hero-cta-badge">
-                    <span class="hero-cta-dot"></span>
-                    <span>Saját fejlesztésű AI asszisztens</span>
-                </div>
-                <div class="hero-cta-title">Prémium felület, amit a márkádhoz igazítunk.</div>
-                <p class="hero-cta-text">
-                    A chat dizájnja, stílusa és válaszainak hangvétele mind hozzád igazodik.
-                    Nem egy kész dobozt kapsz, hanem egy saját „digitális kollégát” a honlapodra.
-                </p>
-                <ul class="hero-cta-list">
-                    <li>• Márkára szabott megjelenés és szövegvilág.</li>
-                    <li>• Szabályozott válaszok, átlátható működés.</li>
-                    <li>• Stabil technikai háttér, hosszú távra tervezve.</li>
-                </ul>
-                <a href="#chat-demo" class="hero-cta-btn">
-                    <span>Ugrás a chat felülethez</span>
-                    <span class="icon">➤</span>
-                </a>
-            </div>
+        <div class="sidebar-bottom">
+            Aurion AI – egyedi asszisztens a márkádra hangolva.
         </div>
     </div>
-</section>
+</aside>
 
-<main>
-    <!-- FUNKCIÓK / MIT TUD -->
-    <section class="section">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">MIT TUD</div>
-            <h2 class="section-title">Miben segít az Aurion Studio AI asszisztens?</h2>
-            <p class="section-subtitle">
-                Az asszisztens nem általános csevegésre készült – a vállalkozásod folyamatait,
-                szolgáltatásait és szabályait követi, hogy valódi terhet vegyen le a válladról.
-            </p>
-        </div>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menü">
+    <span></span><span></span><span></span>
+</button>
 
-        <div class="features-grid">
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">💬</div>
-                <div class="feature-title">Ügyfélkérdések megválaszolása</div>
-                <div class="feature-text">
-                    Nyitvatartás, árak, szolgáltatások, rendelés menete – a visszatérő kérdésekre
-                    egységes, gyors választ ad, akkor is, amikor Te épp nem vagy gépnél.
-                </div>
-            </div>
+<!-- OLDAL TARTALOM -->
+<div class="page">
+    <div class="page-inner">
 
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧭</div>
-                <div class="feature-title">Irányítás a megfelelő oldalra</div>
-                <div class="feature-text">
-                    Segít eligazodni az oldalon: ajánlatkérés, termékek, szolgáltatások,
-                    kapcsolat – mindig a következő logikus lépés felé tereli a látogatót.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧱</div>
-                <div class="feature-title">Szabályozott viselkedés</div>
-                <div class="feature-text">
-                    Előre lefektetett keretek szerint működik: mit válaszolhat, mit kerül,
-                    mikor adja át a beszélgetést kollégának. Nem kísérletezünk – rendszert építünk.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Beszélgetések átnézése</div>
-                <div class="feature-text">
-                    Láthatod, mire kérdeznek legtöbbet az ügyfelek – ez irányt ad a fejlesztésnek,
-                    az ajánlatoknak és akár a honlap tartalmának is.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">🧠</div>
-                <div class="feature-title">Saját tudásbázisra építve</div>
-                <div class="feature-text">
-                    A Te anyagaidból tanul: GYIK, belső leírások, folyamatok, dokumentumok alapján
-                    építjük fel a válaszlogikát – nem a „teljes internetet” engedjük rá.
-                </div>
-            </div>
-
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">⚙️</div>
-                <div class="feature-title">Honlapodhoz illesztve</div>
-                <div class="feature-text">
-                    A chat megjelenése, mozgása és működése illeszkedik a márkához:
-                    arculat, színek, betűk, hangulat – mintha mindig is része lett volna az oldaladnak.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEON CHAT LEGALUL -->
-    <section class="section chat-section" id="chat-demo">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">CHAT FELÜLET</div>
-            <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
-            <p class="section-subtitle">
-                Kérdezz bátran — mi itt vagyunk, hogy segítsünk!
-            </p>
-        </div>
-
-        <div class="chat-layout">
-            <div class="chat-card-big animate-on-scroll">
-                <div class="chat-card-header">
-                    <div class="chat-header-left">
-                        <div class="chat-header-logo">
-                            <img src="logo.png" alt="Aurion Studio logó a chatben">
-                        </div>
-                        <div class="chat-header-text">
-                            <div class="chat-card-title">Aurion Studio AI asszisztens</div>
-                            <div class="chat-meta">Online – írj egy kérdést, mintha az oldaladra érkező ügyfél lennél.</div>
-                        </div>
+        <section class="hero" id="top">
+            <div class="hero-inner animate-on-scroll">
+                <div>
+                    <div class="hero-kicker">AURION AI CHAT</div>
+                    <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
+                    <p class="hero-subtitle">
+                        Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
+                        a te szabályaid szerint. Nem elszabadult mesterséges intelligencia,
+                        hanem kontrollált, átlátható rendszer.
+                    </p>
+                    <div class="hero-pill">
+                        <span class="hero-pill-dot"></span>
+                        <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
                     </div>
-                    <div class="chat-status-pill">
-                        <span class="chat-status-dot"></span>
-                        <span>Elérhető</span>
+                    <p class="hero-info">
+                        Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles,
+                        prémium neon chat ablak vár, ahol kipróbálhatod a felület működését.
+                    </p>
+                </div>
+
+                <div class="hero-cta-wrapper">
+                    <div class="hero-cta-card">
+                        <div class="hero-cta-badge">
+                            <span class="hero-cta-dot"></span>
+                            <span>Saját fejlesztésű AI asszisztens</span>
+                        </div>
+                        <div class="hero-cta-title">Prémium felület, amit a márkádhoz igazítunk.</div>
+                        <p class="hero-cta-text">
+                            A chat dizájnja, stílusa és válaszainak hangvétele mind hozzád igazodik.
+                            Nem egy kész dobozt kapsz, hanem egy saját „digitális kollégát” a honlapodra.
+                        </p>
+                        <ul class="hero-cta-list">
+                            <li>• Márkára szabott megjelenés és szövegvilág.</li>
+                            <li>• Szabályozott válaszok, átlátható működés.</li>
+                            <li>• Stabil technikai háttér, hosszú távra tervezve.</li>
+                        </ul>
+                        <a href="#chat-demo" class="hero-cta-btn">
+                            <span>Ugrás a chat felülethez</span>
+                            <span class="icon">➤</span>
+                        </a>
                     </div>
                 </div>
-
-                <div class="chat-window" id="chatWindow">
-                    <!-- Ide jönnek az üzenetek -->
-                </div>
-
-                <div class="chat-input-row">
-                    <input
-                        type="text"
-                        id="chatInput"
-                        class="chat-input"
-                        placeholder="Írj valamit, pl.: Webshop fejlesztésben gondolkodom..."
-                    >
-                    <button class="chat-send-btn" id="chatSendBtn">
-                        <span class="icon">➤</span>
-                        <span>Üzenet küldése</span>
-                    </button>
-                </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
 
-<footer>
-    <div class="footer-inner">
-        <span>Aurion Studio – egyedi webes megoldások</span>
-        <a href="#top" class="footer-link">Vissza az elejére</a>
+        <main>
+            <!-- FUNKCIÓK / MIT TUD -->
+            <section class="section">
+                <div class="section-header animate-on-scroll">
+                    <div class="section-kicker">MIT TUD</div>
+                    <h2 class="section-title">Miben segít az Aurion Studio AI asszisztens?</h2>
+                    <p class="section-subtitle">
+                        Az asszisztens nem általános csevegésre készült – a vállalkozásod folyamatait,
+                        szolgáltatásait és szabályait követi, hogy valódi terhet vegyen le a válladról.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-title">Ügyfélkérdések megválaszolása</div>
+                        <div class="feature-text">
+                            Nyitvatartás, árak, szolgáltatások, rendelés menete – a visszatérő kérdésekre
+                            egységes, gyors választ ad, akkor is, amikor Te épp nem vagy gépnél.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧭</div>
+                        <div class="feature-title">Irányítás a megfelelő oldalra</div>
+                        <div class="feature-text">
+                            Segít eligazodni az oldalon: ajánlatkérés, termékek, szolgáltatások,
+                            kapcsolat – mindig a következő logikus lépés felé tereli a látogatót.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧱</div>
+                        <div class="feature-title">Szabályozott viselkedés</div>
+                        <div class="feature-text">
+                            Előre lefektetett keretek szerint működik: mit válaszolhat, mit kerül,
+                            mikor adja át a beszélgetést kollégának. Nem kísérletezünk – rendszert építünk.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Beszélgetések átnézése</div>
+                        <div class="feature-text">
+                            Láthatod, mire kérdeznek legtöbbet az ügyfelek – ez irányt ad a fejlesztésnek,
+                            az ajánlatoknak és akár a honlap tartalmának is.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-title">Saját tudásbázisra építve</div>
+                        <div class="feature-text">
+                            A Te anyagaidból tanul: GYIK, belső leírások, folyamatok, dokumentumok alapján
+                            építjük fel a válaszlogikát – nem a „teljes internetet” engedjük rá.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-title">Honlapodhoz illesztve</div>
+                        <div class="feature-text">
+                            A chat megjelenése, mozgása és működése illeszkedik a márkához:
+                            arculat, színek, betűk, hangulat – mintha mindig is része lett volna az oldaladnak.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEON CHAT LEGALUL -->
+            <section class="section chat-section" id="chat-demo">
+                <div class="section-header animate-on-scroll">
+                    <div class="section-kicker">CHAT FELÜLET</div>
+                    <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
+                    <p class="section-subtitle">
+                        Kérdezz bátran — mi itt vagyunk, hogy segítsünk!
+                    </p>
+                </div>
+
+                <div class="chat-layout">
+                    <div class="chat-card-big animate-on-scroll">
+                        <div class="chat-card-header">
+                            <div class="chat-header-left">
+                                <div class="chat-header-logo">
+                                    <img src="logo.png" alt="Aurion Studio logó a chatben">
+                                </div>
+                                <div class="chat-header-text">
+                                    <div class="chat-card-title">Aurion Studio AI asszisztens</div>
+                                    <div class="chat-meta">Online – írj egy kérdést, mintha az oldaladra érkező ügyfél lennél.</div>
+                                </div>
+                            </div>
+                            <div class="chat-status-pill">
+                                <span class="chat-status-dot"></span>
+                                <span>Elérhető</span>
+                            </div>
+                        </div>
+
+                        <div class="chat-window" id="chatWindow">
+                            <!-- Ide jönnek az üzenetek -->
+                        </div>
+
+                        <div class="chat-input-row">
+                            <input
+                                type="text"
+                                id="chatInput"
+                                class="chat-input"
+                                placeholder="Írj valamit, pl.: Webshop fejlesztésben gondolkodom..."
+                            >
+                            <button class="chat-send-btn" id="chatSendBtn">
+                                <span class="icon">➤</span>
+                                <span>Üzenet küldése</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-inner">
+                <span>Aurion Studio – egyedi webes megoldások</span>
+                <a href="#top" class="footer-link">Vissza az elejére</a>
+            </div>
+        </footer>
+
     </div>
-</footer>
+</div>
 
 <script>
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
+    // === OLDALSÓ MENÜ – MOBIL NYIT/ZÁR ===
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileNav.classList.toggle('show');
+    if (sidebar && sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarToggle.classList.toggle('open');
         });
 
-        mobileNav.querySelectorAll('a').forEach(link => {
+        // ha mobilon linkre kattint, csukjuk be
+        sidebar.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                mobileNav.classList.remove('show');
+                if (window.innerWidth <= 900) {
+                    sidebar.classList.remove('open');
+                    sidebarToggle.classList.remove('open');
+                }
             });
         });
     }
@@ -1217,7 +1204,7 @@
 
     function showLimitReached() {
         addMessage(
-            'Ebben a  chatben 10 üzenet után lezárjuk a beszélgetést, ' +
+            'Ebben a chatben 10 üzenet után lezárjuk a beszélgetést, ' +
             'hogy védjük az AI erőforrásokat. Ha szeretnél saját, korlátlan AI asszisztenst, írj az ajánlatkérő űrlapon keresztül.',
             'bot'
         );
@@ -1226,7 +1213,6 @@
     }
 
     async function callBackend(userText) {
-        // „gépelés” placeholder
         const thinkingBubble = addMessage('Gondolkodom a válaszon…', 'bot');
 
         try {
@@ -1240,7 +1226,6 @@
             });
 
             if (!res.ok) {
-                // ha a function limitet dob
                 if (res.status === 429) {
                     const data = await res.json().catch(() => ({}));
                     if (thinkingBubble) {
@@ -1259,7 +1244,6 @@
             const reply = (data && data.reply) ? data.reply : '';
 
             if (thinkingBubble) {
-                // bot válasz + alatta kapcsolat CTA gomb
                 thinkingBubble.innerHTML = `
                     <div>${reply || 'Jelenleg nem érkezett válasz a motortól.'}</div>
                     <a href="index.html#kapcsolat" class="chat-cta-link">Kapcsolatfelvételhez kattints ide →</a>
@@ -1286,12 +1270,10 @@
             return;
         }
 
-        // növeljük a számlálót és kirakjuk a user üzenetet
         messageCount += 1;
         addMessage(text, 'user', false);
         chatInput.value = '';
 
-        // backend hívás
         callBackend(text);
     }
 
@@ -1305,7 +1287,7 @@
         });
     }
 
-    // 🔹 Kezdő köszönő üzenet – azonnal megjelenik oldal betöltéskor
+    // Kezdő köszönő üzenet
     function addInitialGreeting() {
         const greetingHtml = `
             <div><strong>Üdvözöl az Aurion Studio AI asszisztens!</strong></div>
@@ -1321,7 +1303,6 @@
         addMessage(greetingHtml, 'bot', true);
     }
 
-    // Gyorsgombok kattintása – automatikusan elküldi az adott témát
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.chat-quick-btn');
         if (!btn || !chatInput) return;
@@ -1331,7 +1312,6 @@
         handleUserSend();
     });
 
-    // Induláskor tegyük be az üdvözlő üzenetet
     addInitialGreeting();
 </script>
 </body>
