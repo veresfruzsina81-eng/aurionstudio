@@ -3,1767 +3,1316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurion Studio – Különleges kérések</title>
+    <title>Aurion Studio – AI Chat</title>
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        html { scroll-behavior:smooth; }
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background:#020617;
-            color:#e5e7eb;
-            overflow-x:hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        a { text-decoration:none; color:inherit; }
 
-        .layout { display:flex; min-height:100vh; }
+        :root {
+            --sidebar-width: 260px;
+        }
 
-        /* ==== SIDEBAR – egységes minden oldalon ==== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background:
+                radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%),
+                radial-gradient(circle at bottom right, #0f172a 0, #020617 50%, #020617 100%);
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ===== ANIMÁCIÓK ===== */
+
+        @keyframes floatSlow {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-6px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes gradientMove {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes softPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6); }
+            70%  { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px) scale(0.97);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ===== OLDALSÓ MENÜ (SIDEBAR) ===== */
 
         .sidebar {
-            width:260px;
-            background: radial-gradient(circle at top left, #1d4ed8 0, #020617 55%, #000 100%);
-            border-right:1px solid rgba(148,163,184,0.25);
-            padding:22px 20px;
-            display:flex;
-            flex-direction:column;
-            position:sticky;
-            top:0;
-            height:100vh;
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: var(--sidebar-width);
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.25), transparent 60%),
+                #020617;
+            border-right: 1px solid rgba(30, 64, 175, 0.7);
+            box-shadow: 0 0 40px rgba(15, 23, 42, 0.9);
+            z-index: 9999;
+            color: #e5e7eb;
         }
-        .brand {
-            display:flex;
-            align-items:center;
-            gap:10px;
-            margin-bottom:30px;
+
+        .sidebar-inner {
+            height: 100%;
+            padding: 18px 18px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        /* LOGO.PNG + SZÖVEG EGYÜTT */
-        .brand-logo {
-            width:40px;
-            height:40px;
-            border-radius:12px;
-            object-fit:contain;
-            background:#020617;
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-logo-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            object-fit: contain;
+            background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
             box-shadow:
-                0 0 0 1px rgba(148,163,184,0.7),
-                0 14px 28px rgba(15,23,42,0.95);
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 14px 32px rgba(15, 23, 42, 0.95);
         }
-        .brand-text-main {
-            font-weight:700;
-            font-size:18px;
-            letter-spacing:.12em;
+
+        .sidebar-logo .aurion {
+            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .brand-text-sub {
-            font-size:11px;
-            text-transform:uppercase;
-            color:#9ca3af;
+
+        .sidebar-logo .studio {
+            color: #e5e7eb;
         }
-        .nav-section-title {
-            font-size:11px;
-            text-transform:uppercase;
-            color:#6b7280;
-            margin:14px 0 6px;
-            letter-spacing:.14em;
+
+        .sidebar-section-title {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.9);
         }
-        .nav-list { list-style:none; display:flex; flex-direction:column; gap:4px; }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 14px;
+        }
 
         .nav-link {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            padding:8px 11px;
-            border-radius:999px;
-            font-size:14px;
-            color:#e5e7eb;
-            cursor:pointer;
-            transition:.2s;
-            border:1px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            color: rgba(226, 232, 240, 0.9);
+            position: relative;
+            border: 1px solid transparent;
+            transition:
+                background 0.18s ease,
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                color 0.18s ease;
         }
-        .nav-link span { display:flex; align-items:center; gap:7px; }
+
+        .nav-link span.label {
+            flex: 1;
+        }
+
+        .nav-link span.chevron {
+            font-size: 12px;
+            opacity: 0.7;
+        }
 
         .nav-link:hover {
-            background:radial-gradient(circle at left, rgba(59,130,246,.25), transparent 70%);
-            border-color:rgba(148,163,184,.5);
+            background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.9), rgba(15, 23, 42, 0.98));
+            border-color: rgba(56, 189, 248, 0.7);
+            transform: translateY(-1px);
         }
+
         .nav-link.active {
-            background:radial-gradient(circle at left, rgba(59,130,246,.45), rgba(15,23,42,.95));
-            border-color:rgba(129,140,248,.8);
-            box-shadow:0 0 20px rgba(37,99,235,.55);
-        }
-        .nav-dot {
-            width:6px; height:6px; border-radius:999px;
-            background:#4ade80;
-            box-shadow:0 0 10px #4ade80;
-        }
-        .nav-cta {
-            margin-top:16px;
-            padding:9px 13px;
-            border-radius:999px;
-            background:radial-gradient(circle at top left, #facc15, #f97316);
-            color:#111827;
-            font-weight:600;
-            font-size:14px;
-            border:none;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:8px;
-            cursor:pointer;
-            box-shadow:0 0 20px rgba(251,191,36,.65);
-        }
-        .nav-cta-star { font-size:15px; }
-
-        .nav-secondary { margin-top:auto; margin-bottom:6px; }
-        .ai-pill-link { text-decoration:none; }
-        .ai-pill {
-            margin-top:10px;
-            padding:7px 11px;
-            border-radius:999px;
-            font-size:13px;
-            background:rgba(15,23,42,.9);
-            border:1px solid rgba(96,165,250,.6);
-            display:flex;
-            align-items:center;
-            gap:7px;
-            box-shadow:0 0 14px rgba(37,99,235,.4);
-            cursor:pointer;
-        }
-        .ai-dot {
-            width:8px; height:8px; border-radius:999px;
-            background:#22c55e;
-            box-shadow:0 0 12px #22c55e;
-        }
-        .ai-pill span:last-child {
-            font-size:11px;
-            color:#9ca3af;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
+            font-weight: 600;
+            box-shadow:
+                0 16px 42px rgba(59, 130, 246, 0.95),
+                0 0 40px rgba(56, 189, 248, 0.8);
         }
 
-        /* ==== MAIN ==== */
-
-        .content {
-            flex:1;
-            padding:26px 40px 60px;
-            position:relative;
-            overflow:hidden;
+        .nav-link.active span.chevron {
+            opacity: 1;
         }
-        .content::before {
-            content:"";
-            position:absolute;
-            inset:-200px;
+
+        /* Kiemelt gombok: Ismerj meg minket + Kapcsolat */
+        .nav-link.nav-pill {
             background:
-                    radial-gradient(circle at 10% 0%, rgba(56,189,248,.18), transparent 55%),
-                    radial-gradient(circle at 90% 20%, rgba(129,140,248,.2), transparent 55%),
-                    radial-gradient(circle at 40% 100%, rgba(59,130,246,.24), transparent 60%);
-            opacity:.9;
-            z-index:-1;
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), rgba(15, 23, 42, 0.96));
+            border-color: rgba(56, 189, 248, 0.7);
+            box-shadow:
+                0 10px 26px rgba(37, 99, 235, 0.85),
+                0 0 32px rgba(56, 189, 248, 0.7);
+            animation: softPulse 8s ease-out infinite;
         }
 
-        .page-tag {
-            font-size:12px;
-            text-transform:uppercase;
-            letter-spacing:.3em;
-            color:#64748b;
-            margin-bottom:8px;
-        }
-        .page-title {
-            font-size:32px;
-            font-weight:700;
-            letter-spacing:.03em;
-            margin-bottom:10px;
-        }
-        .page-sub {
-            max-width:640px;
-            font-size:15px;
-            color:#9ca3af;
-            line-height:1.7;
-            margin-bottom:28px;
+        .nav-link.nav-pill:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(130deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
         }
 
-        .fx-section {
-            display:flex;
-            flex-direction:column;
-            gap:26px;
-        }
-        .fx-block {
-            border-radius:26px;
-            padding:18px 18px 18px;
-            border:1px solid rgba(148,163,184,.3);
-            background:radial-gradient(circle at top left, rgba(15,23,42,.96), rgba(15,23,42,.94));
-            box-shadow:0 18px 40px rgba(15,23,42,.9);
-            position:relative;
-            overflow:hidden;
-        }
-        .fx-badge {
-            font-size:11px;
-            text-transform:uppercase;
-            letter-spacing:.28em;
-            color:#64748b;
-            margin-bottom:6px;
-        }
-        .fx-headline {
-            font-size:20px;
-            font-weight:600;
-            margin-bottom:6px;
-        }
-        .fx-desc {
-            font-size:13px;
-            color:#9ca3af;
-            max-width:540px;
-            margin-bottom:14px;
-        }
-        .fx-inner {
-            border-radius:20px;
-            border:1px solid rgba(51,65,85,.85);
-            padding:16px 16px 18px;
-            background:radial-gradient(circle at top, rgba(15,23,42,.98), rgba(15,23,42,.96));
-            position:relative;
-            overflow:hidden;
-        }
-        .fx-label {
-            position:absolute;
-            top:11px;
-            right:14px;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:.16em;
-            color:#6b7280;
+        .sidebar-bottom {
+            margin-top: auto;
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.9);
         }
 
-        /* 01 – Követő fényfolt */
+        /* Mobil hamburger a bal felső sarokban */
+        .sidebar-toggle {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            width: 40px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            background: rgba(15, 23, 42, 0.98);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10000;
+        }
 
-        .fx-spot {
-            height:180px;
-            border-radius:18px;
-            position:relative;
+        .sidebar-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .sidebar-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .sidebar-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .sidebar-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ===== OLDAL TARTALOM ===== */
+
+        .page {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+        }
+
+        .page-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 24px 70px;
+        }
+
+        /* ===== HERO ===== */
+
+        .hero {
+            padding: 24px 0 50px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -120px -240px auto -240px;
             background:
-                 radial-gradient(circle at var(--x,50%) var(--y,50%),
-                     rgba(250,204,21,.22), transparent 60%),
-                 radial-gradient(circle at 10% 0%, rgba(59,130,246,.35), transparent 55%),
-                 #020617;
-            transition:background .06s linear;
-            cursor:crosshair;
-        }
-        .fx-spot-text {
-            position:absolute;
-            inset:0;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            pointer-events:none;
-        }
-        .fx-spot-text h3 {
-            font-size:20px;
-            font-weight:600;
-            margin-bottom:6px;
-        }
-        .fx-spot-text span {
-            font-size:12px;
-            color:#9ca3af;
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 60%),
+                radial-gradient(circle at top right, rgba(129, 140, 248, 0.18), transparent 60%);
+            opacity: 1;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        /* 02 – 3D tilt card */
-
-        .fx-tilt-wrap {
-            display:flex;
-            gap:18px;
-            align-items:stretch;
-            flex-wrap:wrap;
-        }
-        .fx-tilt-card {
-            width:260px;
-            height:160px;
-            border-radius:22px;
-            background: radial-gradient(circle at 0 0, #1d4ed8, #020617);
-            box-shadow:0 26px 50px rgba(15,23,42,.95);
-            position:relative;
-            transform-style:preserve-3d;
-            transform:rotateX(0) rotateY(0);
-            transition:transform .12s ease-out, box-shadow .2s;
-            cursor:pointer;
-        }
-        .fx-tilt-card::after {
-            content:"";
-            position:absolute;
-            inset:-40%;
-            background:radial-gradient(circle at 0 0, rgba(248,250,252,.32), transparent 60%);
-            opacity:.8;
-            mix-blend-mode:screen;
-            pointer-events:none;
-        }
-        .fx-tilt-inner {
-            position:absolute;
-            inset:18px;
-            transform:translateZ(40px);
-            display:flex;
-            flex-direction:column;
-            justify-content:space-between;
-        }
-        .fx-tilt-title {
-            font-size:15px;
-            font-weight:600;
-        }
-        .fx-tilt-sub {
-            font-size:12px;
-            color:#cbd5f5;
-        }
-        .fx-tilt-tag {
-            align-self:flex-start;
-            padding:4px 9px;
-            border-radius:999px;
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:.16em;
-            background:rgba(15,23,42,.8);
-            border:1px solid rgba(191,219,254,.7);
+        .hero-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+            gap: 40px;
+            align-items: center;
         }
 
-        /* 03 – Folyékony „blob” CTA */
-
-        .fx-blob-container {
-            height:190px;
-            position:relative;
-            overflow:hidden;
-            border-radius:18px;
-            background: radial-gradient(circle at 0 0, #1e293b, #020617);
-        }
-        .blob {
-            position:absolute;
-            width:220px;
-            height:220px;
-            background:radial-gradient(circle at 30% 10%, #fde68a, #f97316);
-            filter:blur(2px);
-            opacity:.9;
-            animation:blobMove 9s ease-in-out infinite alternate;
-        }
-        .blob.two {
-            width:260px;
-            height:260px;
-            background:radial-gradient(circle at 10% 0%, #60a5fa, #4c1d95);
-            animation-duration:11s;
-            animation-delay:-2s;
-        }
-        @keyframes blobMove {
-            0%   { transform:translate(-10%, -20%) scale(1); border-radius:30% 70% 60% 40%/40% 30% 70% 60%; }
-            50%  { transform:translate(40%, 0%) scale(1.15); border-radius:50% 50% 40% 60%/60% 40% 60% 40%; }
-            100% { transform:translate(10%, 25%) scale(0.95); border-radius:70% 30% 40% 60%/40% 60% 40% 60%; }
-        }
-        .blob-cta {
-            position:absolute;
-            inset:0;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            backdrop-filter:blur(10px);
-        }
-        .blob-cta h3 {
-            font-size:20px;
-            font-weight:600;
-            margin-bottom:6px;
-        }
-        .blob-cta p {
-            font-size:13px;
-            max-width:340px;
-            color:#e5e7eb;
-            margin-bottom:10px;
-        }
-        .blob-btn {
-            padding:9px 18px;
-            border-radius:999px;
-            border:none;
-            background:rgba(15,23,42,.9);
-            color:#f9fafb;
-            font-size:13px;
-            display:flex;
-            align-items:center;
-            gap:6px;
-            cursor:pointer;
-            box-shadow:0 0 16px rgba(15,23,42,.9);
-        }
-        .blob-btn span:last-child { font-size:11px; color:#9ca3af; }
-
-        /* 04 – Húzható előtte–utána */
-
-        .fx-compare {
-            height:190px;
-            border-radius:18px;
-            position:relative;
-            overflow:hidden;
-            background:#020617;
-            cursor:ew-resize;
-        }
-        .fx-compare-before,
-        .fx-compare-after {
-            position:absolute;
-            inset:0;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:18px;
-            font-weight:600;
-        }
-        .fx-compare-before {
-            background:radial-gradient(circle at 0 0, #0f172a, #020617);
-            color:#9ca3af;
-        }
-        .fx-compare-after {
-            background:radial-gradient(circle at 100% 0, #22c55e, #166534);
-            color:#ecfdf5;
-            width:50%;
-            overflow:hidden;
-        }
-        .fx-compare-after-inner {
-            position:absolute;
-            inset:0;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-        .fx-compare-handle {
-            position:absolute;
-            top:0;
-            bottom:0;
-            left:50%;
-            width:2px;
-            background:#e5e7eb;
-        }
-        .fx-compare-handle::before {
-            content:"";
-            position:absolute;
-            top:50%;
-            left:50%;
-            width:34px;
-            height:34px;
-            border-radius:999px;
-            background:#020617;
-            border:2px solid #e5e7eb;
-            transform:translate(-50%, -50%);
-            box-shadow:0 0 16px rgba(15,23,42,.9);
-        }
-        .fx-compare-handle::after {
-            content:"⇆";
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            font-size:13px;
+        .hero-kicker {
+            font-size: 11px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.95);
+            margin-bottom: 10px;
         }
 
-        /* 05 – Élő státuszsáv + mini command vibe */
-
-        .fx-status-bar {
-            height:110px;
-            border-radius:16px;
-            background:linear-gradient(120deg,#020617,#020617 40%,#111827 100%);
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:18px;
-            padding:12px 16px;
-        }
-        .fx-status-left {
-            display:flex;
-            align-items:center;
-            gap:10px;
-        }
-        .status-dot {
-            width:12px; height:12px; border-radius:999px;
-            background:#22c55e;
-            box-shadow:0 0 0 0 rgba(34,197,94,.7);
-            animation:dotPulse 1.6s infinite;
-        }
-        @keyframes dotPulse {
-            0%   { box-shadow:0 0 0 0 rgba(34,197,94,.7); }
-            70%  { box-shadow:0 0 0 10px rgba(34,197,94,0); }
-            100% { box-shadow:0 0 0 0 rgba(34,197,94,0); }
-        }
-        .fx-status-text-main { font-size:13px; font-weight:500; }
-        .fx-status-text-sub { font-size:11px; color:#9ca3af; }
-
-        .fx-command {
-            flex:1;
-            max-width:260px;
-            border-radius:999px;
-            border:1px solid rgba(148,163,184,.7);
-            background:rgba(15,23,42,.9);
-            display:flex;
-            align-items:center;
-            gap:8px;
-            padding:7px 10px;
-            font-size:11px;
-            color:#9ca3af;
-        }
-        .fx-command-kbd {
-            padding:2px 7px;
-            border-radius:4px;
-            border:1px solid rgba(148,163,184,.7);
-            font-size:10px;
-            color:#e5e7eb;
-        }
-        .fx-status-right {
-            font-size:11px;
-            color:#64748b;
-            text-align:right;
+        .hero-title {
+            font-size: 40px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            background: linear-gradient(120deg, #e5e7eb 0%, #22d3ee 30%, #6366f1 60%, #a855f7 85%, #facc15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeUp 0.9s ease-out;
         }
 
-        /* 06 – Mágneses gomb */
-
-        .mag-area {
-            height:160px;
-            border-radius:18px;
-            position:relative;
-            overflow:hidden;
-            background:radial-gradient(circle at 10% 0, rgba(56,189,248,.25), transparent 60%), #020617;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-        .mag-btn {
-            padding:11px 22px;
-            border-radius:999px;
-            border:none;
-            font-size:14px;
-            font-weight:600;
-            background:radial-gradient(circle at 0 0,#facc15,#f97316);
-            color:#111827;
-            box-shadow:0 0 26px rgba(250,204,21,.9);
-            transform:translate3d(0,0,0);
-            transition:transform .12s ease-out;
-            pointer-events:auto;
+        .hero-subtitle {
+            font-size: 16px;
+            color: rgba(209, 213, 219, 0.9);
+            margin-bottom: 16px;
+            max-width: 520px;
         }
 
-        /* 07 – Code rain panel */
-
-        .code-panel-wrap {
-            border-radius:18px;
-            overflow:hidden;
-            position:relative;
-            background:#020617;
-        }
-        #codeRainCanvas {
-            display:block;
-            width:100%;
-            height:200px;
-            background:radial-gradient(circle at 50% 0, #0f172a, #020617 70%);
-        }
-
-        /* 08 – Szó-morph headline */
-
-        .morph-shell {
-            height:120px;
-            border-radius:18px;
-            background:radial-gradient(circle at 0 0,#1e293b,#020617);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            padding:10px;
-        }
-        .morph-text {
-            font-size:20px;
-            font-weight:600;
-        }
-        .morph-highlight {
-            display:inline-block;
-            min-width:140px;
-            margin-left:6px;
-            background:linear-gradient(90deg,#facc15,#60a5fa);
-            -webkit-background-clip:text;
-            color:transparent;
-            animation:morphFade 1.3s ease;
-        }
-        @keyframes morphFade {
-            0% { opacity:0; filter:blur(4px); transform:translateY(8px); }
-            40% { opacity:1; filter:blur(0); transform:translateY(0); }
-            100% { opacity:1; }
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            font-size: 12px;
+            color: #e0f2fe;
+            margin-bottom: 10px;
+            background-size: 200% 100%;
+            animation: gradientMove 10s linear infinite;
+            box-shadow:
+                0 10px 26px rgba(37, 99, 235, 0.65),
+                0 0 0 1px rgba(15, 23, 42, 0.9);
         }
 
-        /* 09 – Rétegezett 3D jelenet */
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
 
-        .scene-wrap {
-            height:200px;
-            border-radius:18px;
-            perspective:900px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
+        .hero-info {
+            font-size: 13px;
+            color: rgba(156, 163, 175, 0.96);
+            margin-top: 8px;
         }
-        .scene {
-            width:260px;
-            height:160px;
-            position:relative;
-            transform-style:preserve-3d;
-            transform:rotateX(0deg) rotateY(0deg);
-            transition:transform .18s ease-out, box-shadow .2s;
+
+        .hero-cta-wrapper {
+            animation: floatSlow 18s ease-in-out infinite;
         }
-        .scene-layer {
-            position:absolute;
-            inset:0;
-            border-radius:22px;
-            box-shadow:0 18px 40px rgba(15,23,42,.85);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            padding:12px;
-            font-size:12px;
-        }
-        .scene-layer.bg {
-            background:radial-gradient(circle at 0 0, #0f172a, #020617);
-            transform:translateZ(-40px);
-        }
-        .scene-layer.grid {
+
+        .hero-cta-card {
+            border-radius: 26px;
             background:
-                linear-gradient(#1f2937 1px, transparent 1px),
-                linear-gradient(90deg, #1f2937 1px, transparent 1px);
-            background-size:18px 18px;
-            opacity:.8;
-            transform:translateZ(0px);
-            mix-blend-mode:screen;
-        }
-        .scene-layer.foreground {
-            background:radial-gradient(circle at 0 0, rgba(37,99,235,.7), rgba(15,23,42,.98));
-            border:1px solid rgba(191,219,254,.7);
-            transform:translateZ(40px);
-        }
-        .scene-title {
-            font-size:14px;
-            font-weight:600;
-            margin-bottom:4px;
-        }
-        .scene-text {
-            font-size:11px;
-            color:#e5e7eb;
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.28), transparent 65%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.24), transparent 65%),
+                rgba(15, 23, 42, 0.96);
+            box-shadow:
+                0 28px 70px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(56, 189, 248, 0.25);
+            padding: 18px 20px 18px;
+            max-width: 420px;
+            margin: 0 auto;
+            color: #e5e7eb;
         }
 
-        /* 10 – 3D Aurion-kocka */
-
-        .cube-wrap {
-            height:200px;
-            border-radius:18px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            perspective:900px;
-        }
-        .cube {
-            width:120px;
-            height:120px;
-            position:relative;
-            transform-style:preserve-3d;
-            animation:spinCube 12s linear infinite;
-        }
-        .cube-face {
-            position:absolute;
-            inset:0;
-            border-radius:18px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:12px;
-            font-weight:600;
-            text-transform:uppercase;
-            letter-spacing:.12em;
-            background:radial-gradient(circle at 0 0,#1d4ed8,#020617);
-            border:1px solid rgba(148,163,184,.7);
-        }
-        .cube-face.front  { transform:translateZ(60px); }
-        .cube-face.back   { transform:rotateY(180deg) translateZ(60px); }
-        .cube-face.right  { transform:rotateY(90deg) translateZ(60px); }
-        .cube-face.left   { transform:rotateY(-90deg) translateZ(60px); }
-        .cube-face.top    { transform:rotateX(90deg) translateZ(60px); }
-        .cube-face.bottom { transform:rotateX(-90deg) translateZ(60px); }
-
-        .cube-face span {
-            background:linear-gradient(90deg,#facc15,#60a5fa);
-            -webkit-background-clip:text;
-            color:transparent;
+        .hero-cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e0f2fe;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            margin-bottom: 8px;
         }
 
-        @keyframes spinCube {
-            0%   { transform:rotateX(-20deg) rotateY(0deg); }
-            50%  { transform:rotateX(25deg) rotateY(180deg); }
-            100% { transform:rotateX(-20deg) rotateY(360deg); }
+        .hero-cta-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
         }
 
-        .cube-wrap:hover .cube {
-            animation-duration:20s;
+        .hero-cta-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f9fafb;
+            margin-bottom: 6px;
         }
 
-        /* 11 – Aurion-galaxis, orbitáló címkék */
-
-        .galaxy-shell {
-            height:220px;
-            border-radius:18px;
-            background:radial-gradient(circle at 50% 0,#020617,#020617 60%,#020617 100%);
-            position:relative;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-        .galaxy-center {
-            width:70px;
-            height:70px;
-            border-radius:999px;
-            background:radial-gradient(circle at 30% 0,#facc15,#f97316);
-            box-shadow:0 0 30px rgba(250,204,21,.8);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:11px;
-            font-weight:700;
-            color:#111827;
-            text-align:center;
-        }
-        .orbit {
-            position:absolute;
-            width:180px;
-            height:180px;
-            border-radius:999px;
-            border:1px dashed rgba(148,163,184,.35);
-            animation:orbitSpin 18s linear infinite;
-        }
-        .orbit:nth-child(2) {
-            width:220px;
-            height:220px;
-            animation-duration:26s;
-            animation-direction:reverse;
-        }
-        @keyframes orbitSpin {
-            to { transform:rotate(360deg); }
-        }
-        .orbit-chip {
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            padding:4px 10px;
-            border-radius:999px;
-            font-size:10px;
-            background:rgba(15,23,42,.9);
-            border:1px solid rgba(148,163,184,.8);
-            box-shadow:0 0 12px rgba(15,23,42,.9);
-            white-space:nowrap;
-        }
-        .orbit-chip:nth-child(1) { transform:translate(-50%, -50%) translateY(-84px); }
-        .orbit-chip:nth-child(2) { transform:translate(-50%, -50%) translateX(84px); }
-        .orbit-chip:nth-child(3) { transform:translate(-50%, -50%) translateY(84px); }
-        .orbit-chip:nth-child(4) { transform:translate(-50%, -50%) translateX(-84px); }
-
-        .orbit:nth-child(2) .orbit-chip:nth-child(1) { transform:translate(-50%, -50%) translateY(-104px); }
-        .orbit:nth-child(2) .orbit-chip:nth-child(2) { transform:translate(-50%, -50%) translateX(104px); }
-        .orbit:nth-child(2) .orbit-chip:nth-child(3) { transform:translate(-50%, -50%) translateY(104px); }
-        .orbit:nth-child(2) .orbit-chip:nth-child(4) { transform:translate(-50%, -50%) translateX(-104px); }
-
-        /* 12 – 3D kártya-stack */
-
-        .stack-shell {
-            height:200px;
-            border-radius:18px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            perspective:900px;
-        }
-        .stack {
-            width:260px;
-            height:160px;
-            position:relative;
-            transform-style:preserve-3d;
-        }
-        .stack-card {
-            position:absolute;
-            inset:0;
-            border-radius:18px;
-            background:radial-gradient(circle at 0 0,#1e293b,#020617);
-            border:1px solid rgba(148,163,184,.7);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:11px;
-            text-align:center;
-            transition:transform .18s ease-out, box-shadow .18s ease-out;
-            box-shadow:0 18px 40px rgba(15,23,42,.9);
-        }
-        .stack-card:nth-child(1) { transform:translateZ(-40px) translateY(16px); opacity:.6; }
-        .stack-card:nth-child(2) { transform:translateZ(-20px) translateY(8px); opacity:.8; }
-        .stack-card:nth-child(3) { transform:translateZ(0) translateY(0); opacity:1; }
-
-        .stack:hover .stack-card:nth-child(1) { transform:translateZ(-20px) translateY(12px); }
-        .stack:hover .stack-card:nth-child(2) { transform:translateZ(10px) translateY(4px); }
-        .stack:hover .stack-card:nth-child(3) { transform:translateZ(30px) translateY(-4px); }
-
-        .stack-card span {
-            background:linear-gradient(90deg,#facc15,#60a5fa);
-            -webkit-background-clip:text;
-            color:transparent;
-            font-weight:600;
-            display:block;
-            margin-bottom:4px;
+        .hero-cta-text {
+            font-size: 13px;
+            color: rgba(209, 213, 219, 0.92);
+            line-height: 1.7;
+            margin-bottom: 10px;
         }
 
-        /* 13 – 3D gyűrű kártyákkal */
-
-        .ring-shell {
-            height:220px;
-            border-radius:18px;
-            perspective:900px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-        .ring {
-            width:260px;
-            height:160px;
-            position:relative;
-            transform-style:preserve-3d;
-            animation:ringTurn 18s linear infinite;
-        }
-        @keyframes ringTurn {
-            0%   { transform:rotateY(0deg) rotateX(-10deg); }
-            100% { transform:rotateY(360deg) rotateX(-10deg); }
-        }
-        .ring-item {
-            position:absolute;
-            top:50%;
-            left:50%;
-            width:90px;
-            height:50px;
-            margin:-25px 0 0 -45px;
-            border-radius:12px;
-            background:radial-gradient(circle at 0 0,#1d4ed8,#020617);
-            border:1px solid rgba(148,163,184,.7);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:10px;
-            text-align:center;
-            color:#e5e7eb;
-            box-shadow:0 10px 25px rgba(15,23,42,.8);
+        .hero-cta-list {
+            font-size: 12px;
+            color: rgba(148, 163, 184, 0.96);
+            margin-bottom: 12px;
+            padding-left: 16px;
         }
 
-        /* 14 – 3D console ablak */
-
-        .console-shell {
-            height:200px;
-            border-radius:18px;
-            perspective:900px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-        .console {
-            width:280px;
-            height:160px;
-            border-radius:18px;
-            background:radial-gradient(circle at 0 0,#020617,#020617 60%);
-            border:1px solid rgba(148,163,184,.7);
-            position:relative;
-            overflow:hidden;
-            transform-style:preserve-3d;
-            transform:rotateX(12deg) rotateY(-12deg);
-            box-shadow:0 20px 45px rgba(15,23,42,.95);
-        }
-        .console-header {
-            height:26px;
-            background:linear-gradient(90deg,#0f172a,#020617);
-            display:flex;
-            align-items:center;
-            gap:6px;
-            padding:0 10px;
-            font-size:10px;
-            color:#9ca3af;
-        }
-        .console-dot {
-            width:8px;
-            height:8px;
-            border-radius:999px;
-            background:#4b5563;
-        }
-        .console-body {
-            position:absolute;
-            inset:26px 0 0;
-            padding:8px 10px;
-            font-family:monospace;
-            font-size:11px;
-            color:#e5e7eb;
-        }
-        .console-line-faint { color:#64748b; }
-        .console-scan {
-            position:absolute;
-            left:0;
-            right:0;
-            height:28px;
-            background:linear-gradient(to bottom, transparent, rgba(56,189,248,.18), transparent);
-            animation:scanMove 4.5s linear infinite;
-        }
-        @keyframes scanMove {
-            0%   { top:-30px; }
-            100% { top:100%; }
+        .hero-cta-list li {
+            margin-bottom: 4px;
         }
 
-        /* 15 – Marketing blokk alul */
+        .hero-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #0b1120;
+            box-shadow:
+                0 18px 40px rgba(56, 189, 248, 0.9),
+                0 0 30px rgba(59, 130, 246, 0.9);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
 
-        .marketing-block {
-            margin-top:30px;
-            border-radius:28px;
-            padding:20px 20px 22px;
-            border:1px solid rgba(148,163,184,.45);
+        .hero-cta-btn span.icon {
+            font-size: 14px;
+        }
+
+        .hero-cta-btn:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 26px 60px rgba(56, 189, 248, 1),
+                0 0 40px rgba(129, 140, 248, 0.9);
+        }
+
+        /* ===== MAIN & SZEKCIÓK ===== */
+
+        main {
+            padding-bottom: 70px;
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 26px;
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(148, 163, 184, 0.96);
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #f9fafb;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 110px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            background-size: 220% 100%;
+            animation: gradientMove 8s linear infinite;
+            box-shadow: 0 10px 26px rgba(37, 99, 235, 0.8);
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: rgba(209, 213, 219, 0.92);
+            max-width: 720px;
+        }
+
+        /* ===== FUNKCIÓK / MIT TUD ===== */
+
+        .features-grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .feature-card {
+            border-radius: 20px;
             background:
-                radial-gradient(circle at 0 0, rgba(252,211,77,.15), transparent 55%),
-                radial-gradient(circle at 100% 0, rgba(56,189,248,.2), transparent 55%),
-                rgba(15,23,42,.95);
-            box-shadow:0 20px 50px rgba(15,23,42,.95);
-            position:relative;
-            overflow:hidden;
-        }
-        .marketing-block::before {
-            content:"";
-            position:absolute;
-            inset:-40%;
-            background:radial-gradient(circle at 0 0, rgba(248,250,252,.15), transparent 60%);
-            opacity:0;
-            animation:marketingGlow 5s infinite;
-        }
-        @keyframes marketingGlow {
-            0%,100% { opacity:0; }
-            40% { opacity:1; }
-        }
-        .mk-glitch {
-            font-size:22px;
-            font-weight:700;
-            letter-spacing:.06em;
-            margin-bottom:10px;
-            position:relative;
-            display:inline-block;
-        }
-        .mk-glitch-main {
-            position:relative;
-            z-index:2;
-        }
-        .mk-glitch::after,
-        .mk-glitch::before {
-            content:attr(data-text);
-            position:absolute;
-            inset:0;
-            mix-blend-mode:screen;
-            opacity:.2;
-        }
-        .mk-glitch::before {
-            transform:translate(-2px,-1px);
-            color:#60a5fa;
-        }
-        .mk-glitch::after {
-            transform:translate(2px,1px);
-            color:#f97316;
-        }
-        .mk-row {
-            display:flex;
-            flex-wrap:wrap;
-            gap:16px;
-            margin-top:6px;
-            font-size:13px;
-            color:#e5e7eb;
-        }
-        .mk-col {
-            flex:1 1 200px;
-            min-width:0;
-        }
-        .mk-highlight {
-            display:inline-block;
-            padding:3px 8px;
-            border-radius:999px;
-            background:rgba(15,23,42,.9);
-            border:1px solid rgba(148,163,184,.7);
-            font-size:11px;
-            margin-bottom:6px;
-        }
-        .mk-line {
-            margin-bottom:6px;
-        }
-        .mk-strong {
-            background:linear-gradient(90deg,#facc15,#a855f7);
-            -webkit-background-clip:text;
-            color:transparent;
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.14), transparent 60%),
+                rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            box-shadow:
+                0 18px 50px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(30, 64, 175, 0.35);
+            padding: 14px 14px 12px;
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .mk-cards {
-            margin-top:14px;
-            display:flex;
-            flex-wrap:wrap;
-            gap:14px;
-        }
-        .mk-card {
-            width:190px;
-            height:110px;
-            border-radius:16px;
-            perspective:800px;
-            flex:1 1 170px;
-            min-width:0;
-        }
-        .mk-card-inner {
-            width:100%;
-            height:100%;
-            position:relative;
-            transform-style:preserve-3d;
-            transition:transform .5s ease;
-        }
-        .mk-card:hover .mk-card-inner {
-            transform:rotateY(180deg);
-        }
-        .mk-card-face {
-            position:absolute;
-            inset:0;
-            border-radius:16px;
-            padding:10px 12px;
-            font-size:11px;
-            display:flex;
-            flex-direction:column;
-            justify-content:space-between;
-            backface-visibility:hidden;
-        }
-        .mk-card-front {
-            background:radial-gradient(circle at 0 0,#1f2937,#020617);
-            border:1px solid rgba(148,163,184,.7);
-        }
-        .mk-card-back {
-            background:radial-gradient(circle at 0 0,#facc15,#f97316);
-            color:#111827;
-            border:1px solid rgba(248,250,252,.7);
-            transform:rotateY(180deg);
-        }
-        .mk-card-title {
-            font-weight:600;
-            margin-bottom:4px;
-        }
-        .mk-card-tag {
-            font-size:10px;
-            text-transform:uppercase;
-            letter-spacing:.14em;
-            opacity:.7;
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(94, 234, 212, 0.18), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .mk-bottom {
-            margin-top:16px;
-            display:flex;
-            flex-wrap:wrap;
-            gap:10px;
-            align-items:center;
-            font-size:12px;
-            color:#9ca3af;
-        }
-        .mk-cta {
-            padding:8px 16px;
-            border-radius:999px;
-            border:none;
-            cursor:pointer;
-            background:radial-gradient(circle at 0 0,#facc15,#f97316);
-            color:#111827;
-            font-size:13px;
-            font-weight:600;
-            box-shadow:0 0 22px rgba(250,204,21,.9);
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
-        @media (max-width:1024px) {
-            .sidebar { display:none; }
-            .content { padding:18px 14px 40px; }
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.3), rgba(15, 23, 42, 1));
+            color: #e0f2fe;
+            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.6);
+            font-size: 15px;
         }
-        @media (max-width:640px) {
-            .fx-status-bar {
-                flex-direction:column;
-                align-items:flex-start;
-                height:auto;
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #f9fafb;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            color: rgba(209, 213, 219, 0.94);
+            line-height: 1.7;
+        }
+
+        /* ===== PRÉMIUM CHAT SZEKCIÓ ===== */
+
+        .chat-section {
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            margin-top: 10px;
+            background:
+                radial-gradient(circle at top, rgba(37, 99, 235, 0.2), transparent 60%),
+                radial-gradient(circle at bottom, rgba(15, 23, 42, 1), #020617 70%);
+            padding-bottom: 60px;
+        }
+
+        .chat-layout {
+            margin-top: 24px;
+            max-width: 980px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chat-card-big {
+            border-radius: 30px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 65%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.22), transparent 65%),
+                linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
+            box-shadow:
+                0 40px 80px rgba(15, 23, 42, 0.95),
+                0 0 0 1px rgba(30, 64, 175, 0.7);
+            border: 1px solid rgba(30, 64, 175, 0.8);
+            padding: 18px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: floatSlow 20s ease-in-out infinite;
+            color: #e5e7eb;
+        }
+
+        .chat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chat-header-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: radial-gradient(circle at top, #22d3ee, #020617 70%);
+            box-shadow:
+                0 0 0 1px rgba(148, 163, 184, 0.9),
+                0 8px 18px rgba(0, 0, 0, 0.95);
+        }
+
+        .chat-header-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .chat-header-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #f9fafb;
+        }
+
+        .chat-meta {
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.96);
+        }
+
+        .chat-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: rgba(22, 163, 74, 0.12);
+            color: #bbf7d0;
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .chat-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+        }
+
+        .chat-window {
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 60%),
+                radial-gradient(circle at bottom, rgba(15, 23, 42, 1), #020617 80%);
+            padding: 12px 12px 14px;
+            min-height: 330px;
+            max-height: 420px;
+            overflow-y: auto;
+            box-shadow:
+                0 0 0 1px rgba(30, 64, 175, 0.9),
+                inset 0 0 40px rgba(15, 23, 42, 0.95);
+        }
+
+        .chat-message {
+            max-width: 85%;
+            padding: 8px 10px;
+            border-radius: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 6px;
+            word-wrap: break-word;
+        }
+
+        .chat-message.user {
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            border-left: 3px solid #facc15;
+            color: #0b1120;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.9);
+        }
+
+        .chat-message.bot {
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            background: rgba(15, 23, 42, 0.96);
+            border-left: 3px solid #22d3ee;
+            color: #e5e7eb;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.95);
+        }
+
+        .chat-cta-link {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: linear-gradient(90deg, #facc15, #f97316);
+            color: #111827;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow:
+                0 10px 26px rgba(234, 179, 8, 0.9),
+                0 0 26px rgba(245, 158, 11, 0.9);
+        }
+
+        .chat-cta-link:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 18px 40px rgba(234, 179, 8, 1),
+                0 0 34px rgba(245, 158, 11, 1);
+        }
+
+        .chat-quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .chat-quick-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 11px;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            cursor: pointer;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+        }
+
+        .chat-quick-btn:hover {
+            background: rgba(30, 64, 175, 0.9);
+            border-color: rgba(59, 130, 246, 0.9);
+        }
+
+        .chat-input-row {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .chat-input {
+            flex: 1;
+            border-radius: 999px;
+            padding: 9px 14px;
+            border: 1px solid rgba(51, 65, 85, 0.95);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: radial-gradient(circle at top, #020617, #020617 70%);
+            min-width: 200px;
+            color: #e5e7eb;
+        }
+
+        .chat-input::placeholder {
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .chat-input:focus {
+            border-color: #22d3ee;
+            box-shadow:
+                0 0 0 1px rgba(56, 189, 248, 0.9),
+                0 0 30px rgba(37, 99, 235, 0.9);
+        }
+
+        .chat-send-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617;
+            cursor: pointer;
+            box-shadow:
+                0 18px 40px rgba(59, 130, 246, 0.95),
+                0 0 34px rgba(129, 140, 248, 0.9);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .chat-send-btn span.icon {
+            font-size: 14px;
+        }
+
+        .chat-send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow:
+                0 26px 60px rgba(59, 130, 246, 1),
+                0 0 40px rgba(129, 140, 248, 1);
+        }
+
+        /* ===== LÁBLÉC ===== */
+
+        footer {
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            background: #020617;
+            color: #e5e7eb;
+            margin-top: 30px;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 12px 24px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 1024px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 28px;
             }
-            .fx-command { max-width:none; width:100%; }
-            .fx-spot { height:150px; }
-            .galaxy-shell { height:260px; }
+
+            .hero-cta-wrapper {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 78%;
+                max-width: 320px;
+                transition: transform 0.25s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                display: flex;
+            }
+
+            .page {
+                margin-left: 0;
+            }
+
+            .page-inner {
+                padding: 70px 16px 70px;
+            }
+
+            .hero {
+                padding-top: 0;
+            }
+
+            .chat-card-big {
+                border-radius: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .features-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .chat-card-big {
+                padding: 16px 14px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .chat-window {
+                min-height: 280px;
+            }
         }
     </style>
 </head>
 <body>
-<div class="layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div class="brand">
-            <img src="logo.png" alt="Aurion Studio logó" class="brand-logo">
-            <div>
-                <div class="brand-text-main">Aurion Studio</div>
-                <div class="brand-text-sub">Prémium web & shop</div>
-            </div>
+
+<!-- OLDALSÓ MENÜ -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+        <div class="sidebar-logo">
+            <img src="logo.png" alt="Aurion Studio logó" class="sidebar-logo-img">
+            <span class="aurion">Aurion</span>
+            <span class="studio">Studio</span>
         </div>
 
-        <div>
-            <div class="nav-section-title">Navigáció</div>
-            <ul class="nav-list">
-                <li><a href="index.html#szolgaltatasok" class="nav-link"><span>Szolgáltatások</span></a></li>
-                <li><a href="munkaink.html" class="nav-link"><span>Munkáink</span></a></li>
-                <li><a href="minket.html" class="nav-link"><span>Ismerj meg minket</span></a></li>
-                <li><a href="bemutatkozas.html" class="nav-link"><span>Bemutatkozás</span></a></li>
-                <li><a href="index.html#rolunk" class="nav-link"><span>Rólunk</span></a></li>
-                <li><a href="kulonleges.html" class="nav-link active">
-                    <span>Különleges kérések</span><div class="nav-dot"></div></a>
-                </li>
-                <li><a href="al.html" class="nav-link"><span>AI Chat</span></a></li>
-            </ul>
+        <div class="sidebar-section-title">Oldalak</div>
+        <nav class="sidebar-nav">
+            <a href="index.html#szolgaltatasok" class="nav-link">
+                <span class="label">Szolgáltatások</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="munkaink.html" class="nav-link">
+                <span class="label">Munkáink</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="minket.html" class="nav-link nav-pill">
+                <span class="label">Ismerj meg minket</span>
+                <span class="chevron">★</span>
+            </a>
+            <a href="kulonleges.html" class="nav-link">
+                <span class="label">Különleges kérések</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#bemutatkozas" class="nav-link">
+                <span class="label">Bemutatkozás</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#rolunk" class="nav-link">
+                <span class="label">Rólunk</span>
+                <span class="chevron">›</span>
+            </a>
+            <a href="index.html#kapcsolat" class="nav-link nav-pill">
+                <span class="label">Kapcsolat</span>
+                <span class="chevron">✉</span>
+            </a>
+            <a href="al.html" class="nav-link active">
+                <span class="label">AI Chat</span>
+                <span class="chevron">●</span>
+            </a>
+        </nav>
 
-            <div class="nav-section-title" style="margin-top:18px;">Kapcsolat</div>
-            <ul class="nav-list">
-                <li><a href="index.html#kapcsolat" class="nav-link"><span>Kapcsolat</span></a></li>
-            </ul>
+        <div class="sidebar-bottom">
+            Aurion AI – egyedi asszisztens a márkádra hangolva.
         </div>
+    </div>
+</aside>
 
-        <div class="nav-secondary">
-            <a href="al.html" class="ai-pill-link">
-                <div class="ai-pill">
-                    <div class="ai-dot"></div>
-                    <div>
-                        <div>AI Chat</div>
-                        <span>Valódi, egyedi válaszok</span>
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Menü">
+    <span></span><span></span><span></span>
+</button>
+
+<!-- OLDAL TARTALOM -->
+<div class="page">
+    <div class="page-inner">
+
+        <section class="hero" id="top">
+            <div class="hero-inner animate-on-scroll">
+                <div>
+                    <div class="hero-kicker">AURION AI CHAT</div>
+                    <h1 class="hero-title">Okos ügyfélszolgálat, ami sosem fárad el.</h1>
+                    <p class="hero-subtitle">
+                        Olyan AI chatet építünk a weboldaladra, ami csak az üzleti kérdésekre válaszol,
+                        a te szabályaid szerint. Nem elszabadult mesterséges intelligencia,
+                        hanem kontrollált, átlátható rendszer.
+                    </p>
+                    <div class="hero-pill">
+                        <span class="hero-pill-dot"></span>
+                        <span>Testreszabott AI-válaszok – a saját vállalkozásodra hangolva.</span>
+                    </div>
+                    <p class="hero-info">
+                        Először megmutatjuk, miben segít az asszisztens – a lap alján pedig egy széles,
+                        prémium neon chat ablak vár, ahol kipróbálhatod a felület működését.
+                    </p>
+                </div>
+
+                <div class="hero-cta-wrapper">
+                    <div class="hero-cta-card">
+                        <div class="hero-cta-badge">
+                            <span class="hero-cta-dot"></span>
+                            <span>Saját fejlesztésű AI asszisztens</span>
+                        </div>
+                        <div class="hero-cta-title">Prémium felület, amit a márkádhoz igazítunk.</div>
+                        <p class="hero-cta-text">
+                            A chat dizájnja, stílusa és válaszainak hangvétele mind hozzád igazodik.
+                            Nem egy kész dobozt kapsz, hanem egy saját „digitális kollégát” a honlapodra.
+                        </p>
+                        <ul class="hero-cta-list">
+                            <li>• Márkára szabott megjelenés és szövegvilág.</li>
+                            <li>• Szabályozott válaszok, átlátható működés.</li>
+                            <li>• Stabil technikai háttér, hosszú távra tervezve.</li>
+                        </ul>
+                        <a href="#chat-demo" class="hero-cta-btn">
+                            <span>Ugrás a chat felülethez</span>
+                            <span class="icon">➤</span>
+                        </a>
                     </div>
                 </div>
-            </a>
-        </div>
-    </aside>
+            </div>
+        </section>
 
-    <!-- MAIN -->
-    <main class="content">
-        <div class="page-tag">Különleges kérések</div>
-        <h1 class="page-title">Vizuális trükkök, amikre még a fejlesztők is azt mondják: „oké, ez beteg jó”.</h1>
-        <p class="page-sub">
-            Ez az oldal olyan UI / UX megoldásokat mutat, amiket külön kérésre építünk be.
-            Nem sablon, nem „letöltött theme”, hanem kézzel írt logika, valódi, élő hatás.
-        </p>
+        <main>
+            <!-- FUNKCIÓK / MIT TUD -->
+            <section class="section">
+                <div class="section-header animate-on-scroll">
+                    <div class="section-kicker">MIT TUD</div>
+                    <h2 class="section-title">Miben segít az Aurion Studio AI asszisztens?</h2>
+                    <p class="section-subtitle">
+                        Az asszisztens nem általános csevegésre készült – a vállalkozásod folyamatait,
+                        szolgáltatásait és szabályait követi, hogy valódi terhet vegyen le a válladról.
+                    </p>
+                </div>
 
-        <section class="fx-section">
-            <!-- 01: Követő fényfolt -->
-            <article class="fx-block">
-                <div class="fx-badge">01 • Interaktív háttér</div>
-                <div class="fx-headline">Követő fényfolt – mintha egy lámpával festenél a háttérre.</div>
-                <p class="fx-desc">
-                    A kurzor mozgására reagáló fénykör, ami azonnal „wow-effektet” ad a hero vagy bemutatkozó sávnak.
-                    Bárhová viszed az egeret, a fény odacsúszik – mobilon ujjlenyomatra is beállítható.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Fogd meg az egeret, mozgasd</div>
-                    <div class="fx-spot" id="spotDemo">
-                        <div class="fx-spot-text">
-                            <h3>Világíts rá a részletekre</h3>
-                            <span>Ott jelenik meg a fény, ahol te mozogsz – igazi „él a háttér” érzés.</span>
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-title">Ügyfélkérdések megválaszolása</div>
+                        <div class="feature-text">
+                            Nyitvatartás, árak, szolgáltatások, rendelés menete – a visszatérő kérdésekre
+                            egységes, gyors választ ad, akkor is, amikor Te épp nem vagy gépnél.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧭</div>
+                        <div class="feature-title">Irányítás a megfelelő oldalra</div>
+                        <div class="feature-text">
+                            Segít eligazodni az oldalon: ajánlatkérés, termékek, szolgáltatások,
+                            kapcsolat – mindig a következő logikus lépés felé tereli a látogatót.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧱</div>
+                        <div class="feature-title">Szabályozott viselkedés</div>
+                        <div class="feature-text">
+                            Előre lefektetett keretek szerint működik: mit válaszolhat, mit kerül,
+                            mikor adja át a beszélgetést kollégának. Nem kísérletezünk – rendszert építünk.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Beszélgetések átnézése</div>
+                        <div class="feature-text">
+                            Láthatod, mire kérdeznek legtöbbet az ügyfelek – ez irányt ad a fejlesztésnek,
+                            az ajánlatoknak és akár a honlap tartalmának is.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-title">Saját tudásbázisra építve</div>
+                        <div class="feature-text">
+                            A Te anyagaidból tanul: GYIK, belső leírások, folyamatok, dokumentumok alapján
+                            építjük fel a válaszlogikát – nem a „teljes internetet” engedjük rá.
+                        </div>
+                    </div>
+
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon">⚙️</div>
+                        <div class="feature-title">Honlapodhoz illesztve</div>
+                        <div class="feature-text">
+                            A chat megjelenése, mozgása és működése illeszkedik a márkához:
+                            arculat, színek, betűk, hangulat – mintha mindig is része lett volna az oldaladnak.
                         </div>
                     </div>
                 </div>
-            </article>
+            </section>
 
-            <!-- 02: 3D tilt card -->
-            <article class="fx-block">
-                <div class="fx-badge">02 • 3D mozgás</div>
-                <div class="fx-headline">Kurzorral irányított 3D kártya – mintha kézben tartanád.</div>
-                <p class="fx-desc">
-                    Az ajánlati doboz, ami szó szerint „megfordul” feléd. A kártya a kurzor helyzete szerint dől el,
-                    közben a fény is másképp csúszik végig rajta. Produkt, csomag vagy referencia kiemeléséhez brutális.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Mozgasd fölé az egeret</div>
-                    <div class="fx-tilt-wrap">
-                        <div class="fx-tilt-card js-tilt">
-                            <div class="fx-tilt-inner">
-                                <div>
-                                    <div class="fx-tilt-title">Aurion PRO csomag</div>
-                                    <div class="fx-tilt-sub">Teljes webshop + admin + AI modulok.</div>
+            <!-- NEON CHAT LEGALUL -->
+            <section class="section chat-section" id="chat-demo">
+                <div class="section-header animate-on-scroll">
+                    <div class="section-kicker">CHAT FELÜLET</div>
+                    <h2 class="section-title">Aurion Studio AI asszisztens – prémium chat ablak</h2>
+                    <p class="section-subtitle">
+                        Kérdezz bátran — mi itt vagyunk, hogy segítsünk!
+                    </p>
+                </div>
+
+                <div class="chat-layout">
+                    <div class="chat-card-big animate-on-scroll">
+                        <div class="chat-card-header">
+                            <div class="chat-header-left">
+                                <div class="chat-header-logo">
+                                    <img src="logo.png" alt="Aurion Studio logó a chatben">
                                 </div>
-                                <div class="fx-tilt-tag">3D interactive card</div>
+                                <div class="chat-header-text">
+                                    <div class="chat-card-title">Aurion Studio AI asszisztens</div>
+                                    <div class="chat-meta">Online – írj egy kérdést, mintha az oldaladra érkező ügyfél lennél.</div>
+                                </div>
+                            </div>
+                            <div class="chat-status-pill">
+                                <span class="chat-status-dot"></span>
+                                <span>Elérhető</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </article>
 
-            <!-- 03: Blob CTA -->
-            <article class="fx-block">
-                <div class="fx-badge">03 • Folyékony CTA</div>
-                <div class="fx-headline">Élő, folyékony „blob” gomb – mintha digitális láva lenne a háttérben.</div>
-                <p class="fx-desc">
-                    Két egymásba úszó színes blob mozog a háttérben, előtte pedig egy kristálytiszta CTA.
-                    Egyszerre nyers, organikus és high-tech – portfólió vagy fő ajánlati sáv brutál kiemeléséhez.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Valós idejű mozgás</div>
-                    <div class="fx-blob-container">
-                        <div class="blob"></div>
-                        <div class="blob two"></div>
-                        <div class="blob-cta">
-                            <h3>Dobd át az ötleted, kísérletezzünk.</h3>
-                            <p>Mondod, milyen őrült vizuált szeretnél, én pedig kitalálom rá a technikai megoldást.</p>
-                            <button class="blob-btn">
-                                <span>Elindítanám a beszélgetést</span>
-                                <span>1 perc, nem sales pitch.</span>
+                        <div class="chat-window" id="chatWindow">
+                            <!-- Ide jönnek az üzenetek -->
+                        </div>
+
+                        <div class="chat-input-row">
+                            <input
+                                type="text"
+                                id="chatInput"
+                                class="chat-input"
+                                placeholder="Írj valamit, pl.: Webshop fejlesztésben gondolkodom..."
+                            >
+                            <button class="chat-send-btn" id="chatSendBtn">
+                                <span class="icon">➤</span>
+                                <span>Üzenet küldése</span>
                             </button>
                         </div>
                     </div>
                 </div>
-            </article>
+            </section>
+        </main>
 
-            <!-- 04: Draggable before/after -->
-            <article class="fx-block">
-                <div class="fx-badge">04 • Előtte / utána</div>
-                <div class="fx-headline">Valódi, húzható előtte–utána sáv – nem csak képpár.</div>
-                <p class="fx-desc">
-                    Egy slider, amin a látogató fogja és fizikailag elhúzza a határvonalat. Használható
-                    régi–új weboldal, redesign, fotó retusálás vagy bármilyen „upgrade” bemutatására.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Fogd meg középen, húzd jobbra-balra</div>
-                    <div class="fx-compare" id="compareDemo">
-                        <div class="fx-compare-before">Előtte</div>
-                        <div class="fx-compare-after" id="compareAfter">
-                            <div class="fx-compare-after-inner">Utána</div>
-                        </div>
-                        <div class="fx-compare-handle" id="compareHandle"></div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 05: Status + command bar -->
-            <article class="fx-block">
-                <div class="fx-badge">05 • „Élő rendszer” érzet</div>
-                <div class="fx-headline">Pingelő státuszsáv + mini command bar hangulat.</div>
-                <p class="fx-desc">
-                    Nem csak statikus „Online” felirat, hanem finoman pulzáló státusz, mellette pedig
-                    egy parancssor-szerű sáv: mintha egy saját kis vezérlőpultod lenne az oldal tetején.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Folyamatosan mozog, de nem zavaró</div>
-                    <div class="fx-status-bar">
-                        <div class="fx-status-left">
-                            <div class="status-dot"></div>
-                            <div>
-                                <div class="fx-status-text-main">Rendszer: stabil • 100% uptime</div>
-                                <div class="fx-status-text-sub">Deploy, mentés, monitorozás: automatizálva.</div>
-                            </div>
-                        </div>
-                        <div class="fx-command">
-                            <span class="fx-command-kbd">⌘ K</span>
-                            <span>Keresés a projektjeid, taskok, logok között – egy helyen.</span>
-                        </div>
-                        <div class="fx-status-right">
-                            Élő státuszsáv, amit beköthetünk<br>valós monitorozó rendszerbe is.
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 06: Mágneses CTA gomb -->
-            <article class="fx-block">
-                <div class="fx-badge">06 • Mágneses interakció</div>
-                <div class="fx-headline">Mágneses CTA – a gomb szó szerint „utánad mozdul”.</div>
-                <p class="fx-desc">
-                    A fő gomb finoman elmozdul a kurzor irányába, mintha vonzaná a kezed.
-                    Ez az a mikroanimáció, amit az emberek öntudatlanul is észrevesznek, de nem tudják megfogalmazni, miért „élőbb” az oldal.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Mozgasd az egeret a sötét sáv fölött</div>
-                    <div class="mag-area" id="magArea">
-                        <button class="mag-btn" id="magBtn">Foglalj időpontot</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 07: Code rain panel -->
-            <article class="fx-block">
-                <div class="fx-badge">07 • Code rain</div>
-                <div class="fx-headline">Mini „Matrix” kódeső – külön panel a kódnak.</div>
-                <p class="fx-desc">
-                    Egy önálló kódeső blokk, ami mutatja: a háttérben tényleg kód születik.
-                    Szöveg, számok vagy saját karakterkészlet is betölthető, márkázott színekben.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Élőben rajzolja a vásznon</div>
-                    <div class="code-panel-wrap">
-                        <canvas id="codeRainCanvas"></canvas>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 08: Szó-morph headline -->
-            <article class="fx-block">
-                <div class="fx-badge">08 • Szöveg morph</div>
-                <div class="fx-headline">Egy mondat, ami 5 különböző irányba „alakul át”.</div>
-                <p class="fx-desc">
-                    Nem csak statikus szlogen: a mondat közepe folyamatosan változik, hogy megmutassa,
-                    mennyi mindent lehet ugyanarra a logikára építeni – webshopot, admin rendszert, játékot, AI eszközt…
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Figyeld a középső szót</div>
-                    <div class="morph-shell">
-                        <div class="morph-text">
-                            Ugyanabból a kódból építünk
-                            <span class="morph-highlight" id="morphText">webshopot</span>.
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 09: Rétegezett 3D jelenet -->
-            <article class="fx-block">
-                <div class="fx-badge">09 • 3D rétegelt jelenet</div>
-                <div class="fx-headline">Három lebegő réteg – mintha belenéznél a rendszer „dobozába”.</div>
-                <p class="fx-desc">
-                    Hátul a sötét háttér, középen a rács / kód, elöl pedig az üveglap a szöveggel.
-                    Az egész blokk 3D-ben dől a kurzor felé, a rétegek külön mélységben mozognak –
-                    pont úgy néz ki, mintha egy mini UI-dobozt tartanál a kezedben.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Mozgasd felette az egeret</div>
-                    <div class="scene-wrap">
-                        <div class="scene" id="aurionScene">
-                            <div class="scene-layer bg"></div>
-                            <div class="scene-layer grid"></div>
-                            <div class="scene-layer foreground">
-                                <div>
-                                    <div class="scene-title">Aurion – rétegezett logika</div>
-                                    <div class="scene-text">
-                                        Hátul az infrastruktúra, középen a kód, elöl a felhasználó –
-                                        mindegyiket külön kezelem a rendszerben.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 10: 3D Aurion-kocka -->
-            <article class="fx-block">
-                <div class="fx-badge">10 • 3D Aurion-kocka</div>
-                <div class="fx-headline">Forgó Aurion-kocka – minden oldal egy világ, amit építesz.</div>
-                <p class="fx-desc">
-                    Egy kocka, amin körbe vannak írva a fő területek: webshop, admin, AI, játék, portfólió.
-                    Folyamatosan forog, hoverre lassul – olyan, mintha egy kis „brand-szobor” lenne az oldal közepén.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Figyeld, ahogy körbejárja a tengelyeit</div>
-                    <div class="cube-wrap">
-                        <div class="cube">
-                            <div class="cube-face front"><span>WEBSHOP</span></div>
-                            <div class="cube-face back"><span>ADMIN</span></div>
-                            <div class="cube-face right"><span>AI MODUL</span></div>
-                            <div class="cube-face left"><span>JÁTÉK</span></div>
-                            <div class="cube-face top"><span>AURION</span></div>
-                            <div class="cube-face bottom"><span>PORTFÓLIÓ</span></div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 11: Aurion-galaxis -->
-            <article class="fx-block">
-                <div class="fx-badge">11 • Orbitáló címkék</div>
-                <div class="fx-headline">Aurion-galaxis – körülötted keringenek a modulok.</div>
-                <p class="fx-desc">
-                    Középen a márka, körülötte pályán keringő címkék: webshop, admin, AI, API, statisztika, automatizálás.
-                    Olyan, mintha egy kis naprendszert néznél UI-ban.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Finom, folyamatos orbitálás</div>
-                    <div class="galaxy-shell">
-                        <div class="galaxy-center">Aurion<br>Studio</div>
-
-                        <div class="orbit">
-                            <div class="orbit-chip">Webshop</div>
-                            <div class="orbit-chip">Admin panel</div>
-                            <div class="orbit-chip">AI integráció</div>
-                            <div class="orbit-chip">API kapcsolatok</div>
-                        </div>
-
-                        <div class="orbit">
-                            <div class="orbit-chip">Statisztika</div>
-                            <div class="orbit-chip">Automatizálás</div>
-                            <div class="orbit-chip">Felhasználói élmény</div>
-                            <div class="orbit-chip">Biztonság</div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 12: 3D kártya-stack -->
-            <article class="fx-block">
-                <div class="fx-badge">12 • 3D kártya-stack</div>
-                <div class="fx-headline">Lépcsőzetes stack – mintha egymás mögé tolt UI-kártyákat néznél.</div>
-                <p class="fx-desc">
-                    Három kártya egymás mögött, mindegyik másik réteget jelöl: stratégia, design, fejlesztés.
-                    Hoverre az egész stack „felnyílik”, mintha kicsit szétcsúszna előtted a rendszer.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Vidd fölé az egeret</div>
-                    <div class="stack-shell">
-                        <div class="stack">
-                            <div class="stack-card">
-                                <div>
-                                    <span>Stratégia</span>
-                                    Drótváz, üzleti logika, célok.
-                                </div>
-                            </div>
-                            <div class="stack-card">
-                                <div>
-                                    <span>Design</span>
-                                    UI, UX, márka – vizuális rendszer.
-                                </div>
-                            </div>
-                            <div class="stack-card">
-                                <div>
-                                    <span>Fejlesztés</span>
-                                    Tiszta kód, skálázható struktúra.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 13: 3D gyűrű kártyákkal -->
-            <article class="fx-block">
-                <div class="fx-badge">13 • 3D gyűrű</div>
-                <div class="fx-headline">Körben álló referenciakártyák – mini „work gyűrű”.</div>
-                <p class="fx-desc">
-                    Négy kártya egy 3D gyűrűn, lassan körbeforogva. Mindegyik más típusú munkát jelöl:
-                    webshop, portfólió, admin, egyedi rendszer. Olyan, mintha egy saját kis showreel lenne.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Automatikusan körbeforog</div>
-                    <div class="ring-shell">
-                        <div class="ring">
-                            <div class="ring-item" style="transform:rotateY(0deg) translateZ(120px);">
-                                Webshop projektek
-                            </div>
-                            <div class="ring-item" style="transform:rotateY(90deg) translateZ(120px);">
-                                Portfólió oldalak
-                            </div>
-                            <div class="ring-item" style="transform:rotateY(180deg) translateZ(120px);">
-                                Admin felületek
-                            </div>
-                            <div class="ring-item" style="transform:rotateY(270deg) translateZ(120px);">
-                                Egyedi rendszerek
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 14: 3D console ablak -->
-            <article class="fx-block">
-                <div class="fx-badge">14 • 3D console</div>
-                <div class="fx-headline">Dőlt console ablak – mintha épp deploy közben kapnál el.</div>
-                <p class="fx-desc">
-                    Egy kis konzol ablak, amiben futó log-sorok, felette pedig végigfutó scan-vonal.
-                    Az egész blokk enyhén döntve van, mintha egy 3D dashboard részlete lenne.
-                </p>
-                <div class="fx-inner">
-                    <div class="fx-label">Futó scan-vonal</div>
-                    <div class="console-shell">
-                        <div class="console">
-                            <div class="console-header">
-                                <div class="console-dot"></div>
-                                <div class="console-dot"></div>
-                                <div class="console-dot"></div>
-                                <span>aurion-deploy › live.log</span>
-                            </div>
-                            <div class="console-body">
-                                <div class="console-line-faint">[00:00:01] Initializing build pipeline…</div>
-                                <div>[00:00:03] Assets bundled • 32 files</div>
-                                <div>[00:00:05] DB connection • OK</div>
-                                <div>[00:00:07] Admin panel routes • mapped</div>
-                                <div>[00:00:09] AI endpoint • ready</div>
-                                <div class="console-line-faint">[00:00:10] Status: deployed • no errors</div>
-                            </div>
-                            <div class="console-scan"></div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- 15: Animált marketing blokk alul -->
-        <section class="marketing-block">
-            <div class="mk-glitch" data-text="Programozás = teremtés.">
-                <span class="mk-glitch-main">Programozás = teremtés.</span>
+        <footer>
+            <div class="footer-inner">
+                <span>Aurion Studio – egyedi webes megoldások</span>
+                <a href="#top" class="footer-link">Vissza az elejére</a>
             </div>
-            <div class="mk-row">
-                <div class="mk-col">
-                    <div class="mk-highlight">Mit kapsz, ha rám bízod?</div>
-                    <div class="mk-line">
-                        Nem „összekattintott” sablont, hanem
-                        <span class="mk-strong">egyedi rendszert</span>, amin látszik, hogy
-                        valaki tényleg gondolkodott rajta.
-                    </div>
-                    <div class="mk-line">
-                        Ha kell, belemászom a logikádba, és olyan admin felületet építek,
-                        amin <span class="mk-strong">tényleg szeretsz dolgozni</span>, nem csak elviseled.
-                    </div>
-                </div>
-                <div class="mk-col">
-                    <div class="mk-highlight">Miben vagyok más?</div>
-                    <div class="mk-line">
-                        Nem állok meg ott, hogy „működik”.
-                        Addig csiszolom, amíg ránézésre is azt mondod:
-                        <span class="mk-strong">„oké, ilyen oldalam még nem volt”</span>.
-                    </div>
-                    <div class="mk-line">
-                        Ha eszedbe jut egy őrült ötlet – 3D, AI, játékos logika –
-                        az nem gond, hanem <span class="mk-strong">kihívás</span>.
-                    </div>
-                </div>
-            </div>
+        </footer>
 
-            <div class="mk-cards">
-                <div class="mk-card">
-                    <div class="mk-card-inner">
-                        <div class="mk-card-face mk-card-front">
-                            <div>
-                                <div class="mk-card-tag">Kliens oldal</div>
-                                <div class="mk-card-title">Átlátható folyamat</div>
-                            </div>
-                            <div>Brief → vázlat → design → fejlesztés → finomhangolás.</div>
-                        </div>
-                        <div class="mk-card-face mk-card-back">
-                            <div>
-                                <div class="mk-card-tag">Mit érzel te?</div>
-                                <div class="mk-card-title">Nem káosz, hanem rend.</div>
-                            </div>
-                            <div>Mindig tudod, épp hol tartunk, miért azt csináljuk, amit.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mk-card">
-                    <div class="mk-card-inner">
-                        <div class="mk-card-face mk-card-front">
-                            <div>
-                                <div class="mk-card-tag">Technikai oldal</div>
-                                <div class="mk-card-title">Skálázható alapok</div>
-                            </div>
-                            <div>Úgy írom meg a rendszert, hogy később is lehessen rá építeni.</div>
-                        </div>
-                        <div class="mk-card-face mk-card-back">
-                            <div>
-                                <div class="mk-card-tag">Mit jelent ez?</div>
-                                <div class="mk-card-title">Nem dobjuk ki fél év múlva.</div>
-                            </div>
-                            <div>Ha nő az üzlet, a rendszer nem omlik össze, hanem veled nő.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mk-bottom">
-                <button class="mk-cta">Írj rám egy őrült ötlettel</button>
-                <span>Mondd el, mit szeretnél látni a saját oldaladon, én pedig kitalálom, hogyan lehet megcsinálni.</span>
-            </div>
-        </section>
-    </main>
+    </div>
 </div>
 
 <script>
-    // 01 – követő fényfolt
-    (function () {
-        const spot = document.getElementById('spotDemo');
-        if (!spot) return;
-        spot.addEventListener('mousemove', (e) => {
-            const rect = spot.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            spot.style.setProperty('--x', x + '%');
-            spot.style.setProperty('--y', y + '%');
-        });
-    })();
+    // === OLDALSÓ MENÜ – MOBIL NYIT/ZÁR ===
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
 
-    // 02 – 3D tilt card
-    (function () {
-        const card = document.querySelector('.js-tilt');
-        if (!card) return;
-        const maxRot = 15;
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const rotY = maxRot * x;
-            const rotX = -maxRot * y;
-            card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-            card.style.boxShadow = `0 30px 60px rgba(15,23,42,.95)`;
-        });
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-            card.style.boxShadow = '0 26px 50px rgba(15,23,42,.95)';
-        });
-    })();
-
-    // 04 – draggable előtte/utána
-    (function () {
-        const wrapper = document.getElementById('compareDemo');
-        const after = document.getElementById('compareAfter');
-        const handle = document.getElementById('compareHandle');
-        if (!wrapper || !after || !handle) return;
-
-        let dragging = false;
-
-        const updatePos = (clientX) => {
-            const rect = wrapper.getBoundingClientRect();
-            let x = clientX - rect.left;
-            if (x < 0) x = 0;
-            if (x > rect.width) x = rect.width;
-            const percent = (x / rect.width) * 100;
-            after.style.width = percent + '%';
-            handle.style.left = percent + '%';
-        };
-
-        const onMove = (e) => {
-            if (!dragging) return;
-            if (e.type.startsWith('touch')) {
-                updatePos(e.touches[0].clientX);
-            } else {
-                updatePos(e.clientX);
-            }
-        };
-
-        const start = (e) => {
-            dragging = true;
-            if (e.type.startsWith('touch')) {
-                updatePos(e.touches[0].clientX);
-            } else {
-                updatePos(e.clientX);
-            }
-        };
-        const stop = () => { dragging = false; };
-
-        handle.addEventListener('mousedown', start);
-        wrapper.addEventListener('mousedown', start);
-        window.addEventListener('mousemove', onMove);
-        window.addEventListener('mouseup', stop);
-
-        handle.addEventListener('touchstart', start, {passive:true});
-        wrapper.addEventListener('touchstart', start, {passive:true});
-        window.addEventListener('touchmove', onMove, {passive:false});
-        window.addEventListener('touchend', stop);
-    })();
-
-    // 06 – Mágneses gomb
-    (function () {
-        const area = document.getElementById('magArea');
-        const btn = document.getElementById('magBtn');
-        if (!area || !btn) return;
-
-        area.addEventListener('mousemove', (e) => {
-            const rect = area.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const dx = (e.clientX - centerX) / (rect.width / 2);
-            const dy = (e.clientY - centerY) / (rect.height / 2);
-            const strength = 18;
-            const moveX = dx * strength;
-            const moveY = dy * strength;
-            btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+    if (sidebar && sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarToggle.classList.toggle('open');
         });
 
-        area.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate3d(0,0,0)';
-        });
-    })();
-
-    // 07 – Code rain
-    (function () {
-        const canvas = document.getElementById('codeRainCanvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-
-        function resize() {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        const chars = '01AURIONSTUDIO<>+-*/=';
-        const fontSize = 14;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = [];
-
-        function initDrops() {
-            columns = Math.floor(canvas.width / fontSize);
-            drops = new Array(columns).fill(1);
-        }
-        initDrops();
-
-        function draw() {
-            ctx.fillStyle = 'rgba(2,6,23,0.36)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#38bdf8';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-
-                ctx.fillText(text, x, y);
-
-                if (y > canvas.height && Math.random() > 0.965) {
-                    drops[i] = 0;
+        // ha mobilon linkre kattint, csukjuk be
+        sidebar.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 900) {
+                    sidebar.classList.remove('open');
+                    sidebarToggle.classList.remove('open');
                 }
-                drops[i]++;
+            });
+        });
+    }
+
+    // Scroll animáció
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
             }
-            requestAnimationFrame(draw);
-        }
-        requestAnimationFrame(draw);
-    })();
+        });
+    }, { threshold: 0.15 });
 
-    // 08 – Szó-morph
-    (function () {
-        const el = document.getElementById('morphText');
-        if (!el) return;
-        const words = [
-            'webshopot',
-            'admin rendszert',
-            'játékszervert',
-            'AI eszközt',
-            'portált'
-        ];
-        let index = 0;
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-        function nextWord() {
-            index = (index + 1) % words.length;
-            el.textContent = words[index];
-            el.classList.remove('morph-highlight');
-            void el.offsetWidth;
-            el.classList.add('morph-highlight');
+    // === CHAT LOGIKA – API hívás + 10 üzenet limit + köszönő üzenet ===
+
+    const chatWindow = document.getElementById('chatWindow');
+    const chatInput = document.getElementById('chatInput');
+    const chatSendBtn = document.getElementById('chatSendBtn');
+
+    let messageCount = 0;
+    const MAX_MESSAGES = 10;
+
+    function addMessage(text, role = 'user', isHtml = false) {
+        if (!chatWindow) return null;
+        const msg = document.createElement('div');
+        msg.classList.add('chat-message');
+        if (role === 'user') {
+            msg.classList.add('user');
+        } else {
+            msg.classList.add('bot');
         }
 
-        setInterval(nextWord, 2200);
-    })();
+        if (isHtml) {
+            msg.innerHTML = text;
+        } else {
+            msg.textContent = text;
+        }
 
-    // 09 – Rétegezett 3D jelenet
-    (function () {
-        const scene = document.getElementById('aurionScene');
-        if (!scene) return;
+        chatWindow.appendChild(msg);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        return msg;
+    }
 
-        const maxRot = 18;
+    function showLimitReached() {
+        addMessage(
+            'Ebben a chatben 10 üzenet után lezárjuk a beszélgetést, ' +
+            'hogy védjük az AI erőforrásokat. Ha szeretnél saját, korlátlan AI asszisztenst, írj az ajánlatkérő űrlapon keresztül.',
+            'bot'
+        );
+        if (chatInput) chatInput.disabled = true;
+        if (chatSendBtn) chatSendBtn.disabled = true;
+    }
 
-        const onMove = (e) => {
-            const rect = scene.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            const rotY = maxRot * x;
-            const rotX = -maxRot * y;
-            scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-        };
+    async function callBackend(userText) {
+        const thinkingBubble = addMessage('Gondolkodom a válaszon…', 'bot');
 
-        const reset = () => {
-            scene.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        };
+        try {
+            const res = await fetch('/.netlify/functions/aurion-chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: userText,
+                    count: messageCount
+                }),
+            });
 
-        scene.addEventListener('mousemove', onMove);
-        scene.addEventListener('mouseleave', reset);
-    })();
+            if (!res.ok) {
+                if (res.status === 429) {
+                    const data = await res.json().catch(() => ({}));
+                    if (thinkingBubble) {
+                        thinkingBubble.textContent =
+                            data.message ||
+                            'Ebben a chatben elértük az üzenetlimitet. Ha szeretnél saját AI asszisztenst, jelezd nekünk.';
+                    }
+                    showLimitReached();
+                    return;
+                }
+
+                throw new Error('Hibás HTTP státusz: ' + res.status);
+            }
+
+            const data = await res.json();
+            const reply = (data && data.reply) ? data.reply : '';
+
+            if (thinkingBubble) {
+                thinkingBubble.innerHTML = `
+                    <div>${reply || 'Jelenleg nem érkezett válasz a motortól.'}</div>
+                    <a href="index.html#kapcsolat" class="chat-cta-link">Kapcsolatfelvételhez kattints ide →</a>
+                `;
+            }
+        } catch (err) {
+            console.error('Chat hiba:', err);
+            if (thinkingBubble) {
+                thinkingBubble.textContent =
+                    'Most nem tudom elérni a chat motort. ' +
+                    'Valószínűleg technikai probléma van – próbáld meg egy kicsit később, ' +
+                    'vagy írj közvetlenül az ajánlatkérő űrlapon.';
+            }
+        }
+    }
+
+    function handleUserSend() {
+        if (!chatInput) return;
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        if (messageCount >= MAX_MESSAGES) {
+            showLimitReached();
+            return;
+        }
+
+        messageCount += 1;
+        addMessage(text, 'user', false);
+        chatInput.value = '';
+
+        callBackend(text);
+    }
+
+    if (chatSendBtn && chatInput) {
+        chatSendBtn.addEventListener('click', handleUserSend);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleUserSend();
+            }
+        });
+    }
+
+    // Kezdő köszönő üzenet
+    function addInitialGreeting() {
+        const greetingHtml = `
+            <div><strong>Üdvözöl az Aurion Studio AI asszisztens!</strong></div>
+            <div>Röviden írd le, miben segíthetünk, vagy válassz az alábbi témák közül:</div>
+            <div class="chat-quick-options">
+                <button class="chat-quick-btn" data-value="webshop fejlesztés">Webshop fejlesztés</button>
+                <button class="chat-quick-btn" data-value="egyedi weboldal">Egyedi weboldal</button>
+                <button class="chat-quick-btn" data-value="AI chat integráció">AI chat integráció</button>
+                <button class="chat-quick-btn" data-value="WordPress / WooCommerce">WordPress / WooCommerce</button>
+            </div>
+            <a href="index.html#kapcsolat" class="chat-cta-link">Ha inkább rögtön ajánlatot kérnél, kattints ide →</a>
+        `;
+        addMessage(greetingHtml, 'bot', true);
+    }
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.chat-quick-btn');
+        if (!btn || !chatInput) return;
+        const val = btn.getAttribute('data-value') || '';
+        if (!val) return;
+        chatInput.value = `A(z) ${val} témában szeretnék érdeklődni.`;
+        handleUserSend();
+    });
+
+    addInitialGreeting();
 </script>
 </body>
 </html>
