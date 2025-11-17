@@ -18,22 +18,12 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background:
-                radial-gradient(circle at top, #020617 0%, #020617 45%, #020617 100%);
+                radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%),
+                radial-gradient(circle at bottom right, #0f172a 0, #020617 50%, #020617 100%);
             color: #e5e7eb;
             overflow-x: hidden;
+            line-height: 1.6;
             position: relative;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: -120px;
-            background:
-                radial-gradient(circle at 10% -10%, rgba(59, 130, 246, 0.3), transparent 55%),
-                radial-gradient(circle at 100% 0%, rgba(76, 29, 149, 0.55), transparent 55%);
-            opacity: 0.9;
-            pointer-events: none;
-            z-index: -1;
         }
 
         a {
@@ -79,26 +69,30 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC ===== */
+        /* ===== OLDALSÓ MENÜ (SIDE NAV) – ugyanaz, mint minket.html-en ===== */
 
-        header {
+        .sidebar {
             position: fixed;
-            top: 0;
-            width: 100%;
+            inset: 0 auto 0 0;
+            width: 260px;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.22), transparent 60%),
+                radial-gradient(circle at bottom, rgba(129, 140, 248, 0.22), transparent 60%),
+                rgba(15, 23, 42, 0.98);
+            border-right: 1px solid rgba(30, 64, 175, 0.9);
+            box-shadow: 0 0 60px rgba(15, 23, 42, 0.95);
+            padding: 16px 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
             z-index: 9999;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(22px);
-            border-bottom: 1px solid rgba(30, 64, 175, 0.5);
         }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 10px 16px;
+        .sidebar-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
+            gap: 10px;
         }
 
         .logo {
@@ -115,14 +109,14 @@
             height: 42px;
             border-radius: 14px;
             object-fit: contain;
-            background: radial-gradient(circle at 30% 0, #38bdf8, #020617 70%);
+            background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.8);
+                0 12px 30px rgba(15, 23, 42, 0.95);
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #a855f7 100%);
+            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -131,64 +125,7 @@
             color: #e5e7eb;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 13px;
-            font-weight: 500;
-            color: rgba(191, 219, 254, 0.9);
-            position: relative;
-            padding: 4px 0;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -4px;
-            width: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #38bdf8, #6366f1);
-            transform: translateX(-50%);
-            transition: width 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: #f9fafb;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.contact-link {
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(59, 130, 246, 0.8);
-            background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.2), rgba(15, 23, 42, 0.95));
-            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.6);
-            color: #e5e7eb;
-        }
-
-        .nav-links a.contact-link::after {
-            display: none;
-        }
-
-        .nav-links a.active {
-            color: #38bdf8;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .hamburger {
+        .sidebar-hamburger {
             display: none;
             width: 40px;
             height: 32px;
@@ -200,10 +137,9 @@
             justify-content: center;
             flex-direction: column;
             gap: 5px;
-            z-index: 10000;
         }
 
-        .hamburger span {
+        .sidebar-hamburger span {
             display: block;
             width: 18px;
             height: 2px;
@@ -212,45 +148,115 @@
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .hamburger.open span:nth-child(1) {
+        .sidebar-hamburger.open span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
 
-        .hamburger.open span:nth-child(2) {
+        .sidebar-hamburger.open span:nth-child(2) {
             opacity: 0;
         }
 
-        .hamburger.open span:nth-child(3) {
+        .sidebar-hamburger.open span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        .nav-links.mobile {
-            position: fixed;
-            inset: 56px 16px auto 16px;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(22px);
-            border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.8);
-            padding: 12px 16px;
+        .sidebar-nav {
+            margin-top: 8px;
+            display: flex;
             flex-direction: column;
-            gap: 10px;
-            transform: translateY(-10px);
+            justify-content: space-between;
+            flex: 1;
+            gap: 20px;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-links a {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(226, 232, 240, 0.85);
+            padding: 6px 10px;
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                transform 0.15s ease;
+        }
+
+        .sidebar-links a::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at left, rgba(56, 189, 248, 0.22), transparent 70%);
             opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            z-index: 9999;
+            transition: opacity 0.25s ease;
         }
 
-        .nav-links.mobile.show {
-            transform: translateY(0);
+        .sidebar-links a span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sidebar-links a:hover {
+            color: #f9fafb;
+            background: rgba(15, 23, 42, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .sidebar-links a:hover::before {
             opacity: 1;
-            pointer-events: auto;
         }
 
-        /* ===== HERO – MUNKÁINK ===== */
+        .nav-link-cta {
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617 !important;
+            box-shadow:
+                0 18px 40px rgba(59, 130, 246, 0.95),
+                0 0 40px rgba(129, 140, 248, 0.85);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .nav-link-cta.secondary {
+            background: linear-gradient(90deg, #facc15, #f97316);
+            box-shadow:
+                0 18px 40px rgba(234, 179, 8, 0.9),
+                0 0 32px rgba(245, 158, 11, 0.9);
+        }
+
+        .nav-link-cta.active {
+            outline: 1px solid rgba(248, 250, 252, 0.9);
+        }
+
+        .sidebar-footer {
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .sidebar-footer strong {
+            color: #e5e7eb;
+        }
+
+        /* ===== OLDAL TARTALOM WRAPPER ===== */
+
+        .page-wrapper {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* ===== HERO – MUNKÁINK (eredeti dizájn, csak a sidebarhoz igazítva) ===== */
 
         .hero {
-            padding: 110px 16px 40px;
+            padding: 40px 16px 40px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
@@ -288,6 +294,8 @@
             text-transform: uppercase;
             color: rgba(148, 163, 184, 1);
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-title {
@@ -297,6 +305,8 @@
             background: linear-gradient(120deg, #e5e7eb 0%, #38bdf8 40%, #a855f7 85%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-subtitle {
@@ -399,6 +409,8 @@
             color: rgba(229, 231, 235, 0.98);
         }
 
+        /* ===== MAIN / SZEKCIÓ ===== */
+
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -465,7 +477,7 @@
             max-width: 720px;
         }
 
-        /* ===== PROJEKT BLOKKOK ===== */
+        /* ===== PROJEKT BLOKKOK (eredeti dizájn) ===== */
 
         .project-block {
             padding: 40px 30px 50px;
@@ -583,7 +595,7 @@
             animation: floatSlow 20s ease-in-out infinite;
         }
 
-        /* Laptop */
+        /* Laptop mockup */
 
         .device-laptop {
             position: relative;
@@ -673,7 +685,7 @@
             background: linear-gradient(90deg, rgba(148, 163, 184, 0.8), rgba(55, 65, 81, 1));
         }
 
-        /* Phone – desktopon a laptop előtt lebeg */
+        /* Phone mockup */
 
         .device-phone {
             position: absolute;
@@ -838,7 +850,7 @@
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(31, 41, 55, 1);
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
             background: #020617;
             color: #9ca3af;
         }
@@ -874,26 +886,55 @@
             .hero-right-preview {
                 order: -1;
             }
-
-            .hero {
-                padding-top: 96px;
-            }
         }
 
         @media (max-width: 900px) {
-            .project-block {
-                padding: 28px 18px 38px;
-                border-radius: 26px;
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+                padding: 10px 12px 10px;
+                border-right: none;
+                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
+            }
+
+            .sidebar-nav {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background:
+                    radial-gradient(circle at top, rgba(37, 99, 235, 0.4), transparent 60%),
+                    rgba(15, 23, 42, 0.98);
+                padding: 12px 16px 14px;
+                box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
+                gap: 12px;
+            }
+
+            .sidebar-nav.open {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .sidebar-hamburger {
+                display: flex;
+            }
+
+            .page-wrapper {
+                margin-left: 0;
+                padding-top: 80px;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links.desktop {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
+            .hero {
+                padding-top: 24px;
             }
 
             .hero-title {
@@ -915,7 +956,6 @@
                 max-width: 100%;
             }
 
-            /* Mobilon a telefon külön blokkban, a laptop alatt */
             .device-phone {
                 position: relative;
                 left: auto;
@@ -932,10 +972,6 @@
         }
 
         @media (max-width: 480px) {
-            .hero {
-                padding-top: 92px;
-            }
-
             .hero-title {
                 font-size: 28px;
             }
@@ -956,305 +992,308 @@
     </style>
 </head>
 <body>
-<header>
-    <nav>
-        <div class="logo">
+
+<!-- OLDALSÓ MENÜ -->
+<aside class="sidebar">
+    <div class="sidebar-top">
+        <a href="index.html#top" class="logo">
             <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
             <span class="aurion">Aurion</span>
             <span class="studio">Studio</span>
-        </div>
-
-        <button class="hamburger" id="hamburger" aria-label="Menü">
+        </a>
+        <button class="sidebar-hamburger" id="sidebarHamburger" aria-label="Menü">
             <span></span><span></span><span></span>
         </button>
+    </div>
 
-        <ul class="nav-links desktop">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html" class="active">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
+    <nav class="sidebar-nav" id="sidebarNav">
+        <ul class="sidebar-links">
+            <li><a href="index.html#szolgaltatasok"><span>Szolgáltatások</span></a></li>
+            <li><a href="munkaink.html"><span>Munkáink</span></a></li>
+            <li><a href="index.html#bemutatkozas"><span>Bemutatkozás</span></a></li>
+            <li><a href="index.html#rolunk"><span>Rólunk</span></a></li>
+            <li><a href="kulonleges.html"><span>Különleges kérések</span></a></li>
+            <li><a href="minket.html" class="nav-link-cta"><span>Ismerj meg minket</span></a></li>
+            <li><a href="index.html#kapcsolat" class="nav-link-cta secondary"><span>Kapcsolat</span></a></li>
+            <li><a href="al.html"><span>AI Chat</span></a></li>
         </ul>
-
-        <ul class="nav-links mobile" id="mobileNav">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html" class="active">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozas">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="index.html#kapcsolat">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
-        </ul>
+        <div class="sidebar-footer">
+            <strong>Aurion Studio</strong> – egyedi webes megoldások<br>
+            Kérdezz bátran, segítünk irányt találni.
+        </div>
     </nav>
-</header>
+</aside>
 
-<section class="hero">
-    <div class="hero-inner animate-on-scroll">
-        <div>
-            <div class="hero-kicker">KIEMELT MUNKÁINK</div>
-            <h1 class="hero-title">Webshopok és honlapok, amelyek mögött valódi fejlesztés van.</h1>
-            <p class="hero-subtitle">
-                Nem sablonokat töltünk ki, hanem teljes rendszereket fejlesztünk: stabil alapokkal,
-                egyedi logikával, hosszú távra tervezve. Az alábbi projektek mind kézzel épített
-                megoldások – a teljes technikai háttérrel együtt.
-            </p>
-            <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                <span>Önállóan működő, élesben használt rendszerek – évek óta.</span>
+<div class="page-wrapper">
+
+    <section class="hero" id="top">
+        <div class="hero-inner animate-on-scroll">
+            <div>
+                <div class="hero-kicker">KIEMELT MUNKÁINK</div>
+                <h1 class="hero-title">Webshopok és honlapok, amelyek mögött valódi fejlesztés van.</h1>
+                <p class="hero-subtitle">
+                    Nem sablonokat töltünk ki, hanem teljes rendszereket fejlesztünk: stabil alapokkal,
+                    egyedi logikával, hosszú távra tervezve. Az alábbi projektek mind kézzel épített
+                    megoldások – a teljes technikai háttérrel együtt.
+                </p>
+                <div class="hero-pill">
+                    <span class="hero-pill-dot"></span>
+                    <span>Önállóan működő, élesben használt rendszerek – évek óta.</span>
+                </div>
+                <p class="hero-info">
+                    Az alábbi munkáknál a koncepciótól az átadásig ott voltunk: struktúra, design,
+                    admin felület, integrációk, finomhangolás. Nem csak “szép”, hanem stabil is.
+                </p>
             </div>
-            <p class="hero-info">
-                Az alábbi munkáknál a koncepciótól az átadásig ott voltunk: struktúra, design,
-                admin felület, integrációk, finomhangolás. Nem csak “szép”, hanem stabil is.
-            </p>
+
+            <div class="hero-right-preview">
+                <div class="hero-ring">
+                    <div class="hero-ring-inner">
+                        <span>Élő, valódi projektek<br>egyedi fejlesztésből.</span>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="hero-right-preview">
-            <div class="hero-ring">
-                <div class="hero-ring-inner">
-                    <span>Élő, valódi projektek<br>egyedi fejlesztésből.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<main>
-    <section class="section">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">REFERENCIÁK</div>
-            <h2 class="section-title">Néhány rendszer, amit mi raktunk össze</h2>
-            <p class="section-subtitle">
-                Különböző iparágak, közös gondolkodás: átlátható szerkezet, gyors működés,
-                vállalható kód. Mindhárom projekt mást kér – a közös pont az, hogy stabilan működik.
-            </p>
-        </div>
-
-        <!-- SERLEGKIRALY -->
-        <article class="project-block animate-on-scroll">
-            <div class="project-header">
-                <span class="project-index">01</span>
-                <div class="project-tag">
-                    <span class="project-tag-dot"></span>
-                    <span>Teljesen egyedi webshop fejlesztés</span>
-                </div>
-                <h3 class="project-title">Serlegkirály.hu – sportdíjak ezrei, rendezett rendszerben</h3>
-                <p class="project-lead">
-                    Egy nagy termékszámú, élesben használt webshop, ahol a háttér legalább olyan fontos,
-                    mint a látvány. A cél: olyan rendszer, amely bírja a mindennapi terhelést, és
-                    hosszú távon is átlátható marad.
-                </p>
-            </div>
-
-            <div class="project-mockup">
-                <div class="device-laptop">
-                    <div class="device-laptop-bezel">
-                        <div class="device-laptop-camera"></div>
-                        <div class="device-laptop-screen">
-                            <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
-                        </div>
-                    </div>
-                    <div class="device-laptop-base"></div>
-                </div>
-
-                <div class="device-phone">
-                    <div class="device-phone-inner">
-                        <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen phone-screen-serleg"></div>
-                        <div class="device-phone-home"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-meta-row">
-                    <span class="project-pill">Egyedi kategória- és termékstruktúra</span>
-                    <span class="project-pill">Több ezer termék kezelése</span>
-                    <span class="project-pill">Rendezett admin felület</span>
-                </div>
-                <p class="project-text">
-                    A Serlegkirálynál a legnagyobb kihívás az volt, hogy a sokféle serleget, érmet és kiegészítőt
-                    olyan rendszerben jelenítsük meg, ahol a vásárló gyorsan eljut a számára releváns termékekhez.
-                    A háttérben kézzel felépített logika dolgozik, nem pluginek egymásra pakolva.
-                </p>
-                <ul class="project-bullets">
-                    <li>Átgondolt kategóriafa és szűrési struktúra, több ezer termékre tervezve.</li>
-                    <li>Olyan admin felület, ahol a termékek, akciók és tartalmak kezelése vállalható marad.</li>
-                    <li>Stabil, hosszú távra tervezett kód – nem egy szezonra, hanem évekre építve.</li>
-                </ul>
-                <div class="project-link-row">
-                    <a href="https://serlegkiraly.hu" target="_blank" class="project-link-btn">
-                        Megnézem az oldalt
-                    </a>
-                    <span class="project-link-note">
-                        Élő, éles rendszer – nem demo, hanem napi szinten használt webshop.
-                    </span>
-                </div>
-            </div>
-        </article>
-
-        <!-- MALFIRUHA -->
-        <article class="project-block animate-on-scroll">
-            <div class="project-header">
-                <span class="project-index">02</span>
-                <div class="project-tag">
-                    <span class="project-tag-dot"></span>
-                    <span>Ruházati webshop – finomhangolás és stabilizálás</span>
-                </div>
-                <h3 class="project-title">Malfiruha.hu – ruházat, ami mögött rend van a rendszerben is</h3>
-                <p class="project-lead">
-                    Egy meglévő, évek óta működő ruhawebshop, ahol a cél nem a teljes újraépítés volt,
-                    hanem a háttér logikájának rendbetétele és a hosszú távon is fenntartható működés.
-                </p>
-            </div>
-
-            <div class="project-mockup">
-                <div class="device-laptop">
-                    <div class="device-laptop-bezel">
-                        <div class="device-laptop-camera"></div>
-                        <div class="device-laptop-screen">
-                            <img src="malfiruha-hero.png" alt="Malfiruha.hu – ruházati webshop">
-                        </div>
-                    </div>
-                    <div class="device-laptop-base"></div>
-                </div>
-
-                <div class="device-phone">
-                    <div class="device-phone-inner">
-                        <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen phone-screen-malfi"></div>
-                        <div class="device-phone-home"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-meta-row">
-                    <span class="project-pill">Meglévő rendszer továbbfejlesztése</span>
-                    <span class="project-pill">Jobban átlátható folyamatok</span>
-                    <span class="project-pill">Gyorsabb működés</span>
-                </div>
-                <p class="project-text">
-                    A Malfiruhánál az volt a feladat, hogy egy korábban felépített, sokfunkciós webshopot
-                    úgy tegyünk átláthatóbbá, hogy közben megmaradjanak a már bevált elemek. Nem “kidobtuk”
-                    a teljes rendszert, hanem célzottan ott nyúltunk hozzá, ahol valódi eredményt hoz.
-                </p>
-                <ul class="project-bullets">
-                    <li>A legfontosabb oldalak, kategóriák és folyamatok újragondolása fejlesztői szemmel.</li>
-                    <li>A működés stabilizálása – kevesebb hiba, kiszámíthatóbb rendelési folyamat.</li>
-                    <li>Olyan struktúra, amit később is tovább lehet építeni, nem kell mindent elölről kezdeni.</li>
-                </ul>
-                <div class="project-link-row">
-                    <a href="https://malfiruha.hu" target="_blank" class="project-link-btn">
-                        Megnézem az oldalt
-                    </a>
-                    <span class="project-link-note">
-                        Élő ruházati webshop, valós ügyfelekkel és mindennapi forgalommal.
-                    </span>
-                </div>
-            </div>
-        </article>
-
-        <!-- SZŐKE ÉPKER -->
-        <article class="project-block animate-on-scroll">
-            <div class="project-header">
-                <span class="project-index">03</span>
-                <div class="project-tag">
-                    <span class="project-tag-dot"></span>
-                    <span>Szolgáltatói honlap – bizalomépítés online</span>
-                </div>
-                <h3 class="project-title">Szőke Épker – generálkivitelezés, weben is érthetően elmondva</h3>
-                <p class="project-lead">
-                    Egy építőipari cég, ahol a hitelesség és a bizalom az alap. A honlap célja, hogy
-                    néhány másodperc alatt átadja: itt nem sablonos ígéretekről, hanem konkrét, vállalható munkáról van szó.
-                </p>
-            </div>
-
-            <div class="project-mockup">
-                <div class="device-laptop">
-                    <div class="device-laptop-bezel">
-                        <div class="device-laptop-camera"></div>
-                        <div class="device-laptop-screen">
-                            <img src="szokeepker-clean.png" alt="Szőke Épker – generálkivitelezés honlap">
-                        </div>
-                    </div>
-                    <div class="device-laptop-base"></div>
-                </div>
-
-                <div class="device-phone">
-                    <div class="device-phone-inner">
-                        <div class="device-phone-notch"></div>
-                        <div class="device-phone-screen phone-screen-szoke"></div>
-                        <div class="device-phone-home"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-meta-row">
-                    <span class="project-pill">Letisztult bemutatkozó oldal</span>
-                    <span class="project-pill">Világos szolgáltatás-struktúra</span>
-                    <span class="project-pill">AI-chat integráció lehetőséggel</span>
-                </div>
-                <p class="project-text">
-                    A Szőke Épkernél az volt a cél, hogy a látogató az első blokk alapján értse:
-                    mivel foglalkozik a cég, milyen típusú munkákat vállal, és miért érdemes ajánlatot kérni.
-                    Mindezt túlbeszélés nélkül, érthető, emberi nyelven.
-                </p>
-                <ul class="project-bullets">
-                    <li>Nagy, jól olvasható tipográfia – mobilon és asztali gépen egyaránt.</li>
-                    <li>Átlátható szolgáltatásblokkok, amelyek támogatják az ajánlatkérési folyamatot.</li>
-                    <li>Olyan technikai háttér, amihez később könnyen kapcsolható AI-chat és további funkció.</li>
-                </ul>
-                <div class="project-link-row">
-                    <a href="https://szoke-epker.com" target="_blank" class="project-link-btn">
-                        Megnézem az oldalt
-                    </a>
-                    <span class="project-link-note">
-                        Pozicionáló, bizalomépítő honlap – egyszerűen, érthetően, működőképesen.
-                    </span>
-                </div>
-            </div>
-        </article>
     </section>
-</main>
 
-<footer>
-    <div class="footer-inner">
-        <span>Aurion Studio – egyedi webes megoldások</span>
-        <a href="#top" class="footer-link">Vissza az elejére</a>
-    </div>
-</footer>
+    <main>
+        <section class="section">
+            <div class="section-header animate-on-scroll">
+                <div class="section-kicker">REFERENCIÁK</div>
+                <h2 class="section-title">Néhány rendszer, amit mi raktunk össze</h2>
+                <p class="section-subtitle">
+                    Különböző iparágak, közös gondolkodás: átlátható szerkezet, gyors működés,
+                    vállalható kód. Mindhárom projekt mást kér – a közös pont az, hogy stabilan működik.
+                </p>
+            </div>
+
+            <!-- SERLEGKIRALY -->
+            <article class="project-block animate-on-scroll">
+                <div class="project-header">
+                    <span class="project-index">01</span>
+                    <div class="project-tag">
+                        <span class="project-tag-dot"></span>
+                        <span>Teljesen egyedi webshop fejlesztés</span>
+                    </div>
+                    <h3 class="project-title">Serlegkirály.hu – sportdíjak ezrei, rendezett rendszerben</h3>
+                    <p class="project-lead">
+                        Egy nagy termékszámú, élesben használt webshop, ahol a háttér legalább olyan fontos,
+                        mint a látvány. A cél: olyan rendszer, amely bírja a mindennapi terhelést, és
+                        hosszú távon is átlátható marad.
+                    </p>
+                </div>
+
+                <div class="project-mockup">
+                    <div class="device-laptop">
+                        <div class="device-laptop-bezel">
+                            <div class="device-laptop-camera"></div>
+                            <div class="device-laptop-screen">
+                                <img src="serlegkiraly-clean.png" alt="Serlegkirály.hu – egyedi fejlesztésű webshop">
+                            </div>
+                        </div>
+                        <div class="device-laptop-base"></div>
+                    </div>
+
+                    <div class="device-phone">
+                        <div class="device-phone-inner">
+                            <div class="device-phone-notch"></div>
+                            <div class="device-phone-screen phone-screen-serleg"></div>
+                            <div class="device-phone-home"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-body">
+                    <div class="project-meta-row">
+                        <span class="project-pill">Egyedi kategória- és termékstruktúra</span>
+                        <span class="project-pill">Több ezer termék kezelése</span>
+                        <span class="project-pill">Rendezett admin felület</span>
+                    </div>
+                    <p class="project-text">
+                        A Serlegkirálynál a legnagyobb kihívás az volt, hogy a sokféle serleget, érmet és kiegészítőt
+                        olyan rendszerben jelenítsük meg, ahol a vásárló gyorsan eljut a számára releváns termékekhez.
+                        A háttérben kézzel felépített logika dolgozik, nem pluginek egymásra pakolva.
+                    </p>
+                    <ul class="project-bullets">
+                        <li>Átgondolt kategóriafa és szűrési struktúra, több ezer termékre tervezve.</li>
+                        <li>Olyan admin felület, ahol a termékek, akciók és tartalmak kezelése vállalható marad.</li>
+                        <li>Stabil, hosszú távra tervezett kód – nem egy szezonra, hanem évekre építve.</li>
+                    </ul>
+                    <div class="project-link-row">
+                        <a href="https://serlegkiraly.hu" target="_blank" class="project-link-btn">
+                            Megnézem az oldalt
+                        </a>
+                        <span class="project-link-note">
+                            Élő, éles rendszer – nem demo, hanem napi szinten használt webshop.
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- MALFIRUHA -->
+            <article class="project-block animate-on-scroll">
+                <div class="project-header">
+                    <span class="project-index">02</span>
+                    <div class="project-tag">
+                        <span class="project-tag-dot"></span>
+                        <span>Ruházati webshop – finomhangolás és stabilizálás</span>
+                    </div>
+                    <h3 class="project-title">Malfiruha.hu – ruházat, ami mögött rend van a rendszerben is</h3>
+                    <p class="project-lead">
+                        Egy meglévő, évek óta működő ruhawebshop, ahol a cél nem a teljes újraépítés volt,
+                        hanem a háttér logikájának rendbetétele és a hosszú távon is fenntartható működés.
+                    </p>
+                </div>
+
+                <div class="project-mockup">
+                    <div class="device-laptop">
+                        <div class="device-laptop-bezel">
+                            <div class="device-laptop-camera"></div>
+                            <div class="device-laptop-screen">
+                                <img src="malfiruha-hero.png" alt="Malfiruha.hu – ruházati webshop">
+                            </div>
+                        </div>
+                        <div class="device-laptop-base"></div>
+                    </div>
+
+                    <div class="device-phone">
+                        <div class="device-phone-inner">
+                            <div class="device-phone-notch"></div>
+                            <div class="device-phone-screen phone-screen-malfi"></div>
+                            <div class="device-phone-home"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-body">
+                    <div class="project-meta-row">
+                        <span class="project-pill">Meglévő rendszer továbbfejlesztése</span>
+                        <span class="project-pill">Jobban átlátható folyamatok</span>
+                        <span class="project-pill">Gyorsabb működés</span>
+                    </div>
+                    <p class="project-text">
+                        A Malfiruhánál az volt a feladat, hogy egy korábban felépített, sokfunkciós webshopot
+                        úgy tegyünk átláthatóbbá, hogy közben megmaradjanak a már bevált elemek. Nem “kidobtuk”
+                        a teljes rendszert, hanem célzottan ott nyúltunk hozzá, ahol valódi eredményt hoz.
+                    </p>
+                    <ul class="project-bullets">
+                        <li>A legfontosabb oldalak, kategóriák és folyamatok újragondolása fejlesztői szemmel.</li>
+                        <li>A működés stabilizálása – kevesebb hiba, kiszámíthatóbb rendelési folyamat.</li>
+                        <li>Olyan struktúra, amit később is tovább lehet építeni, nem kell mindent elölről kezdeni.</li>
+                    </ul>
+                    <div class="project-link-row">
+                        <a href="https://malfiruha.hu" target="_blank" class="project-link-btn">
+                            Megnézem az oldalt
+                        </a>
+                        <span class="project-link-note">
+                            Élő ruházati webshop, valós ügyfelekkel és mindennapi forgalommal.
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- SZŐKE ÉPKER -->
+            <article class="project-block animate-on-scroll">
+                <div class="project-header">
+                    <span class="project-index">03</span>
+                    <div class="project-tag">
+                        <span class="project-tag-dot"></span>
+                        <span>Szolgáltatói honlap – bizalomépítés online</span>
+                    </div>
+                    <h3 class="project-title">Szőke Épker – generálkivitelezés, weben is érthetően elmondva</h3>
+                    <p class="project-lead">
+                        Egy építőipari cég, ahol a hitelesség és a bizalom az alap. A honlap célja, hogy
+                        néhány másodperc alatt átadja: itt nem sablonos ígéretekről, hanem konkrét, vállalható munkáról van szó.
+                    </p>
+                </div>
+
+                <div class="project-mockup">
+                    <div class="device-laptop">
+                        <div class="device-laptop-bezel">
+                            <div class="device-laptop-camera"></div>
+                            <div class="device-laptop-screen">
+                                <img src="szokeepker-clean.png" alt="Szőke Épker – generálkivitelezés honlap">
+                            </div>
+                        </div>
+                        <div class="device-laptop-base"></div>
+                    </div>
+
+                    <div class="device-phone">
+                        <div class="device-phone-inner">
+                            <div class="device-phone-notch"></div>
+                            <div class="device-phone-screen phone-screen-szoke"></div>
+                            <div class="device-phone-home"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-body">
+                    <div class="project-meta-row">
+                        <span class="project-pill">Letisztult bemutatkozó oldal</span>
+                        <span class="project-pill">Világos szolgáltatás-struktúra</span>
+                        <span class="project-pill">AI-chat integráció lehetőséggel</span>
+                    </div>
+                    <p class="project-text">
+                        A Szőke Épkernél az volt a cél, hogy a látogató az első blokk alapján értse:
+                        mivel foglalkozik a cég, milyen típusú munkákat vállal, és miért érdemes ajánlatot kérni.
+                        Mindezt túlbeszélés nélkül, érthető, emberi nyelven.
+                    </p>
+                    <ul class="project-bullets">
+                        <li>Nagy, jól olvasható tipográfia – mobilon és asztali gépen egyaránt.</li>
+                        <li>Átlátható szolgáltatásblokkok, amelyek támogatják az ajánlatkérési folyamatot.</li>
+                        <li>Olyan technikai háttér, amihez később könnyen kapcsolható AI-chat és további funkció.</li>
+                    </ul>
+                    <div class="project-link-row">
+                        <a href="https://szoke-epker.com" target="_blank" class="project-link-btn">
+                            Megnézem az oldalt
+                        </a>
+                        <span class="project-link-note">
+                            Pozicionáló, bizalomépítő honlap – egyszerűen, érthetően, működőképesen.
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>Aurion Studio – egyedi webes megoldások</span>
+            <a href="#top" class="footer-link">Vissza az elejére</a>
+        </div>
+    </footer>
+</div>
 
 <script>
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
+    /* OLDALSÓ MENÜ – MOBIL */
+    const sidebarHamburger = document.getElementById("sidebarHamburger");
+    const sidebarNav = document.getElementById("sidebarNav");
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            mobileNav.classList.toggle('show');
+    if (sidebarHamburger && sidebarNav) {
+        sidebarHamburger.addEventListener("click", () => {
+            sidebarHamburger.classList.toggle("open");
+            sidebarNav.classList.toggle("open");
         });
 
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                mobileNav.classList.remove('show');
+        sidebarNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                sidebarHamburger.classList.remove("open");
+                sidebarNav.classList.remove("open");
             });
         });
     }
 
-    // Scroll animáció
+    /* SCROLL ANIMÁCIÓ */
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
+                entry.target.classList.add("in-view");
                 observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.15 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    document.querySelectorAll(".animate-on-scroll").forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
