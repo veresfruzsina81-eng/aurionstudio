@@ -80,12 +80,11 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC / NAV – ALAP (MOBIL) ===== */
+        /* ===== FEJLÉC ===== */
 
         header {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
             z-index: 9999;
             background: rgba(15, 23, 42, 0.9);
@@ -989,6 +988,8 @@
         #kapcsolat.section {
             background: radial-gradient(circle at top, rgba(37, 99, 235, 0.38), #020617 65%);
             border-top: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .contact-layout {
@@ -1349,70 +1350,131 @@
             color: #e5e7eb;
         }
 
-        /* ===== SIDE-NAV DESKTOPON ===== */
+        /* ===== EXTRA LÁTVÁNYOS EFFEKTEK ===== */
 
-        @media (min-width: 1024px) {
-            header {
-                top: 0;
-                left: 0;
-                width: 260px;
-                height: 100vh;
-                border-bottom: none;
-                border-right: 1px solid rgba(30, 64, 175, 0.6);
-                display: flex;
-                align-items: stretch;
-            }
+        /* Globális, nagyon halvány matrix-eső a háttérben */
+        .matrix-rain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            mix-blend-mode: screen;
+        }
 
-            header::after {
-                inset: 0 0 0 auto;
-                width: 2px;
-                height: 100%;
-                background: linear-gradient(180deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
-                background-size: 220% 100%;
-            }
+        .matrix-rain span {
+            position: absolute;
+            top: -120px;
+            color: #22c55e;
+            font-size: 16px;
+            font-family: "Fira Code", monospace;
+            animation: matrixFall 6s linear infinite;
+        }
 
-            nav {
-                max-width: none;
-                margin: 0;
-                padding: 22px 18px 22px;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: flex-start;
-                gap: 26px;
-            }
+        .matrix-rain span:nth-child(1) { left: 5%;  animation-delay: -1s; }
+        .matrix-rain span:nth-child(2) { left: 15%; animation-delay: -2.3s; }
+        .matrix-rain span:nth-child(3) { left: 28%; animation-delay: -3.1s; }
+        .matrix-rain span:nth-child(4) { left: 40%; animation-delay: -0.7s; }
+        .matrix-rain span:nth-child(5) { left: 52%; animation-delay: -1.8s; }
+        .matrix-rain span:nth-child(6) { left: 64%; animation-delay: -2.9s; }
+        .matrix-rain span:nth-child(7) { left: 76%; animation-delay: -1.2s; }
+        .matrix-rain span:nth-child(8) { left: 88%; animation-delay: -3.7s; }
 
-            .nav-links.desktop {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+        @keyframes matrixFall {
+            to {
+                transform: translateY(120vh);
+                opacity: 0;
             }
+        }
 
-            .nav-links.desktop a {
-                font-size: 13px;
-            }
+        /* Világító kurzor glow (saját egér mellé) */
+        .cursor-glow {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.9), rgba(37, 99, 235, 0));
+            mix-blend-mode: screen;
+            transform: translate(-50%, -50%);
+            z-index: 1500;
+        }
 
-            .nav-links.desktop li:last-child {
-                margin-top: 4px;
-            }
+        /* 3D "AURION" szöveg – Bemutatkozás fölött */
+        .orbit-text-wrapper {
+            margin-top: 22px;
+        }
 
-            .hamburger {
-                display: none;
-            }
+        .orbit-text {
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: 0.35em;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            animation: orbitSpin 6.5s linear infinite;
+        }
 
-            .hero {
-                padding-top: 60px;
-                padding-bottom: 90px;
-                margin-left: 260px;
-            }
+        .orbit-text::before {
+            content: "AURION";
+            position: absolute;
+            inset: 0;
+            text-shadow:
+                0 0 4px #f9fafb,
+                2px 2px 10px #38bdf8,
+                -2px -2px 12px #a855f7,
+                0 0 26px #38bdf8;
+        }
 
-            main {
-                margin-left: 260px;
-            }
+        @keyframes orbitSpin {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to   { transform: rotateX(360deg) rotateY(360deg); }
+        }
 
-            footer .footer-inner {
-                margin-left: 260px;
-                max-width: calc(1120px + 260px);
-            }
+        /* Hologram-jellegű mottó a Rólunk részben */
+        .holo-text {
+            margin-top: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #c7d2fe;
+            text-shadow: 0 0 18px rgba(129, 140, 248, 0.9);
+            transform-origin: center;
+            transform: perspective(700px) rotateY(var(--aurionRotate, 0deg));
+            transition: text-shadow 0.2s ease;
+        }
+
+        body:hover .holo-text {
+            text-shadow: 0 0 26px rgba(129, 140, 248, 1);
+        }
+
+        /* Üveges, fénytöréses logó a bemutatkozás kártyában */
+        .glass-text {
+            margin-top: 14px;
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: linear-gradient(110deg, #f9fafb, #60a5fa, #e5e7eb);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow:
+                0 0 10px rgba(148, 163, 184, 0.8),
+                0 0 26px rgba(37, 99, 235, 0.65);
+        }
+
+        /* Részecskefelhő a kapcsolat szekció alján */
+        .particles-canvas {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 220px;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -1504,10 +1566,31 @@
             .hero-phone {
                 max-width: 270px;
             }
+
+            .orbit-text {
+                font-size: 28px;
+                letter-spacing: 0.25em;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- HALVÁNY MATRIX-ESŐ A HÁTTÉRBEN -->
+<div class="matrix-rain" aria-hidden="true">
+    <span>1</span>
+    <span>0</span>
+    <span>&lt;/&gt;</span>
+    <span>{}</span>
+    <span>01</span>
+    <span>10</span>
+    <span>://</span>
+    <span>;</span>
+</div>
+
+<!-- VILÁGÍTÓ CURSOR GLOW -->
+<div class="cursor-glow" aria-hidden="true"></div>
+
 <header>
     <nav>
         <a href="#top" class="logo">
@@ -1525,7 +1608,6 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -1536,7 +1618,6 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
-            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -1697,6 +1778,11 @@
                 <span class="highlight-dot"></span>
                 <span>Fejlesztői gondolkodás, nem “összekattintott” sablonok.</span>
             </div>
+
+            <!-- 3D-s AURION felirat bemutatkozásnál -->
+            <div class="orbit-text-wrapper animate-on-scroll">
+                <span class="orbit-text">AURION</span>
+            </div>
         </div>
 
         <div class="about-layout animate-on-scroll">
@@ -1739,6 +1825,9 @@
                         <div>Név, amit vállalunk minden munkánk mellett</div>
                     </div>
                 </div>
+
+                <!-- Üveg-hatású Aurion Studio felirat -->
+                <div class="glass-text">Aurion Studio</div>
             </div>
         </div>
     </section>
@@ -1757,6 +1846,12 @@
                 amiről érzi: ennél sokkal többet ki lehetne hozni. Mi ebben segítünk – lépésről lépésre feltárjuk,
                 <strong>mi maradhat</strong>, mit érdemes lecserélni, és hogyan lesz az egészből egy rendezett, letisztult rendszer.
             </p>
+
+            <!-- Hologram-szerű mottó -->
+            <div class="holo-text animate-on-scroll">
+                Tiszta logika. Tiszta kód. Aurion.
+            </div>
+
             <div class="highlight-strip">
                 <span class="highlight-dot"></span>
                 <span>Átlátható folyamat, hosszú távú partnerség, vállalható kód.</span>
@@ -1891,6 +1986,9 @@
                 </form>
             </div>
         </div>
+
+        <!-- Részecskefelhő vászon a kapcsolat szekció alján -->
+        <canvas id="particlesCanvas" class="particles-canvas" aria-hidden="true"></canvas>
     </section>
 </main>
 
@@ -2103,6 +2201,73 @@
             });
         }
     }
+
+    /* ==== GLOBÁLIS EGÉR EFFEKTEK: CURSOR GLOW + HOLO + RÉSZECSKÉK ==== */
+
+    const cursorGlow = document.querySelector(".cursor-glow");
+    const particlesCanvas = document.getElementById("particlesCanvas");
+    let particlesCtx = null;
+    let particles = [];
+
+    function resizeParticles() {
+        if (!particlesCanvas) return;
+        const rect = particlesCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        particlesCanvas.width = rect.width * dpr;
+        particlesCanvas.height = rect.height * dpr;
+        particlesCtx = particlesCanvas.getContext("2d");
+        particlesCtx.setTransform(1, 0, 0, 1, 0, 0);
+        particlesCtx.scale(dpr, dpr);
+    }
+
+    if (particlesCanvas) {
+        resizeParticles();
+        window.addEventListener("resize", resizeParticles);
+    }
+
+    document.addEventListener("mousemove", (e) => {
+        // Cursor glow
+        if (cursorGlow) {
+            cursorGlow.style.left = e.clientX + "px";
+            cursorGlow.style.top = e.clientY + "px";
+        }
+
+        // Hologram szög frissítés
+        const ratio = (e.clientX / window.innerWidth) - 0.5;
+        const deg = ratio * 40;
+        document.body.style.setProperty("--aurionRotate", deg + "deg");
+
+        // Részecskék – csak ha a kapcsolat szekció vászna alatt vagyunk
+        if (particlesCanvas && particlesCtx) {
+            const rect = particlesCanvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            if (y >= 0 && y <= rect.height) {
+                particles.push({ x, y, size: 5, alpha: 1 });
+                if (particles.length > 180) particles.shift();
+            }
+        }
+    });
+
+    function animateParticles() {
+        if (particlesCanvas && particlesCtx) {
+            const rect = particlesCanvas.getBoundingClientRect();
+            particlesCtx.clearRect(0, 0, rect.width, rect.height);
+
+            particles.forEach((p) => {
+                p.size *= 0.94;
+                p.alpha *= 0.96;
+                particlesCtx.beginPath();
+                particlesCtx.fillStyle = "rgba(56, 189, 248," + p.alpha + ")";
+                particlesCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                particlesCtx.fill();
+            });
+
+            particles = particles.filter(p => p.size > 0.4 && p.alpha > 0.05);
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
 </script>
 </body>
 </html>
