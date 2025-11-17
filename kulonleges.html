@@ -504,6 +504,78 @@
             text-align:right;
         }
 
+        /* 06 – Mágneses gomb */
+
+        .mag-area {
+            height:160px;
+            border-radius:18px;
+            position:relative;
+            overflow:hidden;
+            background:radial-gradient(circle at 10% 0, rgba(56,189,248,.25), transparent 60%), #020617;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .mag-btn {
+            padding:11px 22px;
+            border-radius:999px;
+            border:none;
+            font-size:14px;
+            font-weight:600;
+            background:radial-gradient(circle at 0 0,#facc15,#f97316);
+            color:#111827;
+            box-shadow:0 0 26px rgba(250,204,21,.9);
+            transform:translate3d(0,0,0);
+            transition:transform .12s ease-out;
+            pointer-events:auto;
+        }
+
+        /* 07 – Code rain panel */
+
+        .code-panel-wrap {
+            border-radius:18px;
+            overflow:hidden;
+            position:relative;
+            background:#020617;
+        }
+        #codeRainCanvas {
+            display:block;
+            width:100%;
+            height:200px;
+            background:radial-gradient(circle at 50% 0, #0f172a, #020617 70%);
+        }
+
+        /* 08 – Szó-morph headline */
+
+        .morph-shell {
+            height:120px;
+            border-radius:18px;
+            background:radial-gradient(circle at 0 0,#1e293b,#020617);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:10px;
+        }
+        .morph-text {
+            font-size:20px;
+            font-weight:600;
+        }
+        .morph-highlight {
+            display:inline-block;
+            min-width:140px;
+            margin-left:6px;
+            background:linear-gradient(90deg,#facc15,#60a5fa);
+            -webkit-background-clip:text;
+            color:transparent;
+            animation:morphFade 1.3s ease;
+        }
+        @keyframes morphFade {
+            0% { opacity:0; filter:blur(4px); transform:translateY(8px); }
+            40% { opacity:1; filter:blur(0); transform:translateY(0); }
+            100% { opacity:1; }
+        }
+
         @media (max-width:1024px) {
             .sidebar { display:none; }
             .content { padding:18px 14px 32px; }
@@ -691,6 +763,57 @@
                     </div>
                 </div>
             </article>
+
+            <!-- 06: Mágneses CTA gomb -->
+            <article class="fx-block">
+                <div class="fx-badge">06 • Mágneses interakció</div>
+                <div class="fx-headline">Mágneses CTA – a gomb szó szerint „utánad mozdul”.</div>
+                <p class="fx-desc">
+                    A fő gomb finoman elmozdul a kurzor irányába, mintha vonzaná a kezed.
+                    Ez az a mikroanimáció, amit az emberek öntudatlanul is észrevesznek, de nem tudják megfogalmazni, miért „élőbb” az oldal.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Mozgasd az egeret a sötét sáv fölött</div>
+                    <div class="mag-area" id="magArea">
+                        <button class="mag-btn" id="magBtn">Foglalj időpontot</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 07: Code rain panel -->
+            <article class="fx-block">
+                <div class="fx-badge">07 • Code rain</div>
+                <div class="fx-headline">Mini „Matrix” kódeső – külön panel a kódnak.</div>
+                <p class="fx-desc">
+                    Egy önálló kódeső blokk, ami mutatja: a háttérben tényleg kód születik.
+                    Szöveg, számok vagy saját karakterkészlet is betölthető, márkázott színekben.
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Élőben rajzolja a vásznon</div>
+                    <div class="code-panel-wrap">
+                        <canvas id="codeRainCanvas"></canvas>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 08: Szó-morph headline -->
+            <article class="fx-block">
+                <div class="fx-badge">08 • Szöveg morph</div>
+                <div class="fx-headline">Egy mondat, ami 5 különböző irányba „alakul át”.</div>
+                <p class="fx-desc">
+                    Nem csak statikus szlogen: a mondat közepe folyamatosan változik, hogy megmutassa,
+                    mennyi mindent lehet ugyanarra a logikára építeni – webshopot, admin rendszert, játékot, AI eszközt…
+                </p>
+                <div class="fx-inner">
+                    <div class="fx-label">Figyeld a középső szót</div>
+                    <div class="morph-shell">
+                        <div class="morph-text">
+                            Ugyanabból a kódból építünk
+                            <span class="morph-highlight" id="morphText">webshopot</span>.
+                        </div>
+                    </div>
+                </div>
+            </article>
         </section>
     </main>
 </div>
@@ -776,6 +899,102 @@
         wrapper.addEventListener('touchstart', start, {passive:true});
         window.addEventListener('touchmove', onMove, {passive:false});
         window.addEventListener('touchend', stop);
+    })();
+
+    // 06 – Mágneses gomb
+    (function () {
+        const area = document.getElementById('magArea');
+        const btn = document.getElementById('magBtn');
+        if (!area || !btn) return;
+
+        area.addEventListener('mousemove', (e) => {
+            const rect = area.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const dx = (e.clientX - centerX) / (rect.width / 2);
+            const dy = (e.clientY - centerY) / (rect.height / 2);
+            const strength = 18; // mennyire mozduljon el
+            const moveX = dx * strength;
+            const moveY = dy * strength;
+            btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+        });
+
+        area.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate3d(0,0,0)';
+        });
+    })();
+
+    // 07 – Code rain
+    (function () {
+        const canvas = document.getElementById('codeRainCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const chars = '01AURIONSTUDIO<>+-*/=';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+
+        function initDrops() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = new Array(columns).fill(1);
+        }
+        initDrops();
+
+        function draw() {
+            ctx.fillStyle = 'rgba(2,6,23,0.36)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                ctx.fillText(text, x, y);
+
+                if (y > canvas.height && Math.random() > 0.965) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            requestAnimationFrame(draw);
+        }
+        requestAnimationFrame(draw);
+    })();
+
+    // 08 – Szó-morph
+    (function () {
+        const el = document.getElementById('morphText');
+        if (!el) return;
+        const words = [
+            'webshopot',
+            'admin rendszert',
+            'játékszervert',
+            'AI eszközt',
+            'portált'
+        ];
+        let index = 0;
+
+        function nextWord() {
+            index = (index + 1) % words.length;
+            el.textContent = words[index];
+            // újraindítjuk az animációt:
+            el.classList.remove('morph-highlight');
+            void el.offsetWidth; // force reflow
+            el.classList.add('morph-highlight');
+        }
+
+        setInterval(nextWord, 2200);
     })();
 </script>
 </body>
