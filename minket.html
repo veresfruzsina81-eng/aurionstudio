@@ -17,8 +17,10 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 35%, #f9fafb 100%);
-            color: #0f172a;
+            background:
+                radial-gradient(circle at top left, #1e293b 0, #020617 40%, #020617 100%),
+                radial-gradient(circle at bottom right, #0f172a 0, #020617 50%, #020617 100%);
+            color: #e5e7eb;
             overflow-x: hidden;
             line-height: 1.6;
         }
@@ -60,39 +62,30 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC – ugyanaz a stílus, mint indexen ===== */
+        /* ===== OLDALSÓ MENÜ (SIDE NAV) ===== */
 
-        header {
+        .sidebar {
             position: fixed;
-            top: 0;
-            width: 100%;
+            inset: 0 auto 0 0;
+            width: 260px;
+            background:
+                radial-gradient(circle at top, rgba(56, 189, 248, 0.22), transparent 60%),
+                radial-gradient(circle at bottom, rgba(129, 140, 248, 0.22), transparent 60%),
+                rgba(15, 23, 42, 0.98);
+            border-right: 1px solid rgba(30, 64, 175, 0.9);
+            box-shadow: 0 0 60px rgba(15, 23, 42, 0.95);
+            padding: 16px 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
             z-index: 9999;
-            background: rgba(249, 250, 251, 0.96);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
         }
 
-        header::after {
-            content: "";
-            position: absolute;
-            inset: auto 0 0 0;
-            height: 2px;
-            background: linear-gradient(90deg, #facc15, #f97316, #facc15);
-            background-size: 200% 100%;
-            animation: gradientMove 14s linear infinite;
-            opacity: 0.8;
-        }
-
-        nav {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 10px 16px;
+        .sidebar-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 20px;
-            position: relative;
-            z-index: 1;
+            gap: 10px;
         }
 
         .logo {
@@ -105,160 +98,160 @@
         }
 
         .logo-img {
-            width: 46px;
-            height: 46px;
-            border-radius: 16px;
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
             object-fit: contain;
-            background: #111827;
+            background: radial-gradient(circle at top, #0ea5e9, #020617 70%);
             box-shadow:
                 0 0 0 1px rgba(148, 163, 184, 0.9),
-                0 12px 30px rgba(15, 23, 42, 0.6);
+                0 12px 30px rgba(15, 23, 42, 0.95);
         }
 
         .logo .aurion {
-            background: linear-gradient(135deg, #caa85a 0%, #f7b733 45%, #f1c40f 100%);
+            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 45%, #a855f7 80%, #facc15 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .logo .studio {
-            color: #111827;
+            color: #e5e7eb;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 14px;
-            font-weight: 500;
-            color: rgba(15, 23, 42, 0.8);
-            position: relative;
-            padding: 4px 0;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: -4px;
-            width: 0;
-            height: 2px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #facc15, #f97316);
-            transform: translateX(-50%);
-            transition: width 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: #0f172a;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.contact-link {
-            padding: 6px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(250, 204, 21, 0.7);
-            background: linear-gradient(90deg, #fef9c3, #fffbeb);
-            box-shadow: 0 10px 24px rgba(234, 179, 8, 0.55);
-            font-size: 13px;
-        }
-
-        .nav-links a.contact-link::after {
-            display: none;
-        }
-
-        .nav-links a.active {
-            color: #f97316;
-        }
-
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .hamburger {
+        .sidebar-hamburger {
             display: none;
             width: 40px;
             height: 32px;
             border-radius: 999px;
             border: 1px solid rgba(148, 163, 184, 0.9);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             cursor: pointer;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             gap: 5px;
-            z-index: 10000;
         }
 
-        .hamburger span {
+        .sidebar-hamburger span {
             display: block;
             width: 18px;
             height: 2px;
             border-radius: 999px;
-            background: #111827;
+            background: #e5e7eb;
             transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .hamburger.open span:nth-child(1) {
+        .sidebar-hamburger.open span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
 
-        .hamburger.open span:nth-child(2) {
+        .sidebar-hamburger.open span:nth-child(2) {
             opacity: 0;
         }
 
-        .hamburger.open span:nth-child(3) {
+        .sidebar-hamburger.open span:nth-child(3) {
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        .nav-links.mobile {
-            position: fixed;
-            inset: 56px 16px auto 16px;
-            background: rgba(249, 250, 251, 0.97);
-            backdrop-filter: blur(18px);
-            border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
-            padding: 12px 16px;
+        .sidebar-nav {
+            margin-top: 8px;
+            display: flex;
             flex-direction: column;
-            gap: 10px;
-            transform: translateY(-10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-            z-index: 9999;
+            justify-content: space-between;
+            flex: 1;
+            gap: 20px;
         }
 
-        .nav-links.mobile.show {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
+        .sidebar-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        /* ===== HERO – Dark, Aurion stílus + laptop ===== */
-
-        .hero {
-            padding: 120px 16px 80px;
+        .sidebar-links a {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(226, 232, 240, 0.85);
+            padding: 6px 10px;
+            border-radius: 999px;
             position: relative;
             overflow: hidden;
-            background: radial-gradient(circle at top left, #020617 0, #020617 45%, #020617 60%, #020617 100%);
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                transform 0.15s ease;
         }
 
-        .hero::before {
+        .sidebar-links a::before {
             content: "";
             position: absolute;
-            inset: -120px -200px auto;
-            background:
-                radial-gradient(circle at top, rgba(248, 250, 252, 0.18), transparent 55%),
-                radial-gradient(circle at right, rgba(250, 204, 21, 0.28), transparent 60%);
-            opacity: 0.9;
-            pointer-events: none;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at left, rgba(56, 189, 248, 0.22), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .sidebar-links a span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sidebar-links a:hover {
+            color: #f9fafb;
+            background: rgba(15, 23, 42, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .sidebar-links a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-link-cta {
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7);
+            color: #020617 !important;
+            box-shadow:
+                0 18px 40px rgba(59, 130, 246, 0.95),
+                0 0 40px rgba(129, 140, 248, 0.85);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .nav-link-cta.secondary {
+            background: linear-gradient(90deg, #facc15, #f97316);
+            box-shadow:
+                0 18px 40px rgba(234, 179, 8, 0.9),
+                0 0 32px rgba(245, 158, 11, 0.9);
+        }
+
+        .nav-link-cta.active {
+            outline: 1px solid rgba(248, 250, 252, 0.9);
+        }
+
+        .sidebar-footer {
+            font-size: 11px;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        .sidebar-footer strong {
+            color: #e5e7eb;
+        }
+
+        /* ===== OLDAL TARTALOM WRAPPER ===== */
+
+        .page-wrapper {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* ===== HERO – sötét aurion stílus + laptop ===== */
+
+        .hero {
+            padding: 40px 16px 80px;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-inner {
@@ -272,6 +265,17 @@
             z-index: 2;
         }
 
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -160px -260px auto -80px;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.26), transparent 60%),
+                radial-gradient(circle at top right, rgba(129, 140, 248, 0.32), transparent 60%);
+            opacity: 1;
+            pointer-events: none;
+        }
+
         .hero-left {
             position: relative;
             z-index: 2;
@@ -281,22 +285,22 @@
             font-size: 11px;
             letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(209, 213, 219, 0.8);
+            color: rgba(148, 163, 184, 0.9);
             margin-bottom: 10px;
         }
 
         .hero-title {
-            font-size: 38px;
+            font-size: 36px;
             line-height: 1.1;
             margin-bottom: 14px;
-            background: linear-gradient(120deg, #f9fafb 0%, #facc15 45%, #f97316 80%);
+            background: linear-gradient(120deg, #e5e7eb 0%, #facc15 40%, #f97316 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
             font-size: 16px;
-            color: rgba(229, 231, 235, 0.92);
+            color: rgba(209, 213, 219, 0.92);
             margin-bottom: 18px;
             max-width: 520px;
         }
@@ -339,7 +343,7 @@
             align-items: center;
         }
 
-        /* ===== Laptop – képernyő + TÉNYLEGES billentyűzetes alap ===== */
+        /* ===== Laptop – képernyő + billentyűzet ===== */
 
         .laptop-wrapper {
             width: 100%;
@@ -537,8 +541,6 @@
             box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
         }
 
-        /* HINGE + BILLENTYŰZETES ALAP */
-
         .laptop-hinge {
             margin: 6px auto 0;
             width: 72%;
@@ -606,7 +608,7 @@
             filter: blur(2px);
         }
 
-        /* ===== ALATTA: Brutál animált marketing blokk ===== */
+        /* ===== MAIN / ALSÓ RÉSZ ===== */
 
         main {
             max-width: 1120px;
@@ -615,7 +617,11 @@
         }
 
         .section {
-            padding: 10px 0 80px;
+            padding: 10px 20px 80px;
+            margin: 0 -16px 0;
+            background: #f9fafb;
+            border-radius: 32px 32px 0 0;
+            box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.7);
         }
 
         .section-header {
@@ -657,6 +663,11 @@
             font-size: 15px;
             color: rgba(55, 65, 81, 0.96);
             max-width: 680px;
+        }
+
+        .section-subtitle strong {
+            font-weight: 700;
+            color: #92400e;
         }
 
         .highlight-strip {
@@ -759,7 +770,7 @@
         /* ===== LÁBLÉC ===== */
 
         footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.4);
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
             background: #020617;
             color: #e5e7eb;
         }
@@ -797,7 +808,7 @@
             }
 
             .hero {
-                padding-top: 110px;
+                padding-top: 32px;
             }
 
             .values-grid {
@@ -805,19 +816,56 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .nav-links.desktop {
-                display: none;
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: column;
+                padding: 10px 12px 10px;
+                border-right: none;
+                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
             }
 
-            .hamburger {
+            .sidebar-nav {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background:
+                    radial-gradient(circle at top, rgba(37, 99, 235, 0.4), transparent 60%),
+                    rgba(15, 23, 42, 0.98);
+                padding: 12px 16px 14px;
+                box-shadow: 0 20px 50px rgba(15, 23, 42, 0.9);
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                border-bottom: 1px solid rgba(30, 64, 175, 0.9);
+                gap: 12px;
+            }
+
+            .sidebar-nav.open {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .sidebar-hamburger {
                 display: flex;
             }
 
-            .hero {
-                padding: 110px 16px 60px;
+            .page-wrapper {
+                margin-left: 0;
+                padding-top: 80px;
             }
 
+            .section {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
             .hero-title {
                 font-size: 30px;
             }
@@ -856,178 +904,179 @@
     </style>
 </head>
 <body>
-<header>
-    <nav>
+
+<!-- OLDALSÓ MENÜ -->
+<aside class="sidebar">
+    <div class="sidebar-top">
         <a href="index.html#top" class="logo">
             <img src="logo.png" alt="Aurion Studio logó" class="logo-img">
             <span class="aurion">Aurion</span>
             <span class="studio">Studio</span>
         </a>
-
-        <button class="hamburger" id="hamburger" aria-label="Menü">
+        <button class="sidebar-hamburger" id="sidebarHamburger" aria-label="Menü">
             <span></span><span></span><span></span>
         </button>
+    </div>
 
-        <ul class="nav-links desktop">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozás">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
-            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
+    <nav class="sidebar-nav" id="sidebarNav">
+        <ul class="sidebar-links">
+            <li><a href="index.html#szolgaltatasok"><span>Szolgáltatások</span></a></li>
+            <li><a href="munkaink.html"><span>Munkáink</span></a></li>
+            <li><a href="index.html#bemutatkozas"><span>Bemutatkozás</span></a></li>
+            <li><a href="index.html#rolunk"><span>Rólunk</span></a></li>
+            <li><a href="kulonleges.html"><span>Különleges kérések</span></a></li>
+            <li><a href="minket.html" class="nav-link-cta active"><span>Ismerj meg minket</span></a></li>
+            <li><a href="index.html#kapcsolat" class="nav-link-cta secondary"><span>Kapcsolat</span></a></li>
+            <li><a href="al.html"><span>AI Chat</span></a></li>
         </ul>
-
-        <ul class="nav-links mobile" id="mobileNav">
-            <li><a href="index.html#szolgaltatasok">Szolgáltatások</a></li>
-            <li><a href="munkaink.html">Munkáink</a></li>
-            <li><a href="index.html#bemutatkozás">Bemutatkozás</a></li>
-            <li><a href="index.html#rolunk">Rólunk</a></li>
-            <li><a href="minket.html" class="contact-link active">Ismerj meg minket</a></li>
-            <li><a href="index.html#kapcsolat" class="contact-link">Kapcsolat</a></li>
-            <li><a href="al.html">AI Chat</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section class="hero" id="top">
-    <div class="hero-inner animate-on-scroll">
-        <div class="hero-left">
-            <div class="hero-kicker">ISMERJ MEG MINKET</div>
-            <h1 class="hero-title">Nézd meg, hogyan gondolkodunk a projektekről.</h1>
-            <p class="hero-subtitle">
-                Egy rövid videóban mutatjuk meg, hogyan dolgozunk, miről szól az Aurion Studio
-                és miért építünk inkább vállalható, hosszú távon is stabil rendszereket, nem gyors sablonmegoldásokat.
-            </p>
-            <div class="hero-pill">
-                <span class="hero-pill-dot"></span>
-                <span>Nézd meg videónkat, mielőtt döntesz a következő webes lépésről.</span>
-            </div>
-            <p class="hero-note">
-                Ha tetszik, amit látsz, a videó alatt találsz pár gondolatot arról, hogyan tudunk együtt dolgozni.
-            </p>
+        <div class="sidebar-footer">
+            <strong>Aurion Studio</strong> – egyedi webes megoldások<br>
+            Kérdezz bátran, segítünk irányt találni.
         </div>
+    </nav>
+</aside>
 
-        <div class="hero-right">
-            <div class="laptop-wrapper">
-                <div class="laptop-shell">
-                    <div class="laptop-camera"></div>
-                    <div class="laptop-screen">
-                        <div class="video-frame">
-                            <video id="introVideo" preload="metadata">
-                                <source src="video.mp4" type="video/mp4">
-                                A böngésződ sajnos nem támogatja a beágyazott videókat.
-                            </video>
-                            <div class="video-overlay-gradient"></div>
-                        </div>
-                        <div class="video-controls">
-                            <div class="video-main-controls">
-                                <button class="video-play-btn" id="playPauseBtn">
-                                    <span class="icon">▶</span>
-                                    <span id="playPauseLabel">Lejátszás</span>
-                                </button>
-                                <div class="video-progress-wrap">
-                                    <span class="video-time" id="currentTime">0:00</span>
-                                    <input type="range" id="progressBar" class="video-progress" min="0" max="100" value="0">
-                                    <span class="video-time" id="duration">0:00</span>
-                                </div>
+<div class="page-wrapper">
+
+    <section class="hero" id="top">
+        <div class="hero-inner animate-on-scroll">
+            <div class="hero-left">
+                <div class="hero-kicker">ISMERJ MEG MINKET</div>
+                <h1 class="hero-title">Nézd meg, hogyan gondolkodunk a projektekről.</h1>
+                <p class="hero-subtitle">
+                    Egy rövid videóban mutatjuk meg, hogyan dolgozunk, miről szól az Aurion Studio
+                    és miért építünk inkább vállalható, hosszú távon is stabil rendszereket, nem gyors sablonmegoldásokat.
+                </p>
+                <div class="hero-pill">
+                    <span class="hero-pill-dot"></span>
+                    <span>Nézd meg videónkat, mielőtt döntesz a következő webes lépésről.</span>
+                </div>
+                <p class="hero-note">
+                    Ha tetszik, amit látsz, a videó alatt találsz pár gondolatot arról, hogyan tudunk együtt dolgozni.
+                </p>
+            </div>
+
+            <div class="hero-right">
+                <div class="laptop-wrapper">
+                    <div class="laptop-shell">
+                        <div class="laptop-camera"></div>
+                        <div class="laptop-screen">
+                            <div class="video-frame">
+                                <video id="introVideo" preload="metadata">
+                                    <source src="video.mp4" type="video/mp4">
+                                    A böngésződ sajnos nem támogatja a beágyazott videókat.
+                                </video>
+                                <div class="video-overlay-gradient"></div>
                             </div>
-                            <div class="video-volume-wrap">
-                                <button class="video-mute-btn" id="muteBtn" title="Némítás / hang">
-                                    🔊
-                                </button>
-                                <input type="range" id="volumeSlider" class="video-volume" min="0" max="1" step="0.05" value="1">
+                            <div class="video-controls">
+                                <div class="video-main-controls">
+                                    <button class="video-play-btn" id="playPauseBtn">
+                                        <span class="icon">▶</span>
+                                        <span id="playPauseLabel">Lejátszás</span>
+                                    </button>
+                                    <div class="video-progress-wrap">
+                                        <span class="video-time" id="currentTime">0:00</span>
+                                        <input type="range" id="progressBar" class="video-progress" min="0" max="100" value="0">
+                                        <span class="video-time" id="duration">0:00</span>
+                                    </div>
+                                </div>
+                                <div class="video-volume-wrap">
+                                    <button class="video-mute-btn" id="muteBtn" title="Némítás / hang">
+                                        🔊
+                                    </button>
+                                    <input type="range" id="volumeSlider" class="video-volume" min="0" max="1" step="0.05" value="1">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="laptop-hinge"></div>
+                    <div class="laptop-base">
+                        <div class="laptop-keyboard"></div>
+                        <div class="laptop-trackpad"></div>
+                    </div>
+                    <div class="laptop-shadow"></div>
                 </div>
-                <div class="laptop-hinge"></div>
-                <div class="laptop-base">
-                    <div class="laptop-keyboard"></div>
-                    <div class="laptop-trackpad"></div>
-                </div>
-                <div class="laptop-shadow"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<main>
-    <section class="section">
-        <div class="section-header animate-on-scroll">
-            <div class="section-kicker">MIÉRT AZ AURION?</div>
-            <h2 class="section-title">Nem csak kódot írunk – logikát építünk a márkád köré.</h2>
-            <p class="section-subtitle">
-                Azokat a projekteket szeretjük, ahol partnerként tudunk gondolkodni veled.
-                A videóban látott folyamatok mögött nagyon egyszerű elv áll:
-                <strong>csak olyan rendszert adunk át, amit mi is bármikor aláírnánk a nevünkkel.</strong>
-            </p>
-            <div class="highlight-strip">
-                <span class="highlight-dot"></span>
-                <span>Transzparens fejlesztés, őszinte visszajelzés, hosszú távon is vállalható megoldások.</span>
-            </div>
-        </div>
-
-        <div class="values-grid animate-on-scroll">
-            <div class="value-card">
-                <span class="value-badge">1. Egyértelmű indulás</span>
-                <h3 class="value-title">Először értjük, utána építjük</h3>
-                <p class="value-text">
-                    Az első lépés mindig az, hogy <span class="value-accent">megértjük az üzleti céljaidat</span>:
-                    mit szeretnél elérni az oldallal, kinek készül, mire legyen képes.
-                    Nem technikai zsargonnal dobálózunk, hanem lefordítjuk érthető, emberi nyelvre,
-                    mit miért érdemes megépíteni – és mit nem.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <span class="value-badge">2. Vállalható kód</span>
-                <h3 class="value-title">Nem „összekattintjuk”, megépítjük</h3>
-                <p class="value-text">
-                    Ha egy funkciót érdemes kézzel megírni, nem sablonnal oldjuk meg.
-                    Így lesz a rendszered <span class="value-accent">átlátható, bővíthető és javítható</span>
-                    évekkel később is. Nem az a célunk, hogy minél gyorsabban „legyártsunk” valamit,
-                    hanem hogy olyan alapot kapj, amire tényleg tudsz építkezni.
-                </p>
-            </div>
-
-            <div class="value-card">
-                <span class="value-badge">3. Hosszú távú gondolkodás</span>
-                <h3 class="value-title">Nem tűnünk el a projekt végén</h3>
-                <p class="value-text">
-                    Egy jól felépített weboldal vagy webshop élő rendszer:
-                    új ötletek, új termékek, új funkciók jönnek.
-                    <span class="value-accent">Úgy építjük fel a logikát</span>, hogy később is
-                    vissza tudjunk nyúlni hozzá – és szívesen vállaljuk akkor is, ha 1–2 év múlva
-                    szeretnél bővülni, finomhangolni vagy teljesen új irányt venni.
-                </p>
             </div>
         </div>
     </section>
-</main>
 
-<footer>
-    <div class="footer-inner">
-        <span>© 2025 Aurion Studio – Minden jog fenntartva</span>
-        <a href="#top" class="footer-link">Vissza az oldal tetejére</a>
-    </div>
-</footer>
+    <main>
+        <section class="section">
+            <div class="section-header animate-on-scroll">
+                <div class="section-kicker">MIÉRT AZ AURION?</div>
+                <h2 class="section-title">Nem csak kódot írunk – logikát építünk a márkád köré.</h2>
+                <p class="section-subtitle">
+                    Azokat a projekteket szeretjük, ahol partnerként tudunk gondolkodni veled.
+                    A videóban látott folyamatok mögött nagyon egyszerű elv áll:
+                    <strong>csak olyan rendszert adunk át, amit mi is bármikor aláírnánk a nevünkkel.</strong>
+                </p>
+                <div class="highlight-strip">
+                    <span class="highlight-dot"></span>
+                    <span>Transzparens fejlesztés, őszinte visszajelzés, hosszú távon is vállalható megoldások.</span>
+                </div>
+            </div>
+
+            <div class="values-grid animate-on-scroll">
+                <div class="value-card">
+                    <span class="value-badge">1. Egyértelmű indulás</span>
+                    <h3 class="value-title">Először értjük, utána építjük</h3>
+                    <p class="value-text">
+                        Az első lépés mindig az, hogy <span class="value-accent">megértjük az üzleti céljaidat</span>:
+                        mit szeretnél elérni az oldallal, kinek készül, mire legyen képes.
+                        Nem technikai zsargonnal dobálózunk, hanem lefordítjuk érthető, emberi nyelvre,
+                        mit miért érdemes megépíteni – és mit nem.
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-badge">2. Vállalható kód</span>
+                    <h3 class="value-title">Nem „összekattintjuk”, megépítjük</h3>
+                    <p class="value-text">
+                        Ha egy funkciót érdemes kézzel megírni, nem sablonnal oldjuk meg.
+                        Így lesz a rendszered <span class="value-accent">átlátható, bővíthető és javítható</span>
+                        évekkel később is. Nem az a célunk, hogy minél gyorsabban „legyártsunk” valamit,
+                        hanem hogy olyan alapot kapj, amire tényleg tudsz építkezni.
+                    </p>
+                </div>
+
+                <div class="value-card">
+                    <span class="value-badge">3. Hosszú távú gondolkodás</span>
+                    <h3 class="value-title">Nem tűnünk el a projekt végén</h3>
+                    <p class="value-text">
+                        Egy jól felépített weboldal vagy webshop élő rendszer:
+                        új ötletek, új termékek, új funkciók jönnek.
+                        <span class="value-accent">Úgy építjük fel a logikát</span>, hogy később is
+                        vissza tudjunk nyúlni hozzá – és szívesen vállaljuk akkor is, ha 1–2 év múlva
+                        szeretnél bővülni, finomhangolni vagy teljesen új irányt venni.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span>© 2025 Aurion Studio – Minden jog fenntartva</span>
+            <a href="#top" class="footer-link">Vissza az oldal tetejére</a>
+        </div>
+    </footer>
+</div>
 
 <script>
-    /* ==== NAV – MOBIL MENÜ ==== */
-    const hamburger = document.getElementById("hamburger");
-    const mobileNav = document.getElementById("mobileNav");
+    /* ==== OLDALSÓ MENÜ – MOBIL ==== */
+    const sidebarHamburger = document.getElementById("sidebarHamburger");
+    const sidebarNav = document.getElementById("sidebarNav");
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("open");
-            mobileNav.classList.toggle("show");
+    if (sidebarHamburger && sidebarNav) {
+        sidebarHamburger.addEventListener("click", () => {
+            sidebarHamburger.classList.toggle("open");
+            sidebarNav.classList.toggle("open");
         });
 
-        mobileNav.querySelectorAll("a").forEach(link => {
+        sidebarNav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
-                hamburger.classList.remove("open");
-                mobileNav.classList.remove("show");
+                sidebarHamburger.classList.remove("open");
+                sidebarNav.classList.remove("open");
             });
         });
     }
