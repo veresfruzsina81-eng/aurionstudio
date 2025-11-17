@@ -80,37 +80,44 @@
             transform: translateY(0) scale(1);
         }
 
-        /* ===== FEJLÉC ===== */
+        /* ===== FEJLÉC – OLDALSÁV (DESKTOP) ===== */
 
         header {
             position: fixed;
             top: 0;
-            width: 100%;
+            left: 0;
+            width: 260px;
+            height: 100vh;
             z-index: 9999;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.96);
             backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(30, 64, 175, 0.5);
+            border-right: 1px solid rgba(30, 64, 175, 0.5);
+            display: flex;
+            align-items: stretch;
         }
 
         header::after {
             content: "";
             position: absolute;
-            inset: auto 0 0 0;
-            height: 2px;
-            background: linear-gradient(90deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #38bdf8, #6366f1, #a855f7, #38bdf8);
             background-size: 220% 100%;
             animation: gradientMove 14s linear infinite;
             opacity: 0.9;
         }
 
         nav {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 10px 16px;
+            width: 100%;
+            margin: 0;
+            padding: 18px 16px 24px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 28px;
             position: relative;
             z-index: 1;
         }
@@ -148,8 +155,14 @@
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 18px;
-            align-items: center;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .nav-links.desktop {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
         }
 
         .nav-links a {
@@ -160,16 +173,19 @@
             padding: 4px 0;
         }
 
+        .nav-links.desktop a {
+            display: block;
+        }
+
         .nav-links a::after {
             content: "";
             position: absolute;
-            left: 50%;
+            left: 0;
             bottom: -4px;
             width: 0;
             height: 2px;
             border-radius: 999px;
             background: linear-gradient(90deg, #38bdf8, #6366f1);
-            transform: translateX(-50%);
             transition: width 0.25s ease;
         }
 
@@ -189,6 +205,10 @@
             box-shadow: 0 14px 30px rgba(37, 99, 235, 0.7);
             font-size: 13px;
             color: #e5e7eb;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
         }
 
         .nav-links a.contact-link::after {
@@ -1350,9 +1370,8 @@
             color: #e5e7eb;
         }
 
-        /* ===== EXTRA LÁTVÁNYOS EFFEKTEK ===== */
+        /* ===== EXTRA EFFEKTEK (MATRIX, CURSOR, GLASS, HOLO, RÉSZECSKÉK) ===== */
 
-        /* Globális, nagyon halvány matrix-eső a háttérben */
         .matrix-rain {
             position: fixed;
             inset: 0;
@@ -1387,7 +1406,6 @@
             }
         }
 
-        /* Világító kurzor glow (saját egér mellé) */
         .cursor-glow {
             width: 32px;
             height: 32px;
@@ -1402,7 +1420,6 @@
             z-index: 1500;
         }
 
-        /* 3D "AURION" szöveg – Bemutatkozás fölött */
         .orbit-text-wrapper {
             margin-top: 22px;
         }
@@ -1434,7 +1451,6 @@
             to   { transform: rotateX(360deg) rotateY(360deg); }
         }
 
-        /* Hologram-jellegű mottó a Rólunk részben */
         .holo-text {
             margin-top: 18px;
             font-size: 18px;
@@ -1452,7 +1468,6 @@
             text-shadow: 0 0 26px rgba(129, 140, 248, 1);
         }
 
-        /* Üveges, fénytöréses logó a bemutatkozás kártyában */
         .glass-text {
             margin-top: 14px;
             font-size: 24px;
@@ -1466,7 +1481,6 @@
                 0 0 26px rgba(37, 99, 235, 0.65);
         }
 
-        /* Részecskefelhő a kapcsolat szekció alján */
         .particles-canvas {
             position: absolute;
             left: 0;
@@ -1478,6 +1492,13 @@
         }
 
         /* ===== RESPONSIVE ===== */
+
+        /* Desktop: tartalom eltolása az oldalsáv miatt */
+        @media (min-width: 769px) {
+            body {
+                padding-left: 260px;
+            }
+        }
 
         @media (max-width: 1024px) {
             .hero-inner {
@@ -1502,7 +1523,38 @@
             }
         }
 
+        /* MOBIL: fejléc vissza felülre */
         @media (max-width: 768px) {
+            body {
+                padding-left: 0;
+            }
+
+            header {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid rgba(30, 64, 175, 0.5);
+            }
+
+            header::after {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 2px;
+            }
+
+            nav {
+                max-width: 1120px;
+                margin: 0 auto;
+                padding: 10px 16px;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
             .nav-links.desktop {
                 display: none;
             }
@@ -1556,6 +1608,11 @@
             .promo-card {
                 margin: 0 16px;
             }
+
+            .orbit-text {
+                font-size: 28px;
+                letter-spacing: 0.25em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1565,11 +1622,6 @@
 
             .hero-phone {
                 max-width: 270px;
-            }
-
-            .orbit-text {
-                font-size: 28px;
-                letter-spacing: 0.25em;
             }
         }
     </style>
@@ -1608,6 +1660,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -1618,6 +1671,7 @@
             <li><a href="munkaink.html">Munkáink</a></li>
             <li><a href="#bemutatkozas">Bemutatkozás</a></li>
             <li><a href="#rolunk">Rólunk</a></li>
+            <li><a href="kulonleges.html">Különleges kérések</a></li>
             <li><a href="minket.html" class="contact-link">Ismerj meg minket</a></li>
             <li><a href="#kapcsolat" class="contact-link">Kapcsolat</a></li>
             <li><a href="al.html">AI Chat</a></li>
@@ -2226,18 +2280,15 @@
     }
 
     document.addEventListener("mousemove", (e) => {
-        // Cursor glow
         if (cursorGlow) {
             cursorGlow.style.left = e.clientX + "px";
             cursorGlow.style.top = e.clientY + "px";
         }
 
-        // Hologram szög frissítés
         const ratio = (e.clientX / window.innerWidth) - 0.5;
         const deg = ratio * 40;
         document.body.style.setProperty("--aurionRotate", deg + "deg");
 
-        // Részecskék – csak ha a kapcsolat szekció vászna alatt vagyunk
         if (particlesCanvas && particlesCtx) {
             const rect = particlesCanvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
